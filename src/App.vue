@@ -67,7 +67,6 @@ export default {
     document.documentElement.style.setProperty('--vh', `${vh}px`)
   },
   async created () {
-
     // jwt
     jwt.init()
 
@@ -88,3 +87,7 @@ export default {
 }
 
 </script>
+<style scoped>
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;500;600;700;800;900&display=swap');
+</style>

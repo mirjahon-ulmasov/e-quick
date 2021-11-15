@@ -72,10 +72,8 @@ export default {
   },
   methods: {
     loginJWT () {
-
       // Loading
       this.$vs.loading()
-
       const payload = {
         checkbox_remember_me: this.checkbox_remember_me,
         userDetails: {
@@ -83,9 +81,12 @@ export default {
           password: this.password
         }
       }
-
       this.$store.dispatch('auth/loginJWT', payload)
-        .then(() => { this.$vs.loading.close() })
+        .then(() => {
+          this.$acl.change(localStorage.getItem('UserInfo'))
+          this.$vs.loading.close()
+        this.$router.push('/')
+        })
         .catch(error => {
           this.$vs.loading.close()
           this.$vs.notify({
@@ -97,6 +98,10 @@ export default {
           })
         })
     },
+  },
+  mounted(){
+    // const nus = 'admin'
+    console.log(this.$acl);
   }
 }
 

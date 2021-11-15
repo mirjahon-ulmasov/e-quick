@@ -1,6 +1,6 @@
 import axios from '../../../axios/index.js'
 import store from '../../../../store/store.js'
-
+// import axios from 'axios'
 // Token Refresh
 let isAlreadyFetchingAccessToken = false
 let subscribers = []
@@ -12,7 +12,6 @@ function onAccessTokenFetched (access_token) {
 function addSubscriber (callback) {
   subscribers.push(callback)
 }
-
 export default {
   init () {
     axios.interceptors.response.use(function (response) {

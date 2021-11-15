@@ -13,7 +13,45 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      redirect: '/attechments',
+      redirect:  '/dealer/main',
+    },
+    {
+      path: '',
+      component: () => import('./layouts/dealer-page/Dealer.vue'),
+      children: [
+        {
+          path: '/dealer/main',
+          name: 'dealer-main',
+          component: () => import('./views/Dealer/Home.vue'),
+          meta: {
+            rule: 'dealer'
+          }
+        },
+        {
+          path: '/dealer/templates',
+          name: 'Main',
+          component: () => import('./views/Dealer/Templates.vue'),
+          meta: {
+            rule: 'dealer'
+          }
+        },
+        {
+          path: '/dealer/journal',
+          name: 'Main',
+          component: () => import('./views/Dealer/Journal.vue'),
+          meta: {
+            rule: 'dealer'
+          }
+        },
+        {
+          path: '/dealer/settings',
+          name: 'Main',
+          component: () => import('./views/Dealer/Settings.vue'),
+          meta: {
+            rule: 'dealer'
+          }
+        }
+      ]
     },
     {
       path: '',
@@ -24,7 +62,7 @@ const router = new Router({
           name: 'attechments',
           component: () => import('./views/Attechments.vue'),
           meta: {
-            rule: 'admin'
+            rule: 'super_admin'
           }
         },
         {
@@ -32,7 +70,7 @@ const router = new Router({
           name: 'table',
           component: () => import('./views/Table.vue'),
           meta: {
-            rule: 'editor'
+            rule: 'admin'
           }
         },
         {
@@ -40,7 +78,7 @@ const router = new Router({
           name: 'table2',
           component: () => import('./views/Table2.vue'),
           meta: {
-            rule: 'editor'
+            rule: 'admin'
           }
         },
         {
@@ -48,7 +86,7 @@ const router = new Router({
           name: 'company',
           component: () => import('./views/Company.vue'),
           meta: {
-            rule: 'editor'
+            rule: 'dealer'
           }
         },
         {
@@ -56,7 +94,7 @@ const router = new Router({
           name: 'user',
           component: () => import('./views/User.vue'),
           meta: {
-            rule: 'editor'
+            rule: 'admin'
           }
         },
         {
@@ -1314,6 +1352,22 @@ const router = new Router({
           }
         },
         {
+          path: '/v/forget-password',
+          name: 'forget',
+          component: () => import('@/views/Dealer/ForgetPass.vue'),
+          meta: {
+            rule: 'editor'
+          }
+        },
+        {
+          path: '/v/login',
+          name: 'v-login',
+          component: () => import('@/views/Dealer/Login.vue'),
+          meta: {
+            rule: 'editor'
+          }
+        },
+        {
           path: '/callback',
           name: 'auth-callback',
           component: () => import('@/views/Callback.vue'),
@@ -1416,15 +1470,16 @@ router.afterEach(() => {
     appLoading.style.display = 'none'
   }
 })
+
 router.beforeEach((to, from, next) => {
   const publicPages = ['/login']
   const authRequired = !publicPages.includes(to.path)
-  const loggedIn = localStorage.getItem('access')
+  const loggedIn = localStorage.getItem('UserInfo')
   if (authRequired && !loggedIn) {
     !publicPages
     return next('/login')
   }
   next()
-  console.log(loggedIn)
 })
+
 export default router

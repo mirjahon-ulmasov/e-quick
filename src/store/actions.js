@@ -42,12 +42,9 @@ const actions = {
   },
   updateUserRole ({ dispatch }, payload) {
     // Change client side
-    payload.aclChangeRole(payload.userRole)
-
-    // Make API call to server for changing role
-
-    // Change userInfo in localStorage and store
-    dispatch('updateUserInfo', {userRole: payload.userRole})
+    payload.aclChangeRole(payload)
+    console.log(payload)
+    dispatch('updateUserInfo', {userRole: payload})
   }
 }
 

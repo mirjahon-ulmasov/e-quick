@@ -22,7 +22,7 @@
           data-vv-validate-on="blur" name="description" v-validate="'required'"
           ></textarea>
            <span class="text-danger text-sm" v-show="errors.has('description')">{{ errors.first('description') }}</span>
-          <div v-for="(input,k) in inputs" :key="k" >
+          <div v-for="(input,k) in inputs" :key="k">
                <div class="form_key_value mb-3">
                  <input type="text" placeholder="Key" v-model="input.key" />
                  <input type="text" placeholder="Value" v-model="input.value" />

@@ -42,12 +42,15 @@ export default {
   },
   computed: {
     canSee () {
-      this.$acl.check(this.$store.state.AppActiveUser.userRole)
+      this.$acl.check(localStorage.getItem('UserInfo'))
       return this.to ? this.$acl.check(this.$router.match(this.to).meta.rule) : true
     },
     activeLink () {
       return !!((this.to === this.$route.path || this.$route.meta.parent === this.slug) && this.to)
     }
+  },
+  created(){
+    console.log(this.$store.dispatch('actions/updateUserRole'), 'om')
   }
 }
 
