@@ -141,7 +141,6 @@ div.wrapper{
                 background-repeat: no-repeat;
                 background-position: 5%;
                 background-size: 7%;
-                
             }
              &:nth-child(3){
                 background-image: url("../../assets/dealer/img/icons/lock.svg");

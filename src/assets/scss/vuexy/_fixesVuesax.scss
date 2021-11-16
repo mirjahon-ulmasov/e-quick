@@ -386,7 +386,19 @@
 // ======================================================================================
 
 .vs-list--item {
+  border: none !important;
   .list-titles {
+   .vs-list--title{
+  font-family: Montserrat !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-size: 13.91px !important;
+  line-height: 17px !important;
+  padding-top: 10px;
+  cursor: pointer;
+  /* identical to box height */
+  color: #333333 !important;
+}
     .vs-list--subtitle {
       font-size: .85rem;
     }
