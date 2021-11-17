@@ -1,0 +1,60 @@
+image: node:lts-alpine3.14
+
+stages:
+  - install
+  - build
+  - deploy 
+
+npm-install:
+  cache:
+    key: admin-node-modules
+    paths:
+      - node_modules/
+  stage: install
+  script:
+    - npm install
+  only:
+    - main
+  tags:
+    - "equick-front"
+
+npm-build:
+  cache:
+    key: admin-node-modules
+    paths:
+      - node_modules/
+    policy: pull
+  stage: build
+  script:
+    - npm run build
+  artifacts:
+    name: prod-build
+    when: on_success
+    paths:
+      - build
+    expire_in: 30 days
+  only:
+    - main
+  tags:
+    - "equick-front"
+
+deploy:
+  before_script:
+    - which ssh-agent || (apk add --update --no-cache openssh-client)
+    - apk add rsync
+    - mkdir -p ~/.ssh
+    - mv $SSH_PRIVATE_KEY ~/.ssh/id_rsa
+    - mv $SSH_CONFIG ~/.ssh/config 
+    - chmod -R 600 ~/.ssh/id_rsa
+    - chmod -R 600 ~/.ssh/config
+    - eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_rsa
+  stage: deploy
+  script:
+    - ls -la
+    - ssh root@test "mkdir -p /var/www/e-quick-dealer-front/"
+    - rsync -za -P build/ test:/var/www/e-quick-dealer-front
+  only:
+    - main
+  tags:
+    - "equick-front"
+
