@@ -41,7 +41,7 @@ npm-build:
 deploy:
   before_script:
     - which ssh-agent || (apk add --update --no-cache openssh-client)
-    - apk add rsync
+    - apt install rsync
     - mkdir -p ~/.ssh
     - mv $SSH_PRIVATE_KEY ~/.ssh/id_rsa
     - mv $SSH_CONFIG ~/.ssh/config 
