@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
 
-// Vuesax Component Framework
 import Vuesax from 'vuesax'
 import 'material-icons/iconfont/material-icons.css' //Material Icons
 import 'vuesax/dist/vuesax.css' // Vuesax
@@ -65,16 +64,6 @@ require('vue-tour/dist/vue-tour.css')
 import VeeValidate  from 'vee-validate'
 Vue.use(VeeValidate)
 
-
-// Google Maps
-import * as VueGoogleMaps from 'vue2-google-maps'
-Vue.use(VueGoogleMaps, {
-  load: {
-    // Add your API key here
-    key: 'YOUR_KEY',
-    libraries: 'places' // This is required if you use the Auto complete plug-in
-  }
-})
 
 // Vuejs - Vue wrapper for hammerjs
 import { VueHammer } from 'vue2-hammer'

@@ -1,5 +1,4 @@
 import jwt from '../../http/requests/auth/jwt/index.js'
-import 'firebase/auth'
 export default {
   
   loginJWT ({ commit, dispatch }, payload) {
