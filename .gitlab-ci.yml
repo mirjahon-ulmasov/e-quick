@@ -52,7 +52,7 @@ deploy:
   script:
     - ls -la
     - ssh root@test "mkdir -p /var/www/e-quick-dealer-front/"
-    - rsync -za -P dist/ test:/var/www/e-quick-dealer-front
+    - rsync -za -P ./dist test:/var/www/e-quick-dealer-front
   only:
     - main
   tags:
