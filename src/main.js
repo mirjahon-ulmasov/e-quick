@@ -19,13 +19,6 @@ import './fake-db/index.js'
 // Theme Configurations
 import '../themeConfig.js'
 
-
-
-// Auth0 Plugin
-import AuthPlugin from './plugins/auth'
-Vue.use(AuthPlugin)
-
-
 // ACL
 import acl from './acl/acl'
 

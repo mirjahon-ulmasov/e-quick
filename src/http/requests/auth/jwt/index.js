@@ -10,33 +10,16 @@ function onAccessTokenFetched (access) {
   subscribers = subscribers.filter(callback => callback(access))
 }
 
-function addSubscriber (callback) {
-  subscribers.push(callback)
-}
 export default {
   init () {
     axios.interceptors.response.use(function (response) {
       return response
     }, function (error) {
-      // const { config, response: { status } } = error
-      const { config, response } = error
-      const originalRequest = config
-      localStorage.removeItem('access')
-      router.push('/login')
-      // if (status === 401) {
+      if (error == 401) {
       // if (response && response.status === 401) {
-      //   if (!isAlreadyFetchingAccessToken) {
-      //     isAlreadyFetchingAccessToken = true
-      //   }
-
-      //   const retryOriginalRequest = new Promise((resolve) => {
-      //     addSubscriber(access => {
-      //       originalRequest.headers.Authorization = `Bearer ${access}`
-      //       resolve(axios(originalRequest))
-      //     })
-      //   })
-      //   return retryOriginalRequest
-      // }
+        localStorage.removeItem('access')
+        router.push('/login')
+      }
       return Promise.reject(error)
     })
   },
