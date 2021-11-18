@@ -485,6 +485,24 @@
 
 .con-vs-popup {
   z-index: 53000;
+  .vs-popup{
+    width: 700px;
+    padding: 10px;
+    background: linear-gradient(90deg, #5E585C 0%, #000000 100%) !important;
+  border-radius: 13px;}
+  .vs-popup--header{
+    justify-content: flex-end !important;
+    background: transparent !important;
+    .vs-popup--title{
+      display: none;
+    }
+  }
+  .vs-popup--close{
+    background: transparent !important;
+    box-shadow: none !important;
+    transform: none !important;
+    color: #3A9FD1 !important;
+  }
 
   .vs-popup--content {
     padding: 1rem;

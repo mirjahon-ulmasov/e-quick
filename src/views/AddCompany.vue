@@ -173,6 +173,7 @@ export default {
             this.$store.dispatch('dataList/addItem', obj).catch(err => { console.error(err) })
           }
           // this.$emit('closeSidebar')
+          // some chANGES
           this.Reset()
         }
       })

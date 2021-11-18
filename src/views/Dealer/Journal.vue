@@ -76,7 +76,7 @@ div.wrapper {
   background-color: linear-gradient(215.31deg, #3f4f61 8.35%, #3a9fd1 137.05%);
   div.container {
     padding-top: 30px !important;
-    width: 75%;
+    width: 80%;
     height: 100%;
     padding: 0px !important;
     background: white;

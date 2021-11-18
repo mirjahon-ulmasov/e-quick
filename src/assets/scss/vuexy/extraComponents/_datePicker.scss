@@ -1,13 +1,3 @@
-/*=========================================================================================
-    File Name: _datePicker.scss
-    Description: Styles for datepicker component.
-    ----------------------------------------------------------------------------------------
-    Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-      Author: Pixinvent
-    Author URL: http://www.themeforest.net/user/pixinvent
-==========================================================================================*/
-
-
 @import "../_variables.scss";
 
 .vdp-datepicker{
@@ -15,8 +5,11 @@
         padding: .7rem;
         font-size: 1rem;
         border-radius: 5px;
+        height: 56px !important;
+
         border: 1px solid rgba(0, 0, 0, .2);
-        color: $content-color;
+        color: white;
+        background: transparent !important;
         width: 100%;
     }
 

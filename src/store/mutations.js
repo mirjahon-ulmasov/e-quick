@@ -87,11 +87,10 @@ const mutations = {
   // Updates user info in state and localstorage
   UPDATE_USER_INFO (state, payload) {
     // Get Data localStorage
-    console.log(payload)
-    // this.$acl.change('dealer')
+    let list = Object.assign(payload)
+  console.log(list)
     // Store data in localStorage
-    // payload.aclChangeRole(payload)
-    localStorage.setItem('UserInfo', state.AppActiveUser.userRole = payload)
+    localStorage.setItem('UserInfo', list.user_type)
     console.log(localStorage.getItem('UserInfo'))
   }
 }
