@@ -74,7 +74,7 @@ div.wrapper {
   align-items: center;
   background-color: linear-gradient(215.31deg, #3f4f61 8.35%, #3a9fd1 137.05%);
   div.container {
-    width: 75%;
+    width: 80%;
     height: 100%;
     padding: 0px !important;
     background: white;

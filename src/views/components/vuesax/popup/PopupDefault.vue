@@ -12,16 +12,13 @@
     <vx-card title="Default" code-toggler>
 
         <p>To implement the popup we have the component <code>vs-popup</code></p>
-
         <div class="demo-alignment">
 
             <vs-button @click="popupActive=true" color="primary" type="filled">Open Default popup</vs-button>
-
             <vs-popup class="holamundo"  title="Lorem ipsum dolor sit amet" :active.sync="popupActive">
                 <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             </vs-popup>
         </div>
-
         <template slot="codeContainer">
 &lt;template&gt;
   &lt;div class=&quot;demo-alignment&quot;&gt;

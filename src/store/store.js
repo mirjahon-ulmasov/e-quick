@@ -12,7 +12,8 @@ import dataList from './data-list/moduleDataList'
 import moduleAuth from './auth/moduleAuth.js'
 import moduleECommerce from './eCommerce/moduleECommerce.js'
 import sap from './ok/moduleDataList'
-
+import category from './category/moduleDataList'
+import product from './product/moduleDataList'
 
 export default new Vuex.Store({
   getters,
@@ -24,7 +25,9 @@ export default new Vuex.Store({
     addUser: admin,
     dataList: dataList,
     auth: moduleAuth,
-    eCommerce: moduleECommerce
+    eCommerce: moduleECommerce,
+    category: category,
+    product: product
   },
   strict: process.env.NODE_ENV !== 'production'
 })

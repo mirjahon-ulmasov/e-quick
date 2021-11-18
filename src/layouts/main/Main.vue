@@ -303,7 +303,11 @@ export default {
 </script>
 <style scoped>
 .layout--main{
-  /* background: url('../'); */
+    background-image: url('~@/assets/images/pages/bg1.svg') !important;
+    background-color: #fff !important;
+    background-repeat: no-repeat;
+    background-size: cover !important;
+    background-position: top;
 }
 </style>
 

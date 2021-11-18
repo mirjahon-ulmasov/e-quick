@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import axios from 'axios'
-axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access')}`
+console.log(localStorage.getItem('access'));
 Vue.use(Router)
 
 const router = new Router({
@@ -86,7 +86,7 @@ const router = new Router({
           name: 'company',
           component: () => import('./views/Company.vue'),
           meta: {
-            rule: 'dealer'
+            rule: 'admin'
           }
         },
         {
@@ -110,7 +110,7 @@ const router = new Router({
           name: 'dashboard-ecommerce',
           component: () => import('./views/DashboardECommerce.vue'),
           meta: {
-            rule: 'admin'
+            rule: 'editor'
           }
         },
 
@@ -1470,16 +1470,15 @@ router.afterEach(() => {
     appLoading.style.display = 'none'
   }
 })
-
-router.beforeEach((to, from, next) => {
-  const publicPages = ['/login']
-  const authRequired = !publicPages.includes(to.path)
-  const loggedIn = localStorage.getItem('UserInfo')
-  if (authRequired && !loggedIn) {
-    !publicPages
-    return next('/login')
-  }
-  next()
-})
+// router.beforeEach((to, from, next) => {
+//   const publicPages = ['/login']
+//   const authRequired = !publicPages.includes(to.path)
+//   const loggedIn = localStorage.getItem('UserInfo')
+//   if (authRequired && !loggedIn) {
+//     !publicPages
+//     return next('/login')
+//   }
+//   next()
+// })
 
 export default router

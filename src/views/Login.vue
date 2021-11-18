@@ -60,8 +60,8 @@
 export default {
   data () {
     return {
-      username: 'admin@admin.com',
-      password: 'adminadmin',
+      username: 'dealer',
+      password: 'dealer',
       checkbox_remember_me: false
     }
   },
@@ -85,7 +85,15 @@ export default {
         .then(() => {
           this.$acl.change(localStorage.getItem('UserInfo'))
           this.$vs.loading.close()
-        this.$router.push('/')
+        if(localStorage.getItem('UserInfo') == 'dealer'){
+          this.$router.push('/')
+        }
+        else if(localStorage.getItem('UserInfo') == 'super_admin'){
+          this.$router.push('/attechments')
+        }
+        else if(localStorage.getItem('UserInfo') == 'admin'){
+          this.$router.push('/user')
+        }
         })
         .catch(error => {
           this.$vs.loading.close()
