@@ -1,6 +1,5 @@
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production' ?
-    '/ipfs/[hash string which i get after file added to ipfs]/' : '/',
+  publicPath: '/',
   transpileDependencies: [
     'vue-echarts',
     'resize-detector'
@@ -12,11 +11,5 @@ module.exports = {
       }
     }
   }
-  // devServer: {
-  //   overlay: {
-  //     warnings: true,
-  //     errors: true
-  //   }
-  // }
 }
 

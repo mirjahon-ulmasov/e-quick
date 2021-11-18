@@ -217,7 +217,7 @@
             <option>dsdgsdgsgsgsg</option>
             <option>dsdgsdgsgsgsg</option>
           </select>
-          <button class="close">Закрыть</button>
+          <button class="close" @click="popupActive = false" >Закрыть</button>
         </div>
       </div>
     </vs-popup>
@@ -226,7 +226,7 @@
       :active.sync="popupActive1"
     >
       <div class="flex">
-        <div class="w-1/5">
+        <div class="w-1/5" style="margin-left: 70px; !important;" >
           <h2
             style="
               font-family: Montserrat;
@@ -287,7 +287,7 @@
               Создать заявку
             </button>
           </div>
-          <div style="text-align: center">
+          <div style="text-align: start;margin-left: 14px;">
             <h2
               style="
                 font-family: Montserrat;
@@ -301,11 +301,12 @@
               Цена:
             </h2>
             <input
-              style="width: 184px; height: 27px; margin-top: 15px"
+              style="width: 179px; height: 27px; margin-top: 15px"
               type="text"
               class="picker"
             />
             <button
+            @click="popupActive1=false"
               class="close"
               style="
                 height: 26px;
@@ -440,7 +441,7 @@ export default {
   methods: {
     getCat(id){
     let category = this.category.find(company => company.category.id === id)
-    this.podCategory = category.category ? category.category.children : null;
+    this.podCategory = category ? category.category.children : null;
     },
     getProduct(id){
      console.log(id)
@@ -456,7 +457,7 @@ export default {
     this.getProduct
     this.getCat()
   }
-};
+}
 </script>
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;600;700;800;900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
@@ -730,9 +731,11 @@ div.wrapper {
   align-items: center;
   background-color: linear-gradient(215.31deg, #3f4f61 8.35%, #3a9fd1 137.05%);
   div.container {
-    width: 80%;
+    width: calc(100% - 250px);
     height: 100%;
     padding: 0px !important;
+    margin-right: 0;
+    // margin-left: 0;
     background: white;
     display: flex;
     flex-direction: column;

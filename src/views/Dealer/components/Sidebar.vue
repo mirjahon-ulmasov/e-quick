@@ -101,6 +101,8 @@ export default {
   methods: {
     LogOut(){
       localStorage.removeItem('access')
+      localStorage.removeItem('UserInfo')
+      this.$acl.change('editor')
       console.log('okkk')
       this.$router.push('/login')
     }

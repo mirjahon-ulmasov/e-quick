@@ -1,11 +1,8 @@
-// import axios from '@/axios.js'
-import axios from 'axios'
+import axios from '@/axios.js'
 export default {
   GetProduct ({ commit }, id) {
     return new Promise((resolve, reject) => {
-      axios.get('http://product-api.jprq.io/api/products_by_subcategory/' + `${3}/?format=json`,
-     {headers: { Authorization: `Bearer ${localStorage.getItem('access')}` }
-    }
+      axios.get('api/v1/products_by_category/' + `${id}/`
       )
         .then((response) => {
           commit('ADD_Product', response.data)

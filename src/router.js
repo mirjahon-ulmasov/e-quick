@@ -1470,15 +1470,15 @@ router.afterEach(() => {
     appLoading.style.display = 'none'
   }
 })
-// router.beforeEach((to, from, next) => {
-//   const publicPages = ['/login']
-//   const authRequired = !publicPages.includes(to.path)
-//   const loggedIn = localStorage.getItem('UserInfo')
-//   if (authRequired && !loggedIn) {
-//     !publicPages
-//     return next('/login')
-//   }
-//   next()
-// })
+router.beforeEach((to, from, next) => {
+  const publicPages = ['/login']
+  const authRequired = !publicPages.includes(to.path)
+  const loggedIn = localStorage.getItem('UserInfo')
+  if (authRequired && !loggedIn) {
+    !publicPages
+    return next('/login')
+  }
+  next()
+})
 
 export default router

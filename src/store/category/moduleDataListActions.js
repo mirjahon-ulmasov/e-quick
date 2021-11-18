@@ -12,20 +12,6 @@ export default {
         .catch((error) => { reject(error) })
     })
   },
-  GetProduct ({ commit }, id) {
-    return new Promise((resolve, reject) => {
-      axios.get('http://product-api.jprq.io/api/products_by_subcategory/' + `${2}/?format=json`,
-     {headers: { Authorization: `Bearer ${localStorage.getItem('access')}` }
-    }
-      )
-        .then((response) => {
-          commit('ADD_Product', response.data)
-          console.log(response)
-          resolve(response)
-        })
-        .catch((error) => { reject(error) })
-    })
-  },
   updateItem ({ commit }, item) {
     return new Promise((resolve, reject) => {
       axios.post(`/api/data-list/products/${item.id}`, {item})
