@@ -1040,66 +1040,6 @@ const router = new Router({
           }
         },
 
-        // =============================================================================
-        // CHARTS & MAPS
-        // =============================================================================
-        {
-          path: '/charts-and-maps/charts/apex-charts',
-          name: 'extra-component-charts-apex-charts',
-          component: () => import('@/views/charts-and-maps/charts/apex-charts/ApexCharts.vue'),
-          meta: {
-            breadcrumb: [
-              { title: 'Home', url: '/' },
-              { title: 'Charts & Maps' },
-              { title: 'Apex Charts', active: true }
-            ],
-            pageTitle: 'Apex Charts',
-            rule: 'editor'
-          }
-        },
-        {
-          path: '/charts-and-maps/charts/chartjs',
-          name: 'extra-component-charts-chartjs',
-          component: () => import('@/views/charts-and-maps/charts/chartjs/Chartjs.vue'),
-          meta: {
-            breadcrumb: [
-              { title: 'Home', url: '/' },
-              { title: 'Charts & Maps' },
-              { title: 'chartjs', active: true }
-            ],
-            pageTitle: 'chartjs',
-            rule: 'editor'
-          }
-        },
-        {
-          path: '/charts-and-maps/charts/echarts',
-          name: 'extra-component-charts-echarts',
-          component: () => import('@/views/charts-and-maps/charts/echarts/Echarts.vue'),
-          meta: {
-            breadcrumb: [
-              { title: 'Home', url: '/' },
-              { title: 'Charts & Maps' },
-              { title: 'echarts', active: true }
-            ],
-            pageTitle: 'echarts',
-            rule: 'editor'
-          }
-        },
-        {
-          path: '/charts-and-maps/maps/google-map',
-          name: 'extra-component-maps-google-map',
-          component: () => import('@/views/charts-and-maps/maps/google-map/GoogleMap.vue'),
-          meta: {
-            breadcrumb: [
-              { title: 'Home', url: '/' },
-              { title: 'Charts & Maps' },
-              { title: 'Google Map', active: true }
-            ],
-            pageTitle: 'Google Map',
-            rule: 'editor'
-          }
-        },
-
 
         // =============================================================================
         // EXTENSIONS
@@ -1115,20 +1055,6 @@ const router = new Router({
               { title: 'Select', active: true }
             ],
             pageTitle: 'Select',
-            rule: 'editor'
-          }
-        },
-        {
-          path: '/extensions/quill-editor',
-          name: 'extra-component-quill-editor',
-          component: () => import('@/views/components/extra-components/quill-editor/QuillEditor.vue'),
-          meta: {
-            breadcrumb: [
-              { title: 'Home', url: '/' },
-              { title: 'Extra Components' },
-              { title: 'Quill Editor', active: true }
-            ],
-            pageTitle: 'Quill Editor',
             rule: 'editor'
           }
         },
@@ -1199,20 +1125,6 @@ const router = new Router({
               { title: 'I18n', active: true }
             ],
             pageTitle: 'I18n',
-            rule: 'editor'
-          }
-        },
-        {
-          path: '/extensions/carousel',
-          name: 'extra-component-carousel',
-          component: () => import('@/views/components/extra-components/carousel/Carousel.vue'),
-          meta: {
-            breadcrumb: [
-              { title: 'Home', url: '/' },
-              { title: 'Extensions' },
-              { title: 'Carousel', active: true }
-            ],
-            pageTitle: 'Carousel',
             rule: 'editor'
           }
         },

@@ -45,6 +45,9 @@
                 </div>
             </div>
             <div class="container-body">
+              <h2 class="head">
+                Журнал последних заявок:
+              </h2>
                 <Table />
             </div>
             <div class="container-footer">
@@ -196,6 +199,17 @@ div.wrapper {
         margin: 10px;
       width: 100%;
       height: 60%;
+      .head{
+        font-family: Montserrat;
+font-style: normal;
+font-weight: bold;
+font-size: 22.2742px;
+margin: 31px 0px 30px 47px;
+line-height: 33px;
+/* identical to box height, or 150% */
+color:   #135c81;
+letter-spacing: 0.371237px;
+      }
     }
     .container-footer {
 

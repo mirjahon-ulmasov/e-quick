@@ -4,8 +4,6 @@
             multiple v-model="selected"
               ref="table"
               pagination
-              :max-items="itemsPerPage"
-              search
               :data="company"
             >
               <template slot="thead">

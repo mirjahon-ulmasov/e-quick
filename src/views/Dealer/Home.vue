@@ -38,13 +38,12 @@
             <input class="large" placeholder="Выберите категорию" />
 
             <div class="demo-alignment">
-              <span class="texts"  v-for="(item, i) in podCategory" :key="i"> 
+              <span class="texts"  v-for="(item, i) in product" :key="i"> 
                 <span @click="getProduct(item.id)">
                   {{ item.name }}
                 </span>
                  </span>
-              <span class="texts"> dgdsgsdgsdghsfdg </span>
-                <span class="texts" v-if="podCategory == null"  style="color: red !important">
+                <span class="texts" v-if="product.length == 0"  style="color: red !important">
                       No aviable data
                  </span>
             </div>

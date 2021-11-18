@@ -105,9 +105,6 @@
 </template>
 
 <script>
-import 'quill/dist/quill.core.css'
-import 'quill/dist/quill.snow.css'
-import { quillEditor } from 'vue-quill-editor'
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 
 export default {
@@ -174,7 +171,6 @@ export default {
     }
   },
   components: {
-    quillEditor,
     VuePerfectScrollbar
   }
 }

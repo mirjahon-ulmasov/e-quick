@@ -1,12 +1,3 @@
-<!-- =========================================================================================
-    File Name: DashboardEcommerce.vue
-    Description: Dashboard - Ecommerce
-    ----------------------------------------------------------------------------------------
-    Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-      Author: Pixinvent
-    Author URL: http://www.themeforest.net/user/pixinvent
-========================================================================================== -->
-
 <template>
     <div>
         <div class="vx-row">
@@ -229,7 +220,7 @@
 
 <script>
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
-import VueApexCharts from 'vue-apexcharts'
+// import VueApexCharts from 'vue-apexcharts'
 import StatisticsCardLine from '@/components/statistics-cards/StatisticsCardLine.vue'
 import analyticsData from './ui-elements/card/analyticsData.js'
 import ChangeTimeDurationDropdown from '@/components/ChangeTimeDurationDropdown.vue'
