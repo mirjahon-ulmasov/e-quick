@@ -13,10 +13,11 @@ function onAccessTokenFetched (access) {
 export default {
   init () {
     axios.interceptors.response.use(function (response) {
+      console.log(response)
       return response
     }, function (error) {
-      if (error == 401) {
-      // if (response && response.status === 401) {
+      console.log(error)
+      if (error === 500) {
         localStorage.removeItem('access')
         router.push('/login')
       }

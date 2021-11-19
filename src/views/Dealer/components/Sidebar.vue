@@ -71,7 +71,7 @@
         class="cursor-pointer mt-1 sm:mr-6 mr-2"
       />
       <span class="end">
-        Xatolar bo'lsa, qo'ng'iroq markaziga murojaat qilmang - 71 000 00 00
+        Xatolar bo'lsa, qo'ng'iroq markaziga murojaat qiling - 71 000 00 00
       </span>
     </div>
   </div>
@@ -89,7 +89,7 @@ export default {
         { to: "/dealer/journal", title: "Журнал" },
         { to: "/dealer/templates", title: "Шаблоны" },
         { to: "/dealer/settings", title: "Настройки" },
-        { to: "/v/login", title: "Выйти из профиля" },
+        { to: "/dealer/settings", title: "WHS остатки" },
       ],
     };
   },

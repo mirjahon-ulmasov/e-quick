@@ -1383,12 +1383,12 @@ router.afterEach(() => {
   }
 })
 router.beforeEach((to, from, next) => {
-  const publicPages = ['/login']
+  const publicPages = ['/v/login']
   const authRequired = !publicPages.includes(to.path)
   const loggedIn = localStorage.getItem('UserInfo')
   if (authRequired && !loggedIn) {
     !publicPages
-    return next('/login')
+    return next('/v/login')
   }
   next()
 })

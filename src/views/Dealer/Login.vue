@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <div class="container">
-            <img src="@/assets/dealer/img/svg/login/logo.png" alt="">
+            <img style="margin-bottom: 40px" src="@/assets/dealer/img/svg/login/logo.png" alt="">
             <input 
          v-validate="'required|min:3'"
         data-vv-validate-on="blur"
@@ -45,8 +45,8 @@
 export default {
   data () {
     return {
-      username: 'admin@admin.com',
-      password: 'adminadmin',
+      username: 'dealer',
+      password: 'dealer',
       checkbox_remember_me: false,
       progress: 0
     }
@@ -57,21 +57,9 @@ export default {
     }
   },
   methods: {
-       loginJWT () {
-         const loading = this.$vs.loading({
-            progress: 0
-          })
-          const interval = setInterval(() => {
-            if (this.progress <= 100) {
-              loading.changeProgress(this.progress++)
-            }
-          }, 40)
-          setTimeout(() => {
-            loading.close()
-            clearInterval(interval)
-            this.progress = 0
-          }, 4100)
-
+    loginJWT () {
+      // Loading
+      this.$vs.loading()
       const payload = {
         checkbox_remember_me: this.checkbox_remember_me,
         userDetails: {
@@ -79,9 +67,20 @@ export default {
           password: this.password
         }
       }
-
       this.$store.dispatch('auth/loginJWT', payload)
-        .then(() => { this.$vs.loading.close() })
+        .then(() => {
+          this.$acl.change(localStorage.getItem('UserInfo'))
+          this.$vs.loading.close()
+        if(localStorage.getItem('UserInfo') == 'dealer'){
+          this.$router.push('/')
+        }
+        else if(localStorage.getItem('UserInfo') == 'super_admin'){
+          this.$router.push('/attechments')
+        }
+        else if(localStorage.getItem('UserInfo') == 'admin'){
+          this.$router.push('/user')
+        }
+        })
         .catch(error => {
           this.$vs.loading.close()
           this.$vs.notify({
@@ -110,7 +109,7 @@ div.wrapper{
     background-repeat:  no-repeat;
     background-size: cover;
     div.container{
-         width: 280.74px;
+         width: 412px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -121,18 +120,18 @@ div.wrapper{
         input.custom-input{
             font-family: 'Montserrat' sans-serif;
             width: 100%;
-            height: 40px;
+            height: 61px;
             margin: 13px;
             color: #FFFFFF;
             background: none;
             border: 1.37581px solid #FFFFFF;
             box-sizing: border-box;
             border-radius: 5.50326px;
-            padding-left: 40px;
+            padding-left: 50px;
             &::placeholder{
                 font-style: normal;
                 font-weight: bold;
-                font-size: 19.2614px;
+                font-size: 21.2614px;
                 line-height: 28px;
                 color: #FFFFFF;
             }
@@ -155,7 +154,7 @@ div.wrapper{
             border: none;
             outline: none;
             cursor: pointer;
-            height: 40px;
+            height: 61px;
             background: #FFFFFF !important;
             box-shadow: 0px 5.50326px 5.50326px rgba(0, 0, 0, 0.3);
             border-radius: 5.50326px;

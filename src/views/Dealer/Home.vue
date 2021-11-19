@@ -1,14 +1,14 @@
 <template>
   <div class="wrapper">
     <SideBar />
-    <div class="container">
+    <div class="container1" >
       <div class="row flex">
         <div class="w-3/5 flex" style="flex-wrap: wrap">
           <div class="w-5/12">
             <h2 class="cathaed">Выберите категорию</h2>
             <input class="sle" v-model="searchQuery" placeholder="Выберите категорию" />
             <div class="demo-alignment">
-              <span class="texts" v-for="(item, i) in resultQuery" :key="i" > 
+              <span class="texts" v-for="(item, i) in resultQuery" :key="i">
                  <span @click="getCat(item.category.id)">
                    {{ item.category.name }} 
                  </span>
@@ -36,14 +36,13 @@
           <div class="w-11/12">
             <h2 class="cathaed">Выберите продукт</h2>
             <input class="large" placeholder="Выберите категорию" />
-
             <div class="demo-alignment">
-              <span class="texts"  v-for="(item, i) in product" :key="i"> 
-                <span @click="getProduct(item.id)">
+              <span class="texts"  v-for="(item, i) in products.product.results" :key="i"> 
+                <span @click="AddCart(item)">
                   {{ item.name }}
                 </span>
                  </span>
-                <span class="texts" v-if="product.length == 0"  style="color: red !important">
+                <span class="texts" v-if="products.length == 0"  style="color: red !important">
                       No aviable data
                  </span>
             </div>
@@ -134,7 +133,7 @@
                         <span class="ml-2 mr-2"> 2 шт </span>
                           <feather-icon icon="EditIcon" svgClasses="h-3 w-4" class="ml-1" />
                       </div>
-                      <vs-input type="text" name="" id="" /> 
+                      <!-- <vs-input type="text" name="" id="" />  -->
                     </vs-td>
                     <vs-td>
                       <p class="prise">
@@ -220,110 +219,11 @@
         </div>
       </div>
     </vs-popup>
-    <vs-popup
-      background-color="rgb(45 39 39 / 70%)"
-      :active.sync="popupActive1"
-    >
-      <div class="flex">
-        <div class="w-1/5" style="margin-left: 70px; !important;" >
-          <h2
-            style="
-              font-family: Montserrat;
-              font-weight: bold;
-              font-size: 17px;
-              line-height: 17px;
-              color: #ffffff;
-            "
-          >
-            Продукты
-          </h2>
-          <div class="photo">
-            <div class="inner" style="padding: 5px">
-              <span
-                style="
-                  font-family: Montserrat;
-                  font-weight: bold;
-                  font-size: 10px;
-                  line-height: 12px;
-
-                  color: #ffffff;
-                "
-              >
-                Imzo Trio 60
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class="w-4/5 flex" style="justify-content: space-around">
-          <div style="text-align: center">
-            <h2
-              style="
-                font-family: Montserrat;
-                font-weight: bold;
-                font-size: 18px;
-                margin-top: 5px;
-                line-height: 17px;
-                color: #ffffff;
-              "
-            >
-              Количество:
-            </h2>
-            <div class="add-item">
-              <span> - </span>
-              <span class="ml-6 mr-6"> 2 </span>
-              <span> + </span>
-            </div>
-            <button
-              class="confirmac"
-              style="
-                height: 26px;
-                width: 170px;
-                margin-top: 20px !important;
-                font-size: 11px;
-                font-weight: normal;
-              "
-            >
-              Создать заявку
-            </button>
-          </div>
-          <div style="text-align: start;margin-left: 14px;">
-            <h2
-              style="
-                font-family: Montserrat;
-                font-weight: bold;
-                font-size: 18px;
-                margin-top: 5px;
-                line-height: 17px;
-                color: #ffffff;
-              "
-            >
-              Цена:
-            </h2>
-            <input
-              style="width: 179px; height: 27px; margin-top: 15px"
-              type="text"
-              class="picker"
-            />
-            <button
-            @click="popupActive1=false"
-              class="close"
-              style="
-                height: 26px;
-                width: 170px;
-                margin-top: 20px !important;
-                font-size: 11px;
-                font-weight: normal;
-              "
-            >
-              Закрыть
-            </button>
-          </div>
-        </div>
-      </div>
-    </vs-popup>
+    <pop-up-list :isPopUp="PopUp" @closeSidebar="toggleDataSidebar" :data="PopUpData" ></pop-up-list>
   </div>
 </template>
 <script>
+import PopUpList from './components/AddCart.vue'
 import Datepicker from "vuejs-datepicker";
 import vSelect from "vue-select";
 import SideBar from "./components/Sidebar.vue";
@@ -336,11 +236,23 @@ export default {
     category(){
     return  this.$store.state.category.categories
     },
-    product(){
-    return  this.$store.state.product.product
+    carts(){
+    return  this.$store.state.product.carts
+    },
+    products(){
+    return  this.$store.state.product
     },
      resultQuery() {
       if (this.searchQuery) {
+        return this.category.filter(item => {
+          return this.searchQuery.toLowerCase().split(" ").every(v => item.category.name.toLowerCase().includes(v));
+        });
+      } else {
+        return this.category;
+      }
+    },
+         resultProduct() {
+      if (this.searchProduct) {
         return this.category.filter(item => {
           return this.searchQuery.toLowerCase().split(" ").every(v => item.category.name.toLowerCase().includes(v));
         });
@@ -351,8 +263,13 @@ export default {
   },
   data() {
     return {
+      PopUpData: {},
+      PopUp: false,
+      product: [],
       searchQuery: null,
+      searchProduct: null,
       date: null,
+      activeProduct: null,
       popupActive: false,
       popupActive1: false,
       podCategory: null,
@@ -435,26 +352,48 @@ export default {
   components: {
     "v-select": vSelect,
     Datepicker,
+    PopUpList,
     SideBar,
   },
   methods: {
     getCat(id){
     let category = this.category.find(company => company.category.id === id)
     this.podCategory = category ? category.category.children : null;
+    this.$store.dispatch('product/GetProduct', id)
     },
     getProduct(id){
-     console.log(id)
-     this.$store.dispatch('product/GetProduct', id)
+     this.$store.dispatch('product/GetProduct', id).then(response =>{
+     this.product = response.data
+     console.log(this.products, 'ollll')
+     })
+    },
+    OpenProduct(id){
+      console.log(id)
+       const item = this.products.product.results
+      this.activeProduct === item.find(x => x.id === id)
+       console.log(this.activeProduct)
+       this.popupActive1 = true
+    },
+    AddCart (data) {
+      // this.sidebarData = JSON.parse(JSON.stringify(this.blankData))
+      this.PopUpData = data
+      this.toggleDataSidebar(true)
+    },
+    toggleDataSidebar (val = false) {
+      this.PopUp = val
+      this.$store.dispatch('product/GetCart')
     },
   },
   created(){
-     this.$store.dispatch('product/GetProduct')
+     this.$store.dispatch('product/GetCart')
     this.$store.dispatch('category/GetItem')
-    console.log(this.product)
   },
   mounted(){
-    this.getProduct
-    this.getCat()
+  this.$store.dispatch('product/GetProduct')
+    this.getProduct()
+    this.getCat(),
+    console.log(this.product, 'ok');
+    console.log(this.activeProduct, 'av')
   }
 }
 </script>
@@ -729,8 +668,8 @@ div.wrapper {
   flex-direction: row;
   align-items: center;
   background-color: linear-gradient(215.31deg, #3f4f61 8.35%, #3a9fd1 137.05%);
-  div.container {
-    width: calc(100% - 250px);
+  div.container1 {
+    width: calc(100% - 20%);
     height: 100%;
     padding: 0px !important;
     margin-right: 0;
@@ -762,6 +701,7 @@ div.wrapper {
         height: 375px;
         mix-blend-mode: normal;
         // opacity: 0.9;
+        height: 400px;
         border-radius: 0px 0px 28px 0px;
         background-repeat: no-repeat;
         background-size: cover;
