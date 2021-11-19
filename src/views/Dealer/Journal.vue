@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
       <SideBar />
-        <div class="container">
+        <div class="container1">
             <div class="container-header">
                 <div class="card">
                     <div class="icon">
@@ -77,7 +77,7 @@ div.wrapper {
   flex-direction: row;
   align-items: center;
   background-color: linear-gradient(215.31deg, #3f4f61 8.35%, #3a9fd1 137.05%);
-  div.container {
+  div.container1 {
     padding-top: 30px !important;
     width: 80%;
     height: 100%;

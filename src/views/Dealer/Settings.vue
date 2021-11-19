@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
       <SideBar />
-         <div class="container">
+         <div class="container1">
             <form  class="container-body">
               <div class="col">
                 <p class="title">Профиль</p>
@@ -73,7 +73,7 @@ div.wrapper {
   flex-direction: row;
   align-items: center;
   background-color: linear-gradient(215.31deg, #3f4f61 8.35%, #3a9fd1 137.05%);
-  div.container {
+  div.container1 {
     width: 80%;
     height: 100%;
     padding: 0px !important;

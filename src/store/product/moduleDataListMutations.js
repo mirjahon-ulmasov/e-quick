@@ -2,11 +2,8 @@ export default {
   ADD_Product(state, product){
     state.product = product
   },
-  SET_PRODUCTS (state, products) {
-    state.products = products
-  },
-  SET_SAP (state, sap) {
-    state.sap = sap
+  ADD_Carts(state, carts){
+    state.carts = carts
   },
   // SET_LABELS(state, labels) {
   //   state.eventLabels = labels
