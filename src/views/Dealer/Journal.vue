@@ -1,7 +1,5 @@
 <template>
-    <div class="wrapper">
-      <SideBar />
-        <div class="container1">
+    <div style="padding-top: 30px !important;width: 100%;" >
             <div class="container-header">
                 <div class="card">
                     <div class="icon">
@@ -54,7 +52,6 @@
                 <p class="contact">Engelberg 7600</p>
             </div>
         </div>
-    </div>
 </template>
 <script>
 import SideBar from "./components/Sidebar.vue";
@@ -68,26 +65,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-div.wrapper {
-  width: 100%;
-  height: 100vh;
-  margin: 0;
-  padding: 20px !important;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  background-color: linear-gradient(215.31deg, #3f4f61 8.35%, #3a9fd1 137.05%);
-  div.container1 {
-    padding-top: 30px !important;
-    width: 80%;
-    height: 100%;
-    padding: 0px !important;
-    background: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-radius: 30px;
-    
     .container-header {
       height: 20%;
       padding: 30px;
@@ -196,7 +173,7 @@ div.wrapper {
       }
     }
     .container-body {
-        margin: 10px;
+        padding: 10px;
       width: 100%;
       height: 60%;
       .head{
@@ -245,6 +222,4 @@ letter-spacing: 0.371237px;
         }
       }
     }
-  }
-}
 </style>

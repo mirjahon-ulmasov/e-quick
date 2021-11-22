@@ -62,14 +62,26 @@
                 </tbody>
               </template>
         </vs-table>
+        <div v-for="(data, i) in category.sap.data " :key="i" >
+          <span @click="Delete(data.id)">
+            {{ data.region }}
+          </span>
+        </div>
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
+  computed: {
+        category(){
+    return  this.$store.state.sap
+    },
+  },
   data: () => ({
     editActive: false,
     edit: null,
     editProp: {},
+    datas: [],
     search: "",
     allCheck: false,
     page: 1,
@@ -89,7 +101,7 @@ export default {
       },
     ],
   }),
-};
+}
 </script>
 <style lang="scss">
 .status {

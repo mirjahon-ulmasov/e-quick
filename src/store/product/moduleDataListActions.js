@@ -14,7 +14,7 @@ export default {
   },
   AddCart ({ commit }, payload) {
     return new Promise((resolve, reject) => {
-      axios.post('api/v1/cart/add', {payload}
+      axios.post('api/v1/cart/add', (payload)
       )
         .then((response) => {
           // commit('ADD_Product', response.data)
@@ -30,7 +30,7 @@ export default {
       )
         .then((response) => {
           commit('ADD_Carts', response.data)
-          console.log(response)
+          console.log(response, 'cart')
           resolve(response)
         })
         .catch((error) => { reject(error) })
@@ -38,9 +38,19 @@ export default {
   },
   updateCart ({ commit }, item) {
     return new Promise((resolve, reject) => {
-      axios.put('/api/v1/increment/quantity', {item})
+      axios.put('/api/v1/increment/quantity', (item))
         .then((response) => {
           commit('UPDATE_PRODUCT', response.data)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
+  Order ({ commit }, item) {
+    return new Promise((resolve, reject) => {
+      axios.post('/api/v1/orders/checkout', (item))
+        .then((response) => {
+          // commit('UPDATE_PRODUCT', response.data)
           resolve(response)
         })
         .catch((error) => { reject(error) })
