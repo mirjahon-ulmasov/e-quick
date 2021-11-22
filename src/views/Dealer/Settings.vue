@@ -1,7 +1,5 @@
 <template>
-    <div class="wrapper">
-      <SideBar />
-         <div class="container1">
+    <div>
             <form  class="container-body">
               <div class="col">
                 <p class="title">Профиль</p>
@@ -48,7 +46,6 @@
               <p class="contact">www.imzo.uz</p>
             </div>
         </div>
-    </div>
 </template>
 
 <script>
@@ -64,25 +61,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-div.wrapper {
-  width: 100%;
-  height: 100vh;
-  margin: 0;
-  padding: 20px !important;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  background-color: linear-gradient(215.31deg, #3f4f61 8.35%, #3a9fd1 137.05%);
-  div.container1 {
-    width: 80%;
-    height: 100%;
-    padding: 0px !important;
-    background: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-radius: 30px;
     .container-body {
       padding: 20px 30px;
       height: 80%;
@@ -344,6 +322,4 @@ div.wrapper {
         color: #ffffff;
       }
     }
-  }
-}
 </style>

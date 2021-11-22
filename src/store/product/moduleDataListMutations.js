@@ -8,9 +8,9 @@ export default {
   // SET_LABELS(state, labels) {
   //   state.eventLabels = labels
   // },
-  UPDATE_PRODUCT (state, product) {
-    const productIndex = state.products.findIndex((p) => p.id === product.id)
-    Object.assign(state.products[productIndex], product)
+  UPDATE_PRODUCT (state, carts) {
+    const cartsIndex = state.carts.findIndex((p) => p.id === carts.id)
+    Object.assign(state.carts[cartsIndex], carts)
   },
   REMOVE_ITEM (state, itemId) {
     const ItemIndex = state.products.findIndex((p) => p.id === itemId)

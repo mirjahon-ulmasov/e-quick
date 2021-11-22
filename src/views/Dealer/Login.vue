@@ -9,7 +9,7 @@
         icon-no-border
         icon="icon icon-user"
         icon-pack="feather"
-        label-placeholder="Username"
+        placeholder="Username"
         v-model="username"
             class="custom-input" 
             type="text">
@@ -23,9 +23,9 @@
         icon-no-border
         icon="icon icon-lock"
         icon-pack="feather"
-        label-placeholder="Password"
+        placeholder="Password"
         v-model="password"
-        class="custom-input"  />
+        class="custom-input1"  />
         <span class="text-danger flex justify-content-flex-end text-sm mt-2 ml-2">
           {{ errors.first('password') }}
         </span>
@@ -52,12 +52,13 @@ export default {
     }
   },
   computed: {
-    validateForm () {
-      return !this.errors.any() && this.email !== '' && this.password !== ''
+    validateForm() {
+      return !this.errors.any() && this.username !== '' && this.password !== ''
     }
   },
   methods: {
     loginJWT () {
+      if(this.validateForm){
       // Loading
       this.$vs.loading()
       const payload = {
@@ -91,7 +92,8 @@ export default {
             color: 'danger'
           })
         })
-    },
+    }
+    }
   }
 }
 </script>
@@ -122,6 +124,7 @@ div.wrapper{
             width: 100%;
             height: 61px;
             margin: 13px;
+            padding-top: 6px;
             color: #FFFFFF;
             background: none;
             border: 1.37581px solid #FFFFFF;
@@ -131,8 +134,8 @@ div.wrapper{
             &::placeholder{
                 font-style: normal;
                 font-weight: bold;
-                font-size: 21.2614px;
-                line-height: 28px;
+                font-size: 19.2614px;
+                line-height: 27px;
                 color: #FFFFFF;
             }
             &:nth-child(2){
@@ -141,7 +144,33 @@ div.wrapper{
                 background-position: 5%;
                 background-size: 7%;
             }
-             &:nth-child(3){
+             input.custom-input1:nth-child(3){
+                background-image: url("../../assets/dealer/img/icons/lock.svg");
+                background-repeat: no-repeat;
+                background-position: 5%;
+                 background-size: 7%;
+            }
+        }
+                input.custom-input1{
+            font-family: 'Montserrat' sans-serif;
+            width: 100%;
+            height: 61px;
+            margin: 13px;
+            padding-top: 6px;
+            color: #FFFFFF;
+            background: none;
+            border: 1.37581px solid #FFFFFF;
+            box-sizing: border-box;
+            border-radius: 5.50326px;
+            padding-left: 50px;
+            &::placeholder{
+                font-style: normal;
+                font-weight: bold;
+                font-size: 19.2614px;
+                line-height: 27px;
+                color: #FFFFFF;
+            }
+             &:nth-child(4){
                 background-image: url("../../assets/dealer/img/icons/lock.svg");
                 background-repeat: no-repeat;
                 background-position: 5%;
@@ -154,7 +183,7 @@ div.wrapper{
             border: none;
             outline: none;
             cursor: pointer;
-            height: 61px;
+            height: 57px;
             background: #FFFFFF !important;
             box-shadow: 0px 5.50326px 5.50326px rgba(0, 0, 0, 0.3);
             border-radius: 5.50326px;

@@ -189,7 +189,35 @@ export default {
             user_id: parseInt(localStorage.getItem('Id')),
             product_id: this.dataId,
             quantity: this.count
-            }).catch(err => { console.error(err) })
+            }).then(response => {
+              if(response.statusText == 'Created'){
+            this.$vs.notify({
+            title: 'Created',
+            text: 'Cartga joylandi',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'success'
+          })
+              }
+          else{
+          this.$vs.notify({
+            title: 'Warning',
+            text: 'Bu cartda allaqachon mavjud',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'warning'
+          })
+          }
+            })
+            .catch(err => { 
+            this.$vs.notify({
+            title: 'Error',
+            text: err,
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'warning'
+          })
+              console.error(err) })
           } 
           // this.$emit('closeSidebar')
           // some chANGES

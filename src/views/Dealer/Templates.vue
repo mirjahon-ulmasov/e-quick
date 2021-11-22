@@ -1,7 +1,5 @@
 <template>
-    <div class="wrapper">
-      <SideBar />
-         <div class="container1">
+    <div>
            <div class="row">
              <div class="card">
                <div class="card-header">
@@ -169,7 +167,6 @@
               <p class="contact">71 203 01 01</p>
             </div>
         </div>
-    </div>
 </template>
 
 <script>
@@ -184,25 +181,6 @@ export default {
 
 <style lang="scss" scoped>
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Poppins:wght@100;200;400;500;600;700;800;900&display=swap");
-div.wrapper {
-  font-family: "Lato" sans-serif;
-  width: 100%;
-  height: 100vh;
-  margin: 0;
-  padding: 20px !important;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  background-color: linear-gradient(215.31deg, #3f4f61 8.35%, #3a9fd1 137.05%);
-  div.container1 {
-    width: 80%;
-    height: 100%;
-    padding: 0px !important;
-    background: white;
-    display: flex;
-    flex-direction: column;
-    border-radius: 30px;
-    justify-content: flex-end;
     .row {
       height: 80%;
       padding: 20px;
@@ -328,7 +306,6 @@ div.wrapper {
       }
     }
     .container-footer {
-
       width: 100%;
       height: 20%;
       background-image: url("~@/assets/dealer/img/svg/components/Footer1.png");
@@ -350,6 +327,4 @@ div.wrapper {
         color: #ffffff;
       }
     }
-  }
-}
 </style>

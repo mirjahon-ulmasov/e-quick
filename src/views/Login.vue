@@ -67,7 +67,7 @@ export default {
   },
   computed: {
     validateForm () {
-      return !this.errors.any() && this.email !== '' && this.password !== ''
+      return !this.errors.any() && this.username !== '' && this.password !== ''
     }
   },
   methods: {

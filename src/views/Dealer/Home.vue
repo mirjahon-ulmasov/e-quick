@@ -1,7 +1,5 @@
 <template>
-  <div class="wrapper">
-    <SideBar />
-    <div class="container1" >
+  <div style="width: 100%;" >
       <div class="row flex">
         <div class="w-3/5 flex" style="flex-wrap: wrap">
           <div class="w-5/12">
@@ -84,11 +82,15 @@
               </svg>
             </div>
             <span class="date"> от 01.11.21 </span>
+             <br>
+            <span v-if="carts = undefined" style="margin-top: 30px; font-size: 18px;" >
+              Hali kartaga ma'lumot qo'shilmagan
+            </span>
             <vs-table
               ref="table"
               maxHeight="200px"
               class="center mt-4"
-              :data="company"
+              :data="carts.items"
             >
               <template slot="thead">
                 <vs-th sort-key="name">№</vs-th>
@@ -116,116 +118,63 @@
                     v-for="(tr, indextr) in data"
                   >
                     <vs-td>
-                      <p>{{ tr.name }}</p>
+                      <p>{{ tr.id }}</p>
                     </vs-td>
-
                     <vs-td
                       style="
                         border-left: 2px solid #3a9fd1 !important;
                         border-right: 2px solid #3a9fd1 !important;
                       "
                     >
-                      <p>{{ tr.username }}</p>
+                      <p>{{ tr.product_id }}</p>
                     </vs-td>
-
                     <vs-td style="border-right: 2px solid #3a9fd1 !important">
-                      <div class="add">
-                        <span class="ml-2 mr-2"> 2 шт </span>
-                          <feather-icon icon="EditIcon" svgClasses="h-3 w-4" class="ml-1" />
+                      <div v-if="edit == false" class="add">
+                        <span class="ml-2 mr-2"> {{ tr.quantity }} </span>
+                          <feather-icon icon="EditIcon" @click="Inc(tr)"
+                          svgClasses="h-3 w-4 hover:text-primary" class="ml-1"
+                           />
                       </div>
-                      <!-- <vs-input type="text" name="" id="" />  -->
+                         <div v-if="incProductId === tr.product_id" class="flex">
+                      <input
+                         class="add"
+                        v-model="incQuan"
+                        type="text" />
+                        <feather-icon style="margin-left: -19px !important;" icon="EditIcon" 
+                        @click="IncEdit()" 
+                          svgClasses="h-4 w-5 hover:text-primary" class="ml-1"
+                           />
+                         </div>
                     </vs-td>
                     <vs-td>
                       <p class="prise">
-                        {{ tr.email }}
+                        {{ tr.price }}
                       </p>
                     </vs-td>
                   </vs-tr>
                 </tbody>
               </template>
             </vs-table>
-            <div class="flex" style="justify-content: space-between">
-              <button @click="popupActive = true" class="offering">
+            <div v-if="carts === !null" class="flex" style="justify-content: space-between">
+              <button @click="AddOrder()" class="offering">
                 <span> Оформить заявку </span>
               </button>
               <div class="itogo mt-4">
                 <h2 class="text">Итоговая сумма:</h2>
-                <h1 class="prise">25,500,00 сум</h1>
+                <h1 class="prise">{{ carts.total_price }} сум</h1>
               </div>
             </div>
           </div>
           <div class="imzo"></div>
         </div>
       </div>
-    </div>
-    <vs-popup
-      background-color="rgb(45 39 39 / 70%)"
-      class=""
-      :active.sync="popupActive"
-    >
-      <h1
-        style="
-          font-family: Montserrat;
-          text-align: center;
-          font-weight: bold;
-          font-size: 25px;
-          line-height: 30px;
-          color: #ffffff;
-        "
-      >
-        Выберите необходимые данные
-      </h1>
-      <div class="flex" style="margin-top: 40px">
-        <div class="w-1/2">
-          <h3
-            style="
-              font-family: Montserrat;
-              font-style: normal;
-              font-weight: normal;
-              font-size: 29px;
-              line-height: 36px;
-              color: #ffffff;
-            "
-          >
-            Дата поставки:
-          </h3>
-          <h3
-            style="
-              margin-top: 40px;
-              font-family: Montserrat;
-              font-style: normal;
-              font-weight: normal;
-              font-size: 29px;
-              line-height: 36px;
-              color: #ffffff;
-            "
-          >
-            Тип поставки:
-          </h3>
-          <button class="confirmac">Подтвердить</button>
-        </div>
-        <div class="w-1/2">
-          <datepicker
-            class="picker"
-            style="color: black"
-            placeholder="Select Date"
-            v-model="date"
-          ></datepicker>
-          <select class="picker" style="margin-top: 20px; height: 55px">
-            <option>dsdgsdgsgsgsg</option>
-            <option>dsdgsdgsgsgsg</option>
-          </select>
-          <button class="close" @click="popupActive = false" >Закрыть</button>
-        </div>
-      </div>
-    </vs-popup>
-    <pop-up-list :isPopUp="PopUp" @closeSidebar="toggleDataSidebar" :data="PopUpData" ></pop-up-list>
+    <add-cart :isPopUp="PopUp" @closeSidebar="toggleDataSidebar" :data="PopUpData" ></add-cart>
+    <order :isPopUpOrder="PopUpOrder" @closeSidebarOrder="toggleDataSidebarOrder"></order>
   </div>
 </template>
 <script>
-import PopUpList from './components/AddCart.vue'
-import Datepicker from "vuejs-datepicker";
-import vSelect from "vue-select";
+import AddCart from './components/AddCart.vue'
+import Order from './components/Order.vue'
 import SideBar from "./components/Sidebar.vue";
 export default {
   components: {
@@ -263,96 +212,27 @@ export default {
   },
   data() {
     return {
+      edit: false,
       PopUpData: {},
       PopUp: false,
+      PopUpOrder: false,
       product: [],
       searchQuery: null,
       searchProduct: null,
       date: null,
+      active: false,
       activeProduct: null,
       popupActive: false,
       popupActive1: false,
       podCategory: null,
-      company: [
-        {
-          id: 1,
-          name: "3",
-          username: "(A) 103011 (Nekr) (N)",
-          email: "3,125,000",
-          website: "17.04.2021",
-          ok: "1млн",
-          data: "20.04.2021",
-        },
-        {
-          id: 1,
-          name: "3",
-          username: "(A) 103011 (Nekr) (N)",
-          email: "3,125,000",
-          website: "17.04.2021",
-          ok: "1млн",
-          data: "20.04.2021",
-        },
-        {
-          id: 1,
-          name: "3",
-          username: "(A) 103011 (Nekr) (N)",
-          email: "3,125,000",
-          website: "17.04.2021",
-          ok: "1млн",
-          data: "20.04.2021",
-        },
-        {
-          id: 1,
-          name: "3",
-          username: "(A) 103011 (Nekr) (N)",
-          email: "3,125,000",
-          website: "17.04.2021",
-          ok: "1млн",
-          data: "20.04.2021",
-        },
-        {
-          id: 1,
-          name: "3",
-          username: "(A) 103011 (Nekr) (N)",
-          email: "3,125,000",
-          website: "17.04.2021",
-          ok: "1млн",
-          data: "20.04.2021",
-        },
-        {
-          id: 1,
-          name: "3",
-          username: "(A) 103011 (Nekr) (N)",
-          email: "3,125,000",
-          website: "17.04.2021",
-          ok: "1млн",
-          data: "20.04.2021",
-        },
-        {
-          id: 1,
-          name: "3",
-          username: "(A) 103011 (Nekr) (N)",
-          email: "3,125,000",
-          website: "17.04.2021",
-          ok: "1млн",
-          data: "20.04.2021",
-        },
-        {
-          id: 1,
-          name: "3",
-          username: "(A) 103011 (Nekr) (N)",
-          email: "3,125,000",
-          website: "17.04.2021",
-          ok: "1млн",
-          data: "20.04.2021",
-        },
-      ],
+      incQuan: null,
+      incProductId: null,
+      currentEditId: null,
     };
   },
   components: {
-    "v-select": vSelect,
-    Datepicker,
-    PopUpList,
+    AddCart,
+    Order,
     SideBar,
   },
   methods: {
@@ -367,22 +247,56 @@ export default {
      console.log(this.products, 'ollll')
      })
     },
-    OpenProduct(id){
-      console.log(id)
-       const item = this.products.product.results
-      this.activeProduct === item.find(x => x.id === id)
-       console.log(this.activeProduct)
-       this.popupActive1 = true
-    },
     AddCart (data) {
       // this.sidebarData = JSON.parse(JSON.stringify(this.blankData))
       this.PopUpData = data
       this.toggleDataSidebar(true)
     },
+      AddOrder() {
+      this.toggleDataSidebarOrder(true)
+    },
     toggleDataSidebar (val = false) {
+      this.$store.dispatch('product/GetCart')
       this.PopUp = val
       this.$store.dispatch('product/GetCart')
     },
+    toggleDataSidebarOrder (val = false) {
+      this.PopUpOrder = val
+    },
+    Inc(tr){
+      this.edit = true
+      this.incProductId = tr.product_id
+      this.incQuan = tr.quantity
+    },
+    IncEdit(){
+
+            this.$store.dispatch('product/updateCart', {
+            user_id: parseInt(localStorage.getItem('Id')),
+            product_id: this.incProductId,
+            quantity: parseInt(this.incQuan)
+            }).then(response => {
+              if(response.statusText == 'Created'){
+            this.$vs.notify({
+            title: 'Created',
+            text: 'Cartga joylandi',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'success'
+          })
+              }
+          else{
+          this.$vs.notify({
+            title: 'Warning',
+            text: 'Bu cartda allaqachon mavjud',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'warning'
+          })
+          }
+            })
+          .catch(err => { console.error(err) })
+      this.edit = false
+    }
   },
   created(){
      this.$store.dispatch('product/GetCart')
@@ -390,10 +304,9 @@ export default {
   },
   mounted(){
   this.$store.dispatch('product/GetProduct')
+   this.$store.dispatch('product/GetCart')
     this.getProduct()
-    this.getCat(),
-    console.log(this.product, 'ok');
-    console.log(this.activeProduct, 'av')
+    this.getCat()
   }
 }
 </script>
@@ -473,25 +386,6 @@ color: rgba(58, 159, 209, 1);
 }
 .picker select {
   padding-left: 6px;
-}
-.close {
-  margin-top: 20px !important;
-  width: 289.15px;
-  height: 37.31px;
-
-  background: #f2f2f2;
-  border-radius: 5.18092px;
-  font-family: Lato;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16.3022px;
-  line-height: 22px;
-  /* or 133% */
-
-  text-align: center;
-  letter-spacing: -0.02em;
-
-  color: #000000;
 }
 .demo-alignment {
   display: flex;
@@ -653,37 +547,15 @@ color: rgba(58, 159, 209, 1);
   font-weight: normal;
   font-size: 13.8679px;
   line-height: 18px;
-  padding: 6px 0px;
+  padding: 5px 0px;
   color: rgba(255, 255, 255, 1);
 }
 </style>
 <style lang="scss" scoped>
-div.wrapper {
-  width: 100%;
-  height: 100vh;
-  margin: 0;
-  padding: 20px;
-  padding-right: 0px !important;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  background-color: linear-gradient(215.31deg, #3f4f61 8.35%, #3a9fd1 137.05%);
-  div.container1 {
-    width: calc(100% - 20%);
-    height: 100%;
-    padding: 0px !important;
-    margin-right: 0;
-    // margin-left: 0;
-    background: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-radius: 30px;
-    justify-content: flex-end;
     .row {
       height: 100%;
       padding: 20px;
+      padding-left: 35px;
       width: 100%;
       padding-right: 0px;
       display: flex;
@@ -715,6 +587,7 @@ div.wrapper {
         background: #ffffff;
         box-shadow: 0px 3.70934px 12.9827px rgba(0, 0, 0, 0.1);
         border-radius: 7.41868px;
+        width: 100%;
         border: none !important;
         padding-right: 20px;
         font-family: Montserrat;
@@ -905,6 +778,4 @@ div.wrapper {
         }
       }
     }
-  }
-}
 </style>
