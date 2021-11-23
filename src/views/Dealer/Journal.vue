@@ -1,6 +1,6 @@
 <template>
-    <div style="padding-top: 30px !important;width: 100%;" >
-            <div class="container-header">
+    <div style="width: 100%;" >
+            <!-- <div class="container-header">
                 <div class="card">
                     <div class="icon">
                       <img src="~@/assets/dealer/img/icons/icon-bar-chart-2.svg" alt="">
@@ -41,7 +41,7 @@
                         <p><span class="down">0.24%</span> Прошлый месяц</p>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="container-body">
               <h2 class="head">
                 Журнал последних заявок:
@@ -173,15 +173,15 @@ export default {
       }
     }
     .container-body {
-        padding: 10px;
+        padding: 25px;
       width: 100%;
-      height: 60%;
+      height: 80%;
       .head{
         font-family: Montserrat;
 font-style: normal;
 font-weight: bold;
 font-size: 22.2742px;
-margin: 31px 0px 30px 47px;
+margin: 10px 0px 30px 0px;
 line-height: 33px;
 /* identical to box height, or 150% */
 color:   #135c81;

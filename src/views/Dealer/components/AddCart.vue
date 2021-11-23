@@ -215,7 +215,7 @@ export default {
             text: err,
             iconPack: 'feather',
             icon: 'icon-alert-circle',
-            color: 'warning'
+            color: 'danger'
           })
               console.error(err) })
           } 

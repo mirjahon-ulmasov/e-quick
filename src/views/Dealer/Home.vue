@@ -34,25 +34,20 @@
           <div class="w-11/12">
             <h2 class="cathaed">Выберите продукт</h2>
             <input class="large" placeholder="Выберите категорию" />
-            <div class="demo-alignment">
+            <div class="demo-alignment vs-con-loading__container" id="div-with-loading" >
               <span class="texts"  v-for="(item, i) in products.product.results" :key="i"> 
                 <span @click="AddCart(item)">
                   {{ item.name }}
                 </span>
                  </span>
-                <span class="texts" v-if="products.length == 0"  style="color: red !important">
+                <span class="texts" v-if="products"  style="color: red !important">
                       No aviable data
                  </span>
             </div>
           </div>
-          <div class="w-11/12">
-            <button @click="popupActive1 = true" class="offer">
-              <span class="offer-text"> Продолжить заказ </span>
-            </button>
-          </div>
         </div>
-        <div class="w-1/2">
-          <div style="background: #f9fafc; padding: 10px 20px">
+        <div class="w-1/2" style="background: #f9fafc; padding: 10px 20px">
+          <div >
             <div class="flex" style="justify-content: space-between">
               <h2 class="zayhaed">Заявка №: 443215</h2>
               <svg
@@ -82,14 +77,11 @@
               </svg>
             </div>
             <span class="date"> от 01.11.21 </span>
-             <br>
-            <span v-if="carts = undefined" style="margin-top: 30px; font-size: 18px;" >
-              Hali kartaga ma'lumot qo'shilmagan
-            </span>
             <vs-table
               ref="table"
-              maxHeight="200px"
-              class="center mt-4"
+              maxHeight="65vh"
+              class="produ mt-4"
+              v-if="carts"
               :data="carts.items"
             >
               <template slot="thead">
@@ -109,7 +101,6 @@
                 >
                 <vs-th sort-key="Баланс">Цена (сум)</vs-th>
               </template>
-
               <template slot-scope="{ data }" class="scr">
                 <tbody>
                   <vs-tr
@@ -129,20 +120,28 @@
                       <p>{{ tr.product_id }}</p>
                     </vs-td>
                     <vs-td style="border-right: 2px solid #3a9fd1 !important">
-                      <div v-if="edit == false" class="add">
-                        <span class="ml-2 mr-2"> {{ tr.quantity }} </span>
-                          <feather-icon icon="EditIcon" @click="Inc(tr)"
-                          svgClasses="h-3 w-4 hover:text-primary" class="ml-1"
-                           />
-                      </div>
-                         <div v-if="incProductId === tr.product_id" class="flex">
+                    <div  class="flex">
                       <input
                          class="add"
+                         v-if="incProductId === tr.product_id"
+                         :placeholder="tr.quantity"
                         v-model="incQuan"
                         type="text" />
-                        <feather-icon style="margin-left: -19px !important;" icon="EditIcon" 
-                        @click="IncEdit()" 
-                          svgClasses="h-4 w-5 hover:text-primary" class="ml-1"
+                        <input
+                         class="add"
+                         v-if="!incProductId"
+                         :placeholder="tr.quantity"
+                        type="text" />
+                        <feather-icon icon="EditIcon"
+                        v-if="!incProductId"
+                        @click="Inc(tr)"
+                        style="margin-left: -19px !important;"
+                        svgClasses="h-3 w-4 hover:text-primary" 
+                        class="ml-1"
+                           />
+                        <feather-icon v-if="incProductId === tr.product_id" style="margin-left: -19px !important;" icon="CheckIcon" 
+                        @click="IncEdit()"
+                          svgClasses="h-4 w-5 text-success" class="ml-1"
                            />
                          </div>
                     </vs-td>
@@ -155,7 +154,7 @@
                 </tbody>
               </template>
             </vs-table>
-            <div v-if="carts === !null" class="flex" style="justify-content: space-between">
+            <div v-if="carts" class="flex" style="justify-content: space-between">
               <button @click="AddOrder()" class="offering">
                 <span> Оформить заявку </span>
               </button>
@@ -165,7 +164,7 @@
               </div>
             </div>
           </div>
-          <div class="imzo"></div>
+          <!-- <div class="imzo"></div> -->
         </div>
       </div>
     <add-cart :isPopUp="PopUp" @closeSidebar="toggleDataSidebar" :data="PopUpData" ></add-cart>
@@ -237,14 +236,27 @@ export default {
   },
   methods: {
     getCat(id){
+      this.$vs.loading({
+        container: '#div-with-loading',
+        scale: 0.6,
+        color: 'rgb(62, 97, 121)',
+      })
     let category = this.category.find(company => company.category.id === id)
     this.podCategory = category ? category.category.children : null;
-    this.$store.dispatch('product/GetProduct', id)
+    this.$store.dispatch('product/GetProduct', id).then(response => {
+      this.$vs.loading.close('#div-with-loading > .con-vs-loading')
+    })
     },
     getProduct(id){
+      this.$vs.loading({
+        container: '#div-with-loading',
+        scale: 0.6,
+        color: 'rgb(62, 97, 121)',
+      })
      this.$store.dispatch('product/GetProduct', id).then(response =>{
      this.product = response.data
      console.log(this.products, 'ollll')
+     this.$vs.loading.close('#div-with-loading > .con-vs-loading')
      })
     },
     AddCart (data) {
@@ -261,7 +273,9 @@ export default {
       this.$store.dispatch('product/GetCart')
     },
     toggleDataSidebarOrder (val = false) {
+      this.$store.dispatch('product/GetCart')
       this.PopUpOrder = val
+      this.$store.dispatch('product/GetCart')
     },
     Inc(tr){
       this.edit = true
@@ -269,33 +283,31 @@ export default {
       this.incQuan = tr.quantity
     },
     IncEdit(){
-
-            this.$store.dispatch('product/updateCart', {
+            this.$store.dispatch('product/AddCart', {
             user_id: parseInt(localStorage.getItem('Id')),
             product_id: this.incProductId,
             quantity: parseInt(this.incQuan)
             }).then(response => {
-              if(response.statusText == 'Created'){
+              this.incProductId = null
             this.$vs.notify({
-            title: 'Created',
-            text: 'Cartga joylandi',
+            title: 'Updated',
+            text: 'Ozgardi',
             iconPack: 'feather',
             icon: 'icon-alert-circle',
             color: 'success'
           })
-              }
-          else{
+          this.$store.dispatch('product/GetCart')
+            })
+          .catch(err => { 
           this.$vs.notify({
-            title: 'Warning',
-            text: 'Bu cartda allaqachon mavjud',
+            title: 'Error',
+            text: err,
             iconPack: 'feather',
             icon: 'icon-alert-circle',
-            color: 'warning'
+            color: 'danger'
           })
-          }
-            })
-          .catch(err => { console.error(err) })
-      this.edit = false
+          this.$store.dispatch('product/GetCart')
+           })
     }
   },
   created(){
@@ -305,8 +317,6 @@ export default {
   mounted(){
   this.$store.dispatch('product/GetProduct')
    this.$store.dispatch('product/GetCart')
-    this.getProduct()
-    this.getCat()
   }
 }
 </script>
@@ -647,41 +657,22 @@ color: rgba(58, 159, 209, 1);
         }
       }
       .vs-con-table {
-        /*
-      Below media-queries is fix for responsiveness of action buttons
-      Note: If you change action buttons or layout of this page, Please remove below style
-    */
-        @media (max-width: 689px) {
-          .vs-table--search {
-            margin-left: 0;
-            max-width: unset;
-            width: 100%;
-
-            .vs-table--search-input {
-              width: 100%;
-            }
-          }
-        }
-
-        @media (max-width: 461px) {
-          .items-per-page-handler {
-            display: none;
-          }
-        }
-
-        @media (max-width: 341px) {
-          .data-list-btn-container {
-            width: 100%;
-
-            .dd-actions,
-            .btn-add-new {
-              width: 100%;
-              margin-right: 0 !important;
-            }
-          }
-        }
-
-        .product-name {
+      .vs-con-tbody{
+         width: 100% !important;
+         overflow: auto !important;
+      }
+        .vs-con-tbody::-webkit-scrollbar{
+    width: 5px;
+  }
+  .vs-con-tbody::-webkit-scrollbar-track {
+    background: rgb(97, 48, 48) !important;
+  }
+  .vs-con-tbody::-webkit-scrollbar-thumb {
+    background-color: rgb(204, 41, 41) !important;
+    border-radius: 6px;
+    // border: 3px solid blue;
+  }
+     .product-name {
           max-width: 23rem;
         }
 
@@ -721,7 +712,6 @@ color: rgba(58, 159, 209, 1);
             background: transparent !important;
             box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
             border-bottom: 2px solid #3a9fd1;
-            background: transparent !important;
             td {
               padding: 10px;
               &:first-child {
@@ -739,7 +729,12 @@ color: rgba(58, 159, 209, 1);
           }
         }
         .vs-table--thead {
+          background: transparent !important;
           border-bottom: 2px solid #3a9fd1 !important;
+          tr {
+            background: red !important;
+            box-shadow: none;
+          }
           th {
             border-bottom: 2px solid #3a9fd1 !important;
             font-family: Montserrat !important;
@@ -760,12 +755,7 @@ color: rgba(58, 159, 209, 1);
           th.td-check {
             padding: 0 15px !important;
           }
-          tr {
-            background: none;
-            box-shadow: none;
-          }
         }
-
         .vs-table--pagination {
           justify-content: center;
         }
@@ -778,4 +768,5 @@ color: rgba(58, 159, 209, 1);
         }
       }
     }
+    
 </style>

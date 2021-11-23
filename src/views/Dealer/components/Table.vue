@@ -1,10 +1,13 @@
 <template>
   <div class="center">
       <vs-table
-            multiple v-model="selected"
+              multiple 
+              v-model="selected"
               ref="table"
+              maxHeight="60vh"
               pagination
-              :data="company"
+              :max-items="itemsPerPage"
+              :data="orders"
             >
               <template slot="thead">
                 <vs-th sort-key="name">Заявка</vs-th>
@@ -25,7 +28,7 @@
                     v-for="(tr, indextr) in data"
                   >
                     <vs-td>
-                        <p>{{ tr.name }}</p>
+                        <p> № {{ tr.order_number }}</p>
                     </vs-td>
 
                     <vs-td>
@@ -34,26 +37,31 @@
 
                     <vs-td>
                       <p>
-                        {{ tr.email }}
+                        {{ tr.id }}
                       </p>
                     </vs-td>
                     <vs-td>
                       <p>
-                        {{ tr.website }}
+                        {{ tr.date_ordered }}
                       </p>
                     </vs-td>
                     <vs-td>
-                        <vs-chip class="status">
+                        <vs-chip v-if="tr.status === 0" class="status">
                           <span style="font-size: 11px; color: #ffffff">
                             Ожидается
                           </span>
                         </vs-chip>
+                        <vs-chip style="background: rgb(49, 183, 120) !important" v-if="tr.status === 1" class="status">
+                          <span style="font-size: 11px; color: #ffffff;">
+                            Completed
+                          </span>
+                        </vs-chip>
                     </vs-td>
                     <vs-td>
-                      {{ tr.ok }}
+                      {{ tr.total_price }} <span class="ml-1" >Sum</span>
                     </vs-td>
                     <vs-td>
-                      {{ tr.data }}
+                      {{ tr.delivery_date }}
                     </vs-td>
                     <vs-td>
                       <span style="color: #31B778"  class="material-icons">phone</span>  
@@ -62,19 +70,18 @@
                 </tbody>
               </template>
         </vs-table>
-        <div v-for="(data, i) in category.sap.data " :key="i" >
-          <span @click="Delete(data.id)">
-            {{ data.region }}
-          </span>
-        </div>
   </div>
 </template>
 <script>
-import axios from 'axios'
 export default {
   computed: {
-        category(){
-    return  this.$store.state.sap
+    orders(){
+    return  this.$store.state.product.orders
+    },
+    queriedItems() {
+      return this.$refs.table
+        ? this.$refs.table.queriedResults.length
+        : this.products.length;
     },
   },
   data: () => ({
@@ -85,31 +92,42 @@ export default {
     search: "",
     allCheck: false,
     page: 1,
-    max: 5,
+    max: 6,
     active: 0,
     itemsPerPage: 4,
     selected: [],
-    company: [
-      {
-        id: 1,
-        name: "№ 353",
-        username: "BENKAM",
-        email: "Aldox",
-        website: "17.04.2021",
-        ok: "1млн",
-        data: "20.04.2021",
-      },
-    ],
   }),
+  created(){
+    this.$store.dispatch('product/GetOrder')
+  }
 }
 </script>
 <style lang="scss">
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;600;700;800;900&display=swap");
 .status {
   background: #ea5455 !important;
 }
 .center {
+   .vs-pagination--li.is-current {
+       .effect{
+         background: #135c81  !important;
+       }
+   }
+   .vs-checkbox-primary {
+     input:checked+.vs-checkbox{
+       background: #135c81  !important;
+       border: none !important;
+     }
+   }
   .vs-con-table {
     .vs-table {
+      .vs-table--thead{
+        background: linear-gradient(90deg, #5E585C 0%, #000000 100%);
+        border-radius: 5.9434px;
+        th{
+          padding: 12px 15px !important;
+        }
+      }
       th.td-check {
         .con-td-check {
           box-shadow: none !important;
@@ -123,25 +141,26 @@ export default {
           font-family: Inter;
           font-style: normal;
           font-weight: 500;
-          font-size: 12.2335px;
+          font-size: 14px;
           line-height: 140%;
           letter-spacing: -0.262146px;
 
           /* Body */
-          color: #767676;
+          color: white;
         }
       }
 
       tr {
+        background: transparent !important;
         td {
-          padding: 20px;
-          padding-left: 0px !important ;
+             padding: 20px 15px !important;
+          // padding-left: 0px !important ;
           font-family: Inter;
           font-style: normal;
           font-weight: 500;
-          font-size: 10.4858px !important;
+          font-size: 12px !important;
           line-height: 140%;
-          text-align: center;
+          text-align: start;
           letter-spacing: -0.262146px;
           color: #767676;
           &:first-child {
