@@ -1,6 +1,6 @@
 <template>
     <div>
-            <vs-popup
+    <vs-popup
       background-color="rgb(45 39 39 / 70%)"
       class=""
       :active.sync="isSidebarActiveLocal"
@@ -29,7 +29,7 @@
               color: #ffffff;
             "
           >
-            Дата поставки:
+            Дата доставки:
           </h3>
           <h3
             style="
@@ -42,21 +42,38 @@
               color: #ffffff;
             "
           >
-            Тип поставки:
+            Тип заказа:
+          </h3>
+          <h3
+            style="
+              margin-top: 40px;
+              font-family: Montserrat;
+              font-style: normal;
+              font-weight: normal;
+              font-size: 29px;
+              line-height: 36px;
+              color: #ffffff;
+            "
+          >
+            Тип доставки:
           </h3>
           <button @click="submitData" class="confirmac">Подтвердить</button>
         </div>
         <div class="w-1/2">
           <input
+          v-validate="'required'"
             class="picker"
             type="date"
             style="height: 55px"
             placeholder="Select Date"
             v-model="date"
           >
-          <select v-model="type" class="picker" style="margin-top: 20px; height: 55px">
-            <option >THROUGH_THE_BASE</option>
-            <option>DIRECT_DELIVERY</option>
+          <select v-model="ordertype" v-validate="'required'" class="picker" style="margin-top: 20px; height: 55px">
+            <option v-for="(item, i) in orders" :key="i" :value="item.value" >{{ item.text }}</option>
+          </select>
+          <select v-model="type" v-validate="'required'" class="picker" style="margin-top: 20px; height: 55px">
+            <option value="THROUGH_THE_BASE" >ЧЕРЕЗ БАЗУ</option>
+            <option value="DIRECT_DELIVERY" >ПРЯМАЯ ДОСТАВКА</option>
           </select>
           <button class="close" 
           style="margin-top: 25px !important"
@@ -72,7 +89,22 @@ export default {
     data(){
     return{
     date: null,
-    type: null
+    type: null,
+    ordertype: null,
+    orders: [
+      {
+        text: "ЗАКАЗ ДИЛЕРА НА ПОКУПКУ",
+        value: "DEALER_PURCHASE_ORDER"
+      },
+      {
+        text: "ЗАКАЗ ДИЛЕРА ВОЗВРАТА",
+        value: "DEALER_RETURN_ORDER"
+      },
+      {
+        text: "СПЕЦИАЛЬНЫЙ ЗАКАЗ ДИЛЕРА",
+        value: "DEALER_SPECIAL_ORDER"
+      }
+    ]
     }
   },
     props: {
@@ -87,6 +119,9 @@ export default {
     }
   },
     computed: {
+      validateForm(){
+       return !this.errors.any() && this.type !== '' && this.ordertype !== '' && this.date !== ''
+      },
     isSidebarActiveLocal: {
       get () {
         return this.isPopUpOrder
@@ -105,10 +140,12 @@ export default {
       this.$emit('closeSidebarOrder')
     },
     submitData() {
-            this.$store.dispatch('product/Order', {
+         if(this.type !== null && this.ordertype !== null && this.date !== null){
+          this.$store.dispatch('product/Order', {
             user_id: parseInt(localStorage.getItem('Id')),
             delivery_date: this.date,
-            order_type: this.type
+            order_type: this.ordertype,
+            delivery_type: this.type
             }).then(response => {
             this.$vs.notify({
             title: 'Ordered',
@@ -118,17 +155,26 @@ export default {
             color: 'success'
           })
             })
-            
             .catch(err => { 
             this.$vs.notify({
             title: 'Error',
             text: err,
             iconPack: 'feather',
             icon: 'icon-alert-circle',
-            color: 'error'
+            color: 'danger'
           })
               console.error(err) })
           this.Reset()
+         }
+         else{
+          this.$vs.notify({
+            title: 'Error',
+            text: 'Formani toliq toldiring',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'danger'
+          })
+         }
     },
   },
 }

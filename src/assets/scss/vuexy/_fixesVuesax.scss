@@ -671,14 +671,16 @@ background: rgba(255, 255, 255, 0.03) !important;
     }
   }
   .vs-con-tbody::-webkit-scrollbar{
-    width: 12px;
+    width: 5px;
+    display: block;
   }
   .vs-con-tbody::-webkit-scrollbar-track {
-    background: white;
+    background: linear-gradient(90deg, #5E585C 0%, #000000 100%);
+    border-radius: 0px 0px 6.89273px 6.89273px;
   }
   .vs-con-tbody::-webkit-scrollbar-thumb {
-    background-color: #000;
-    border-radius: 6px;
+    background: linear-gradient(99.52deg, #3F4F61 -14.96%, #3A9FD1 156.83%);
+    border-radius: 6.89273px;
     // border: 3px solid blue;
   }
   .vs-table--pagination {

@@ -1,3 +1,4 @@
+// Products , Carts , Orders
 import axios from '@/axios.js'
 export default {
   GetProduct ({ commit }, id) {
@@ -51,6 +52,17 @@ export default {
       axios.post('/api/v1/orders/checkout', (item))
         .then((response) => {
           // commit('UPDATE_PRODUCT', response.data)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
+  GetOrder ({ commit }, item) {
+    return new Promise((resolve, reject) => {
+      axios.get('/api/v1/orders/' + localStorage.getItem('Id'))
+        .then((response) => {
+          commit('ADD_Orders', response.data)
+          console.log(response.data)
           resolve(response)
         })
         .catch((error) => { reject(error) })

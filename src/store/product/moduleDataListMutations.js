@@ -5,6 +5,9 @@ export default {
   ADD_Carts(state, carts){
     state.carts = carts
   },
+  ADD_Orders(state, orders){
+    state.orders = orders
+  },
   // SET_LABELS(state, labels) {
   //   state.eventLabels = labels
   // },
@@ -12,8 +15,4 @@ export default {
     const cartsIndex = state.carts.findIndex((p) => p.id === carts.id)
     Object.assign(state.carts[cartsIndex], carts)
   },
-  REMOVE_ITEM (state, itemId) {
-    const ItemIndex = state.products.findIndex((p) => p.id === itemId)
-    state.products.splice(ItemIndex, 1)
-  }
 }
