@@ -52,9 +52,7 @@
         ]" />
     </template>
     <!-- /Navbar -->
-
       <div class="content-wrapper">
-
         <div class="router-view">
           <div class="router-content">
 

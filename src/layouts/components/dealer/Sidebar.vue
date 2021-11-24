@@ -1,5 +1,6 @@
 <template>
-  <div class="side-bar-container">
+  <div
+  class="side-bar-container">
     <div class="lang">
       <img src="@/assets/dealer/img/icons/uz.svg" alt="" />
       Узбек тилига утиш

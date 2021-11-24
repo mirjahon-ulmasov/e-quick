@@ -1,8 +1,10 @@
 <template>
     <div class="wrapper" >
-      <SideBar :style="active ? 'display: none !important' : 'width: 20% !important' "  />
+      <SideBar  :style="active ? 'display: none !important;' : 'width: 20% !important' "  />
        <div class="container1" :style="active ? 'width: 100% !important' : 'width: 80% !important' " >
-         <router-view></router-view>
+              <transition :name="routerTransition" mode="out-in">
+                <router-view @changeRouteTitle="changeRouteTitle" @setAppClasses="(classesStr) => $emit('setAppClasses', classesStr)" />
+              </transition>
        </div>
       <div class="close-side"
         :style="active ? 'left: 0.6%;background: #3e586d;width: 33px;' : 'left: 20%;background: #3e6179;width: 63px;' "
@@ -17,15 +19,23 @@
     </div>
 </template>
 <script>
+import themeConfig         from '@/../themeConfig.js'
 import SideBar from '../components/dealer/Sidebar.vue'
 export default {
     components:{
-      SideBar
+      SideBar,
+      themeConfig
     },
     data(){
       return{
-        active: false
+        active: false,
+        routerTransition  : themeConfig.routerTransition || 'none',
       }
+    },
+    methods: {
+    updateRouterTransition (val) {
+      this.routerTransition = val
+    },
     }
 }
 </script>

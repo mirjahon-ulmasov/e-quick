@@ -1,7 +1,7 @@
 <template>
   <div style="width: 100%;" >
       <div class="row flex">
-        <div class="w-3/5 flex" style="flex-wrap: wrap">
+        <div class="w-3/5 flex" style="flex-wrap: wrap; padding: 20px; padding-left: 35px;">
           <div class="w-5/12">
             <h2 class="cathaed">Выберите категорию</h2>
             <input class="sle" v-model="searchQuery" placeholder="Выберите категорию" />
@@ -18,10 +18,9 @@
           </div>
           <div class="w-5/12 ml-6">
             <h2 class="cathaed">Выберите подкатегорию</h2>
-            <input class="sle" placeholder="Выберите категорию" />
-
+            <input v-model="searchPodCategory" class="sle" placeholder="Выберите категорию" />
             <div class="demo-alignment">
-              <span class="texts"  v-for="(item, i) in podCategory" :key="i"> 
+              <span class="texts"  v-for="(item, i) in resultPodCategory" :key="i"> 
                 <span @click="getProduct(item.id)">
                   {{ item.name }}
                 </span>
@@ -33,9 +32,9 @@
           </div>
           <div class="w-11/12">
             <h2 class="cathaed">Выберите продукт</h2>
-            <input class="large" placeholder="Выберите категорию" />
+            <input class="large" v-model="searchProduct" placeholder="Выберите категорию" />
             <div class="demo-alignment vs-con-loading__container" id="div-with-loading" >
-              <span class="texts"  v-for="(item, i) in products.product.results" :key="i"> 
+              <span class="texts"  v-for="(item, i) in resultProduct" :key="i"> 
                 <span @click="AddCart(item)">
                   {{ item.name }}
                 </span>
@@ -46,7 +45,7 @@
             </div>
           </div>
         </div>
-        <div class="w-1/2" style="background: #f9fafc; padding: 10px 20px">
+        <div class="w-1/2 left-bg">
           <div >
             <div class="flex" style="justify-content: space-between">
               <h2 class="zayhaed">Заявка №: 443215</h2>
@@ -77,6 +76,10 @@
               </svg>
             </div>
             <span class="date"> от 01.11.21 </span>
+            <br>
+            <h5 style="margin-top: 30px" v-if="!carts">
+              No aviable data on your cart, please select products !
+            </h5>
             <vs-table
               ref="table"
               maxHeight="65vh"
@@ -154,14 +157,14 @@
                 </tbody>
               </template>
             </vs-table>
-            <div v-if="carts" class="flex" style="justify-content: space-between">
-              <button @click="AddOrder()" class="offering">
-                <span> Оформить заявку </span>
-              </button>
+            <div v-if="carts">
               <div class="itogo mt-4">
                 <h2 class="text">Итоговая сумма:</h2>
                 <h1 class="prise">{{ carts.total_price }} сум</h1>
               </div>
+              <vs-button @click="AddOrder()" class="offering">
+                <span> Оформить заявку </span>
+              </vs-button>
             </div>
           </div>
           <!-- <div class="imzo"></div> -->
@@ -188,7 +191,7 @@ export default {
     return  this.$store.state.product.carts
     },
     products(){
-    return  this.$store.state.product
+    return  this.$store.state.product.productes.results
     },
      resultQuery() {
       if (this.searchQuery) {
@@ -199,13 +202,22 @@ export default {
         return this.category;
       }
     },
-         resultProduct() {
+    resultProduct() {
       if (this.searchProduct) {
-        return this.category.filter(item => {
-          return this.searchQuery.toLowerCase().split(" ").every(v => item.category.name.toLowerCase().includes(v));
+        return this.products.filter(item => {
+          return this.searchProduct.toLowerCase().split(" ").every(v => item.name.toLowerCase().includes(v));
         });
       } else {
-        return this.category;
+        return this.products;
+      }
+    },
+        resultPodCategory() {
+      if (this.searchPodCategory) {
+        return this.podCategory.filter(item => {
+          return this.searchPodCategory.toLowerCase().split(" ").every(v => item.name.toLowerCase().includes(v));
+        });
+      } else {
+        return this.podCategory;
       }
     }
   },
@@ -218,6 +230,7 @@ export default {
       product: [],
       searchQuery: null,
       searchProduct: null,
+      searchPodCategory: null,
       date: null,
       active: false,
       activeProduct: null,
@@ -273,9 +286,7 @@ export default {
       this.$store.dispatch('product/GetCart')
     },
     toggleDataSidebarOrder (val = false) {
-      this.$store.dispatch('product/GetCart')
       this.PopUpOrder = val
-      this.$store.dispatch('product/GetCart')
     },
     Inc(tr){
       this.edit = true
@@ -433,8 +444,14 @@ color: rgba(58, 159, 209, 1);
 .demo-alignment::-webkit-scrollbar-thumb {
   background: linear-gradient(99.52deg, #3f4f61 -14.96%, #3a9fd1 156.83%);
   border-radius: 7.41868px;
+    width: 3px;
+  margin-right: 6px;
   margin-right: 6px;
 }
+  .demo-alignment::-webkit-scrollbar-track {
+    /* background: linear-gradient(90deg, #5E585C 0%, #000000 100%); */
+border-radius: 0px 0px 7.41868px 7.41868px;
+  }
 .offer-text {
   font-family: Lato;
   font-style: normal;
@@ -516,58 +533,58 @@ color: rgba(58, 159, 209, 1);
   font-size: 15px !important;
   line-height: 19px;
 }
+.itogo{
+    margin-right: 10%;
+}
 .itogo .prise {
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 25px;
-  line-height: 30px;
-  /* identical to box height, or 120% */
-  text-align: center;
-  letter-spacing: 0.333333px;
-  color: #000000;
+font-family: Montserrat;
+font-style: normal;
+font-weight: bold;
+font-size: 34.3583px;
+line-height: 41px;
+/* identical to box height, or 120% */
+color: #222021;
+text-align: end;
+letter-spacing: 0.458111px;
 }
 .itogo .text {
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 15px;
-  line-height: 30px;
-  text-align: start !important;
-  /* identical to box height, or 200% */
+font-family: Montserrat;
+font-style: normal;
+font-weight: bold;
+font-size: 20.615px;
+line-height: 41px;
+color: #3A9FD1;
+/* identical to box height, or 200% */
 
-  text-align: center;
-  letter-spacing: 0.333333px;
-  color: rgba(58, 159, 209, 1);
+text-align: end;
+letter-spacing: 0.458111px;
 }
 .offering {
-  width: 152px;
-  height: 31px;
-  left: calc(50% - 152px / 2 + 326px);
-  top: calc(50% - 31px / 2 + 14.5px);
-
-  background: linear-gradient(90deg, #5e585c 0%, #000000 100%);
+  width: 90%;
+  /* height: 35px; */
+  background: linear-gradient(90deg, #5e585c 0%, #000000 100%) !important;
   border-radius: 5.9434px;
 }
 .offering {
   cursor: pointer;
   margin-top: 30px;
-  font-family: Lato;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 13.8679px;
-  line-height: 18px;
-  padding: 5px 0px;
-  color: rgba(255, 255, 255, 1);
+font-family: Lato;
+font-style: normal;
+font-weight: normal;
+font-size: 13.8679px;
+/* line-height: 18px; */
+/* identical to box height, or 133% */
+
+text-align: center;
+letter-spacing: -0.02em;
+
+color: #FFFFFF;
 }
 </style>
 <style lang="scss" scoped>
     .row {
       height: 100%;
-      padding: 20px;
-      padding-left: 35px;
       width: 100%;
-      padding-right: 0px;
       display: flex;
       overflow-y: scroll;
       &::-webkit-scrollbar {
@@ -576,6 +593,12 @@ color: rgba(58, 159, 209, 1);
       &::-webkit-scrollbar-thumb {
         border-radius: 10px;
         background-color: #234b79;
+      }
+      .left-bg{
+        background: #f9fafc; 
+        padding: 20px 0px 20px 20px; 
+        border-bottom-right-radius: 30px;
+        border-top-right-radius: 30px;
       }
       .imzo {
         background: url("~@/assets/dealer/img/icons/imzo.svg");

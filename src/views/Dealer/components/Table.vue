@@ -1,9 +1,9 @@
 <template>
   <div class="center">
       <vs-table
-              multiple 
               v-model="selected"
               ref="table"
+              multiple
               maxHeight="60vh"
               pagination
               :max-items="itemsPerPage"
@@ -28,7 +28,12 @@
                     v-for="(tr, indextr) in data"
                   >
                     <vs-td>
-                        <p> № {{ tr.order_number }}</p>
+                        <p @click="Open(tr.id)" style="display: flex; align-items: center" > № {{ tr.order_number }}
+                      <feather-icon icon="EyeIcon" 
+                      style="color: #135c81 !important"
+                        svgClasses="h-6 w-5" class="ml-2"
+                           />
+                        </p>
                     </vs-td>
 
                     <vs-td>
@@ -70,33 +75,61 @@
                 </tbody>
               </template>
         </vs-table>
+        <order :isPopUp="PopUp" @closeSidebar="toggleDataSidebar"></order>
   </div>
 </template>
 <script>
+import Order from './OrderItem.vue'
 export default {
   computed: {
     orders(){
     return  this.$store.state.product.orders
     },
-    queriedItems() {
-      return this.$refs.table
-        ? this.$refs.table.queriedResults.length
-        : this.products.length;
+    currentPage () {
+      if (this.isMounted) {
+        return this.$refs.table.currentx
+      }
+      return 0
     },
+    queriedItems () {
+      return this.$refs.table ? this.$refs.table.queriedResults.length : this.orders.length
+    }
+  },
+  components: {
+    Order
   },
   data: () => ({
-    editActive: false,
+    PopUp: false,
     edit: null,
     editProp: {},
     datas: [],
+    isMounted: false,
     search: "",
     allCheck: false,
+    PopUpData: {},
     page: 1,
-    max: 6,
+    max: 100,
     active: 0,
     itemsPerPage: 4,
     selected: [],
   }),
+  methods: {
+    Open (id) {
+    this.$store.dispatch('product/GetOrderItem', id).then(response => {
+        this.PopUpData = response.data
+    })
+      this.toggleDataSidebar(true)
+    },
+        toggleDataSidebar (val = false) {
+      this.$store.dispatch('product/GetOrder')
+      this.PopUp = val
+      this.$store.dispatch('product/GetOrder')
+    },
+  },
+  mounted(){
+    this.GetItem
+    this.isMounted = true
+  },
   created(){
     this.$store.dispatch('product/GetOrder')
   }
