@@ -68,4 +68,15 @@ export default {
         .catch((error) => { reject(error) })
     })
   },
+  GetOrderItem ({ commit }, id) {
+    return new Promise((resolve, reject) => {
+      axios.get('/api/v1/orders/' + localStorage.getItem('Id') + `/${id}`  )
+        .then((response) => {
+          commit('ADD_OrdersItem', response.data)
+          console.log(response.data)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
 }

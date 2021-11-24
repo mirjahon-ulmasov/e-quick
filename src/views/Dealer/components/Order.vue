@@ -2,6 +2,7 @@
     <div>
     <vs-popup
       background-color="rgb(45 39 39 / 70%)"
+      background-color-popup="linear-gradient(90deg, #5E585C 0%, #000000 100%)"
       class=""
       :active.sync="isSidebarActiveLocal"
     >

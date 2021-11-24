@@ -12,7 +12,8 @@
 
     <data-view-sidebar :isSidebarActive="addNewDataSidebar" @closeSidebar="toggleDataSidebar" :data="sidebarData" />
 
-    <vs-table ref="table" multiple v-model="selected" pagination :max-items="itemsPerPage" search :data="products">
+    <vs-table ref="table" multiple v-model="selected" pagination :max-items="itemsPerPage" search 
+    :data="products">
 
       <div slot="header" class="flex flex-wrap-reverse items-center flex-grow justify-between">
 
