@@ -105,7 +105,7 @@ alpha-deploy:
   script:
     - ls -la
     - ssh root@10.7.5.112 "mkdir -p /var/www/e-quick-dealer-front/"
-    - rsync -za -P dist/ test:/var/www/e-quick-dealer-front
+    - rsync -za -P dist/ 10.7.5.112:/var/www/e-quick-dealer-front
   only:
     - alpha
   tags:
