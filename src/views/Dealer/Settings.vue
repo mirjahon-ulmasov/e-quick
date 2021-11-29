@@ -39,6 +39,12 @@
                   <span class="checkmark"></span>
                   Получать еженедельные письма
                 </label>
+                  <div class="switch-container">
+                      <label class="switch" for="checkbox">
+                        <input type="checkbox" id="checkbox" />
+                        <div class="slider round"></div>
+                      </label>
+                    </div>
                  <button class="save-btn">Сохранить настройки</button>
               </div>
             </form>

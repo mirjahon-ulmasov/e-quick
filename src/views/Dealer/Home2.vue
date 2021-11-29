@@ -4,7 +4,13 @@
         <div class="w-3/5 flex" style="flex-wrap: wrap; padding: 20px; padding-left: 35px;">
           <div class="w-5/12">
             <h2 class="cathaed">Выберите категорию</h2>
-            <input class="sle" v-model="searchQuery" placeholder="Выберите категорию" />
+               <v-select 
+               class="sle"
+               v-model="selected" 
+                @input="getCat" 
+               :options="categoryName" 
+               label="categoryName" />
+            <!-- <input class="sle" v-model="searchQuery" placeholder="Выберите категорию" /> -->
             <div class="demo-alignment">
               <span class="texts" v-for="(item, i) in resultQuery" :key="i">
                  <span @click="getCat(item.id)">
@@ -18,7 +24,8 @@
           </div>
           <div class="w-5/12 ml-6">
             <h2 class="cathaed">Выберите подкатегорию</h2>
-            <input v-model="searchPodCategory" class="sle" placeholder="Выберите категорию" />
+            <v-select v-model="selectedPod" :options="podCategory" @input="getProduct" label="podCategory" />
+            <!-- <input v-model="searchPodCategory" class="sle" placeholder="Выберите категорию" /> -->
             <div class="demo-alignment">
               <span class="texts"  v-for="(item, i) in resultPodCategory" :key="i"> 
                 <span @click="getProduct(item.id)">
@@ -32,8 +39,12 @@
           </div>
           <div class="w-11/12 mt-4">
             <h2 class="cathaed">Выберите продукт</h2>
-            <input class="large" v-model="searchProduct" placeholder="Выберите категорию" />
-            <div class="demo-alignment vs-con-loading__container" id="div-with-loading" >
+            <v-select v-model="selectedProduct" 
+            :options="product" 
+            @input="AddCart" 
+            label="product" />
+            <!-- <input class="large" v-model="searchProduct" placeholder="Выберите категорию" /> -->
+            <!-- <div class="demo-alignment vs-con-loading__container" id="div-with-loading" >
               <span class="texts"  v-for="(item, i) in resultProduct" :key="i"> 
                 <span @click="AddCart(item)">
                   {{ item.name }}
@@ -42,7 +53,7 @@
                 <span class="texts" v-if="products"  style="color: red !important">
                       No aviable data
                  </span>
-            </div>
+            </div> -->
             <div class="flex mt-6">
                <div class="w-2/5">
                <svg width="100%" height="81" viewBox="0 0 228 81" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -259,12 +270,15 @@
 <script>
 import AddCart from './components/AddCart.vue'
 import Order from './components/Order.vue'
-import SideBar from "./components/Sidebar.vue";
+import vSelect from 'vue-select'
 export default {
   name: "Home",
   computed: {
     category(){
     return  this.$store.state.category.categories
+    },
+    categoryName(){
+    return  this.$store.state.category.categories.map(item => item.name)
     },
     carts(){
     return  this.$store.state.product.carts
@@ -275,7 +289,7 @@ export default {
      resultQuery() {
       if (this.searchQuery) {
         return this.category.filter(item => {
-          return this.searchQuery.toLowerCase().split(" ").every(v => item.name.toLowerCase().includes(v));
+          return this.searchQuery.toLowerCase().split(" ").every(v => item.category.name.toLowerCase().includes(v));
         });
       } else {
         return this.category;
@@ -315,7 +329,12 @@ export default {
       activeProduct: null,
       popupActive: false,
       popupActive1: false,
-      podCategory: null,
+      podCategory: [],
+      selected: null,
+      Cates: null,
+      selectedPod: null,
+      // categoryName: "",
+      selectedProduct: null,
       incQuan: null,
       incProductId: null,
       currentEditId: null,
@@ -324,36 +343,44 @@ export default {
   components: {
     AddCart,
     Order,
-    SideBar,
+    vSelect
   },
   methods: {
-    getCat(id){
-      this.$vs.loading({
-        container: '#div-with-loading',
-        scale: 0.6,
-        color: 'rgb(62, 97, 121)',
-      })
-    let category = this.category.find(company => company.id === id)
-    this.podCategory = category ? category.children : null;
-    this.$store.dispatch('product/GetProduct', id).then(response => {
-      this.$vs.loading.close('#div-with-loading > .con-vs-loading')
+    getCat(name){
+      // this.$vs.loading({
+      //   container: '#div-with-loading',
+      //   scale: 0.6,
+      //   color: 'rgb(62, 97, 121)',
+      // })
+    let category = this.category.find(company => company.name === name)
+    this.podCategory =  category.children.map(x => x.name)
+    console.log(this.podCategory, 'cjnccswcwcwcw')
+    this.Cates = category ? category.children : null;
+    console.log(this.podCategory, 'wduihwfiudhwfyufwfwfwfw')
+    this.$store.dispatch('product/GetProduct', this.podCategory.id).then(response => {
+      // this.$vs.loading.close('#div-with-loading > .con-vs-loading')
     })
     },
-    getProduct(id){
-      this.$vs.loading({
-        container: '#div-with-loading',
-        scale: 0.6,
-        color: 'rgb(62, 97, 121)',
-      })
-     this.$store.dispatch('product/GetProduct', id).then(response =>{
-     this.product = response.data
-     console.log(this.products, 'ollll')
-     this.$vs.loading.close('#div-with-loading > .con-vs-loading')
+    getProduct(name){
+      // this.$vs.loading({
+      //   container: '#div-with-loading',
+      //   scale: 0.6,
+      //   color: 'rgb(62, 97, 121)',
+      // })
+      console.log(this.Cates, 'what')
+     let category = this.Cates.find(company => company.name === name)
+    console.log(category, 'idss')
+     this.$store.dispatch('product/GetProduct', category.id).then(response =>{
+     this.product = response.data.results.map(x => x.name)
+     console.log(this.product, 'ollll')
+    //  this.$vs.loading.close('#div-with-loading > .con-vs-loading')
      })
     },
     AddCart (data) {
-      // this.sidebarData = JSON.parse(JSON.stringify(this.blankData))
-      this.PopUpData = data
+      console.log(data)
+      let category = this.products.find(company => company.name === data)
+      console.log(category)
+      this.PopUpData = category
       this.toggleDataSidebar(true)
     },
       AddOrder() {
@@ -403,12 +430,14 @@ export default {
     }
   },
   created(){
-     this.$store.dispatch('product/GetCart')
     this.$store.dispatch('category/GetItem')
+     this.$store.dispatch('product/GetCart')
   },
   mounted(){
   this.$store.dispatch('product/GetProduct')
+  this.$store.dispatch('category/GetItem')
    this.$store.dispatch('product/GetCart')
+   this.AddCart()
   }
 }
 </script>

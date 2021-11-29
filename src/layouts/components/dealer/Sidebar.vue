@@ -54,7 +54,8 @@
         <p class="email">oybek.tursunov@akfagroup.com</p>
       </div>
     </div>
-    <router-link
+       <div class="link">
+             <router-link
       v-for="(routes, i) in route"
       :key="i"
       class="route"
@@ -62,9 +63,10 @@
     >
       {{ routes.title }}
     </router-link>
+       </div>
     <div
       class="flex"
-      style="height: 100%; align-items: flex-end; margin-bottom: 25px"
+      style="align-items: flex-end; margin-bottom: 10px"
     >
       <feather-icon
         style="color: #cfcfcf; border-radius: 2px"
@@ -92,6 +94,9 @@ export default {
         { to: "/dealer/settings", title: "Настройки" },
         { to: "/dealer/settings", title: "WHS остатки" },
       ],
+      settings: {
+        maxScrollbarLength: 5
+      },
     };
   },
   computed: {
@@ -107,7 +112,7 @@ export default {
       console.log('okkk')
       this.$router.push('/login')
     }
-  }
+  },
 };
 </script>
 <style scoped>
@@ -147,6 +152,12 @@ div.side-bar-container {
   margin: 0px 20px;
   display: flex;
   flex-direction: column;
+  .link{
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    height: 100%;
+  }
   .end {
     font-family: Montserrat;
     font-style: normal;
@@ -184,7 +195,7 @@ div.side-bar-container {
     color: #ffffff;
   }
   .logo {
-    width: 220px;
+    width: 100%;
     margin: 50px 0px 20px 0px;
   }
   .block {
@@ -261,6 +272,18 @@ div.side-bar-container {
     }
   }
 }
+  .link::-webkit-scrollbar {
+  width: 3px;
+  // margin-right: 6px;
+}
+.link::-webkit-scrollbar-thumb {
+  background: white;
+  border-radius: 7px;
+}
+ .link::-webkit-scrollbar-track {
+//  background: linear-gradient(90deg, #5E585C 0%, #000000 100%);
+border-radius: 0px 0px 7.41868px 7.41868px;
+  }
 .route {
   margin: 15px 0px;
   font-style: normal;

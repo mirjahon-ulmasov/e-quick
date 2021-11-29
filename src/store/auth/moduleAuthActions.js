@@ -8,6 +8,7 @@ export default {
         .then(response => {
           console.log(response)
           if (response) {
+            // Decode jwt token
             function parseJwt(token) {
               try {
                 // Get Token Header
@@ -29,13 +30,13 @@ export default {
                 return false;
               }
             }
-            // Set bearer token in axios
+            //  User Info
             const userInfo = parseJwt(response.data.access_token)
-            // const userInfo = 'dealer'
+            // Set userId
             localStorage.setItem('Id', userInfo.id)
-            console.log(localStorage.getItem('Id'))
-            console.log(userInfo)
+            // Set userRole in mutations
             commit('UPDATE_USER_INFO', userInfo,  {root: true})
+            // Set bearer token in axios
             commit('SET_BEARER', response.data.access_token)
             resolve(response)
           } else {
@@ -45,9 +46,4 @@ export default {
         .catch(error => { reject(error) })
     })
   },
-  // fetchAccessToken () {
-  //   return new Promise((resolve) => {
-  //     jwt.refreshToken().then(response => { resolve(response) })
-  //   })
-  // }
 }

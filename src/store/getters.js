@@ -2,7 +2,6 @@ const getters = {
 
   // COMPONENT
   // vx-autosuggest
-  // starredPages: state => state.navbarSearchAndPinList.data.filter((page) => page.highlightAction),
   windowBreakPoint: state => {
 
     // This should be same as tailwind. So, it stays in sync with tailwind utility classes
