@@ -5,9 +5,9 @@ export default {
   SET_PRODUCTS (state, admins) {
     state.admins = admins
   },
-  // SET_LABELS(state, labels) {
-  //   state.eventLabels = labels
-  // },
+  SET_ROLES(state, roles) {
+    state.roles = roles
+  },
   UPDATE_PRODUCT (state, admins) {
     const productIndex = state.admins.findIndex((p) => p.id === admins.id)
     Object.assign(state.admins[productIndex], admins)

@@ -1,11 +1,11 @@
 <template>
-  <div style="width: 100%;" >
+  <div style="width: 100%;">
       <div class="row flex">
         <div class="w-3/5 flex" style="flex-wrap: wrap; padding: 20px; padding-left: 35px;">
           <div class="w-5/12">
             <h2 class="cathaed">Выберите категорию</h2>
-            <input class="sle" v-model="searchQuery" placeholder="Выберите категорию" />
-            <div class="demo-alignment">
+            <input class="sle" @click="categoryPop = true" v-model="activeCategory" placeholder="Выберите категорию" />
+            <!-- <div class="demo-alignment">
               <span class="texts" v-for="(item, i) in resultQuery" :key="i">
                  <span @click="getCat(item.id)">
                    {{ item.name }} 
@@ -14,12 +14,12 @@
                 <span class="texts" v-if="resultQuery === null"  style="color: red !important">
                       No aviable data
                  </span>
-            </div>
+            </div> -->
           </div>
           <div class="w-5/12 ml-6">
             <h2 class="cathaed">Выберите подкатегорию</h2>
-            <input v-model="searchPodCategory" class="sle" placeholder="Выберите категорию" />
-            <div class="demo-alignment">
+            <input v-model="activePod" @click="podcategoryPop = true" class="sle" placeholder="Выберите категорию" />
+            <!-- <div class="demo-alignment">
               <span class="texts"  v-for="(item, i) in resultPodCategory" :key="i"> 
                 <span @click="getProduct(item.id)">
                   {{ item.name }}
@@ -28,12 +28,12 @@
                   <span class="texts" v-if="podCategory == null"  style="color: red !important">
                       No aviable data
                  </span>
-            </div>
+            </div> -->
           </div>
-          <div class="w-11/12 mt-4">
+          <div class="w-11/12 mt-4" style="margin-top: -1% !important;"> 
             <h2 class="cathaed">Выберите продукт</h2>
             <input class="large" v-model="searchProduct" placeholder="Выберите категорию" />
-            <div class="demo-alignment vs-con-loading__container" id="div-with-loading" >
+            <div class="demo-alignment vs-con-loading__container" style="height: 43vh !important" id="div-with-loading" >
               <span class="texts"  v-for="(item, i) in resultProduct" :key="i"> 
                 <span @click="AddCart(item)">
                   {{ item.name }}
@@ -251,6 +251,38 @@
           </div>
           <!-- <div class="imzo"></div> -->
         </div>
+        <vs-popup 
+              background-color="rgb(45 39 39 / 70%)"
+      background-color-popup="linear-gradient(90deg, #5E585C 0%, #000000 100%)"
+        :active.sync="categoryPop">
+         <input class="sle" v-model="searchQuery" placeholder="Выберите категорию" />
+            <div class="demo-alignment">
+              <span class="texts" v-for="(item, i) in resultQuery" :key="i">
+                 <span @click="getCat(item)">
+                   {{ item.name }} 
+                 </span>
+              </span>
+                <span class="texts" v-if="resultQuery === null"  style="color: red !important">
+                      No aviable data
+                 </span>
+            </div>
+    </vs-popup>
+            <vs-popup 
+            background-color="rgb(45 39 39 / 70%)"
+             background-color-popup="linear-gradient(90deg, #5E585C 0%, #000000 100%)"
+            :active.sync="podcategoryPop">
+            <input v-model="searchPodCategory"  class="sle" placeholder="Выберите категорию" />
+            <div class="demo-alignment">
+              <span class="texts"  v-for="(item, i) in resultPodCategory" :key="i"> 
+                <span @click="getProduct(item)">
+                  {{ item.name }}
+                </span>
+                 </span>
+                  <span class="texts" v-if="podCategory == null"  style="color: red !important">
+                      No aviable data
+                 </span>
+            </div>
+    </vs-popup>
       </div>
     <add-cart :isPopUp="PopUp" @closeSidebar="toggleDataSidebar" :data="PopUpData" ></add-cart>
     <order :isPopUpOrder="PopUpOrder" @closeSidebarOrder="toggleDataSidebarOrder"></order>
@@ -302,9 +334,13 @@ export default {
   },
   data() {
     return {
+        categoryPop: false,
+        podcategoryPop: false,
       edit: false,
       PopUpData: {},
       PopUp: false,
+      activeCategory: null,
+      activePod: null,
       PopUpOrder: false,
       product: [],
       searchQuery: null,
@@ -327,29 +363,33 @@ export default {
     SideBar,
   },
   methods: {
-    getCat(id){
-      this.$vs.loading({
-        container: '#div-with-loading',
-        scale: 0.6,
-        color: 'rgb(62, 97, 121)',
-      })
-    let category = this.category.find(company => company.id === id)
+    getCat(data){
+    //   this.$vs.loading({
+    //     container: '#div-with-loading',
+    //     scale: 0.6,
+    //     color: 'rgb(62, 97, 121)',
+    //   })
+    this.activeCategory = data.name
+      console.log(data.id)
+    let category = this.category.find(company => company.id === data.id)
     this.podCategory = category ? category.children : null;
-    this.$store.dispatch('product/GetProduct', id).then(response => {
-      this.$vs.loading.close('#div-with-loading > .con-vs-loading')
-    })
+    this.$store.dispatch('product/GetProduct', data.id)
+    this.categoryPop = false
+    // this.podcategoryPop = true
     },
-    getProduct(id){
-      this.$vs.loading({
-        container: '#div-with-loading',
-        scale: 0.6,
-        color: 'rgb(62, 97, 121)',
-      })
-     this.$store.dispatch('product/GetProduct', id).then(response =>{
+    getProduct(data){
+    //   this.$vs.loading({
+    //     container: '#div-with-loading',
+    //     scale: 0.6,
+    //     color: 'rgb(62, 97, 121)',
+    //   })
+    this.activePod = data.name
+     this.$store.dispatch('product/GetProduct', data.id).then(response =>{
      this.product = response.data
      console.log(this.products, 'ollll')
-     this.$vs.loading.close('#div-with-loading > .con-vs-loading')
+    //  this.$vs.loading.close('#div-with-loading > .con-vs-loading')
      })
+     this.podcategoryPop = false
     },
     AddCart (data) {
       // this.sidebarData = JSON.parse(JSON.stringify(this.blankData))
@@ -740,7 +780,7 @@ color: #FFFFFF;
           content: "";
           display: block;
           position: relative;
-          background: url("~@/assets/dealer/img/icons/search.svg");
+          background: url("~@/assets/dealer/img/icons/ham.svg");
           background-repeat: no-repeat;
           background-position: 5%;
           background-size: 7%;
@@ -772,7 +812,7 @@ color: #FFFFFF;
           content: "";
           display: block;
           position: relative;
-          background: url("~@/assets/dealer/img/icons/search.svg");
+          background: url("~@/assets/dealer/img/icons/ham.svg");
           background-repeat: no-repeat;
           background-position: 3%;
           background-size: 4%;
@@ -891,5 +931,36 @@ color: #FFFFFF;
         }
       }
     }
-    
+          input.sle {
+        position: relative;
+        margin-top: 12px !important;
+        background: #ffffff;
+        box-shadow: 0px 3.70934px 12.9827px rgba(0, 0, 0, 0.1);
+        border-radius: 7.41868px;
+        width: 100%;
+        border: none !important;
+        padding-right: 20px;
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 13.91px;
+        padding-left: 39px;
+        // width: 230px;
+        line-height: 17px;
+        height: 55px;
+        color: rgba(58, 159, 209, 1) !important;
+        &::placeholder {
+          background-position: 10%;
+          color: rgba(58, 159, 209, 1) !important;
+        }
+        &:nth-child(2) {
+          content: "";
+          display: block;
+          position: relative;
+          background: url("~@/assets/dealer/img/icons/search.svg");
+          background-repeat: no-repeat;
+          background-position: 5%;
+          background-size: 7%;
+        }
+          }
 </style>

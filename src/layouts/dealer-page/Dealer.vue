@@ -60,17 +60,21 @@ div.wrapper{
     width: 100%;
     height: 100vh;
     margin: 0;
+    -webkit-transition: opacity .7s;
+      transition: opacity .7s;
     padding: 20px !important;
     padding: 0;
     background: linear-gradient(99.52deg, #3F4F61 -14.96%, #3A9FD1 156.83%);
     display: flex;
     justify-content: center;
+    // transition: margin-left 0.5s;
     align-items: center;
     div.container1{
     // width: 80% !important;
     height: 100%;
     padding: 0px !important;
     margin-right: 0;
+    transition: margin-left 0.5s;
     // margin-left: 0;
     background: white;
     display: flex;

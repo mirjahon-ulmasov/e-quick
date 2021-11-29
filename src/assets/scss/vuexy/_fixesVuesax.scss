@@ -221,7 +221,11 @@
         border-color: rgba(0, 0, 0, 0.2) !important;
       }
       .vs-button-primary.vs-button-filled{
-           background: #f9896b !important;
+           background: #1c6088 !important;
+           box-shadow: none !important;
+      }
+      .vs-button-primary.vs-button-filled:hover{
+        box-shadow: none !important;
       }
     }
   }

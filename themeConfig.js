@@ -24,7 +24,6 @@ const themeConfig = {
   // Not required yet - WIP
   userInfoLocalStorageKey: 'userInfo'
 
-  // NOTE: themeTour will be disabled in screens < 1200. Please refer docs for more info.
 }
 
 import Vue from 'vue'

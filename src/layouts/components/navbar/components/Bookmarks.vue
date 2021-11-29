@@ -34,7 +34,6 @@
         <vx-auto-suggest
           ref="bookmarkAutoSuggest"
           :autoFocus="true"
-          :data="navbarSearchAndPinList"
           :initalData="{pages: starredPagesLimited.concat(starredPagesMore)}"
           :searchLimit="5"
           placeholder="Explore Vuexy..."
@@ -92,9 +91,6 @@ export default {
     }
   },
   computed: {
-    navbarSearchAndPinList () {
-      return {pages: this.$store.state.navbarSearchAndPinList['pages']}
-    },
     starredPages () {
       return this.$store.state.starredPages
     },

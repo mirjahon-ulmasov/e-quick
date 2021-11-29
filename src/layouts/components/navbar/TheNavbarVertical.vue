@@ -7,16 +7,8 @@
 
         <!-- SM - OPEN SIDEBAR BUTTON -->
         <feather-icon class="sm:inline-flex xl:hidden cursor-pointer p-2" icon="MenuIcon" @click.stop="showSidebar" />
-
-        <!-- <bookmarks :navbarColor="navbarColor" v-if="windowWidth >= 992" /> -->
         <profile-drop-down />
         <vs-spacer />
-
-        <!-- <i18n />
-
-        <search-bar />
-
-        <cart-drop-down /> -->
         <select name="select" id="vs-select">
           <option value="1">Choose</option>
            <option   value="1">item</option>
@@ -39,7 +31,6 @@
 <script>
 import Bookmarks            from './components/Bookmarks.vue'
 import I18n                 from './components/I18n.vue'
-import SearchBar            from './components/SearchBar.vue'
 import CartDropDown         from './components/CartDropDown.vue'
 import NotificationDropDown from './components/NotificationDropDown.vue'
 import ProfileDropDown      from './components/ProfileDropDown.vue'
@@ -55,7 +46,6 @@ export default {
   components: {
     Bookmarks,
     I18n,
-    SearchBar,
     CartDropDown,
     NotificationDropDown,
     ProfileDropDown

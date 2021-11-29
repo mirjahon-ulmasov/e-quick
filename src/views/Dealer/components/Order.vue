@@ -58,7 +58,7 @@
           >
             Тип доставки:
           </h3>
-          <button @click="submitData" class="confirmac">Подтвердить</button>
+          <vs-button @click="submitData" class="confirmac">Подтвердить</vs-button>
         </div>
         <div class="w-1/2">
           <input
@@ -76,9 +76,9 @@
             <option value="THROUGH_THE_BASE" >ЧЕРЕЗ БАЗУ</option>
             <option value="DIRECT_DELIVERY" >ПРЯМАЯ ДОСТАВКА</option>
           </select>
-          <button class="close" 
+          <vs-button class="close" 
           style="margin-top: 25px !important"
-          @click="isSidebarActiveLocal = false" >Закрыть</button>
+          @click="isSidebarActiveLocal = false" >Закрыть</vs-button>
         </div>
       </div>
     </vs-popup>
@@ -240,7 +240,7 @@ color: rgba(58, 159, 209, 1);
   margin-top: 45px !important;
   width: 289.15px;
   height: 37.31px;
-  background: linear-gradient(102.4deg, #3f4f61 -160.6%, #3a9fd1 156.82%);
+  background: linear-gradient(102.4deg, #3f4f61 -160.6%, #3a9fd1 156.82%) !important;
   border-radius: 3.73099px;
   font-family: Lato;
   font-style: normal;
@@ -253,6 +253,9 @@ color: rgba(58, 159, 209, 1);
   letter-spacing: -0.02em;
 
   color: #ffffff;
+}
+.confirmac:hover{
+  box-shadow: none !important;
 }
 .picker {
 padding-left: 15px;
@@ -288,7 +291,7 @@ padding-left: 15px;
   width: 289.15px;
   height: 37.31px;
 
-  background: #f2f2f2;
+  background: #f2f2f2 !important;
   border-radius: 5.18092px;
   font-family: Lato;
   font-style: normal;
@@ -300,6 +303,9 @@ padding-left: 15px;
   text-align: center;
   letter-spacing: -0.02em;
 
-  color: #000000;
+  color: #000000 !important;
+}
+.close:hover{
+  box-shadow: none !important;
 }
 </style>
