@@ -13,8 +13,9 @@ export default {
   },
   fetchDataListItems ({ commit }) {
     return new Promise((resolve, reject) => {
-      axios.get('/api/admins/admins')
+      axios.get('/api/v1/users')
         .then((response) => {
+          console.log(response)
           commit('SET_PRODUCTS', response.data)
           resolve(response)
         })
