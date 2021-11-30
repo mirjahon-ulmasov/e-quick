@@ -10,13 +10,12 @@
               :data="orders"
             >
               <template slot="thead">
-                <vs-th sort-key="name">Заявка</vs-th>
-                <vs-th sort-key="Наименование_онлайн_савдо">Завод</vs-th>
-                <vs-th sort-key="Завод">Продукт</vs-th>
-                <vs-th sort-key="Баланс">Дата</vs-th>
-                <vs-th sort-key="Категория">Статус</vs-th>
-                <vs-th sort-key="Категория">Сумма(в сум)</vs-th>
-                <vs-th sort-key="Категория">Дата (доставки)</vs-th>
+                <vs-th sort-key="order_number">Заявка</vs-th>
+                <vs-th sort-key="total_product">Продукт</vs-th>
+                <vs-th sort-key="date_ordered">Дата</vs-th>
+                <vs-th sort-key="status">Статус</vs-th>
+                <vs-th sort-key="total_price">Сумма(в сум)</vs-th>
+                <vs-th sort-key="delivery_date">Дата (доставки)</vs-th>
                 <vs-th sort-key="Категория">Действие</vs-th>
               </template>
 
@@ -35,14 +34,9 @@
                            />
                         </p>
                     </vs-td>
-
-                    <vs-td>
-                      <p>{{ tr.username }}</p>
-                    </vs-td>
-
-                    <vs-td>
-                      <p>
-                        {{ tr.id }}
+                    <vs-td >
+                      <p style="padding-left: 10px"  >
+                        {{ tr.total_product }}
                       </p>
                     </vs-td>
                     <vs-td>
@@ -83,7 +77,7 @@ import Order from './OrderItem.vue'
 export default {
   computed: {
     orders(){
-    return  this.$store.state.product.orders
+    return  this.$store.state.product.orders.reverse()
     },
     currentPage () {
       if (this.isMounted) {

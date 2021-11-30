@@ -1,7 +1,7 @@
 <template>
     <div style="width: 100%;" >
             <div class="container-body">
-                          <div class="container-header">
+          <div class="container-header">
                 <div class="card">
                     <div class="icon">
                       <img src="~@/assets/dealer/img/icons/icon-bar-chart-2.svg" alt="">
@@ -183,6 +183,7 @@ export default {
         padding: 25px;
       width: 100%;
       height: 80%;
+      overflow: scroll;
       .head{
         font-family: Montserrat;
 font-style: normal;

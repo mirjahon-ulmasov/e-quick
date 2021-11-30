@@ -183,7 +183,7 @@
               <template slot="thead">
                 <vs-th sort-key="name">№</vs-th>
                 <vs-th
-                  sort-key="Наименование_онлайн_савдо"
+                  sort-key="id"
                   style="
                     border-left: 2px solid #3a9fd1 !important;
                     border-right: 2px solid #3a9fd1 !important;

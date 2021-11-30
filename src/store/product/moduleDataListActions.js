@@ -52,7 +52,7 @@ export default {
   //  Order Cart items
   Order ({ commit }, item) {
     return new Promise((resolve, reject) => {
-      axios.post('/api/v1/orders/checkout/', (item))
+      axios.post('/api/v1/orders/checkout', (item))
         .then((response) => {
           // commit('UPDATE_PRODUCT', response.data)
           resolve(response)
@@ -63,7 +63,7 @@ export default {
   // Get ordered cart lists
   GetOrder ({ commit }, item) {
     return new Promise((resolve, reject) => {
-      axios.get('/api/v1/orders/' + localStorage.getItem('Id') + '/' )
+      axios.get('/api/v1/orders/' + localStorage.getItem('Id') )
         .then((response) => {
           commit('ADD_Orders', response.data)
           console.log(response.data)
@@ -75,7 +75,7 @@ export default {
   // Get ordered Cart list items
   GetOrderItem ({ commit }, id) {
     return new Promise((resolve, reject) => {
-      axios.get('/api/v1/orders/' + localStorage.getItem('Id') + `/${id}/`  )
+      axios.get('/api/v1/orders/' + localStorage.getItem('Id') + `/${id}`  )
         .then((response) => {
           commit('ADD_OrdersItem', response.data)
           console.log(response.data)

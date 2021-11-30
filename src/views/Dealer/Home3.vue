@@ -5,30 +5,10 @@
           <div class="w-5/12">
             <h2 class="cathaed">Выберите категорию</h2>
             <input class="sle" @click="categoryPop = true" v-model="activeCategory" placeholder="Выберите категорию" />
-            <!-- <div class="demo-alignment">
-              <span class="texts" v-for="(item, i) in resultQuery" :key="i">
-                 <span @click="getCat(item.id)">
-                   {{ item.name }} 
-                 </span>
-              </span>
-                <span class="texts" v-if="resultQuery === null"  style="color: red !important">
-                      No aviable data
-                 </span>
-            </div> -->
           </div>
           <div class="w-5/12 ml-6">
             <h2 class="cathaed">Выберите подкатегорию</h2>
             <input v-model="activePod" @click="podcategoryPop = true" class="sle" placeholder="Выберите категорию" />
-            <!-- <div class="demo-alignment">
-              <span class="texts"  v-for="(item, i) in resultPodCategory" :key="i"> 
-                <span @click="getProduct(item.id)">
-                  {{ item.name }}
-                </span>
-                 </span>
-                  <span class="texts" v-if="podCategory == null"  style="color: red !important">
-                      No aviable data
-                 </span>
-            </div> -->
           </div>
           <div class="w-11/12 mt-4" style="margin-top: -1% !important;"> 
             <h2 class="cathaed">Выберите продукт</h2>
@@ -74,9 +54,6 @@
 </clipPath>
 </defs>
                 </svg>
-
-               <!-- <div class="weather">
-               </div> -->
                </div>
                <div class="w-3/5">
                <svg width="100%" height="90" viewBox="0 0 376 106" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -170,9 +147,9 @@
               :data="carts.items"
             >
               <template slot="thead">
-                <vs-th sort-key="name">№</vs-th>
+                <vs-th sort-key="id">№</vs-th>
                 <vs-th
-                  sort-key="Наименование_онлайн_савдо"
+                  sort-key="product_name"
                   style="
                     border-left: 2px solid #3a9fd1 !important;
                     border-right: 2px solid #3a9fd1 !important;
@@ -180,11 +157,11 @@
                   >Наименования</vs-th
                 >
                 <vs-th
-                  sort-key="Завод"
+                  sort-key="quantity"
                   style="border-right: 2px solid #3a9fd1 !important"
                   >Количество</vs-th
                 >
-                <vs-th sort-key="Баланс">Цена (сум)</vs-th>
+                <vs-th sort-key="total_price">Цена (сум)</vs-th>
               </template>
               <template slot-scope="{ data }" class="scr">
                 <tbody>
@@ -202,7 +179,7 @@
                         border-right: 2px solid #3a9fd1 !important;
                       "
                     >
-                      <p>{{ tr.product_id }}</p>
+                      <p>{{ tr.product_name }}</p>
                     </vs-td>
                     <vs-td style="border-right: 2px solid #3a9fd1 !important">
                     <div  class="flex">
@@ -232,7 +209,7 @@
                     </vs-td>
                     <vs-td>
                       <p class="prise">
-                        {{ tr.price }}
+                        {{ tr.total_price }}
                       </p>
                     </vs-td>
                   </vs-tr>
@@ -407,7 +384,7 @@ export default {
     },
     toggleDataSidebarOrder (val = false) {
       this.PopUpOrder = val
-      this.carts = null
+
     },
     Inc(tr){
       this.edit = true

@@ -3,9 +3,9 @@ import axios from '@/axios.js'
 export default {
   addItem ({ commit }, item) {
     return new Promise((resolve, reject) => {
-      axios.post('/api/v1/users/', {item})
+      axios.post('/api/v1/users', (item))
         .then((response) => {
-          commit('ADD_ITEM', Object.assign(item, {id: response.data.id}))
+          commit('ADD_User', Object.assign(item, {id: response.data.id}))
           resolve(response)
         })
         .catch((error) => { reject(error) })
@@ -16,7 +16,7 @@ export default {
       axios.get('/api/v1/users')
         .then((response) => {
           console.log(response)
-          commit('SET_PRODUCTS', response.data)
+          commit('SET_User', response.data)
           resolve(response)
         })
         .catch((error) => { reject(error) })
@@ -24,9 +24,9 @@ export default {
   },
   updateItem ({ commit }, item) {
     return new Promise((resolve, reject) => {
-      axios.post(`/api/v1/users/${item.id}`, {item})
+      axios.put(`/api/v1/users/${item.id}`, (item))
         .then((response) => {
-          commit('UPDATE_PRODUCT', response.data)
+          commit('UPDATE_User', response.data)
           resolve(response)
         })
         .catch((error) => { reject(error) })
@@ -46,7 +46,7 @@ export default {
     return new Promise((resolve, reject) => {
       axios.get('/api/v1/allowed_roles')
         .then((response) => {
-          commit('SET_ROLES', response.data)
+          commit('SET_Roles', response.data)
           resolve(response)
         })
         .catch((error) => { reject(error) })
