@@ -52,7 +52,7 @@ export default {
   //  Order Cart items
   Order ({ commit }, item) {
     return new Promise((resolve, reject) => {
-      axios.post('/api/v1/orders/checkout/', (item))
+      axios.post('/api/v1/orders/checkout', (item))
         .then((response) => {
           // commit('UPDATE_PRODUCT', response.data)
           resolve(response)
