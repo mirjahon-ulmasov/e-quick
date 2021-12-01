@@ -8,7 +8,7 @@
         <div class="form__inputs">
             <!-- ROle -->
         <vs-select v-model="position"  placeholder="Role" data-vv-validate-on="blur" class="mt-5 w-full" name="role" v-validate="'required'" >
-          <vs-select-item :key="item.id" :value="item.role" :text="item.role" v-for="item in roles" />
+          <vs-select-item :key="item" :value="item" :text="item" v-for="item in roles" />
         </vs-select>
          <span class="text-danger text-sm" v-show="errors.has('role')">{{ errors.first('role') }}</span>
         <!-- Full name -->

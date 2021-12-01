@@ -503,6 +503,7 @@ export default {
   methods: {
     getUser(id){
       this.$store.dispatch("addUser/fetchUserById", id)
+      console.log(id)
     this.activeUser = this.company.find(x => x.id === id)
     },
     addNewData () {

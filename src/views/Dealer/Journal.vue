@@ -46,6 +46,15 @@
               <h2 class="head">
                 Журнал последних заявок:
               </h2>
+<<<<<<< HEAD
+=======
+              <div class=" export" >
+                <img width="25px" src="@/assets/images/file-icons/xls.png" alt="">
+                <h3 class="exp">
+                 Экспортировать
+                </h3>
+              </div>
+>>>>>>> 85e796baf97bdaa0347ce6b19eaa0ded7b392ff9
                 <Table />
             </div>
             <div class="container-footer">
