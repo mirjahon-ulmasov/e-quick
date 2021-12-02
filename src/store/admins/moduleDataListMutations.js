@@ -12,10 +12,6 @@ export default {
     const productIndex = state.admins.findIndex((p) => p.id === admins.id)
     Object.assign(state.admins[productIndex], admins)
   },
-  REMOVE_User (state, itemId) {
-    const ItemIndex = state.admins.findIndex((p) => p.id === itemId)
-    state.admins.splice(ItemIndex, 1)
-  },
   SET_UserById (state, detail){
     state.detail = detail
   }

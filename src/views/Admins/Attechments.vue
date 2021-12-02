@@ -310,7 +310,7 @@
                 color: #000000;
               "
             >
-              Where a payment provider offers multiple types
+              {{ activeUser.username }}
             </p>
           </div>
         </div>
@@ -458,7 +458,7 @@ export default {
       return 0
     },
     admins () {
-      return this.$store.state.addUser.admins
+      return this.$store.state.addUser.admins.reverse()
     },
     queriedItems () {
       return this.$refs.table ? this.$refs.table.queriedResults.length : this.products.length

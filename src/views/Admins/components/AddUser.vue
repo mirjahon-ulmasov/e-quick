@@ -25,14 +25,14 @@
           ref="password"
           type="password"
           data-vv-validate-on="blur"
-          v-validate="'required|min:6|max:10'" />
+          v-validate="'required|min:3|max:10'" />
           <span class="text-danger text-sm" v-show="errors.has('password')">{{ errors.first('password') }}</span>
         <!-- Confrim -->
           <input v-model="confirm" 
           placeholder="Confirm Password" 
           name="confirm" 
           type="password"
-          v-validate="'min:6|max:10|confirmed:password'"
+          v-validate="'min:3|max:10|confirmed:password'"
           data-vv-validate-on="blur"
           data-vv-as="password" />
           <span class="text-danger text-sm" v-show="errors.has('confirm')">{{ errors.first('confirm') }}</span>
@@ -41,6 +41,10 @@
           <span class="text-danger text-sm" v-show="errors.has('email')">{{ errors.first('email') }}</span>
            <input v-model="phone" type="text" placeholder="Phone Number"  name="phone" data-vv-validate-on="blur" v-validate="'required|min:9|max:10|numeric'" />
           <span class="text-danger text-sm" v-show="errors.has('phone')">{{ errors.first('phone') }}</span>
+              <div v-if="dataId !== null && dataId >= 0" class="mt-4 flex justify-around">
+                <h5>User Status</h5>
+                <vs-switch v-model="active" />
+              </div>
       </div>
     </div>
   <!-- </VuePerfectScrollbar> -->
@@ -66,6 +70,7 @@ export default {
     confirm: '',
     email: '',
     phone: '',
+    active: false,
     dataId: null,
     settings: {
         maxScrollbarLength: 60
@@ -94,7 +99,7 @@ export default {
         this.initValues()
         this.$validator.reset()
       } else {
-        const { id, username, password, full_name, phone_number, role, email } = JSON.parse(JSON.stringify(this.data))
+        const { id, username, password, full_name, active, phone_number, role, email } = JSON.parse(JSON.stringify(this.data))
         this.dataId = id
         this.position = role
         this.fullname = full_name
@@ -102,6 +107,12 @@ export default {
         this.phone = phone_number
         this.username = username
         this.password = password
+        if(active == 1){
+          this.active = true
+        }
+        else{
+          this.active = false
+        }
         this.initValues()
       }
       // Object.entries(this.data).length === 0 ? this.initValues() : { this.dataId, this.dataName, this.dataCategory, this.dataOrder_status, this.dataPrice } = JSON.parse(JSON.stringify(this.data))
@@ -139,6 +150,7 @@ export default {
       this.email = ''
       this.password = ''
       this.confirm = ''
+      this.active = false
       this.phone = ''
     },
     Reset(){
@@ -147,6 +159,7 @@ export default {
       this.username = ''
       this.position = ''
       this.email = ''
+      this.active = false
       this.password = ''
       this.confirm = ''
       this.phone = ''
@@ -155,36 +168,40 @@ export default {
     submitData() {
       this.$validator.validateAll().then(result => {
         if (result) {
+          if(this.active === false){
+            this.active = -1
+          }
+          else{
+            this.active = 1
+          }
           const obj = {
             id: this.dataId,
             username: this.username,
             password: this.password,
             full_name: this.fullname,
             role: this.position,
+            active: this.active,
             phone_number: this.phone,
             email: this.email,
           }
           if (this.dataId !== null && this.dataId >= 0) {
             this.$store.dispatch('addUser/updateItem', obj)
-            .then(response => {
            this.$vs.notify({
             title: 'Updated',
             text: 'ok',
             iconPack: 'feather',
             icon: 'icon-alert-circle',
-            color: 'danger'
+            color: 'success'
           })
               this.Reset()
-            })
             .catch(err => { 
             this.$vs.notify({
             title: 'Error',
-            text: err.response.data.detail || err.response.data.detail.msg,
+            text: err,
             iconPack: 'feather',
             icon: 'icon-alert-circle',
             color: 'danger'
           })
-              console.log(err.response, 'err')
              })
           } else {
             delete obj.id
@@ -195,8 +212,9 @@ export default {
             text: 'ok',
             iconPack: 'feather',
             icon: 'icon-alert-circle',
-            color: 'danger'
+            color: 'success'
           })
+          this.Reset()
             })
             .catch(err => { 
             this.$vs.notify({

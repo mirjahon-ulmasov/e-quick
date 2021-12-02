@@ -38,6 +38,17 @@ export default {
         .catch((error) => { reject(error) })
     })
   },
+  DeleteCartItem ({ commit }, id) {
+    return new Promise((resolve, reject) => {
+      axios.delete(`api/v1/cart/remove/${id}`
+      )
+        .then((response) => {
+          commit('REMOVE_CART', id)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
   // Update product quantity in cart
   updateCart ({ commit }, item) {
     return new Promise((resolve, reject) => {

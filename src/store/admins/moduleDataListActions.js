@@ -36,7 +36,6 @@ export default {
     return new Promise((resolve, reject) => {
       axios.delete(`/api/v1/users/${itemId}`)
         .then((response) => {
-          commit('REMOVE_ITEM', itemId)
           resolve(response)
         })
         .catch((error) => { reject(error) })
@@ -52,9 +51,9 @@ export default {
         .catch((error) => { reject(error) })
     })
   },
-  fetchUserById ({ commit }, item) {
+  fetchUserById ({ commit }, id) {
     return new Promise((resolve, reject) => {
-      axios.get(`/api/v1/users/${item.id}`  )
+      axios.get(`/api/v1/users/${id}`  )
         .then((response) => {
           console.log(response)
           commit('SET_UserById', response.data)
