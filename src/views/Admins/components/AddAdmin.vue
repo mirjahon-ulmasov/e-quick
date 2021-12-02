@@ -8,7 +8,7 @@
         <div class="form__inputs">
             <!-- ROle -->
         <vs-select v-model="position"  placeholder="Role" data-vv-validate-on="blur" class="mt-5 w-full" name="role" v-validate="'required'" >
-          <vs-select-item :key="item" :value="item" :text="item" v-for="item in roles" />
+          <vs-select-item :key="item.role" :value="item.role" :text="item.role" v-for="item in roles" />
         </vs-select>
          <span class="text-danger text-sm" v-show="errors.has('role')">{{ errors.first('role') }}</span>
         <!-- Full name -->
@@ -25,14 +25,14 @@
           ref="password"
           type="password"
           data-vv-validate-on="blur"
-          v-validate="'required|min:6|max:10'" />
+          v-validate="'required|min:3|max:10'" />
           <span class="text-danger text-sm" v-show="errors.has('password')">{{ errors.first('password') }}</span>
         <!-- Confrim -->
           <input v-model="confirm" 
           placeholder="Confirm Password" 
           name="confirm" 
           type="password"
-          v-validate="'min:6|max:10|confirmed:password'"
+          v-validate="'min:3|max:10|confirmed:password'"
           data-vv-validate-on="blur"
           data-vv-as="password" />
           <span class="text-danger text-sm" v-show="errors.has('confirm')">{{ errors.first('confirm') }}</span>
@@ -166,16 +166,15 @@ export default {
           }
           if (this.dataId !== null && this.dataId >= 0) {
             this.$store.dispatch('addUser/updateItem', obj)
-            .then(response => {
+               this.Reset()
            this.$vs.notify({
             title: 'Updated',
             text: 'ok',
             iconPack: 'feather',
             icon: 'icon-alert-circle',
-            color: 'danger'
-          })
-              this.Reset()
-            })
+            color: 'success'
+            },
+            )
             .catch(err => { 
             this.$vs.notify({
             title: 'Error',
@@ -195,8 +194,9 @@ export default {
             text: 'ok',
             iconPack: 'feather',
             icon: 'icon-alert-circle',
-            color: 'danger'
+            color: 'success'
           })
+          this.Reset()
             })
             .catch(err => { 
             this.$vs.notify({

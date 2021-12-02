@@ -121,6 +121,7 @@
                   items-center
                   flex-grow
                   justify-between
+                  mb-3
                 "
               >
                 <div class="w-1/2">
@@ -493,6 +494,9 @@ export default {
     },
     company() {
       return this.$store.state.addUser.admins
+    },
+    details(){
+      return this.$store.state.addUser.details
     },
     queriedItems() {
       return this.$refs.table

@@ -210,6 +210,7 @@
                     </vs-td>
                     <vs-td style="text-align: center;">
                       <feather-icon icon="TrashIcon"
+                      @click="deleteCartProduct(tr.id)"
                         svgClasses="h-5 w-5 hover:text-success text-danger" 
                         class="ml-1"
                            />
@@ -372,6 +373,11 @@ export default {
       // this.sidebarData = JSON.parse(JSON.stringify(this.blankData))
       this.PopUpData = data
       this.toggleDataSidebar(true)
+    },
+    deleteCartProduct(id){
+     this.$store.dispatch('product/DeleteCartItem', id).then(response => {
+         this.$store.dispatch('product/GetCart')
+     })
     },
       AddOrder() {
       this.toggleDataSidebarOrder(true)

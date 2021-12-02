@@ -58,7 +58,8 @@
           >
             Тип доставки:
           </h3>
-          <vs-button @click="submitData" class="confirmac">Подтвердить</vs-button>
+        <vs-button class="close" 
+          @click="isSidebarActiveLocal = false" >Закрыть</vs-button>
         </div>
         <div class="w-1/2">
           <input
@@ -76,9 +77,7 @@
             <option value="THROUGH_THE_BASE" >ЧЕРЕЗ БАЗУ</option>
             <option value="DIRECT_DELIVERY" >ПРЯМАЯ ДОСТАВКА</option>
           </select>
-          <vs-button class="close" 
-          style="margin-top: 25px !important"
-          @click="isSidebarActiveLocal = false" >Закрыть</vs-button>
+          <vs-button @click="submitData" style="margin-top: 25px !important" class="confirmac">Подтвердить</vs-button>
         </div>
       </div>
     </vs-popup>
@@ -238,9 +237,8 @@ color: rgba(58, 159, 209, 1);
   border-radius: 2px;
 }
 .confirmac {
-  margin-top: 45px !important;
   width: 289.15px;
-  height: 37.31px;
+  /* height: 37.31px; */
   background: linear-gradient(102.4deg, #3f4f61 -160.6%, #3a9fd1 156.82%) !important;
   border-radius: 3.73099px;
   font-family: Lato;
@@ -290,8 +288,8 @@ padding-left: 15px;
 .close {
   margin-top: 20px !important;
   width: 289.15px;
-  height: 37.31px;
-
+  /* height: 37.31px; */
+ margin-top: 45px !important;
   background: #f2f2f2 !important;
   border-radius: 5.18092px;
   font-family: Lato;

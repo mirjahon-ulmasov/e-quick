@@ -11,9 +11,11 @@ export default {
   ADD_OrdersItem(state, orderItem){
     state.orderItem = orderItem
   },
-  // SET_LABELS(state, labels) {
-  //   state.eventLabels = labels
-  // },
+  REMOVE_CART (state, id) {
+   const carts = state.carts
+    const ItemIndex = carts.items.findIndex(p => {p.id === id})
+    state.carts.items.splice(ItemIndex, 1)
+  },
   UPDATE_PRODUCT (state, carts) {
     const cartsIndex = state.carts.findIndex((p) => p.id === carts.id)
     Object.assign(state.carts[cartsIndex], carts)
