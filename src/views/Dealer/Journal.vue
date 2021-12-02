@@ -1,7 +1,7 @@
 <template>
     <div style="width: 100%;" >
             <div class="container-body">
-                          <div class="container-header">
+          <div class="container-header">
                 <div class="card">
                     <div class="icon">
                       <img src="~@/assets/dealer/img/icons/icon-bar-chart-2.svg" alt="">
@@ -46,12 +46,6 @@
               <h2 class="head">
                 Журнал последних заявок:
               </h2>
-              <div class=" export" >
-                <img width="25px" src="@/assets/images/file-icons/xls.png" alt="">
-                <h3 class="exp">
-                 Экспортировать
-                </h3>
-              </div>
                 <Table />
             </div>
             <div class="container-footer">
@@ -183,6 +177,7 @@ export default {
         padding: 25px;
       width: 100%;
       height: 80%;
+      overflow: scroll;
       .head{
         font-family: Montserrat;
 font-style: normal;

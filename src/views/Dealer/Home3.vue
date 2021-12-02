@@ -5,42 +5,17 @@
           <div class="w-5/12">
             <h2 class="cathaed">Выберите категорию</h2>
             <input class="sle" @click="categoryPop = true" v-model="activeCategory" placeholder="Выберите категорию" />
-            <!-- <div class="demo-alignment">
-              <span class="texts" v-for="(item, i) in resultQuery" :key="i">
-                 <span @click="getCat(item.id)">
-                   {{ item.name }} 
-                 </span>
-              </span>
-                <span class="texts" v-if="resultQuery === null"  style="color: red !important">
-                      No aviable data
-                 </span>
-            </div> -->
           </div>
           <div class="w-5/12 ml-6">
             <h2 class="cathaed">Выберите подкатегорию</h2>
             <input v-model="activePod" @click="podcategoryPop = true" class="sle" placeholder="Выберите категорию" />
-            <!-- <div class="demo-alignment">
-              <span class="texts"  v-for="(item, i) in resultPodCategory" :key="i"> 
-                <span @click="getProduct(item.id)">
-                  {{ item.name }}
-                </span>
-                 </span>
-                  <span class="texts" v-if="podCategory == null"  style="color: red !important">
-                      No aviable data
-                 </span>
-            </div> -->
           </div>
           <div class="w-11/12 mt-4" style="margin-top: -1% !important;"> 
             <h2 class="cathaed">Выберите продукт</h2>
             <input class="large" v-model="searchProduct" placeholder="Выберите категорию" />
-            <div class="demo-alignment vs-con-loading__container" style="height: 43vh !important" id="div-with-loading" >
-              <span class="texts"  v-for="(item, i) in resultProduct" :key="i"> 
-                <span @click="AddCart(item)">
+            <div class="demo-alignment vs-con-loading__container" style="height: 43vh !important; z-index: 1" id="div-with-loading" >
+              <span class="texts" @click="AddCart(item)"  v-for="(item, i) in resultProduct" :key="i"> 
                   {{ item.name }}
-                </span>
-                 </span>
-                <span class="texts" v-if="products"  style="color: red !important">
-                      No aviable data
                  </span>
             </div>
             <div class="flex mt-6">
@@ -74,9 +49,6 @@
 </clipPath>
 </defs>
                 </svg>
-
-               <!-- <div class="weather">
-               </div> -->
                </div>
                <div class="w-3/5">
                <svg width="100%" height="90" viewBox="0 0 376 106" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -170,9 +142,9 @@
               :data="carts.items"
             >
               <template slot="thead">
-                <vs-th sort-key="name">№</vs-th>
+                <vs-th sort-key="id">№</vs-th>
                 <vs-th
-                  sort-key="Наименование_онлайн_савдо"
+                  sort-key="product_name"
                   style="
                     border-left: 2px solid #3a9fd1 !important;
                     border-right: 2px solid #3a9fd1 !important;
@@ -180,11 +152,12 @@
                   >Наименования</vs-th
                 >
                 <vs-th
-                  sort-key="Завод"
+                  sort-key="quantity"
                   style="border-right: 2px solid #3a9fd1 !important"
                   >Количество</vs-th
                 >
-                <vs-th sort-key="Баланс">Цена (сум)</vs-th>
+                <vs-th sort-key="total_price" style="border-right: 2px solid #3a9fd1 !important" >Цена (сум)</vs-th>
+                <vs-th sort-key="total_price">Trash</vs-th>
               </template>
               <template slot-scope="{ data }" class="scr">
                 <tbody>
@@ -202,7 +175,7 @@
                         border-right: 2px solid #3a9fd1 !important;
                       "
                     >
-                      <p>{{ tr.product_id }}</p>
+                      <p>{{ tr.product_name }}</p>
                     </vs-td>
                     <vs-td style="border-right: 2px solid #3a9fd1 !important">
                     <div  class="flex">
@@ -228,12 +201,18 @@
                         @click="IncEdit()"
                           svgClasses="h-4 w-5 text-success" class="ml-1"
                            />
-                         </div>
+                    </div>
                     </vs-td>
-                    <vs-td>
+                    <vs-td style="border-right: 2px solid #3a9fd1 !important" >
                       <p class="prise">
-                        {{ tr.price }}
+                        {{ tr.total_price }}
                       </p>
+                    </vs-td>
+                    <vs-td style="text-align: center;">
+                      <feather-icon icon="TrashIcon"
+                        svgClasses="h-5 w-5 hover:text-success text-danger" 
+                        class="ml-1"
+                           />
                     </vs-td>
                   </vs-tr>
                 </tbody>
@@ -252,37 +231,33 @@
           <!-- <div class="imzo"></div> -->
         </div>
         <vs-popup 
-              background-color="rgb(45 39 39 / 70%)"
-      background-color-popup="linear-gradient(90deg, #5E585C 0%, #000000 100%)"
+         background-color="rgb(45 39 39 / 70%)"
+         background-color-popup="linear-gradient(90deg, #5E585C 0%, #000000 100%)"
         :active.sync="categoryPop">
          <input class="sle" v-model="searchQuery" placeholder="Выберите категорию" />
             <div class="demo-alignment">
-              <span class="texts" v-for="(item, i) in resultQuery" :key="i">
-                 <span @click="getCat(item)">
+              <span class="texts" v-for="(item, i) in resultQuery" @click="getCat(item)" :key="i">
                    {{ item.name }} 
-                 </span>
               </span>
                 <span class="texts" v-if="resultQuery === null"  style="color: red !important">
                       No aviable data
                  </span>
             </div>
-    </vs-popup>
-            <vs-popup 
+        </vs-popup>
+          <vs-popup 
             background-color="rgb(45 39 39 / 70%)"
              background-color-popup="linear-gradient(90deg, #5E585C 0%, #000000 100%)"
             :active.sync="podcategoryPop">
             <input v-model="searchPodCategory"  class="sle" placeholder="Выберите категорию" />
             <div class="demo-alignment">
-              <span class="texts"  v-for="(item, i) in resultPodCategory" :key="i"> 
-                <span @click="getProduct(item)">
+              <span class="texts"  v-for="(item, i) in resultPodCategory" @click="getProduct(item)" :key="i"> 
                   {{ item.name }}
-                </span>
                  </span>
                   <span class="texts" v-if="podCategory == null"  style="color: red !important">
                       No aviable data
                  </span>
             </div>
-    </vs-popup>
+           </vs-popup>
       </div>
     <add-cart :isPopUp="PopUp" @closeSidebar="toggleDataSidebar" :data="PopUpData" ></add-cart>
     <order :isPopUpOrder="PopUpOrder" @closeSidebarOrder="toggleDataSidebarOrder"></order>
@@ -364,30 +339,32 @@ export default {
   },
   methods: {
     getCat(data){
-    //   this.$vs.loading({
-    //     container: '#div-with-loading',
-    //     scale: 0.6,
-    //     color: 'rgb(62, 97, 121)',
-    //   })
+      this.$vs.loading({
+        container: '#div-with-loading',
+        scale: 0.6,
+        color: 'rgb(62, 97, 121)',
+      })
     this.activeCategory = data.name
       console.log(data.id)
     let category = this.category.find(company => company.id === data.id)
     this.podCategory = category ? category.children : null;
-    this.$store.dispatch('product/GetProduct', data.id)
+    this.$store.dispatch('product/GetProduct', data.id).then(
+      response => {this.$vs.loading.close('#div-with-loading > .con-vs-loading')}
+    )
     this.categoryPop = false
     // this.podcategoryPop = true
     },
     getProduct(data){
-    //   this.$vs.loading({
-    //     container: '#div-with-loading',
-    //     scale: 0.6,
-    //     color: 'rgb(62, 97, 121)',
-    //   })
+      this.$vs.loading({
+        container: '#div-with-loading',
+        scale: 0.6,
+        color: 'rgb(62, 97, 121)',
+      })
     this.activePod = data.name
      this.$store.dispatch('product/GetProduct', data.id).then(response =>{
      this.product = response.data
      console.log(this.products, 'ollll')
-    //  this.$vs.loading.close('#div-with-loading > .con-vs-loading')
+     this.$vs.loading.close('#div-with-loading > .con-vs-loading')
      })
      this.podcategoryPop = false
     },
@@ -407,7 +384,7 @@ export default {
     },
     toggleDataSidebarOrder (val = false) {
       this.PopUpOrder = val
-      this.carts = null
+
     },
     Inc(tr){
       this.edit = true

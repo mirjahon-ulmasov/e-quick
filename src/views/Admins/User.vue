@@ -133,10 +133,11 @@
                 </div>
               </div>
               <template slot="thead">
-                <vs-th sort-key="name">Full Name</vs-th>
-                <vs-th sort-key="Наименование_онлайн_савдо">Role</vs-th>
-                <vs-th sort-key="Завод">Username</vs-th>
-                <vs-th sort-key="Баланс">Email</vs-th>
+                <vs-th sort-key="full_name">Full Name</vs-th>
+                <vs-th sort-key="role">Role</vs-th>
+                <vs-th sort-key="username">Username</vs-th>
+                <vs-th sort-key="phone_number">Email</vs-th>
+                <vs-th sort-key="active">Status</vs-th>
                 <vs-th sort-key="Категория">Actions</vs-th>
               </template>
 
@@ -149,7 +150,7 @@
                   >
                     <vs-td>
                       <div @click.stop="getUser(tr.id)" class="flex" style="align-items: center">
-                        <div class="color"></div>
+                        <!-- <div class="color"></div> -->
                         <p class="product-category ml-3">{{ tr.full_name }}</p>
                       </div>
                     </vs-td>
@@ -164,7 +165,19 @@
                       </p>
                     </vs-td>
                     <vs-td>
-                        {{ tr.email }}
+                        {{ tr.phone_number }}
+                    </vs-td>
+                    <vs-td>
+                       <vs-chip  v-if="tr.active == -1" class="status" style="background: red">
+                          <span style="font-size: 11px; color: #ffffff">
+                            Inactive
+                        </span>
+                        </vs-chip>
+                        <vs-chip v-else class="status">
+                          <span style="font-size: 11px; color: #ffffff">
+                            Active
+                        </span>
+                        </vs-chip>
                     </vs-td>
                     <vs-td>
                     <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer">
@@ -448,25 +461,6 @@ color: #000000;"
       </div>
     </div>
     <pop-up-list :isPopUp="PopUp" @closeSidebar="toggleDataSidebar" :data="PopUpData" ></pop-up-list>
-    <vs-prompt class="holamundo" :active.sync="activePrompt">
-      <div>
-        <h2 style="text-align: center">Good Evening Mikey!</h2>
-        <div class="form__inputs">
-          <select>
-            <option value="0">Choose</option>
-            <option value="1">Item 1</option>
-            <option value="2">Item 2</option>
-            <option value="2">Item 3</option>
-          </select>
-          <input type="text" placeholder="Choose" />
-          <textarea rows="5"></textarea>
-          <div class="form_key_value">
-            <input type="text" placeholder="Choose" />
-            <input type="text" placeholder="Choose" />
-          </div>
-        </div>
-      </div>
-    </vs-prompt>
   </div>
 </template>
 <script>
@@ -498,7 +492,7 @@ export default {
       return 0;
     },
     company() {
-      return this.$store.state.addUser.admins;
+      return this.$store.state.addUser.admins
     },
     queriedItems() {
       return this.$refs.table
@@ -508,6 +502,7 @@ export default {
   },
   methods: {
     getUser(id){
+      this.$store.dispatch("addUser/fetchUserById", id)
       console.log(id)
     this.activeUser = this.company.find(x => x.id === id)
     },
@@ -524,7 +519,6 @@ export default {
     )
     },
     editData (data) {
-      // this.sidebarData = JSON.parse(JSON.stringify(this.blankData))
       this.PopUpData = data
       this.toggleDataSidebar(true)
     },
@@ -546,6 +540,7 @@ export default {
     this.getUser()
   },
   created() {
+    this.$store.dispatch("addUser/fetchUserById");
           this.$store.dispatch('addUser/fetchDataListItems').then(
       response => {
         this.activeUser = response.data[0]
@@ -697,7 +692,7 @@ export default {
           padding: 0.9rem 2.5rem;
           border: none;
           font-size: 1rem;
-          background: #ffffff;
+          background: #f7f8fd;
           backdrop-filter: blur(4px) !important;
           border-radius: 5px !important;
           width: 201px !important;

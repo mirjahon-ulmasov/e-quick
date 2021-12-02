@@ -195,7 +195,7 @@ div.side-bar-container {
     color: #ffffff;
   }
   .logo {
-    width: 100%;
+    width: 170px;
     margin: 50px 0px 20px 0px;
   }
   .block {

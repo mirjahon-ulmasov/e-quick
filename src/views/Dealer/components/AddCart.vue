@@ -202,8 +202,8 @@ export default {
               }
           else{
           this.$vs.notify({
-            title: 'Warning',
-            text: 'Bu cartda allaqachon mavjud',
+            title: 'Updated',
+            text: 'Product yangilandi',
             iconPack: 'feather',
             icon: 'icon-alert-circle',
             color: 'warning'

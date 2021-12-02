@@ -155,6 +155,7 @@ export default {
             icon: 'icon-alert-circle',
             color: 'success'
           })
+          window.location.reload()
             })
             .catch(err => { 
             this.$vs.notify({

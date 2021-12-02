@@ -1,5 +1,11 @@
 <template>
   <div class="center">
+         <div @click="exportToExcel()" class=" export" >
+                <img width="25px" src="@/assets/images/file-icons/xls.png" alt="">
+                <h3 class="exp">
+                 Экспортировать
+                </h3>
+              </div>
       <vs-table
               v-model="selected"
               ref="table"
@@ -10,14 +16,13 @@
               :data="orders"
             >
               <template slot="thead">
-                <vs-th sort-key="name">Заявка</vs-th>
-                <vs-th sort-key="Наименование_онлайн_савдо">Завод</vs-th>
-                <vs-th sort-key="Завод">Продукт</vs-th>
-                <vs-th sort-key="Баланс">Дата</vs-th>
-                <vs-th sort-key="Категория">Статус</vs-th>
-                <vs-th sort-key="Категория">Сумма(в сум)</vs-th>
-                <vs-th sort-key="Категория">Дата (доставки)</vs-th>
-                <vs-th sort-key="Категория">Действие</vs-th>
+                <vs-th sort-key="order_number">Заявка</vs-th>
+                <vs-th sort-key="total_product">Кол.во продукта</vs-th>
+                <vs-th sort-key="date_ordered">Дата</vs-th>
+                <vs-th sort-key="status">Статус</vs-th>
+                <vs-th sort-key="total_price">Сумма(в сум)</vs-th>
+                <vs-th sort-key="delivery_date">Дата (доставки)</vs-th>
+                <!-- <vs-th sort-key="Категория">Действие</vs-th> -->
               </template>
 
               <template slot-scope="{ data }" class="scr">
@@ -35,19 +40,14 @@
                            />
                         </p>
                     </vs-td>
-
-                    <vs-td>
-                      <p>{{ tr.username }}</p>
-                    </vs-td>
-
-                    <vs-td>
-                      <p>
-                        {{ tr.id }}
+                    <vs-td >
+                      <p style="padding-left: 10px"  >
+                        {{ tr.total_product }}
                       </p>
                     </vs-td>
                     <vs-td>
                       <p>
-                        {{ tr.date_ordered }}
+                        {{ tr.date_ordered.slice(0,10) }}
                       </p>
                     </vs-td>
                     <vs-td>
@@ -66,11 +66,11 @@
                       {{ tr.total_price }} <span class="ml-1" >Sum</span>
                     </vs-td>
                     <vs-td>
-                      {{ tr.delivery_date }}
+                      {{ tr.delivery_date.slice(0,10) }}
                     </vs-td>
-                    <vs-td>
+                    <!-- <vs-td>
                       <span style="color: #31B778"  class="material-icons">phone</span>  
-                    </vs-td>
+                    </vs-td> -->
                   </vs-tr>
                 </tbody>
               </template>
@@ -83,7 +83,7 @@ import Order from './OrderItem.vue'
 export default {
   computed: {
     orders(){
-    return  this.$store.state.product.orders
+    return  this.$store.state.product.orders.reverse()
     },
     currentPage () {
       if (this.isMounted) {
@@ -99,8 +99,14 @@ export default {
     Order
   },
   data: () => ({
+      fileName: '',
+      cellAutoWidth: true,
+      selectedFormat: 'xlsx',
     PopUp: false,
+    activePrompt: false,
     edit: null,
+      headerTitle: ['Заявка', 'Кол.во продукта', 'Дата', 'Сумма(в сум)', 'Дата (доставки)'],
+      headerVal: ['order_number', 'total_product', 'date_ordered.slice', 'total_price', 'delivery_date'],
     editProp: {},
     datas: [],
     isMounted: false,
@@ -125,6 +131,37 @@ export default {
       this.PopUp = val
       this.$store.dispatch('product/GetOrder')
     },
+        exportToExcel () {
+      import('@/vendor/Export2Excel').then(excel => {
+        const list = this.selected
+        const data = this.formatJson(this.headerVal, list)
+        excel.export_json_to_excel({
+          header: this.headerTitle,
+          data,
+          filename: 'Ordered items List',
+          autoWidth: this.cellAutoWidth,
+          bookType: this.selectedFormat
+        })
+        this.clearFields()
+      })
+    },
+    formatJson (filterVal, jsonData) {
+      return jsonData.map(v => filterVal.map(j => {
+        // Add col name which needs to be translated
+        // if (j === 'timestamp') {
+        //   return parseTime(v[j])
+        // } else {
+        //   return v[j]
+        // }
+
+        return v[j]
+      }))
+    },
+    clearFields () {
+      this.fileName = ''
+      this.cellAutoWidth = true
+      this.selectedFormat = 'xlsx'
+    }
   },
   mounted(){
     this.GetItem
@@ -141,6 +178,40 @@ export default {
   background: #ea5455 !important;
 }
 .center {
+  .vs-con-input{
+  .vs-input-primary {
+    .vs-input--input:focus{
+      border: 1px solid #135c81 !important;
+    }
+  }
+  }
+        .export{
+        padding-right: 25px;
+        margin-bottom: 20px;
+        display: flex !important;
+        align-items: center;
+        float: right;
+        cursor: pointer;
+      .exp{
+        width: 75.57px;
+height: 13.39px;
+left: 1316.52px;
+top: 82.7px;
+
+// font-family: Avenir Next;
+font-style: normal;
+margin-left: 5px;
+font-weight: normal;
+font-size: 11.56604px;
+line-height: 13px;
+text-align: right;
+
+color: #000000;
+      }
+      }
+      .export:hover{
+        box-shadow: 0 8px 25px -8px #135c81;
+      }
    .vs-pagination--li.is-current {
        .effect{
          background: #135c81  !important;
