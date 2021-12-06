@@ -167,7 +167,7 @@
                     v-for="(tr, indextr) in data"
                   >
                     <vs-td>
-                      <p>{{ tr.id }}</p>
+                      <p>{{ indextr + 1 }}</p>
                     </vs-td>
                     <vs-td
                       style="
@@ -205,7 +205,7 @@
                     </vs-td>
                     <vs-td style="border-right: 2px solid #3a9fd1 !important" >
                       <p class="prise">
-                        {{ tr.total_price }}
+                        {{ tr.total_price.toLocaleString('de-DE') }}
                       </p>
                     </vs-td>
                     <vs-td style="text-align: center;">
@@ -222,7 +222,7 @@
             <div v-if="carts">
               <div class="itogo mt-4">
                 <h2 class="text">Итоговая сумма:</h2>
-                <h1 class="prise">{{ carts.total_price }} сум</h1>
+                <h1 class="prise">{{ Number(carts.total_price).toLocaleString('de-DE') }} сум</h1>
               </div>
               <vs-button @click="AddOrder()" class="offering">
                 <span> Оформить заявку </span>
@@ -315,6 +315,7 @@ export default {
       edit: false,
       PopUpData: {},
       PopUp: false,
+      sanoq: null,
       activeCategory: null,
       activePod: null,
       PopUpOrder: false,
@@ -429,10 +430,6 @@ export default {
      this.$store.dispatch('product/GetCart')
     this.$store.dispatch('category/GetItem')
   },
-  mounted(){
-  this.$store.dispatch('product/GetProduct')
-   this.$store.dispatch('product/GetCart')
-  }
 }
 </script>
 <style scoped>

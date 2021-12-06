@@ -52,6 +52,7 @@ export default {
     })
   },
   fetchUserById ({ commit }, id) {
+   if(id >= 0){
     return new Promise((resolve, reject) => {
       axios.get(`/api/v1/users/${id}`  )
         .then((response) => {
@@ -61,5 +62,6 @@ export default {
         })
         .catch((error) => { reject(error) })
     })
+   }
   },
 }

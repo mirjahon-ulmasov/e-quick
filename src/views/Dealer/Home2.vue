@@ -434,7 +434,7 @@ export default {
      this.$store.dispatch('product/GetCart')
   },
   mounted(){
-  this.$store.dispatch('product/GetProduct')
+  // this.$store.dispatch('product/GetProduct')
   this.$store.dispatch('category/GetItem')
    this.$store.dispatch('product/GetCart')
    this.AddCart()
