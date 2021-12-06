@@ -15,6 +15,9 @@ export default {
    const carts = state.carts
     const ItemIndex = carts.items.findIndex(p => {p.id === id})
     state.carts.items.splice(ItemIndex, 1)
+    if(state.carts.items.length == 0){
+      state.carts = null
+    }
   },
   UPDATE_PRODUCT (state, carts) {
     const cartsIndex = state.carts.findIndex((p) => p.id === carts.id)

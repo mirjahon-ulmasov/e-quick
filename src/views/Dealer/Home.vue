@@ -407,7 +407,7 @@ export default {
     this.$store.dispatch('category/GetItem')
   },
   mounted(){
-  this.$store.dispatch('product/GetProduct')
+  // this.$store.dispatch('product/GetProduct')
    this.$store.dispatch('product/GetCart')
   }
 }

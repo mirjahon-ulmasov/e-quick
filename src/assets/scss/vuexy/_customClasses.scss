@@ -464,17 +464,17 @@
   }
 
   // Table Inverted
-  .vs-con-table{
-    &.table-dark-inverted {
-      .vs-con-tbody {
-        .vs-table--tbody-table {
-          tr {
-            background: $theme-dark-bg !important;
-          }
-        }
-      }
-    }
-  }
+  // .vs-con-table{
+  //   &.table-dark-inverted {
+  //     .vs-con-tbody {
+  //       .vs-table--tbody-table {
+  //         tr {
+  //           background: $theme-dark-bg !important;
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 }
 
 

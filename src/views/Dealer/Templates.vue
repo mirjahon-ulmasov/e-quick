@@ -1,165 +1,74 @@
 <template>
-    <div>
+    <div style="width: 100%" >
+      <div class="search-area">
+        <input type="search" class="search" />
+      </div>
            <div class="row">
              <div class="card">
                <div class="card-header">
                  <p>Шаблон на продукты от  IMZO</p>
                </div>
                <div class="card-body">
-                 <p class="paperwork-number">Заявка  №: </p>
-                 <span>от </span>
-                <div class="card-row">
-                  <div class="col">
-                    <p>1. Завод:</p>
-                    <p>2. Категория:</p>
-                    <p>3. Товар:</p>
-                    <p>4. Количество:</p>
-                  </div>
-                  <div class="col">
-                    <p>IMZO</p>
-                    <p>Пластиковые окна</p>
-                    <p></p>
-                    <p></p>
-                  </div>
-                </div>
+        <div class="flex" style="justify-content: center;" >
+           <vs-table
+              ref="table"
+              maxHeight="50vh"
+              class="produ mt-4"
+            >
+              <template slot="thead">
+                <vs-th sort-key="name">№</vs-th>
+                <vs-th
+                  sort-key="Наименование_онлайн_савдо"
+                  style="
+                    border-left: 1px solid #3a9fd1 !important;
+                    border-right: 1px solid #3a9fd1 !important;
+                  "
+                  >Наименования</vs-th
+                >
+                <vs-th
+                  sort-key="Завод"
+                  style="border-right: 1px solid #3a9fd1 !important"
+                  >Количество</vs-th
+                >
+                <vs-th sort-key="Баланс">Цена (сум)</vs-th>
+              </template>
+              <template  class="scr">
+                <tbody>
+                  <vs-tr
+                  >
+                    <vs-td style="background: white;" >
+                      <p>kdjcsk</p>
+                    </vs-td>
+                    <vs-td
+                      style="
+                        border-left: 1px solid #3a9fd1 !important;
+                        border-right: 1px solid #3a9fd1 !important;
+                        background: white;
+                      "
+                    >
+                      <p>dfs</p>
+                    </vs-td>
+                    <vs-td style="border-right: 1px solid #3a9fd1 !important; background: white;">
+                    <div  class="flex">
+                        <span
+                         class="add">
+                        sjns
+                        </span>
+                         </div>
+                    </vs-td>
+                    <vs-td style="background: white;">
+                      <p class="prise">
+                       sdjhbf
+                      </p>
+                    </vs-td>
+                  </vs-tr>
+                </tbody>
+              </template>
+            </vs-table>
+      </div>
                </div>
                <div class="card-footer">
-                 <button class="btn">Использовать шаблон</button>
-               </div>
-            </div>
-            <div class="card">
-               <div class="card-header">
-                 <p>Шаблон на продукты от  IMZO</p>
-               </div>
-               <div class="card-body">
-                  <p class="paperwork-number">Заявка  №: </p>
-                 <span>от </span>
-                <div class="card-row">
-                  <div class="col">
-                    <p>1. Завод:</p>
-                    <p>2. Категория:</p>
-                    <p>3. Товар:</p>
-                    <p>4. Количество:</p>
-                  </div>
-                  <div class="col">
-                    <p>IMZO</p>
-                    <p>Пластиковые окна</p>
-                    <p></p>
-                    <p></p>
-                  </div>
-                </div>
-
-               </div>
-               <div class="card-footer">
-                 <button class="btn">Использовать шаблон</button>
-               </div>
-            </div>
-            <div class="card">
-               <div class="card-header">
-                 <p>Шаблон на продукты от  IMZO</p>
-               </div>
-               <div class="card-body">
-                  <p class="paperwork-number">Заявка  №: </p>
-                 <span>от </span>
-                <div class="card-row">
-                  <div class="col">
-                    <p>1. Завод:</p>
-                    <p>2. Категория:</p>
-                    <p>3. Товар:</p>
-                    <p>4. Количество:</p>
-                  </div>
-                  <div class="col">
-                    <p>IMZO</p>
-                    <p>Пластиковые окна</p>
-                    <p></p>
-                    <p></p>
-                  </div>
-                </div>
-
-               </div>
-               <div class="card-footer">
-                 <button class="btn">Использовать шаблон</button>
-               </div>
-            </div>
-            <div class="card">
-               <div class="card-header">
-                 <p>Шаблон на продукты от  IMZO</p>
-               </div>
-               <div class="card-body">
-                 <p class="paperwork-number">Заявка  №: </p>
-                 <span>от </span>
-                <div class="card-row">
-                  <div class="col">
-                    <p>1. Завод:</p>
-                    <p>2. Категория:</p>
-                    <p>3. Товар:</p>
-                    <p>4. Количество:</p>
-                  </div>
-                  <div class="col">
-                    <p>IMZO</p>
-                    <p>Пластиковые окна</p>
-                    <p></p>
-                    <p></p>
-                  </div>
-                </div>
-
-               </div>
-               <div class="card-footer">
-                 <button class="btn">Использовать шаблон</button>
-               </div>
-            </div>
-            <div class="card">
-               <div class="card-header">
-                 <p>Шаблон на продукты от  IMZO</p>
-               </div>
-               <div class="card-body">
-                  <p class="paperwork-number">Заявка  №: </p>
-                 <span>от </span>
-                <div class="card-row">
-                  <div class="col">
-                    <p>1. Завод:</p>
-                    <p>2. Категория:</p>
-                    <p>3. Товар:</p>
-                    <p>4. Количество:</p>
-                  </div>
-                  <div class="col">
-                    <p>IMZO</p>
-                    <p>Пластиковые окна</p>
-                    <p></p>
-                    <p></p>
-                  </div>
-                </div>
-
-               </div>
-               <div class="card-footer">
-                 <button class="btn">Использовать шаблон</button>
-               </div>
-            </div>
-            <div class="card">
-               <div class="card-header">
-                 <p>Шаблон на продукты от  IMZO</p>
-               </div>
-               <div class="card-body">
-                  <p class="paperwork-number">Заявка  №: </p>
-                 <span>от </span>
-                <div class="card-row">
-                  <div class="col">
-                    <p>1. Завод:</p>
-                    <p>2. Категория:</p>
-                    <p>3. Товар:</p>
-                    <p>4. Количество:</p>
-                  </div>
-                  <div class="col">
-                    <p>IMZO</p>
-                    <p>Пластиковые окна</p>
-                    <p></p>
-                    <p></p>
-                  </div>
-                </div>
-
-               </div>
-               <div class="card-footer">
-                 <button class="btn">Использовать шаблон</button>
+                 <button class="btn">Просмотреть</button>
                </div>
             </div>
            </div>
@@ -181,8 +90,35 @@ export default {
 
 <style lang="scss" scoped>
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Poppins:wght@100;200;400;500;600;700;800;900&display=swap");
+   .search-area{
+     height: 7%;
+     margin-top: 40px;
+     padding: 0px 60px 0px 80px;
+     width: 100%;
+    .search{
+    height: 36px;
+    width: 100%;
+    padding: 20px;
+    border: none !important;
+    background: #F2F2F2 !important;
+    border-radius: 5.7972px !important;
+        &::placeholder {
+          background-position: 10%;
+          color: rgba(58, 159, 209, 1) !important;
+        }
+        &:nth-child(4) {
+          content: "";
+          display: block;
+          position: relative;
+          background: url("~@/assets/dealer/img/icons/search.svg") !important;
+          background-repeat: no-repeat;
+          background-position: 5%;
+          background-size: 7%;
+        }
+   } 
+   }
     .row {
-      height: 80%;
+      height: 70%;
       padding: 20px;
       display: flex;
       flex-wrap: wrap;
@@ -231,56 +167,111 @@ export default {
         }
         .card-body {
           height: 60%;
-          padding: 20px;
-          p.paperwork-number {
-            font-family: "Montserrat" sans-serif;
-            font-size: 14px;
-            font-style: normal;
-            font-weight: 700;
-            line-height: 20px;
-            letter-spacing: 0.22742311656475067px;
-            color: #000000;
-          }
-          span {
-            font-family: "Montserrat" sans-serif;
-            font-size: 10px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: 20px;
-            letter-spacing: 0.22742311656475067px;
-            color: #000000;
-          }
-          div.card-row {
+          padding: 5px;
+          
+          .vs-con-table {
+      .vs-con-tbody{
+         overflow: auto !important;
+      }
+        .vs-con-tbody::-webkit-scrollbar{
+    width: 5px;
+  }
+  .vs-con-tbody::-webkit-scrollbar-track {
+    background: rgb(97, 48, 48) !important;
+  }
+  .vs-con-tbody::-webkit-scrollbar-thumb {
+    background-color: rgb(204, 41, 41) !important;
+    border-radius: 6px;
+    // border: 3px solid blue;
+  }
+     .product-name {
+          max-width: 23rem;
+        }
+
+        .vs-table--header {
+          display: flex;
+          flex-wrap: wrap;
+          margin-left: 1.5rem;
+          margin-right: 1.5rem;
+          > span {
             display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            .col {
-              display: flex;
-              flex-direction: column;
-              &:nth-child(1) {
-                p {
-                  font-family: "Montserrat" sans-serif;
-                  font-size: 10px;
-                  font-style: normal;
-                  font-weight: 700;
-                  line-height: 20px;
-                  letter-spacing: 0.22742311656475067px;
-                  color: #000000;
-                }
+            flex-grow: 1;
+          }
+
+          .vs-table--search {
+            padding-top: 0;
+
+            .vs-table--search-input {
+              padding: 0.9rem 2.5rem;
+              font-size: 1rem;
+
+              & + i {
+                left: 1rem;
               }
-              &:nth-child(2) {
-                p {
-                  font-family: "Montserrat" sans-serif;
-                  font-style: normal;
-                  font-weight: normal;
-                  font-size: 10.9163px;
-                  line-height: 20px;
-                  letter-spacing: 0.22742311656475067px;
-                  color: #666666;
-                }
+
+              &:focus + i {
+                left: 1rem;
               }
             }
           }
+        }
+
+        .vs-table {
+          border-collapse: separate;
+          border-spacing: 0 1.3rem;
+          padding: 0 1rem;
+          min-width: 300px !important;
+          tr {
+            background: transparent !important;
+            box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid #3a9fd1;
+            td {
+              padding: 5px;
+              font-size: 8px !important;
+              &:first-child {
+                border-top-left-radius: 0.5rem;
+                border-bottom-left-radius: 0.5rem;
+              }
+              &:last-child {
+                border-top-right-radius: 0.5rem;
+                border-bottom-right-radius: 0.5rem;
+              }
+            }
+          }
+        }
+        .vs-table--thead {
+          background: transparent !important;
+          border-bottom: 1px solid #3a9fd1 !important;
+          tr {
+            background: red !important;
+            box-shadow: none;
+          }
+          th {
+            border-bottom: 1px solid #3a9fd1 !important;
+            font-family: Montserrat !important;
+            font-style: normal;
+            font-weight: bold;
+            padding: 0px 10px !important;
+            font-size: 8px !important;
+            /* or 278% */
+
+            letter-spacing: 0.400518px;
+
+            color: #000000 !important;
+
+            .vs-table-text {
+              text-transform: uppercase;
+              font-weight: 600;
+            }
+          }
+          th.td-check {
+            padding: 0 15px !important;
+          }
+        }
+        .vs-table--pagination {
+          justify-content: center;
+        }
+      }
         }
         .card-footer {
           height: 20%;
@@ -291,7 +282,7 @@ export default {
             border: none;
             padding: 5px 20px;
             cursor: pointer;
-            background: linear-gradient(90deg, #434343 0%, #000000 100%);
+            background: linear-gradient(90deg, #434343 0%, #000000 100%) !important;
             border-radius: 8.33218px;
             font-family: "Lato" sans-serif;
             font-style: normal;

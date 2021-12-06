@@ -594,6 +594,9 @@
 // ======================================================================================
 .vs-con-table {
   background: transparent;
+  table{
+    min-width: 300px !important;
+  }
 
   .vs-table--header {
     .vs-table--search {

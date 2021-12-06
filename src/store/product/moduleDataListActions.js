@@ -3,16 +3,18 @@ import axios from '@/axios.js'
 export default {
   // Get product by category id
   GetProduct ({ commit }, id) {
-    return new Promise((resolve, reject) => {
-      axios.get('api/v1/products_by_subcategory/' + `${id}/`
-      )
-        .then((response) => {
-          commit('ADD_Product', response.data)
-          console.log(response)
-          resolve(response)
-        })
-        .catch((error) => { reject(error) })
-    })
+    if(id >= 0){
+      return new Promise((resolve, reject) => {
+        axios.get('api/v1/products_by_subcategory/' + `${id}/`
+        )
+          .then((response) => {
+            commit('ADD_Product', response.data)
+            console.log(response)
+            resolve(response)
+          })
+          .catch((error) => { reject(error) })
+      })
+    }
   },
   // Adding product to cart
   AddCart ({ commit }, payload) {
@@ -95,4 +97,59 @@ export default {
         .catch((error) => { reject(error) })
     })
   },
+    // Get templates list
+    GetTemplates ({ commit }) {
+      return new Promise((resolve, reject) => {
+        axios.get('/api/v1/templates' + localStorage.getItem('Id') )
+          .then((response) => {
+            commit('ADD_Templates', response.data)
+            console.log(response.data)
+            resolve(response)
+          })
+          .catch((error) => { reject(error) })
+      })
+    },
+      // Get Templates list items
+  GetTemplatesItem ({ commit }, template_id) {
+    return new Promise((resolve, reject) => {
+      axios.get(`api/v1/templates/${localStorage.getItem('Id')}/${template_id}`  )
+        .then((response) => {
+          commit('ADD_TemplatesItem', response.data)
+          console.log(response.data)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
+    // Templates Update
+    UpdateTemplate( template_id) {
+      return new Promise((resolve, reject) => {
+        axios.put(`api/v1/templates/${template_id}`)
+          .then((response) => {
+            console.log(response.data)
+            resolve(response)
+          })
+          .catch((error) => { reject(error) })
+      })
+    },
+    UpdateTemplate( payload) {
+      return new Promise((resolve, reject) => {
+        axios.put(`api/v1/templates/checkout `, (payload))
+          .then((response) => {
+            console.log(response.data)
+            resolve(response)
+          })
+          .catch((error) => { reject(error) })
+      })
+    },
+    UpdateTemplate( payload ) {
+      return new Promise((resolve, reject) => {
+        axios.put(`api/v1/templates/add/cart`, (payload))
+          .then((response) => {
+            console.log(response.data)
+            resolve(response)
+          })
+          .catch((error) => { reject(error) })
+      })
+    },
 }
