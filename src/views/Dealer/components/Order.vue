@@ -154,7 +154,8 @@ export default {
             icon: 'icon-alert-circle',
             color: 'success'
           })
-          window.location.reload()
+          // window.location.reload()
+          this.$store.state.product.carts = null
             })
             .catch(err => { 
             this.$vs.notify({

@@ -2,7 +2,7 @@
   <div>
     <div class="flex" style="justify-content: space-between">
       <div class="w-3/5">
-        <h1 class="heading">Account Summary</h1>
+        <h1 class="heading ml-6">Account Summary</h1>
         <div class="flex" style="margin-top: 40px">
           <div class="w-1/2">
             <div class="flex" style="align-items: center">
@@ -14,20 +14,9 @@
                   :line-width="7"
                   :percent="70"
                 >
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 17 17"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M2.43946 16.5823C2.1712 16.8502 1.80751 17.0005 1.42841 17.0002C1.0493 17 0.685833 16.8491 0.417954 16.5809C0.150074 16.3127 -0.000266937 15.949 1.25042e-07 15.5699C0.000269094 15.1909 0.151119 14.8274 0.419377 14.5596L12.1227 2.85725L4.21381 2.85725C3.83491 2.85725 3.47154 2.70675 3.20362 2.43885C2.9357 2.17096 2.78518 1.80761 2.78518 1.42875C2.78518 1.04989 2.9357 0.686539 3.20362 0.418643C3.47154 0.150746 3.83491 0.00024299 4.21381 0.000243023L15.5714 0.000244016C15.9503 0.000244049 16.3136 0.150747 16.5816 0.418644C16.8495 0.686541 17 1.04989 17 1.42875L17 12.7854C17 13.1642 16.8495 13.5276 16.5816 13.7955C16.3136 14.0634 15.9503 14.2139 15.5714 14.2139C15.1925 14.2139 14.8291 14.0634 14.5612 13.7955C14.2933 13.5276 14.1428 13.1642 14.1428 12.7854L14.1428 4.87716L2.43946 16.5823Z"
-                      fill="black"
-                    />
-                  </svg>
+                <div class="resize" >
+                  <img src="~@/assets/dealer/img/icons/DownIcon.svg" alt="icon">
+               </div>  
                 </vue-easy-pie-chart>
               </div>
               <div class="w-1/2" style="display: flex; flex-direction: column">
@@ -46,20 +35,9 @@
                   :line-width="7"
                   :percent="70"
                 >
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 17 17"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M14.5605 0.418161C14.8288 0.150305 15.1925 -2.33985e-05 15.5716 0.000244498C15.9507 0.000512395 16.3142 0.151356 16.582 0.419591C16.8499 0.687826 17.0003 1.05148 17 1.43055C16.9997 1.80963 16.8489 2.17307 16.5806 2.44093L4.87732 14.1432H12.7862C13.1651 14.1432 13.5285 14.2937 13.7964 14.5616C14.0643 14.8295 14.2148 15.1929 14.2148 15.5717C14.2148 15.9506 14.0643 16.3139 13.7964 16.5818C13.5285 16.8497 13.1651 17.0002 12.7862 17.0002H1.42862C1.04973 17.0002 0.686354 16.8497 0.418435 16.5818C0.150516 16.3139 0 15.9506 0 15.5717V4.21513C0 3.83626 0.150516 3.47292 0.418435 3.20502C0.686354 2.93713 1.04973 2.78662 1.42862 2.78662C1.80752 2.78662 2.1709 2.93713 2.43881 3.20502C2.70673 3.47292 2.85725 3.83626 2.85725 4.21513V12.1233L14.5605 0.418161Z"
-                      fill="black"
-                    />
-                  </svg>
+                <div class="resize" >
+                  <img src="~@/assets/dealer/img/icons/DownIcon.svg" alt="icon">
+               </div>  
                 </vue-easy-pie-chart>
               </div>
               <div class="w-1/2" style="display: flex; flex-direction: column">
@@ -78,20 +56,9 @@
                   :line-width="7"
                   :percent="70"
                 >
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 17 17"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M14.5605 0.418161C14.8288 0.150305 15.1925 -2.33985e-05 15.5716 0.000244498C15.9507 0.000512395 16.3142 0.151356 16.582 0.419591C16.8499 0.687826 17.0003 1.05148 17 1.43055C16.9997 1.80963 16.8489 2.17307 16.5806 2.44093L4.87732 14.1432H12.7862C13.1651 14.1432 13.5285 14.2937 13.7964 14.5616C14.0643 14.8295 14.2148 15.1929 14.2148 15.5717C14.2148 15.9506 14.0643 16.3139 13.7964 16.5818C13.5285 16.8497 13.1651 17.0002 12.7862 17.0002H1.42862C1.04973 17.0002 0.686354 16.8497 0.418435 16.5818C0.150516 16.3139 0 15.9506 0 15.5717V4.21513C0 3.83626 0.150516 3.47292 0.418435 3.20502C0.686354 2.93713 1.04973 2.78662 1.42862 2.78662C1.80752 2.78662 2.1709 2.93713 2.43881 3.20502C2.70673 3.47292 2.85725 3.83626 2.85725 4.21513V12.1233L14.5605 0.418161Z"
-                      fill="black"
-                    />
-                  </svg>
+                          <div class="resize" >
+                  <img src="~@/assets/dealer/img/icons/DownIcon.svg" alt="icon">
+               </div>  
                 </vue-easy-pie-chart>
               </div>
               <div class="w-1/2" style="display: flex; flex-direction: column">
@@ -108,7 +75,7 @@
           <div class="w-full mt-6 data-list-container" id="data-list-list-view"  >
             <vs-table
               ref="table"
-              maxHeight="300px"
+              maxHeight="400px"
               pagination
               :max-items="itemsPerPage"
               search
@@ -485,7 +452,7 @@ export default {
   data() {
     return {
       activePrompt: false,
-      itemsPerPage: 4,
+      itemsPerPage: 5,
       activeUser: null,
       PopUp: false,
       PopUpData: {},
@@ -598,7 +565,7 @@ color: #000000;
 }
 .bills-num {
   margin-top: 8px;
-  font-family: Gugi;
+  /* font-family: Gugi; */
   font-style: normal;
   font-weight: normal;
   font-size: 24px;
@@ -651,6 +618,10 @@ color: #000000;
     0px 1.85185px 3.14815px rgba(41, 72, 152, 0.012037);
   border-radius: 18px;
   padding: 14px;
+}
+.resize{
+  padding-left: 2px;
+    padding-top: 4px;
 }
 </style>
 <style  lang="scss">
@@ -707,7 +678,7 @@ color: #000000;
       .vs-table--search {
         padding-top: 0;
         position: absolute;
-        left: 27% !important;
+        right: 54% !important;
 
         .vs-table--search-input {
           padding: 0.9rem 2.5rem;

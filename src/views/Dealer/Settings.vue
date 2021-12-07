@@ -2,29 +2,30 @@
     <div>
             <form  class="container-body">
               <div class="col">
-                <p class="title">Профиль</p>
+              <div class="flex justify-between items-center mb-6" style="padding-right: 20%">
+                 <div>
+                   <p class="title">Профиль</p>
                 <p class="sub-title">ФИО, E-mail</p>
+                </div>
+                <div @click="$refs.updateImgInput.click()" :style="{ 'background-image':  `url(${image})`}" class="user" >
+                  <div class="edit">
+                    <img src="@/assets/dealer/img/icons/edit.svg" alt="img">
+                  </div>
+                </div>
+                <input type="file" id="updateImgInput" class="hidden" ref="updateImgInput" @change="updateCurrImg" accept="image/*">
+              </div>
                 <input class="custom-input" type="text" placeholder="Name">
                 <input class="custom-input" type="text" placeholder="Surname">
                 <input class="custom-input" type="text" placeholder="Email">
               </div>
                <div class="col">
-                 <p class="title">Банковские карты</p>
-                 <div class="carousel-container">
-                   <Carousel/>
-                   <div class="carousel-col">
-                     <p><span>$</span> 130 млн</p>
-                     <p class="comment">Текущий баланс</p>
-                     <div class="switch-container">
-                      <label class="switch" for="checkbox">
-                        <input type="checkbox" id="checkbox" />
-                        <div class="slider round"></div>
-                      </label>
-                    </div>
-                    <p class="comment">Отключить карту</p>
-                   </div>
+                 <p class="title">Вам нравится E-Quick?</p>
+                   <p class="text mb-4 mt-3">
+                     Чтобы помочь нам усовершенствовать данный продукт, прошу оставить отзыв и оценить приложение по пяти бальной шкале (от 1 до 5)
+                   </p>
+                   <textarea id="custom-input" cols="30" rows="10" placeholder="Напишите что Вам больше всего нравится, либо чтобы вы хотели улучшить." ></textarea>
+                <star-rating v-model="rating" :increment="0.5" :show-rating="false" :max-rating="5" :star-size="35" ></star-rating>
                  </div>
-              </div>
                <div class="col">
                   <p class="title">Пароль</p>
                   <p class="sub-title">Ваша почта -  dmataraci@gmail.com</p>
@@ -33,19 +34,18 @@
               </div>
               <div class="col">
                  <p class="title">Уведомления</p>
-                 <p class="sub-title">Оповещание о серьзных событий</p>
+                 <p class="sub-title">Оповещание о событий</p>
                  <label class="checkbox-container">
                   <input type="checkbox" checked="checked">
                   <span class="checkmark"></span>
-                  Получать еженедельные письма
+                  Получать уведомления
                 </label>
-                  <div class="switch-container">
-                      <label class="switch" for="checkbox">
-                        <input type="checkbox" id="checkbox" />
-                        <div class="slider round"></div>
-                      </label>
-                    </div>
-                 <button class="save-btn">Сохранить настройки</button>
+                  <div class="flex mb-6 mt-3">
+                    <vs-switch color="#31b778" v-model="swich" id="swich" ></vs-switch>
+                    <label class="checkmark1" for="#swich">
+                      Получать сообщения на почту</label>
+                  </div>
+                 <button class="save-btn mt-4">Сохранить настройки</button>
               </div>
             </form>
             <div class="container-footer">
@@ -55,14 +55,32 @@
 </template>
 
 <script>
-import SideBar from './components/Sidebar.vue'
-import Carousel from "./components/Carousel.vue";
+import StarRating from 'vue-star-rating'
 export default {
   components: {
-    Carousel,
-    SideBar
+   StarRating
+  },
+  data(){
+    return{
+      swich: true,
+      rating: 4,
+      image: 'https://guaranteedremovals.com/wp-content/uploads/2020/05/business-man-quote-1024x1024.png',
+    }
   },
   name: "Settings",
+  methods:{
+    updateCurrImg (input) {
+      if (input.target.files && input.target.files[0]) {
+        const reader = new FileReader()
+        reader.onload = e => {
+          this.image = e.target.result
+        }
+        this.img = this.$refs.updateImgInput.files[0]
+        console.log(this.img, 'nusrat')
+        reader.readAsDataURL(input.target.files[0])
+      }
+    },
+  }
 };
 </script>
 
@@ -87,6 +105,35 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
+        .user{
+                cursor: pointer;
+      background-image: url("https://guaranteedremovals.com/wp-content/uploads/2020/05/business-man-quote-1024x1024.png");
+    width: 80px;
+    height: 87px;
+      background-position: center;
+      background-color: #3e5b71;
+      background-size: cover;
+      border-radius: 8.84722px;
+      position: relative;
+      .edit{
+        display: none;
+        height: 100%;
+      }
+        }
+        .user:hover .edit {
+           display: block;
+           cursor: pointer;
+                       display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+        }
+        .user:hover{
+              cursor: pointer;
+    display: block;
+    background-color: #141b22;
+    opacity: 0.8;
+        }
         .carousel-container {
           display: flex;
           flex-direction: row;
@@ -188,6 +235,15 @@ export default {
           line-height: 23px;
           color: #000022;
         }
+        .text{
+          font-family: Montserrat;
+font-style: normal;
+font-weight: normal;
+font-size: 17px;
+line-height: 21px;
+
+color: #000022;
+        }
         .sub-title {
           font-family: "Lato" sans-serif;
           font-style: normal;
@@ -215,6 +271,25 @@ export default {
             color: #666666;
           }
         }
+          #custom-input {
+          margin-bottom: 10px;
+          width: 80%;
+          height: 97.04px;
+          background: #f2f2f2;
+          border-radius: 5.7972px;
+          border: none;
+          outline: none;
+          padding-left: 25px;
+          padding-top: 10px;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 15px;
+          line-height: 18px;
+          color: #666666;
+          &::placeholder {
+            color: #666666;
+          }
+        }
         .save-btn {
           cursor: pointer;
           width: 305.13px;
@@ -233,10 +308,10 @@ export default {
         .checkbox-container {
           display: block;
           position: relative;
-          padding-left: 35px;
+          padding-left: 45px;
           margin-bottom: 12px;
           cursor: pointer;
-          font-size: 22px;
+          font-size: 20px;
           -webkit-user-select: none;
           -moz-user-select: none;
           -ms-user-select: none;
@@ -260,6 +335,18 @@ export default {
           height: 25px;
           width: 25px;
           background-color: #eee;
+        }
+        .checkmark1 {
+// font-family: Avenir Next;
+font-style: normal;
+// font-weight: 500;
+margin-left: 5px;
+font-size: 20px;
+line-height: 22px;
+/* identical to box height */
+
+
+color: #000022;
         }
 
         /* On mouse-over, add a grey background color */

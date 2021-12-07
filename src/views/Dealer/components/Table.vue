@@ -1,8 +1,8 @@
 <template>
   <div class="center">
          <div @click="exportToExcel()" class=" export" >
-                <img width="25px" src="@/assets/images/file-icons/xls.png" alt="">
-                <h3 class="exp">
+                <img v-if="selected.length > 0" width="25px" src="@/assets/images/file-icons/xls.png" alt="">
+                <h3 v-if="selected.length > 0" class="exp">
                  Экспортировать
                 </h3>
               </div>
@@ -106,7 +106,7 @@ export default {
     activePrompt: false,
     edit: null,
       headerTitle: ['Заявка', 'Кол.во продукта', 'Дата', 'Сумма(в сум)', 'Дата (доставки)'],
-      headerVal: ['order_number', 'total_product', 'date_ordered.slice', 'total_price', 'delivery_date'],
+      headerVal: ['order_number', 'total_product', 'date_ordered', 'total_price', 'delivery_date'],
     editProp: {},
     datas: [],
     isMounted: false,

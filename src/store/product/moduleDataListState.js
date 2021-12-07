@@ -2,5 +2,7 @@ export default {
   productes: [],
   carts: null, 
   orders: [],
-  orderItem: []
+  orderItem: [],
+  templetes: [],
+  tempDetail: []
 }

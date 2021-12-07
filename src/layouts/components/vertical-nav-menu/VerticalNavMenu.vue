@@ -79,8 +79,23 @@
         </component>
         <!-- /Menu Items -->
       </div>
+      <div class="footer-sidebar" slot="footer">
+        <vs-button @click="logout = true" icon="reply" color="danger" type="flat">log out</vs-button>
+      </div>
     </vs-sidebar>
     <!-- Swipe Gesture -->
+     <vs-prompt class="holamundo" :active.sync="logout">
+       <div class="container">
+         <h2 style="text-align: center" >Are you sure to log out ?</h2>
+         <p style="text-align: center" class="mt-4 mb-6" >
+           Please make sure when you logged out
+         </p>
+        <div class="form__btn mt-5" style="margin-left: 12rem; padding-bottom: 20px">
+          <vs-button style="background: #f9896b !important;" @click="LogOut()">Submit</vs-button>
+          <vs-button type="reset" @click="logout = false" >Cancel</vs-button>
+        </div>
+       </div>
+     </vs-prompt>
     <div
       v-if="isVerticalNavMenuActive"
       class="v-nav-menu-swipe-area"
@@ -111,6 +126,7 @@ export default {
     title:            { type: String }
   },
   data: () => ({
+    logout: false,
     clickNotClose       : false,
     isMouseEnter        : false,
     reduce              : false,
@@ -185,6 +201,11 @@ export default {
     windowWidth ()  { this.setVerticalNavMenuWidth() }
   },
   methods: {
+    LogOut(){
+      localStorage.removeItem('UserInfo')
+      localStorage.removeItem('Id')
+      this.$router.push('/login')
+    },
     onMenuSwipe (event) {
       if (event.direction === 4 && this.$vs.rtl) {
 

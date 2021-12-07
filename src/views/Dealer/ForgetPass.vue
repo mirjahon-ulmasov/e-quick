@@ -1,7 +1,8 @@
 <template>
     <div class="wrapper">
         <div class="container">
-            <img src="@/assets/dealer/img/svg/login/logo.png" alt="">
+            <img style="margin-bottom: 40px" src="@/assets/dealer/img/svg/login/logo.png" alt="">
+            <h2 class="text" >Сброс пароля</h2>
             <input 
          v-validate="'required|min:3'"
         data-vv-validate-on="blur"
@@ -9,11 +10,35 @@
         icon-no-border
         icon="icon icon-user"
         icon-pack="feather"
-        label-placeholder="Username"
-        v-model="username"
-            class="custom-input" 
+        placeholder="Email"
+        v-model="email"
+            class="custom-input1" 
             type="text">
-            <span class="text-danger text-sm flex justify-content-flex-end mt-2 ml-2">{{ errors.first('username') }} </span>
+            <!-- <span class="text-danger text-sm flex justify-content-flex-end mt-2 ml-2">{{ errors.first('username') }} </span> -->
+          <input      
+          @keypress.enter="loginJWT"   
+          data-vv-validate-on="blur"
+        v-validate="'required|min:6|max:10'"
+        type="password"
+        name="password"
+        placeholder="Введите полученный код"
+        v-model="code"
+        class="custom-input2"  />
+        <!-- <span class="text-danger flex justify-content-flex-end text-sm mt-2 ml-2">
+          {{ errors.first('password') }}
+        </span> -->
+                    <input 
+         v-validate="'required|min:3'"
+        data-vv-validate-on="blur"
+        name="username"
+        icon-no-border
+        icon="icon icon-user"
+        icon-pack="feather"
+        placeholder="Новый пароль"
+        v-model="password"
+            class="custom-input3" 
+            type="text">
+            <!-- <span class="text-danger text-sm flex justify-content-flex-end mt-2 ml-2">{{ errors.first('username') }} </span> -->
           <input      
           @keypress.enter="loginJWT"   
           data-vv-validate-on="blur"
@@ -23,20 +48,20 @@
         icon-no-border
         icon="icon icon-lock"
         icon-pack="feather"
-        label-placeholder="Password"
-        v-model="password"
-        class="custom-input"  />
-        <span class="text-danger flex justify-content-flex-end text-sm mt-2 ml-2">
+        placeholder="подтвердите пароль"
+        v-model="confirm_password"
+        class="custom-input4"  />
+        <!-- <span class="text-danger flex justify-content-flex-end text-sm mt-2 ml-2">
           {{ errors.first('password') }}
-        </span>
+        </span> -->
             <vs-button 
             @click="loginJWT" 
             class="submit-btn"
             >Войти</vs-button>
-            <div class="row">
-                <button>Забыли пароль?</button>
+                        <!-- <div class="row">
+                <router-link :to="'/login'" >Login</router-link>
 
-            </div>
+            </div> -->
         </div>
     </div>
 </template>
@@ -45,33 +70,24 @@
 export default {
   data () {
     return {
-      username: 'admin@admin.com',
-      password: 'adminadmin',
+      email: '',
+      password: '',
+      code: '',
+      confirm_password: '',
       checkbox_remember_me: false,
       progress: 0
     }
   },
   computed: {
-    validateForm () {
-      return !this.errors.any() && this.email !== '' && this.password !== ''
+    validateForm() {
+      return !this.errors.any() && this.username !== '' && this.password !== ''
     }
   },
   methods: {
-       loginJWT () {
-         const loading = this.$vs.loading({
-            progress: 0
-          })
-          const interval = setInterval(() => {
-            if (this.progress <= 100) {
-              loading.changeProgress(this.progress++)
-            }
-          }, 40)
-          setTimeout(() => {
-            loading.close()
-            clearInterval(interval)
-            this.progress = 0
-          }, 4100)
-
+    loginJWT () {
+      if(this.validateForm){
+      // Loading
+      this.$vs.loading()
       const payload = {
         checkbox_remember_me: this.checkbox_remember_me,
         userDetails: {
@@ -79,9 +95,20 @@ export default {
           password: this.password
         }
       }
-
       this.$store.dispatch('auth/loginJWT', payload)
-        .then(() => { this.$vs.loading.close() })
+        .then(() => {
+          this.$acl.change(localStorage.getItem('UserInfo'))
+          this.$vs.loading.close()
+        if(localStorage.getItem('UserInfo') == 'dealer'){
+          this.$router.push('/')
+        }
+        else if(localStorage.getItem('UserInfo') == 'super_admin'){
+          this.$router.push('/attechments')
+        }
+        else if(localStorage.getItem('UserInfo') == 'admin'){
+          this.$router.push('/user')
+        }
+        })
         .catch(error => {
           this.$vs.loading.close()
           this.$vs.notify({
@@ -92,7 +119,8 @@ export default {
             color: 'danger'
           })
         })
-    },
+    }
+    }
   }
 }
 </script>
@@ -110,7 +138,7 @@ div.wrapper{
     background-repeat:  no-repeat;
     background-size: cover;
     div.container{
-         width: 280.74px;
+         width: 412px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -118,32 +146,113 @@ div.wrapper{
         img{
             margin: 15px;
         }
-        input.custom-input{
+        .text{
+          font-family: Montserrat;
+font-style: normal;
+font-weight: bold;
+font-size: 25px;
+line-height: 30px;
+text-align: center;
+margin-bottom: 30px !important;
+color: #FFFFFF;
+        }
+        input.custom-input1{
             font-family: 'Montserrat' sans-serif;
             width: 100%;
-            height: 40px;
+            height: 61px;
             margin: 13px;
+            padding-top: 6px;
             color: #FFFFFF;
             background: none;
             border: 1.37581px solid #FFFFFF;
             box-sizing: border-box;
             border-radius: 5.50326px;
-            padding-left: 40px;
+            padding-left: 60px;
             &::placeholder{
                 font-style: normal;
                 font-weight: bold;
                 font-size: 19.2614px;
-                line-height: 28px;
+                line-height: 27px;
                 color: #FFFFFF;
             }
-            &:nth-child(2){
-                background-image: url("../../assets/dealer/img/icons/user.svg");
+            &:nth-child(3){
+                background-image: url("../../assets/dealer/img/icons/email.svg");
                 background-repeat: no-repeat;
                 background-position: 5%;
                 background-size: 7%;
-                
+            }        }
+                input.custom-input2{
+            font-family: 'Montserrat' sans-serif;
+            width: 100%;
+            height: 61px;
+            margin: 13px;
+            padding-top: 6px;
+            color: #FFFFFF;
+            background: none;
+            border: 1.37581px solid #FFFFFF;
+            box-sizing: border-box;
+            border-radius: 5.50326px;
+            padding-left: 60px;
+            &::placeholder{
+                font-style: normal;
+                font-weight: bold;
+                font-size: 19.2614px;
+                line-height: 27px;
+                color: #FFFFFF;
             }
-             &:nth-child(3){
+             &:nth-child(4){
+                background-image: url("../../assets/dealer/img/icons/code.svg");
+                background-repeat: no-repeat;
+                background-position: 5%;
+                 background-size: 7%;
+            }
+        }
+          input.custom-input3{
+            font-family: 'Montserrat' sans-serif;
+            width: 100%;
+            height: 61px;
+            margin: 13px;
+            padding-top: 6px;
+            color: #FFFFFF;
+            background: none;
+            border: 1.37581px solid #FFFFFF;
+            box-sizing: border-box;
+            border-radius: 5.50326px;
+            padding-left: 60px;
+            &::placeholder{
+                font-style: normal;
+                font-weight: bold;
+                font-size: 19.2614px;
+                line-height: 27px;
+                color: #FFFFFF;
+            }
+             &:nth-child(5){
+                background-image: url("../../assets/dealer/img/icons/lock.svg");
+                background-repeat: no-repeat;
+                background-position: 5%;
+                 background-size: 7%;
+            }
+        }
+          input.custom-input4{
+            font-family: 'Montserrat' sans-serif;
+            width: 100%;
+            height: 61px;
+            margin: 13px;
+            padding-top: 6px;
+            color: #FFFFFF;
+            background: none;
+            border: 1.37581px solid #FFFFFF;
+            box-sizing: border-box;
+            border-radius: 5.50326px;
+            padding-left: 60px;
+            &::placeholder{
+                font-style: normal;
+                font-weight: bold;
+                font-size: 19.2614px;
+                line-height: 27px;
+                color: #FFFFFF;
+            }
+             &:nth-child(6){
                 background-image: url("../../assets/dealer/img/icons/lock.svg");
                 background-repeat: no-repeat;
                 background-position: 5%;
@@ -156,13 +265,13 @@ div.wrapper{
             border: none;
             outline: none;
             cursor: pointer;
-            height: 40px;
+            height: 57px;
             background: #FFFFFF !important;
             box-shadow: 0px 5.50326px 5.50326px rgba(0, 0, 0, 0.3);
             border-radius: 5.50326px;
             font-style: normal;
             font-weight: bold;
-            font-size: 15.013px;
+            font-size: 22px;
             line-height: 18px;
             text-align: center;
             text-transform: uppercase;
@@ -173,7 +282,7 @@ div.wrapper{
             display: flex;
             flex-direction: row;
             justify-content: flex-end;
-             button{
+             a{
                 border: none;
                 cursor: pointer;
                 background: none;
