@@ -224,7 +224,7 @@ const router = new Router({
         // PAGES
         // =============================================================================
         {
-          path: '/login',
+          path: '/v/login',
           name: 'login',
           component: () => import('@/views/Admins/Login.vue'),
           meta: {
@@ -232,7 +232,7 @@ const router = new Router({
           }
         },
         {
-          path: '/v/forget-password',
+          path: '/forget-password',
           name: 'forget',
           component: () => import('@/views/Dealer/ForgetPass.vue'),
           meta: {
@@ -240,7 +240,7 @@ const router = new Router({
           }
         },
         {
-          path: '/v/login',
+          path: '/login',
           name: 'v-login',
           component: () => import('@/views/Dealer/Login.vue'),
           meta: {
@@ -351,12 +351,12 @@ router.afterEach(() => {
   }
 })
 router.beforeEach((to, from, next) => {
-  const publicPages = ['/v/login']
+  const publicPages = ['/login', '/forget-password']
   const authRequired = !publicPages.includes(to.path)
   const loggedIn = localStorage.getItem('UserInfo')
   if (authRequired && !loggedIn) {
     !publicPages
-    return next('/v/login')
+    return next('/login')
   }
   next()
 })

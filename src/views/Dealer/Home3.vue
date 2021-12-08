@@ -101,9 +101,11 @@
         </div>
         <div class="w-1/2 left-bg">
           <div >
-            <div class="flex" style="justify-content: space-between">
-              <h2 class="zayhaed">Заявка №: 443215</h2>
+            <div class="flex" v-if="carts" style="justify-content: space-between">
+              <h2 class="zayhaed">Products  №: {{ sanoq }} </h2>
+        <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer">
               <svg
+              href.prevent
                 width="32"
                 height="32"
                 viewBox="0 0 32 32"
@@ -128,8 +130,25 @@
                   </linearGradient>
                 </defs>
               </svg>
+          <vs-dropdown-menu class="wab" style="width: 186px; padding: 0px 15px 0px 15px important" >
+              <h4
+              class="wab-name"
+              >
+             Сохранить как шаблон
+              </h4>
+              <input class="wab-input" v-model="NameWab" type="text" placeholder="Введите название для шаблона" >
+              <div class="com flex mt-4 mb-1">
+                <button @click="AddWab()" class="wab-ok">
+                  Сохранить
+                </button>
+                <button vs-collapse class="wab-no ml-3">
+                   Отменить
+                </button>
+              </div>
+          </vs-dropdown-menu>
+        </vs-dropdown>
             </div>
-            <span class="date"> от 01.11.21 </span>
+            <!-- <span class="date"> от 01.11.21 </span> -->
             <br>
             <h5 style="margin-top: 30px" v-if="!carts">
               No aviable data on your cart, please select products !
@@ -313,6 +332,7 @@ export default {
         categoryPop: false,
         podcategoryPop: false,
       edit: false,
+      NameWab: '',
       PopUpData: {},
       PopUp: false,
       sanoq: null,
@@ -384,6 +404,31 @@ export default {
       this.toggleDataSidebarOrder(true)
       this.$store.dispatch('product/GetCart')
     },
+    AddWab(){
+      const payload = {
+        template_name: this.NameWab,
+        user_id: parseInt(localStorage.getItem('Id')),
+        cart_id: this.carts.id,
+      }
+                 this.$store.dispatch('product/PostTemplates', (payload)).then(response => {
+            this.$vs.notify({
+            title: 'Created',
+            text: 'Ok',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'success'
+          })
+            })
+          .catch(err => { 
+          this.$vs.notify({
+            title: 'Error',
+            text: err,
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'danger'
+          })
+           })
+    },
     toggleDataSidebar (val = false) {
       this.$store.dispatch('product/GetCart')
       this.PopUp = val
@@ -425,6 +470,9 @@ export default {
           this.$store.dispatch('product/GetCart')
            })
     }
+  },
+  mounted(){
+    // this.sanoq = this.carts.items.length
   },
   created(){
      this.$store.dispatch('product/GetCart')
@@ -639,6 +687,68 @@ border-radius: 7.45205px;
 
   letter-spacing: 0.371237px;
 }
+.wab-name{
+font-family: Poppins;
+font-style: normal;
+font-weight: bold;
+font-size: 13px;
+line-height: 44px;
+/* or 550% */
+margin-left: 15px;
+display: flex;
+align-items: center;
+
+color: #000;
+}
+.wab-input{
+  width: 152px;
+height: 24px;
+padding: 5px;
+margin-left: 9px;
+border: 1px solid #110d0d;
+box-sizing: border-box;
+border-radius: 2px;
+}
+.wab-ok{
+  width: 70px;
+height: 20px;
+padding: 5px;
+background: linear-gradient(99.52deg, #3F4F61 -14.96%, #3A9FD1 156.83%);
+border-radius: 2px;
+text-align: center;
+font-family: Poppins;
+font-style: normal;
+font-weight: bold;
+font-size: 9px;
+line-height: 44px;
+/* identical to box height, or 880% */
+    margin-left: 11px;
+    padding-left: 12px;
+display: flex;
+align-items: center;
+border: none;
+color: #FFFFFF;
+}
+.wab-no{
+  width: 70px;
+height: 20px;
+padding: 5px;
+padding-left: 12px;
+background: #E1E1E1;;
+border-radius: 2px;
+text-align: center;
+font-family: Poppins;
+font-style: normal;
+font-weight: bold;
+font-size: 9px;
+line-height: 44px;
+/* identical to box height, or 880% */
+border: none;
+display: flex;
+align-items: center;
+
+color: #000000;
+}
 .offer {
   cursor: pointer;
   width: 100%;
@@ -699,6 +809,9 @@ text-align: center;
 letter-spacing: -0.02em;
 
 color: #FFFFFF;
+}
+.offering:hover{
+  box-shadow: none !important;
 }
 </style>
 <style lang="scss" scoped>

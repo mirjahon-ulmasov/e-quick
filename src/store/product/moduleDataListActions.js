@@ -87,6 +87,7 @@ export default {
   },
   // Get ordered Cart list items
   GetOrderItem ({ commit }, id) {
+  if(id >= 0){
     return new Promise((resolve, reject) => {
       axios.get('/api/v1/orders/' + localStorage.getItem('Id') + `/${id}`  )
         .then((response) => {
@@ -96,11 +97,24 @@ export default {
         })
         .catch((error) => { reject(error) })
     })
+  }
   },
+      // Post templates list
+      PostTemplates ({ commit }, payload) {
+        return new Promise((resolve, reject) => {
+          axios.post('/api/v1/templates', (payload) )
+            .then((response) => {
+              // commit('ADD_Templates', response.data)
+              console.log(response.data)
+              resolve(response)
+            })
+            .catch((error) => { reject(error) })
+        })
+      },
     // Get templates list
     GetTemplates ({ commit }) {
       return new Promise((resolve, reject) => {
-        axios.get('/api/v1/templates' + localStorage.getItem('Id') )
+        axios.get('/api/v1/templates/' + localStorage.getItem('Id') )
           .then((response) => {
             commit('ADD_Templates', response.data)
             console.log(response.data)
@@ -111,30 +125,34 @@ export default {
     },
       // Get Templates list items
   GetTemplatesItem ({ commit }, template_id) {
-    return new Promise((resolve, reject) => {
-      axios.get(`api/v1/templates/${localStorage.getItem('Id')}/${template_id}`  )
-        .then((response) => {
-          commit('ADD_TemplatesItem', response.data)
-          console.log(response.data)
-          resolve(response)
-        })
-        .catch((error) => { reject(error) })
-    })
+ if(template_id >= 0){
+  return new Promise((resolve, reject) => {
+    axios.get(`api/v1/templates/${localStorage.getItem('Id')}/${template_id}`  )
+      .then((response) => {
+        commit('ADD_TemplatesItem', response.data)
+        console.log(response.data)
+        resolve(response)
+      })
+      .catch((error) => { reject(error) })
+  })
+ }
   },
-    // Templates Update
-    UpdateTemplate( template_id) {
+    // Templates Delete
+    UpdateTemplate({  commit } , template_id) {
+      console.log(template_id, 'vay')
       return new Promise((resolve, reject) => {
         axios.put(`api/v1/templates/${template_id}`)
           .then((response) => {
+            commit('REMOVE_Temp', template_id)
             console.log(response.data)
             resolve(response)
           })
           .catch((error) => { reject(error) })
       })
     },
-    UpdateTemplate( payload) {
+    OrderTemplate({  commit } , payload) {
       return new Promise((resolve, reject) => {
-        axios.put(`api/v1/templates/checkout `, (payload))
+        axios.post(`api/v1/templates/checkout `, (payload))
           .then((response) => {
             console.log(response.data)
             resolve(response)
@@ -142,9 +160,9 @@ export default {
           .catch((error) => { reject(error) })
       })
     },
-    UpdateTemplate( payload ) {
+    AddCartTemplate({  commit } , payload ) {
       return new Promise((resolve, reject) => {
-        axios.put(`api/v1/templates/add/cart`, (payload))
+        axios.post(`api/v1/templates/add/cart`, (payload))
           .then((response) => {
             console.log(response.data)
             resolve(response)

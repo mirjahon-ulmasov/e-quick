@@ -7,10 +7,9 @@
         <h2> User {{ Object.entries(this.data).length === 0 ? "Registeration" : "UPDATE" }} </h2>
         <div class="form__inputs">
             <!-- ROle -->
-        <vs-select v-model="position"  placeholder="Role" data-vv-validate-on="blur" class="mt-5 w-full" name="role" v-validate="'required'" >
+        <vs-select v-if="!dataId" v-model="position"  placeholder="Role" data-vv-validate-on="blur" class="mt-5 w-full" name="role" >
           <vs-select-item :key="item.id" :value="item.role" :text="item.role" v-for="item in roles" />
         </vs-select>
-         <span class="text-danger text-sm" v-show="errors.has('role')">{{ errors.first('role') }}</span>
         <!-- Full name -->
           <input v-model="fullname" placeholder="Full Name" data-vv-validate-on="blur" name="fullname" v-validate="'required'" />
           <span class="text-danger text-sm" v-show="errors.has('fullname')">{{ errors.first('fullname') }}</span>
@@ -50,7 +49,7 @@
   <!-- </VuePerfectScrollbar> -->
   <!-- Submit reset buttonla -->
           <div class="form__btn" style="margin-left: 12rem; padding-bottom: 20px">
-          <vs-button style="background: #f9896b !important;" :disabled="!isFormValid" @click="submitData">Submit</vs-button>
+          <vs-button style="background: #f9896b !important;" @click="submitData">Submit</vs-button>
           <vs-button type="reset" @click="Reset" >Cancel</vs-button>
         </div>
     </div>
@@ -63,7 +62,7 @@ export default {
   name: "",
     data(){
     return{
-    position: '',
+    position: 'dealer',
     fullname: '',
     username: '',
     password: '',
@@ -150,7 +149,7 @@ export default {
       this.email = ''
       this.password = ''
       this.confirm = ''
-      this.active = false
+      // this.active = false
       this.phone = ''
     },
     Reset(){
@@ -159,15 +158,13 @@ export default {
       this.username = ''
       this.position = ''
       this.email = ''
-      this.active = false
+      // this.active = false
       this.password = ''
       this.confirm = ''
       this.phone = ''
       this.$emit('closeSidebar')
     },
     submitData() {
-      this.$validator.validateAll().then(result => {
-        if (result) {
           if(this.active === false){
             this.active = -1
           }
@@ -204,7 +201,10 @@ export default {
           })
              })
           } else {
+        this.$validator.validateAll().then(result => {
+        if (result) {
             delete obj.id
+            delete obj.active
             this.$store.dispatch('addUser/addItem', obj)
             .then(response => {
             this.$vs.notify({
@@ -226,9 +226,8 @@ export default {
           })
               console.error(err)
                })
+        }})
           }
-        }
-      })
     },
     scrollHandle(evt) {
         return evt

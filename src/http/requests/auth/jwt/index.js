@@ -9,7 +9,7 @@ export default {
     }, function (error) {
       if (error.response.status === 401) {
         localStorage.removeItem('access')
-        router.push('/v/login')
+        router.push('/login')
       }
       return Promise.reject(error)
     })

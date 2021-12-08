@@ -17,7 +17,7 @@
           <input      
           @keypress.enter="loginJWT"   
           data-vv-validate-on="blur"
-        v-validate="'required|min:6|max:10'"
+        v-validate="'required|min:4|max:10'"
         type="password"
         name="password"
         icon-no-border
@@ -34,7 +34,7 @@
             class="submit-btn"
             >Войти</vs-button>
             <div class="row">
-                <button>Забыли пароль?</button>
+                <router-link :to="'/forget-password'" >Забыли пароль?</router-link>
 
             </div>
         </div>
@@ -189,7 +189,7 @@ div.wrapper{
             border-radius: 5.50326px;
             font-style: normal;
             font-weight: bold;
-            font-size: 15.013px;
+            font-size: 19.013px;
             line-height: 18px;
             text-align: center;
             text-transform: uppercase;
@@ -200,7 +200,7 @@ div.wrapper{
             display: flex;
             flex-direction: row;
             justify-content: flex-end;
-             button{
+             a{
                 border: none;
                 cursor: pointer;
                 background: none;
