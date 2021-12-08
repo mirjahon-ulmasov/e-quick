@@ -1,7 +1,7 @@
 <template>
     <div>
  <vs-prompt class="holamundo" :active.sync="isSidebarActiveLocal">
-    <div class="container">
+    <div v-show="!next" class="container">
     <!-- <VuePerfectScrollbar class="scroll-area"> -->
       <div class="form scroll-area" :is="scrollbarTag" :settings="settings"  >
         <h2> User {{ Object.entries(this.data).length === 0 ? "Registeration" : "UPDATE" }} </h2>
@@ -53,10 +53,32 @@
           <vs-button type="reset" @click="Reset" >Cancel</vs-button>
         </div>
     </div>
+        <div v-show="next" class="container">
+    <!-- <VuePerfectScrollbar class="scroll-area"> -->
+      <div class="form scroll-area" :is="scrollbarTag" :settings="settings">
+        <h2> User  {{ fullname }} add company </h2>
+        <div class="form__inputs">
+            <!-- Company -->
+              <v-select 
+               class="sle"
+               v-model="selected" 
+               :options="companies" 
+               multiple
+               label="name" />
+      </div>
+    </div>
+  <!-- </VuePerfectScrollbar> -->
+  <!-- Submit reset buttonla -->
+          <div class="form__btn" style="margin-left: 12rem; padding-bottom: 20px">
+          <vs-button style="background: #f9896b !important;" @click="submitCom">Submit</vs-button>
+          <vs-button type="reset" @click="Reset" >Cancel</vs-button>
+        </div>
+    </div>
     </vs-prompt>
     </div>
 </template>
 <script>
+import vSelect from 'vue-select'
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 export default {
   name: "",
@@ -67,8 +89,10 @@ export default {
     username: '',
     password: '',
     confirm: '',
+    next: false,
     email: '',
     phone: '',
+    selected: null,
     active: false,
     dataId: null,
     settings: {
@@ -121,6 +145,15 @@ export default {
     roles() {
       return this.$store.state.addUser.roles
     },
+    companies() {
+      return this.$store.state.dataList.companies
+    },
+    companie() {
+      return this.$store.state.dataList.companies.map(x => x.name)
+    },
+        user() {
+      return this.$store.state.addUser.admins
+    },
         scrollbarTag () { return this.$store.getters.scrollbarTag },
     isFormValid () {
       return !this.errors.any()
@@ -138,7 +171,7 @@ export default {
       }
     },
     },
-  components: { VuePerfectScrollbar },
+  components: { VuePerfectScrollbar, vSelect },
   methods:{
       initValues () {
       if (this.data.id) return
@@ -190,7 +223,7 @@ export default {
             icon: 'icon-alert-circle',
             color: 'success'
           })
-              this.Reset()
+              this.next = true
             .catch(err => { 
             this.$vs.notify({
             title: 'Error',
@@ -214,7 +247,7 @@ export default {
             icon: 'icon-alert-circle',
             color: 'success'
           })
-          this.Reset()
+          this.next = true
             })
             .catch(err => { 
             this.$vs.notify({
@@ -229,15 +262,58 @@ export default {
         }})
           }
     },
+    submitCom(){
+      let id = this.user.find(x => x.full_name == this.fullname).id
+      console.log(id)
+      // console.log
+      console.log(this.selected, 'list')
+      const payload = {
+        dealer_id: id,
+        company_list: this.selected.map(x => x.id)
+      }
+      if(this.selected){
+             this.$store.dispatch("dataList/AddUserCompanies", payload).then(response => {
+          this.$vs.notify({
+            title: 'Created',
+            text: 'ok',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'success'
+          })
+          this.Reset()
+          this.next = false
+     })
+     .catch(err => {
+          this.$vs.notify({
+            title: 'Error',
+            text: err.response.data.detail,
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'danger'
+          })
+     })
+      }
+      else{
+          this.$vs.notify({
+            title: 'Error',
+            text: 'Fill correctly, please',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'danger'
+          })
+      }
+    },
     scrollHandle(evt) {
         return evt
     },
   },
   created(){
+    this.$store.dispatch("dataList/fetchDataCompanies");
     this.$store.dispatch("addUser/fetchRoles");
+     this.$store.dispatch("addUser/fetchDataListItems");
   },
   mounted(){
-    console.log(this.data, 'data')
+    console.log(this.user, 'data1')
   }
 }
 </script>

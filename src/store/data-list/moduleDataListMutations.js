@@ -15,6 +15,9 @@ export default {
   SET_PRODUCTS (state, products) {
     state.products = products
   },
+  SET_Companies (state, com) {
+    state.companies = com
+  },
   SET_SAP (state, sap) {
     state.sap = sap
   },

@@ -102,8 +102,8 @@
         <div class="w-1/2 left-bg">
           <div >
             <div class="flex" v-if="carts" style="justify-content: space-between">
-              <h2 class="zayhaed">Products  №: {{ sanoq }} </h2>
-        <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer">
+              <h2 class="zayhaed">Products  №: {{ carts.items.length }} </h2>
+        <vs-dropdown :vs-custom-content="true" :vs-trigger-click="true" class="cursor-pointer">
               <svg
               href.prevent
                 width="32"
@@ -137,14 +137,16 @@
              Сохранить как шаблон
               </h4>
               <input class="wab-input" v-model="NameWab" type="text" placeholder="Введите название для шаблона" >
-              <div class="com flex mt-4 mb-1">
-                <button @click="AddWab()" class="wab-ok">
+              <vs-dropdown-item class="com flex mt-4 mb-1">
+                <div class="flex">
+                  <button @click="AddWab()" class="wab-ok">
                   Сохранить
                 </button>
-                <button vs-collapse class="wab-no ml-3">
+                <button class="wab-no ml-3">
                    Отменить
                 </button>
-              </div>
+                </div>
+              </vs-dropdown-item>
           </vs-dropdown-menu>
         </vs-dropdown>
             </div>
@@ -410,7 +412,7 @@ export default {
         user_id: parseInt(localStorage.getItem('Id')),
         cart_id: this.carts.id,
       }
-                 this.$store.dispatch('product/PostTemplates', (payload)).then(response => {
+          this.$store.dispatch('product/PostTemplates', (payload)).then(response => {
             this.$vs.notify({
             title: 'Created',
             text: 'Ok',
@@ -418,6 +420,7 @@ export default {
             icon: 'icon-alert-circle',
             color: 'success'
           })
+          this.NameWab = null
             })
           .catch(err => { 
           this.$vs.notify({
@@ -721,8 +724,6 @@ font-style: normal;
 font-weight: bold;
 font-size: 9px;
 line-height: 44px;
-/* identical to box height, or 880% */
-    margin-left: 11px;
     padding-left: 12px;
 display: flex;
 align-items: center;

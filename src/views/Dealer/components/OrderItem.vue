@@ -15,6 +15,7 @@
            <vs-table
               ref="table"
               maxHeight="50vh"
+              style="max-width: 400px !important"
               class="produc mt-4"
               v-if="carts"
               :data="carts.items"
@@ -53,7 +54,7 @@
                         background: white;
                       "
                     >
-                      <p>{{ tr.product_id }}</p>
+                      <p>{{ tr.product_name }}</p>
                     </vs-td>
                     <vs-td style="border-right: 2px solid #3a9fd1 !important; background: white;">
                     <div  class="flex">

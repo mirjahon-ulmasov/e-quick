@@ -3,7 +3,7 @@
       <SideBar  :style="active ? 'display: none !important;' : 'width: 20% !important' "  />
        <div class="container1" :style="active ? 'width: 100% !important' : 'width: 80% !important' " >
               <transition :name="routerTransition" mode="out-in">
-                <router-view @changeRouteTitle="changeRouteTitle" @setAppClasses="(classesStr) => $emit('setAppClasses', classesStr)" />
+                <router-view @setAppClasses="(classesStr) => $emit('setAppClasses', classesStr)" />
               </transition>
        </div>
       <div class="close-side"
