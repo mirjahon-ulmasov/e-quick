@@ -434,8 +434,8 @@ export default {
     },
     toggleDataSidebar (val = false) {
       this.$store.dispatch('product/GetCart')
+      setTimeout(() => this.$store.dispatch('product/GetCart'), 500);
       this.PopUp = val
-      this.$store.dispatch('product/GetCart')
     },
     toggleDataSidebarOrder (val = false) {
       this.PopUpOrder = val

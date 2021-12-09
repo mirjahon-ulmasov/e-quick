@@ -114,6 +114,7 @@ export default {
       this.$acl.change('editor')
       console.log('okkk')
       this.$router.push('/login')
+      window.location.reload()
     }
   },
   created(){

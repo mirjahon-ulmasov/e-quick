@@ -132,6 +132,7 @@ export default {
       this.$store.dispatch('product/GetOrder')
     },
         exportToExcel () {
+          console.log(this.selected)
       import('@/vendor/Export2Excel').then(excel => {
         const list = this.selected
         const data = this.formatJson(this.headerVal, list)

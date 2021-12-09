@@ -14,9 +14,10 @@
             class="custom-input" 
             type="text">
             <span class="text-danger text-sm flex justify-content-flex-end mt-2 ml-2">{{ errors.first('username') }} </span>
-          <input
+          <input      
+          @keypress.enter="loginJWT"   
           data-vv-validate-on="blur"
-        v-validate="'required|min:4|max:10'"
+        v-validate="'required|min:3'"
         type="password"
         name="password"
         icon-no-border
@@ -44,8 +45,8 @@
 export default {
   data () {
     return {
-      username: 'dealer',
-      password: 'dealer',
+      username: '',
+      password: '',
       checkbox_remember_me: false,
       progress: 0
     }
