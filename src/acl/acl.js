@@ -9,7 +9,7 @@ if(localStorage.getItem('UserInfo')){
 }
 export default new AclCreate({
   initial  : initialRole,
-  notfound : '/pages/not-authorized',
+  notfound : '/login',
   router,
   acceptLocalRules : true,
   globalRules: {

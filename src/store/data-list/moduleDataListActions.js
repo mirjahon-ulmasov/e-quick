@@ -21,6 +21,25 @@ export default {
         .catch((error) => { reject(error) })
     })
   },
+    fetchDataCompanies ({ commit }) {
+    return new Promise((resolve, reject) => {
+      axios.get('/api/v1/companies')
+        .then((response) => {
+          commit('SET_Companies', response.data)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
+  AddUserCompanies ({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      axios.post('/api/v1/company_group/dealer', (payload))
+        .then((response) => {
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
   fetchDataListSap ({ commit }) {
     return new Promise((resolve, reject) => {
       axios.get('/api/sap/sap/')

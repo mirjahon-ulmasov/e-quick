@@ -123,7 +123,7 @@ export default {
         .user:hover .edit {
            display: block;
            cursor: pointer;
-                       display: flex;
+         display: flex;
     align-items: center;
     text-align: center;
     justify-content: center;
@@ -275,12 +275,12 @@ color: #000022;
           margin-bottom: 10px;
           width: 80%;
           height: 97.04px;
+          resize: none;
           background: #f2f2f2;
           border-radius: 5.7972px;
           border: none;
           outline: none;
-          padding-left: 25px;
-          padding-top: 10px;
+          padding: 10px;
           font-style: normal;
           font-weight: normal;
           font-size: 15px;

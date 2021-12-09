@@ -4,7 +4,7 @@
         <input type="text" v-model="search" placeholder="Поиск шаблонов" class="search" />
       </div>
            <div class="row" >
-             <div v-for="(temp,i) in resultTemplates" :key="i" class="card">
+             <div v-for="(temp,i) in resultTemplates" :key="i" class="card cursor-pointer">
                <div class="card-header">
                  <p>{{ temp.title }}</p>                      
                   <feather-icon icon="TrashIcon"
@@ -108,7 +108,7 @@ export default {
           return this.search.toLowerCase().split(" ").every(v => item.title.toLowerCase().includes(v));
         });
       } else {
-        return this.templates;
+        return this.templates.reverse();
       }
     },
   templates(){

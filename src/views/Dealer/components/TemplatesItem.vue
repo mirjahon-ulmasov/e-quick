@@ -15,6 +15,7 @@
            <vs-table
               ref="table"
               maxHeight="50vh"
+              style="max-width: 400px !important"
               class="produ mt-4"
               :data="detail.items"
             >
@@ -52,7 +53,7 @@
                         background: white;
                       "
                     >
-                      <p>{{ tr.product_id }}</p>
+                      <p>{{ tr.product_name }}</p>
                     </vs-td>
                     <vs-td style="border-right: 2px solid #3a9fd1 !important; background: white;">
                     <div  class="flex">
@@ -85,9 +86,11 @@
                   </vs-button>
               </div>
     </vs-popup>
+    <order-template  :Temp="Temp" @closeSidebar="toggleDataOrder" ></order-template>
     </div>
 </template>
 <script>
+import OrderTemplate from './OrderTemplete.vue'
 export default {
   name: "",
     props: {
@@ -95,6 +98,14 @@ export default {
       type: Boolean,
       required: true
     },
+  },
+  components: {
+    OrderTemplate
+  },
+  data(){
+    return{
+      Temp: false,
+    }
   },
     watch: {
     isPopUp (val) {
@@ -119,30 +130,8 @@ export default {
     },
     methods: {
      Order(){
-         this.$store.dispatch('product/OrderTemplate', {
-            dealer_id: parseInt(localStorage.getItem('Id')),
-            delivery_date: this.date,
-            template_id: 1,
-            order_type: this.ordertype,
-            delivery_type: this.type
-            }).then(response => {
-            this.$vs.notify({
-            title: 'Ordered',
-            text: "Muvafayaqiyta",
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'success'
-          })
-            })
-            .catch(err => { 
-            this.$vs.notify({
-            title: 'Error',
-            text: err,
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'danger'
-          })
-              console.error(err) })
+       this.isSidebarActiveLocal = false
+        this.toggleDataOrder(true)
      },
      AddCart(){
        this.isSidebarActiveLocal = false
@@ -170,7 +159,10 @@ export default {
             color: 'danger'
           })
               console.error(err) })
-     }
+     },
+             toggleDataOrder (val = false) {
+      this.Temp = val
+    },
     },
   created(){
    this.$store.dispatch('product/GetTemplatesItem')
