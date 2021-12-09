@@ -14,9 +14,9 @@
                 </div>
                 <input type="file" id="updateImgInput" class="hidden" ref="updateImgInput" @change="updateCurrImg" accept="image/*">
               </div>
-                <input class="custom-input" type="text" placeholder="Name">
-                <input class="custom-input" type="text" placeholder="Surname">
-                <input class="custom-input" type="text" placeholder="Email">
+                <input class="custom-input" v-model="name" type="text" placeholder="Name">
+                <input class="custom-input" v-model="surname" type="text" placeholder="Surname">
+                <input class="custom-input" v-model="email"  type="text" placeholder="Email">
               </div>
                <div class="col">
                  <p class="title">Вам нравится E-Quick?</p>
@@ -30,7 +30,7 @@
                   <p class="title">Пароль</p>
                   <p class="sub-title">Ваша почта -  dmataraci@gmail.com</p>
                   <input class="custom-input" type="text" placeholder="Password">
-                  <input class="custom-input" type="text" placeholder="New password">
+                  <input class="custom-input" v-model="password" type="text" placeholder="New password">
               </div>
               <div class="col">
                  <p class="title">Уведомления</p>
@@ -45,7 +45,7 @@
                     <label class="checkmark1" for="#swich">
                       Получать сообщения на почту</label>
                   </div>
-                 <button class="save-btn mt-4">Сохранить настройки</button>
+                 <vs-button class="save-btn mt-4" @click="SaveInfo()" >Сохранить настройки</vs-button>
               </div>
             </form>
             <div class="container-footer">
@@ -60,15 +60,52 @@ export default {
   components: {
    StarRating
   },
+  computed: {
+      info(){
+    return  this.$store.state.auth.info
+    },
+  },
   data(){
     return{
       swich: true,
+      name: '',
+      surname: '',
+      email: '',
+      password: '',
       rating: 4,
       image: 'https://guaranteedremovals.com/wp-content/uploads/2020/05/business-man-quote-1024x1024.png',
     }
   },
   name: "Settings",
   methods:{
+    SaveInfo(){
+      const payload = {
+            role: 'dealer',
+            id: localStorage.getItem('Id'),
+            username: this.surname,
+            password: this.password,
+            full_name: this.name,
+            email: this.email,
+            phone_number: this.info.phone_number
+      }
+        this.$store.dispatch('auth/updateItem', payload)
+           this.$vs.notify({
+            title: 'Updated',
+            text: 'ok',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'success'
+          })
+            .catch(err => { 
+            this.$vs.notify({
+            title: 'Error',
+            text: err,
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'danger'
+          })
+             })
+    },
     updateCurrImg (input) {
       if (input.target.files && input.target.files[0]) {
         const reader = new FileReader()
@@ -80,6 +117,12 @@ export default {
         reader.readAsDataURL(input.target.files[0])
       }
     },
+  },
+  created(){
+    this.name = this.info.full_name,
+    this.surname = this.info.username
+    this.email = this.info.email
+    this.$store.dispatch('auth/DealerInfo')
   }
 };
 </script>
@@ -294,16 +337,19 @@ color: #000022;
           cursor: pointer;
           width: 305.13px;
           height: 44.91px;
-          background: linear-gradient(90deg, #5e585c 0%, #000000 100%);
-          border-radius: 8.6357px;
+          background: linear-gradient(90deg, #5e585c 0%, #000000 100%) !important;
+          border-radius: 8.6357px !important;
           text-align: center;
-          font-family: "Lato" sans-serif;
+          font-family: "Lato" sans-serif !important;
           font-style: normal;
           font-weight: normal;
           font-size: 20.15px;
           line-height: 27px;
           letter-spacing: -0.02em;
           color: #ffffff;
+        }
+        .save-btn:hover{
+          box-shadow: none !important;
         }
         .checkbox-container {
           display: block;

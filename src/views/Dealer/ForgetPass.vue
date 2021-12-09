@@ -4,6 +4,7 @@
             <img style="margin-bottom: 40px" src="@/assets/dealer/img/svg/login/logo.png" alt="">
             <h2 class="text" >Сброс пароля</h2>
             <input 
+            v-show="sended==false"
          v-validate="'required|min:3'"
         data-vv-validate-on="blur"
         name="username"
@@ -14,48 +15,58 @@
         v-model="email"
             class="custom-input1" 
             type="text">
-            <!-- <span class="text-danger text-sm flex justify-content-flex-end mt-2 ml-2">{{ errors.first('username') }} </span> -->
-          <input      
-          @keypress.enter="loginJWT"   
+            <!-- <span v-show="sended==false" class="text-danger text-sm flex justify-content-flex-end mt-2 ml-2">{{ errors.first('username') }} </span> -->
+          <input   
+          v-show="code1"    
           data-vv-validate-on="blur"
-        v-validate="'required|min:6|max:10'"
+        v-validate="'required|min:5|max:5'"
         type="password"
-        name="password"
+        name="code"
         placeholder="Введите полученный код"
         v-model="code"
         class="custom-input2"  />
-        <!-- <span class="text-danger flex justify-content-flex-end text-sm mt-2 ml-2">
-          {{ errors.first('password') }}
+        <!-- <span v-show="code1"  class="text-danger flex justify-content-flex-end text-sm mt-2 ml-2">
+          {{ errors.first('code') }}
         </span> -->
-                    <input 
+            <div v-show="code1" style="justify-content: space-between;" class="row">
+                <router-link :to="''" >You not reseve your verification code? </router-link>
+                <a style="color: #22292f;text-decoration: underline;" @click="ReSend()" >
+                  Resend code 
+              </a>
+
+            </div>
+        <input 
+        v-show="confirmed"
          v-validate="'required|min:3'"
         data-vv-validate-on="blur"
-        name="username"
+        type="password"
+        name="password"
+         ref="password"
         icon-no-border
         icon="icon icon-user"
         icon-pack="feather"
         placeholder="Новый пароль"
         v-model="password"
-            class="custom-input3" 
-            type="text">
-            <!-- <span class="text-danger text-sm flex justify-content-flex-end mt-2 ml-2">{{ errors.first('username') }} </span> -->
-          <input      
-          @keypress.enter="loginJWT"   
+            class="custom-input3" >
+            <!-- <span v-show="confirmed" class="text-danger text-sm flex justify-content-flex-end mt-2 ml-2">{{ errors.first('password') }} </span> -->
+          <input   
+          v-show="confirmed"   
           data-vv-validate-on="blur"
-        v-validate="'required|min:6|max:10'"
+        v-validate="'min:3|max:10|confirmed:password'"
         type="password"
-        name="password"
+        name="confirm"
         icon-no-border
         icon="icon icon-lock"
         icon-pack="feather"
         placeholder="подтвердите пароль"
+        data-vv-as="password" 
         v-model="confirm_password"
         class="custom-input4"  />
-        <!-- <span class="text-danger flex justify-content-flex-end text-sm mt-2 ml-2">
-          {{ errors.first('password') }}
-        </span> -->
+        <span v-show="confirmed" class="text-danger flex justify-content-flex-end text-sm mt-2 ml-2">
+          {{ errors.first('confirm') }}
+        </span>
             <vs-button 
-            @click="loginJWT" 
+            @click="Reset()" 
             class="submit-btn"
             >Войти</vs-button>
                         <!-- <div class="row">
@@ -74,6 +85,10 @@ export default {
       password: '',
       code: '',
       confirm_password: '',
+      userId: null,
+      sended: false,
+      code1: false,
+      confirmed: false,
       checkbox_remember_me: false,
       progress: 0
     }
@@ -84,42 +99,157 @@ export default {
     }
   },
   methods: {
-    loginJWT () {
-      if(this.validateForm){
-      // Loading
-      this.$vs.loading()
-      const payload = {
-        checkbox_remember_me: this.checkbox_remember_me,
-        userDetails: {
-          username: this.username,
-          password: this.password
-        }
-      }
-      this.$store.dispatch('auth/loginJWT', payload)
-        .then(() => {
-          this.$acl.change(localStorage.getItem('UserInfo'))
+    ReSend(){
+        this.$vs.loading()
+         this.$store.dispatch('auth/ResetPass', {
+           email: this.email
+         }).then(response => {
+           console.log(response)
+            this.$vs.notify({
+            title: 'OK',
+            text: 'Code sended your email',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'success'
+          })
           this.$vs.loading.close()
-        if(localStorage.getItem('UserInfo') == 'dealer'){
-          this.$router.push('/')
-        }
-        else if(localStorage.getItem('UserInfo') == 'super_admin'){
-          this.$router.push('/attechments')
-        }
-        else if(localStorage.getItem('UserInfo') == 'admin'){
-          this.$router.push('/user')
-        }
-        })
-        .catch(error => {
-          this.$vs.loading.close()
+          this.sended = true
+          this.code1 = true
+         })
+         .catch(err => {
           this.$vs.notify({
             title: 'Error',
-            text: error.message,
+            text: err.response.data.detail,
             iconPack: 'feather',
             icon: 'icon-alert-circle',
             color: 'danger'
           })
-        })
-    }
+          this.$vs.loading.close()
+         })
+    },
+    Reset () {
+     if(this.sended == false){
+       if(this.email !== ''){
+         this.$vs.loading()
+         this.$store.dispatch('auth/ResetPass', {
+           email: this.email
+         }).then(response => {
+           console.log(response)
+            this.$vs.notify({
+            title: 'OK',
+            text: 'Code sended your email',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'success'
+          })
+          this.$vs.loading.close()
+          this.sended = true
+          this.code1 = true
+         })
+         .catch(err => {
+          this.$vs.notify({
+            title: 'Error',
+            text: err.response.data.detail,
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'danger'
+          })
+          this.$vs.loading.close()
+         })
+       }
+       else{
+          this.$vs.notify({
+            title: 'Error',
+            text: 'Fill the form correctly',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'danger'
+          })
+       }
+     }
+     else if(this.code1 == true){
+              if(this.code !== ''){
+         this.$vs.loading()
+         this.$store.dispatch('auth/Verify', {
+           code: this.code
+         }).then(response => {
+           console.log(response)
+           this.userId = response.data.user_id
+            this.$vs.notify({
+            title: 'OK',
+            text: response.data.message,
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'success'
+          })
+          this.$vs.loading.close()
+          this.code1 = false
+          this.confirmed = true
+          this.sended = true
+         })
+         .catch(err => {
+          this.$vs.notify({
+            title: 'Error',
+            text: err.response.data.detail,
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'danger'
+          })
+          this.$vs.loading.close()
+         })
+       }
+       else{
+          this.$vs.notify({
+            title: 'Error',
+            text: 'Fill the form correctly',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'danger'
+          })
+       }
+     }
+          else if(this.confirmed !== ''){
+              if(this.password !== ''){
+         this.$vs.loading()
+         this.$store.dispatch('auth/ChangePass', {
+           password: this.password,
+           user_id: this.userId
+         }).then(response => {
+           console.log(response)
+            this.$vs.notify({
+            title: 'OK',
+            text: response.data.message,
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'success'
+          })
+          this.$vs.loading.close()
+          this.code1 = false
+          this.confirmed = false
+          this.sended = false
+          this.$router.push('/login')
+         })
+         .catch(err => {
+          this.$vs.notify({
+            title: 'Error',
+            text: err.response.data.detail,
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'danger'
+          })
+          this.$vs.loading.close()
+         })
+       }
+       else{
+          this.$vs.notify({
+            title: 'Error',
+            text: 'Fill the form correctly',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'danger'
+          })
+       }
+     }
     }
   }
 }
@@ -226,7 +356,7 @@ color: #FFFFFF;
                 line-height: 27px;
                 color: #FFFFFF;
             }
-             &:nth-child(5){
+             &:nth-child(6){
                 background-image: url("../../assets/dealer/img/icons/lock.svg");
                 background-repeat: no-repeat;
                 background-position: 5%;
@@ -252,7 +382,7 @@ color: #FFFFFF;
                 line-height: 27px;
                 color: #FFFFFF;
             }
-             &:nth-child(6){
+             &:nth-child(7){
                 background-image: url("../../assets/dealer/img/icons/lock.svg");
                 background-repeat: no-repeat;
                 background-position: 5%;

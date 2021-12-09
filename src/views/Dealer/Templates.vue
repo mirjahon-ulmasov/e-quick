@@ -18,6 +18,7 @@
            <vs-table
               ref="table"
               class="produ mt-4"
+              style="width: 100% !important"
               :data="temp.items"
             >
               <template slot="thead">
@@ -175,6 +176,7 @@ export default {
     .row {
       height: 70%;
       padding: 20px;
+      padding: 0px 38px 0px 60px;
       display: flex;
       flex-wrap: wrap;
       flex-direction: row;
@@ -189,7 +191,7 @@ export default {
       }
       .card {
         margin: 10px;
-        width: 286.55px;
+        width: 30%;
         height: 273.14px;
         background: #ffffff;
         box-shadow: 0px 4.09362px 14.3277px rgba(0, 0, 0, 0.1);

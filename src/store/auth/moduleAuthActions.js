@@ -1,4 +1,5 @@
 import jwt from '../../http/requests/auth/jwt/index.js'
+import axios from '@/axios.js'
 export default {
   
   loginJWT ({ commit, dispatch }, payload) {
@@ -44,6 +45,54 @@ export default {
           }
         })
         .catch(error => { reject(error) })
+    })
+  },
+  DealerInfo ({ commit }) {
+    return new Promise((resolve, reject) => {
+      axios.get('/api/v1/users/' + localStorage.getItem('Id') )
+        .then((response) => {
+          commit('SetInfo', response.data)
+          console.log(response)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
+  updateItem ({ commit }, item) {
+    return new Promise((resolve, reject) => {
+      axios.put(`/api/v1/users/${item.id}`, (item))
+        .then((response) => {
+          commit('UpdateInfo', item)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
+  ResetPass ({ commit }, item) {
+    return new Promise((resolve, reject) => {
+      axios.post(`/api/v1/users/reset_password`, (item))
+        .then((response) => {
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
+  Verify ({ commit }, item) {
+    return new Promise((resolve, reject) => {
+      axios.post(`/api/v1/users/verify`, (item))
+        .then((response) => {
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
+  ChangePass ({ commit }, item) {
+    return new Promise((resolve, reject) => {
+      axios.post(`/api/v1/users/change_password`, (item))
+        .then((response) => {
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
     })
   },
 }
