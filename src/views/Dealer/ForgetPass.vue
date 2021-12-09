@@ -4,6 +4,7 @@
             <img style="margin-bottom: 40px" src="@/assets/dealer/img/svg/login/logo.png" alt="">
             <h2 class="text" >Сброс пароля</h2>
             <input 
+            @keypress.enter="Reset"   
             v-show="sended==false"
          v-validate="'required|min:3'"
         data-vv-validate-on="blur"
@@ -17,6 +18,7 @@
             type="text">
             <!-- <span v-show="sended==false" class="text-danger text-sm flex justify-content-flex-end mt-2 ml-2">{{ errors.first('username') }} </span> -->
           <input   
+          @keypress.enter="Reset"   
           v-show="code1"    
           data-vv-validate-on="blur"
         v-validate="'required|min:5|max:5'"
@@ -33,9 +35,9 @@
                 <a style="color: #22292f;text-decoration: underline;" @click="ReSend()" >
                   Resend code 
               </a>
-
             </div>
         <input 
+        @keypress.enter="Reset"   
         v-show="confirmed"
          v-validate="'required|min:3'"
         data-vv-validate-on="blur"
@@ -50,9 +52,10 @@
             class="custom-input3" >
             <!-- <span v-show="confirmed" class="text-danger text-sm flex justify-content-flex-end mt-2 ml-2">{{ errors.first('password') }} </span> -->
           <input   
+          @keypress.enter="Reset"   
           v-show="confirmed"   
           data-vv-validate-on="blur"
-        v-validate="'min:3|max:10|confirmed:password'"
+        v-validate="'min:3|confirmed:password'"
         type="password"
         name="confirm"
         icon-no-border
@@ -68,7 +71,7 @@
             <vs-button 
             @click="Reset()" 
             class="submit-btn"
-            >Войти</vs-button>
+            >Отправить</vs-button>
                         <!-- <div class="row">
                 <router-link :to="'/login'" >Login</router-link>
 

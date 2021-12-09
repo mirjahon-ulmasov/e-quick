@@ -109,7 +109,7 @@ export default {
           return this.search.toLowerCase().split(" ").every(v => item.title.toLowerCase().includes(v));
         });
       } else {
-        return this.templates.reverse();
+        return this.templates;
       }
     },
   templates(){

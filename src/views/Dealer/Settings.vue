@@ -28,7 +28,7 @@
                  </div>
                <div class="col">
                   <p class="title">Пароль</p>
-                  <p class="sub-title">Ваша почта -  dmataraci@gmail.com</p>
+                  <p class="sub-title">Ваша почта -  {{ info.email }}</p>
                   <input class="custom-input" type="text" placeholder="Password">
                   <input class="custom-input" v-model="password" type="text" placeholder="New password">
               </div>
@@ -89,17 +89,19 @@ export default {
             phone_number: this.info.phone_number
       }
         this.$store.dispatch('auth/updateItem', payload)
+            .then(response => {
            this.$vs.notify({
             title: 'Updated',
             text: 'ok',
             iconPack: 'feather',
-            icon: 'icon-alert-circle',
+            icon: 'icon-check-circle',
             color: 'success'
           })
+            })
             .catch(err => { 
             this.$vs.notify({
             title: 'Error',
-            text: err,
+            text: err.response.data.detail,
             iconPack: 'feather',
             icon: 'icon-alert-circle',
             color: 'danger'
