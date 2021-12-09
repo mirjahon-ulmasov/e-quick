@@ -46,12 +46,12 @@
             </vs-dropdown-item>
           </vs-dropdown-menu>
         </vs-dropdown>
-        <div class="id">ID: 4333</div>
+        <div class="id" style="text-align: center" >ID: {{ info.id }}</div>
       </div>
       <div class="col">
-        <p class="name">Ойбек T.</p>
-        <p class="email">(90) 008-08-08</p>
-        <p class="email">oybek.tursunov@akfagroup.com</p>
+        <p class="name">{{ info.full_name }}</p>
+        <p class="email">{{ info.phone_number }}</p>
+        <p class="email">{{ info.email }}</p>
       </div>
     </div>
        <div class="link">
@@ -100,6 +100,9 @@ export default {
     };
   },
   computed: {
+          info(){
+    return  this.$store.state.auth.info
+    },
     activeLink() {
       return !!(this.to === this.$route.path && this.to);
     },
@@ -113,6 +116,9 @@ export default {
       this.$router.push('/login')
     }
   },
+  created(){
+    this.$store.dispatch('auth/DealerInfo')
+  }
 };
 </script>
 <style scoped>

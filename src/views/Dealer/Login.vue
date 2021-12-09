@@ -14,8 +14,7 @@
             class="custom-input" 
             type="text">
             <span class="text-danger text-sm flex justify-content-flex-end mt-2 ml-2">{{ errors.first('username') }} </span>
-          <input      
-          @keypress.enter="loginJWT"   
+          <input
           data-vv-validate-on="blur"
         v-validate="'required|min:4|max:10'"
         type="password"
