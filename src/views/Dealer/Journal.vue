@@ -177,7 +177,7 @@ export default {
         padding: 25px;
       width: 100%;
       height: 80%;
-      overflow: scroll;
+      overflow-y: scroll;
       .head{
         font-family: Montserrat;
 font-style: normal;

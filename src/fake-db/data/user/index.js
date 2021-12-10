@@ -11,7 +11,7 @@ const data = {
       uid: 34,
       displayName: 'Howard Potts',
       password: 'adminadmin',
-      photoURL: require('@/assets/images/portrait/small/avatar-s-5.jpg'),
+      // photoURL: require('@/assets/images/portrait/small/avatar-s-5.jpg'),
       username: 'admin@admin.com',
       phoneNumber: null
     },
@@ -19,7 +19,7 @@ const data = {
       uid: 36,
       displayName: 'Howard Potts',
       password: 'adminadmin',
-      photoURL: require('@/assets/images/portrait/small/avatar-s-5.jpg'),
+      // photoURL: require('@/assets/images/portrait/small/avatar-s-5.jpg'),
       email: 'admin@admin.com',
       phoneNumber: null
     }
@@ -80,7 +80,7 @@ mock.onPost('/api/auth/register').reply((request) => {
       email,
       password,
       displayName,
-      photoURL: require('@/assets/images/portrait/small/avatar-s-5.jpg'),
+      // photoURL: require('@/assets/images/portrait/small/avatar-s-5.jpg'),
       phoneNumber: null
     }
 

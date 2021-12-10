@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <div class="container">
-            <img style="margin-bottom: 40px" src="@/assets/dealer/img/svg/login/logo.png" alt="">
+            <img style="margin-bottom: 45px" src="@/assets/dealer/img/svg/login/logo.png" alt="">
             <h2 class="text" >Сброс пароля</h2>
             <input 
             @keypress.enter="Reset"   
@@ -14,7 +14,7 @@
         icon-pack="feather"
         placeholder="Email"
         v-model="email"
-            class="custom-input1" 
+            class="custom-input1"
             type="text">
             <!-- <span v-show="sended==false" class="text-danger text-sm flex justify-content-flex-end mt-2 ml-2">{{ errors.first('username') }} </span> -->
           <input   
@@ -278,6 +278,8 @@ div.wrapper{
         flex-direction: column;
         img{
             margin: 15px;
+            width: 311px !important;
+            height: 79px; 
         }
         .text{
           font-family: Montserrat;
@@ -305,6 +307,7 @@ color: #FFFFFF;
                 font-style: normal;
                 font-weight: bold;
                 font-size: 19.2614px;
+                text-transform: uppercase;
                 line-height: 27px;
                 color: #FFFFFF;
             }
@@ -330,6 +333,7 @@ color: #FFFFFF;
                 font-style: normal;
                 font-weight: bold;
                 font-size: 19.2614px;
+                text-transform: uppercase;
                 line-height: 27px;
                 color: #FFFFFF;
             }
@@ -356,6 +360,7 @@ color: #FFFFFF;
                 font-style: normal;
                 font-weight: bold;
                 font-size: 19.2614px;
+                text-transform: uppercase;
                 line-height: 27px;
                 color: #FFFFFF;
             }
@@ -382,6 +387,7 @@ color: #FFFFFF;
                 font-style: normal;
                 font-weight: bold;
                 font-size: 19.2614px;
+                text-transform: uppercase;
                 line-height: 27px;
                 color: #FFFFFF;
             }
@@ -407,6 +413,7 @@ color: #FFFFFF;
             font-size: 22px;
             line-height: 18px;
             text-align: center;
+            margin-top: 21px;
             text-transform: uppercase;
             color: #3A9FD1;
         }

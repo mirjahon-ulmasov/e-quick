@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import axios from 'axios'
+// import axios from 'axios'
 console.log(localStorage.getItem('access'));
 Vue.use(Router)
 
 const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
+  linkActiveClass: 'active',
   scrollBehavior () {
     return { x: 0, y: 0 }
   },

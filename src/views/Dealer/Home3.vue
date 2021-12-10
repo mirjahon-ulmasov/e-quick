@@ -1,12 +1,12 @@
 <template>
   <div style="width: 100%;">
-      <div class="row flex">
-        <div class="w-3/5 flex" style="flex-wrap: wrap; padding: 20px; padding-left: 35px;">
-          <div class="w-5/12">
+      <div class="row flex vx-row">
+        <div class="vx-col md: lg:w-3/5 flex" style="flex-wrap: wrap; padding: 20px; padding-left: 35px;">
+          <div class="" style="width: 44%;">
             <h2 class="cathaed">Выберите категорию</h2>
             <input class="sle" @click="categoryPop = true" v-model="activeCategory" placeholder="Выберите категорию" />
           </div>
-          <div class="w-5/12 ml-6">
+          <div class="ml-6" style="width: 44%;" >
             <h2 class="cathaed">Выберите подкатегорию</h2>
             <input v-model="activePod" @click="podcategoryPop = true" class="sle" placeholder="Выберите категорию" />
           </div>
@@ -99,7 +99,7 @@
             </div>
           </div>
         </div>
-        <div class="w-1/2 left-bg">
+        <div class="vx-col  lg:w-2/5 left-bg">
           <div >
             <div class="flex" v-if="carts" style="justify-content: space-between">
               <h2 class="zayhaed">Products  №: {{ carts.items.length }} </h2>
@@ -167,17 +167,17 @@
                 <vs-th
                   sort-key="product_name"
                   style="
-                    border-left: 2px solid #3a9fd1 !important;
-                    border-right: 2px solid #3a9fd1 !important;
+                    border-left: 1px solid #3a9fd1 !important;
+                    border-right: 1px solid #3a9fd1 !important;
                   "
                   >Наименования</vs-th
                 >
                 <vs-th
                   sort-key="quantity"
-                  style="border-right: 2px solid #3a9fd1 !important"
+                  style="border-right: 1px solid #3a9fd1 !important"
                   >Количество</vs-th
                 >
-                <vs-th sort-key="total_price" style="border-right: 2px solid #3a9fd1 !important" >Цена (сум)</vs-th>
+                <vs-th sort-key="total_price" style="border-right: 1px solid #3a9fd1 !important" >Цена (сум)</vs-th>
                 <vs-th sort-key="total_price">Trash</vs-th>
               </template>
               <template slot-scope="{ data }" class="scr">
@@ -192,13 +192,13 @@
                     </vs-td>
                     <vs-td
                       style="
-                        border-left: 2px solid #3a9fd1 !important;
-                        border-right: 2px solid #3a9fd1 !important;
+                        border-left: 1px solid #3a9fd1 !important;
+                        border-right: 1px solid #3a9fd1 !important;
                       "
                     >
                       <p>{{ tr.product_name }}</p>
                     </vs-td>
-                    <vs-td style="border-right: 2px solid #3a9fd1 !important">
+                    <vs-td style="border-right: 1px solid #3a9fd1 !important">
                     <div  class="flex">
                       <input
                          class="add"
@@ -224,7 +224,7 @@
                            />
                     </div>
                     </vs-td>
-                    <vs-td style="border-right: 2px solid #3a9fd1 !important" >
+                    <vs-td style="border-right: 1px solid #3a9fd1 !important" >
                       <p class="prise">
                         {{ tr.total_price.toLocaleString('de-DE') }}
                       </p>
@@ -685,7 +685,12 @@ border-radius: 7.45205px;
   font-weight: bold;
   font-size: 22.2742px;
   line-height: 33px;
-  color: rgba(58, 159, 209, 1);
+           background-image: linear-gradient(99.52deg, #3F4F61 -14.96%, #3A9FD1 156.83%);
+           -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent ;
+  display: table;
   /* identical to box height, or 150% */
 
   letter-spacing: 0.371237px;
@@ -762,10 +767,16 @@ color: #000000;
   font-style: normal;
   font-weight: 500;
   font-size: 15px !important;
+  background: linear-gradient(90deg, #5E585C 0%, #000000 100%);
+           -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent ;
+  display: table;
   line-height: 19px;
 }
 .itogo{
-    margin-right: 10%;
+    margin-right: 1%;
 }
 .itogo .prise {
 font-family: Montserrat;
@@ -784,14 +795,19 @@ font-style: normal;
 font-weight: bold;
 font-size: 20.615px;
 line-height: 41px;
-color: #3A9FD1;
+          background-image: linear-gradient(99.52deg, #3F4F61 -14.96%, #3A9FD1 156.83%);
+           -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent ;
+  /* display: table; */
 /* identical to box height, or 200% */
 
 text-align: end;
 letter-spacing: 0.458111px;
 }
 .offering {
-  width: 90%;
+  width: 99%;
   /* height: 35px; */
   background: linear-gradient(90deg, #5e585c 0%, #000000 100%) !important;
   border-radius: 5.9434px;
@@ -859,16 +875,23 @@ color: #FFFFFF;
         padding-right: 20px;
         font-family: Montserrat;
         font-style: normal;
-        font-weight: normal;
+        font-weight: 400;
         font-size: 13.91px;
-        padding-left: 39px;
+        padding-left: 47px;
         // width: 230px;
         line-height: 17px;
         height: 55px;
         color: rgba(58, 159, 209, 1) !important;
         &::placeholder {
-          background-position: 10%;
-          color: rgba(58, 159, 209, 1) !important;
+          background-position: 12%;
+          // color: rgba(58, 159, 209, 1) !important;
+          background-image: linear-gradient(99.52deg, #3F4F61 -14.96%, #3A9FD1 156.83%);
+           -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent ;
+  display: table;
+
         }
         &:nth-child(2) {
           content: "";
@@ -890,7 +913,7 @@ color: #FFFFFF;
         padding-right: 20px;
         font-family: Montserrat;
         font-style: normal;
-        font-weight: normal;
+        font-weight: 400;
         font-size: 13.91px;
         width: 100%;
         padding-left: 51px;
@@ -900,7 +923,12 @@ color: #FFFFFF;
         color: rgba(58, 159, 209, 1) !important;
         &::placeholder {
           background-position: 10%;
-          color: rgba(58, 159, 209, 1) !important;
+          background-image: linear-gradient(99.52deg, #3F4F61 -14.96%, #3A9FD1 156.83%);
+           -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent ;
+  display: table;
         }
         &:nth-child(2) {
           content: "";
@@ -908,7 +936,7 @@ color: #FFFFFF;
           position: relative;
           background: url("~@/assets/dealer/img/icons/ham.svg");
           background-repeat: no-repeat;
-          background-position: 3%;
+          background-position: 2%;
           background-size: 4%;
           // flex-direction: row;
         }
@@ -968,7 +996,7 @@ color: #FFFFFF;
           tr {
             background: transparent !important;
             box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
-            border-bottom: 2px solid #3a9fd1;
+            border-bottom: 1px solid #3a9fd1;
             td {
               padding: 10px;
               &:first-child {
@@ -987,13 +1015,13 @@ color: #FFFFFF;
         }
         .vs-table--thead {
           background: transparent !important;
-          border-bottom: 2px solid #3a9fd1 !important;
+          border-bottom: 1px solid #3a9fd1 !important;
           tr {
             background: red !important;
             box-shadow: none;
           }
           th {
-            border-bottom: 2px solid #3a9fd1 !important;
+            border-bottom: 1px solid #3a9fd1 !important;
             font-family: Montserrat !important;
             font-style: normal;
             font-weight: bold;

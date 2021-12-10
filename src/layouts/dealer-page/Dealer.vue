@@ -1,20 +1,17 @@
 <template>
     <div class="wrapper" >
-      <SideBar  :style="active ? 'display: none !important;' : 'width: 20% !important' "  />
-       <div class="container1" :style="active ? 'width: 100% !important' : 'width: 80% !important' " >
+      <SideBar  :style="active ? 'display: none !important;' : 'width: 16% !important' "  />
+       <div class="container1" :style="active ? 'width: 100% !important' : 'width: 84% !important' " >
               <transition :name="routerTransition" mode="out-in">
                 <router-view @setAppClasses="(classesStr) => $emit('setAppClasses', classesStr)" />
               </transition>
        </div>
       <div class="close-side"
-        :style="active ? 'left: 0.6%;background: #3e586d;width: 33px;' : 'left: 20%;background: #3e6179;width: 63px;' "
+        :style="active ? 'left: 0.6%;background: #3e586d;width: 33px;' : 'left: 16.4%;background: #3e6179;width: 63px;' "
        @click="active=!active" 
       >
-      <feather-icon
-        style="color: #cfcfcf; border-radius: 2px"
-        :icon=" active ? 'ArrowRightIcon' : 'ArrowLeftIcon'"
-        class="cursor-pointer"
-      />
+      <img src="@/assets/dealer/img/icons/arrow.svg" v-if="!active"  style="color: #cfcfcf; border-radius: 2px; margin-right: 5px" class="cursor-pointer" alt="cvxzv">
+      <img src="@/assets/dealer/img/icons/arrow2.svg" v-else  style="color: #cfcfcf; border-radius: 2px" class="cursor-pointer" alt="cvxzv">
     </div>
     </div>
 </template>
@@ -48,6 +45,7 @@ justify-content: flex-end;
 align-items: center;
 top: 43.56%;
 bottom: 48%;
+height: 77px;
 z-index: 9999;
 border-radius: 11px;
 padding-right: 10px;
@@ -80,7 +78,7 @@ div.wrapper{
     display: flex;
     // flex-direction: column;
     justify-content: center;
-    border-radius: 30px;
+    border-radius: 35px;
     justify-content: flex-start;
     }
 }
