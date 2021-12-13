@@ -132,37 +132,14 @@ export default {
       this.$store.dispatch('product/GetOrder')
     },
         exportToExcel () {
+          const payload = {
+             user_id: parseInt(localStorage.getItem('Id')),
+             orders_ids: this.selected.map(x => x.id),
+             export_type: 'xlsx'
+          }
+          this.$store.dispatch('product/GetFile', payload)
           console.log(this.selected)
-      import('@/vendor/Export2Excel').then(excel => {
-        const list = this.selected
-        const data = this.formatJson(this.headerVal, list)
-        excel.export_json_to_excel({
-          header: this.headerTitle,
-          data,
-          filename: 'Ordered items List',
-          autoWidth: this.cellAutoWidth,
-          bookType: this.selectedFormat
-        })
-        this.clearFields()
-      })
     },
-    formatJson (filterVal, jsonData) {
-      return jsonData.map(v => filterVal.map(j => {
-        // Add col name which needs to be translated
-        // if (j === 'timestamp') {
-        //   return parseTime(v[j])
-        // } else {
-        //   return v[j]
-        // }
-
-        return v[j]
-      }))
-    },
-    clearFields () {
-      this.fileName = ''
-      this.cellAutoWidth = true
-      this.selectedFormat = 'xlsx'
-    }
   },
   mounted(){
     this.GetItem
