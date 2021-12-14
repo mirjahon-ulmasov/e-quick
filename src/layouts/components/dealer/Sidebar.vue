@@ -66,12 +66,12 @@
        </div>
     <div
       class="flex"
-      style="align-items: flex-end; margin-bottom: 10px"
+      style="align-items: flex-end; margin-bottom: 5px; align-items: center;"
     >
       <feather-icon
         style="color: #cfcfcf; border-radius: 2px"
         icon="InfoIcon"
-        class="cursor-pointer mt-1 sm:mr-6 mr-2"
+        class="cursor-pointer mt-1 sm:mr-2 mr-2"
       />
       <span class="end">
         Xatolar bo'lsa, qo'ng'iroq markaziga murojaat qiling - 71 000 00 00
@@ -123,6 +123,10 @@ export default {
 };
 </script>
 <style scoped>
+  a.active{
+    color: #ffffff !important;
+    opacity: 3 !important;
+  }
   .ok{
     width: 57.29px;
 background: linear-gradient(99.52deg, #3F4F61 -14.96%, #3A9FD1 156.83%);
@@ -154,7 +158,7 @@ color: #000000;
 </style>
 <style lang="scss" scoped>
 div.side-bar-container {
-  width: 20% !important;
+  width: 15% !important;
   height: 100%;
   margin: 0px 20px;
   display: flex;
@@ -168,7 +172,7 @@ div.side-bar-container {
   .end {
     font-family: Montserrat;
     font-style: normal;
-    font-weight: normal;
+    font-weight: 400;
     font-size: 10px;
     line-height: 14px;
     /* or 175% */
@@ -182,12 +186,12 @@ div.side-bar-container {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    text-align: center;
+    text-align: start;
     width: 170px;
     height: 57px;
     padding: 5px;
-    margin-top: 15px;
-    margin-left: 35px;
+    margin-top: 25px;
+    // margin-left: 35px;
     background: linear-gradient(81.75deg, #3c4a5a 99.96%, #3a9fd1 183.61%);
     border-radius: 8px;
     font-family: Montserrat;
@@ -203,11 +207,11 @@ div.side-bar-container {
   }
   .logo {
     width: 170px;
-    margin: 50px 0px 20px 0px;
+    margin: 50px 0px 15px 0px;
   }
   .block {
     margin: 20px 0px;
-    margin-bottom: 60px;
+    margin-bottom: 50px;
     display: flex !important;
     flex-direction: row;
     .vs-con-dropdown {
@@ -242,18 +246,21 @@ div.side-bar-container {
     display: flex;
     flex-direction: column;
     .name {
-      font-family: "Poppins", sans-serif;
-      font-style: normal;
-      font-weight: 600;
-      font-size: 20px;
-      line-height: 30px;
-      color: #ffffff;
+font-family: Poppins;
+font-style: normal;
+font-weight: 600;
+font-size: 21.4008px;
+line-height: 30px;
+/* identical to box height, or 140% */
+
+
+color: #FFFFFF;
     }
     .email {
       font-family: Poppins;
       font-style: normal;
-      font-weight: normal;
-      font-size: 11px;
+      font-weight: 400 !important;
+      font-size: 12px;
       line-height: 23px;
       /* identical to box height, or 225% */
 
@@ -292,7 +299,7 @@ div.side-bar-container {
 border-radius: 0px 0px 7.41868px 7.41868px;
   }
 .route {
-  margin: 15px 0px;
+  margin: 14px 0px;
   font-style: normal;
   font-weight: 600;
   font-size: 20px;

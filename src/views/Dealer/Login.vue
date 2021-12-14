@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <div class="container">
-            <img style="margin-bottom: 40px" src="@/assets/dealer/img/svg/login/logo.png" alt="">
+            <img style="margin: 40px 45px 80px 0px" src="@/assets/dealer/img/svg/login/logo.png" alt="">
             <input 
          v-validate="'required|min:3'"
         data-vv-validate-on="blur"
@@ -9,7 +9,7 @@
         icon-no-border
         icon="icon icon-user"
         icon-pack="feather"
-        placeholder="Username"
+        placeholder="Логин"
         v-model="username"
             class="custom-input" 
             type="text">
@@ -23,7 +23,7 @@
         icon-no-border
         icon="icon icon-lock"
         icon-pack="feather"
-        placeholder="Password"
+        placeholder="Пароль"
         v-model="password"
         class="custom-input1"  />
         <span class="text-danger flex justify-content-flex-end text-sm mt-2 ml-2">
@@ -118,6 +118,8 @@ div.wrapper{
         flex-direction: column;
         img{
             margin: 15px;
+            width: 311px !important;
+            height: 79px; 
         }
         input.custom-input{
             font-family: 'Montserrat' sans-serif;
@@ -130,12 +132,13 @@ div.wrapper{
             border: 1.37581px solid #FFFFFF;
             box-sizing: border-box;
             border-radius: 5.50326px;
-            padding-left: 50px;
+            padding-left: 55px;
             &::placeholder{
                 font-style: normal;
                 font-weight: bold;
                 font-size: 19.2614px;
-                line-height: 27px;
+                text-transform: uppercase;
+                line-height: 28px;
                 color: #FFFFFF;
             }
             &:nth-child(2){
@@ -162,12 +165,13 @@ div.wrapper{
             border: 1.37581px solid #FFFFFF;
             box-sizing: border-box;
             border-radius: 5.50326px;
-            padding-left: 50px;
+            padding-left: 55px;
             &::placeholder{
                 font-style: normal;
                 font-weight: bold;
                 font-size: 19.2614px;
-                line-height: 27px;
+                text-transform: uppercase;
+                line-height: 28px;
                 color: #FFFFFF;
             }
              &:nth-child(4){
@@ -201,15 +205,15 @@ div.wrapper{
             flex-direction: row;
             justify-content: flex-end;
              a{
-                border: none;
-                cursor: pointer;
-                background: none;
-                font-style: normal;
-                font-weight: 500;
-                font-size: 13.013px;
-                line-height: 17px;
-                text-align: center;
-                color: #FFFFFF;
+font-family: Montserrat;
+font-style: normal;
+font-weight: 500;
+margin-top: 44px;
+font-size: 21.013px;
+line-height: 27px;
+text-align: center;
+
+color: #FFFFFF;
             }
         }
     }
