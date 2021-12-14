@@ -1,5 +1,5 @@
 <template>
-    <div class="scroll">
+    <div>
             <form  class="container-body">
               <div class="col">
               <div class="flex justify-between items-center mb-6" style="padding-right: 20%">
@@ -130,15 +130,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.scroll{
-  overflow-y: scroll;
     .container-body {
       padding: 20px 30px;
-      // height: 80%;
+      height: 80%;
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
-      // overflow-y: scroll;
+      overflow-y: scroll;
       .col {
         padding: 10px;
         width: 50%;
@@ -434,6 +432,7 @@ color: #000022;
         }
       }
     }
+    // .container-body
     .container-footer {
       width: 100%;
       height: 20%;
@@ -458,5 +457,4 @@ color: #000022;
         color: #ffffff;
       }
     }
-}
 </style>

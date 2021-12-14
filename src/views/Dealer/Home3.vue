@@ -9,11 +9,11 @@
           </div>
           <div class="vx-col sm:w-full md:w-1/2">
             <h2 class="cathaed">Выберите подкатегорию</h2>
-            <input v-model="activePod" @click="podcategoryPop = true" class="sle" placeholder="Выберите категорию" />
+            <input v-model="activePod" @click="podcategoryPop = true" class="sle" placeholder="Выберите подкатегорию" />
           </div>
           <div class="vx-col w-full mt-4"> 
             <h2 class="cathaed">Выберите продукт</h2>
-            <input class="large" v-model="searchProduct" placeholder="Выберите категорию" />
+            <input class="large" v-model="searchProduct" placeholder="Выберите продукт" />
             <div class="demo-alignment vs-con-loading__container" style="height: 43vh !important; z-index: 1" id="div-with-loading" >
               <span class="texts" @click="AddCart(item)"  v-for="(item, i) in resultProduct" :key="i"> 
                   {{ item.name }}
@@ -796,7 +796,7 @@ color: #FFFFFF;
         font-style: normal;
         font-weight: 400;
         font-size: 13.91px;
-        padding-left: 47px;
+        padding-left: 14%;
         // width: 230px;
         line-height: 17px;
         height: 55px;
@@ -835,7 +835,7 @@ color: #FFFFFF;
         font-weight: 400;
         font-size: 13.91px;
         width: 100%;
-        padding-left: 51px;
+        padding-left: 7%;
         // width: 230px;
         line-height: 17px;
         height: 55px;
@@ -913,7 +913,7 @@ color: #FFFFFF;
           border-spacing: 0 1.3rem;
           padding: 0 1rem;
           tr {
-            background: transparent !important;
+            background: #f9fafc !important;
             box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
             border-bottom: 1px solid #3a9fd1;
             td {
@@ -933,7 +933,7 @@ color: #FFFFFF;
           }
         }
         .vs-table--thead {
-          background: transparent !important;
+          background: #f9fafc !important;
           border-bottom: 1px solid #3a9fd1 !important;
           tr {
             background: red !important;
@@ -946,7 +946,7 @@ color: #FFFFFF;
             font-weight: bold;
             font-size: 12px !important;
             /* or 278% */
-
+               background: #f9fafc !important;
             letter-spacing: 0.400518px;
 
             color: #000000 !important;

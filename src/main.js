@@ -49,30 +49,11 @@ import i18n from './i18n/i18n'
 import './filters/filters'
 
 
-// Clipboard
-import VueClipboard from 'vue-clipboard2'
-Vue.use(VueClipboard)
-
-
-// Tour
-import VueTour from 'vue-tour'
-Vue.use(VueTour)
-require('vue-tour/dist/vue-tour.css')
-
 
 // VeeValidate
 import VeeValidate  from 'vee-validate'
 Vue.use(VeeValidate)
 
-
-// Vuejs - Vue wrapper for hammerjs
-import { VueHammer } from 'vue2-hammer'
-Vue.use(VueHammer)
-
-
-// PrismJS
-import 'prismjs'
-import 'prismjs/themes/prism-tomorrow.css'
 
 
 // Feather font icon

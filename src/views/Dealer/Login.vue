@@ -6,6 +6,7 @@
          v-validate="'required|min:3'"
         data-vv-validate-on="blur"
         name="username"
+        autocomplete="off"
         icon-no-border
         icon="icon icon-user"
         icon-pack="feather"
@@ -20,6 +21,7 @@
         v-validate="'required|min:3'"
         type="password"
         name="password"
+        autocomplete="off"
         icon-no-border
         icon="icon icon-lock"
         icon-pack="feather"
@@ -132,6 +134,7 @@ div.wrapper{
             border: 1.37581px solid #FFFFFF;
             box-sizing: border-box;
             border-radius: 5.50326px;
+            font-size: 19.2614px;
             padding-left: 55px;
             &::placeholder{
                 font-style: normal;
@@ -166,6 +169,7 @@ div.wrapper{
             box-sizing: border-box;
             border-radius: 5.50326px;
             padding-left: 55px;
+            font-size: 19.2614px;
             &::placeholder{
                 font-style: normal;
                 font-weight: bold;

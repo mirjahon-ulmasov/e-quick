@@ -6,6 +6,7 @@
             <input 
             @keypress.enter="Reset"   
             v-show="sended==false"
+            autocomplete="off"
          v-validate="'required|min:3'"
         data-vv-validate-on="blur"
         name="username"
@@ -19,6 +20,7 @@
             <!-- <span v-show="sended==false" class="text-danger text-sm flex justify-content-flex-end mt-2 ml-2">{{ errors.first('username') }} </span> -->
           <input   
           @keypress.enter="Reset"   
+          autocomplete="off"
           v-show="code1"    
           data-vv-validate-on="blur"
         v-validate="'required|min:5|max:5'"
@@ -38,6 +40,7 @@
             </div>
         <input 
         @keypress.enter="Reset"   
+        autocomplete="off"
         v-show="confirmed"
          v-validate="'required|min:3'"
         data-vv-validate-on="blur"
@@ -58,6 +61,7 @@
         v-validate="'min:3|confirmed:password'"
         type="password"
         name="confirm"
+        autocomplete="off"
         icon-no-border
         icon="icon icon-lock"
         icon-pack="feather"
@@ -301,6 +305,7 @@ color: #FFFFFF;
             background: none;
             border: 1.37581px solid #FFFFFF;
             box-sizing: border-box;
+            font-size: 19.2614px;
             border-radius: 5.50326px;
             padding-left: 60px;
             &::placeholder{
@@ -323,6 +328,7 @@ color: #FFFFFF;
             height: 61px;
             margin: 13px;
             padding-top: 6px;
+            font-size: 19.2614px;
             color: #FFFFFF;
             background: none;
             border: 1.37581px solid #FFFFFF;
@@ -351,6 +357,7 @@ color: #FFFFFF;
             margin: 13px;
             padding-top: 6px;
             color: #FFFFFF;
+            font-size: 19.2614px;
             background: none;
             border: 1.37581px solid #FFFFFF;
             box-sizing: border-box;
@@ -379,6 +386,7 @@ color: #FFFFFF;
             padding-top: 6px;
             color: #FFFFFF;
             background: none;
+            font-size: 19.2614px;
             border: 1.37581px solid #FFFFFF;
             box-sizing: border-box;
             border-radius: 5.50326px;
