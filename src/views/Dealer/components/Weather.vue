@@ -63,7 +63,7 @@ export default {
   methods: {
      Geolocation: async  function () {
       axios
-        .get('http://ipinfo.io/195.158.4.138?token=b717c9d541b33e')
+        .get('https://ipinfo.io/195.158.4.138?token=b717c9d541b33e')
         .then((response) => {
           this.region = response.data.region
           console.log(response, 'loca')
