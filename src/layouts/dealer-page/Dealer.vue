@@ -19,21 +19,21 @@
 import themeConfig         from '@/../themeConfig.js'
 import SideBar from '../components/dealer/Sidebar.vue'
 export default {
-    components:{
-      SideBar,
-      themeConfig
-    },
-    data(){
-      return{
-        active: false,
-        routerTransition  : themeConfig.routerTransition || 'none',
-      }
-    },
-    methods: {
+  components:{
+    SideBar,
+    themeConfig
+  },
+  data () {
+    return {
+      active: false,
+      routerTransition  : themeConfig.routerTransition || 'none'
+    }
+  },
+  methods: {
     updateRouterTransition (val) {
       this.routerTransition = val
-    },
     }
+  }
 }
 </script>
 <style scoped>

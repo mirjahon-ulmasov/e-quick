@@ -52,16 +52,16 @@ export default {
     })
   },
   fetchUserById ({ commit }, id) {
-   if(id >= 0){
-    return new Promise((resolve, reject) => {
-      axios.get(`/api/v1/users/${id}`  )
-        .then((response) => {
-          console.log(response)
-          commit('SET_UserById', response.data)
-          resolve(response)
-        })
-        .catch((error) => { reject(error) })
-    })
-   }
-  },
+    if (id >= 0) {
+      return new Promise((resolve, reject) => {
+        axios.get(`/api/v1/users/${id}`)
+          .then((response) => {
+            console.log(response)
+            commit('SET_UserById', response.data)
+            resolve(response)
+          })
+          .catch((error) => { reject(error) })
+      })
+    }
+  }
 }

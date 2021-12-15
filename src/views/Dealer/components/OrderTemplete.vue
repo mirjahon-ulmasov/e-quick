@@ -85,46 +85,46 @@
 </template>
 <script>
 export default {
-  name: "",
-    data(){
-    return{
-    date: null,
-    type: null,
-    ordertype: null,
-    orders: [
-      {
-        text: "ЗАКАЗ ДИЛЕРА НА ПОКУПКУ",
-        value: "DEALER_PURCHASE_ORDER"
-      },
-      {
-        text: "ЗАКАЗ ДИЛЕРА ВОЗВРАТА",
-        value: "DEALER_RETURN_ORDER"
-      },
-      {
-        text: "СПЕЦИАЛЬНЫЙ ЗАКАЗ ДИЛЕРА",
-        value: "DEALER_SPECIAL_ORDER"
-      }
-    ]
+  name: '',
+  data () {
+    return {
+      date: null,
+      type: null,
+      ordertype: null,
+      orders: [
+        {
+          text: 'ЗАКАЗ ДИЛЕРА НА ПОКУПКУ',
+          value: 'DEALER_PURCHASE_ORDER'
+        },
+        {
+          text: 'ЗАКАЗ ДИЛЕРА ВОЗВРАТА',
+          value: 'DEALER_RETURN_ORDER'
+        },
+        {
+          text: 'СПЕЦИАЛЬНЫЙ ЗАКАЗ ДИЛЕРА',
+          value: 'DEALER_SPECIAL_ORDER'
+        }
+      ]
     }
   },
-    props: {
+  props: {
     Temp: {
       type: Boolean,
       required: true
-    },
+    }
   },
-    watch: {
+  watch: {
     Temp (val) {
       if (!val) return
     }
   },
-    computed: {
-        template_id(){
-          return this.$store.state.product.tempDetail
-        },
-      validateForm(){
-       return !this.errors.any() && this.type !== '' && this.ordertype !== '' && this.date !== ''
-      },
+  computed: {
+    template_id () {
+      return this.$store.state.product.tempDetail
+    },
+    validateForm () {
+      return !this.errors.any() && this.type !== '' && this.ordertype !== '' && this.date !== ''
+    },
     isSidebarActiveLocal: {
       get () {
         return this.Temp
@@ -134,56 +134,56 @@ export default {
           this.$emit('closeSidebar')
         }
       }
-    },
-    },
+    }
+  },
   methods:{
-    Reset(){
-    this.date = null,
-    this.type = null
+    Reset () {
+      this.date = null,
+      this.type = null
       this.$emit('closeSidebar')
     },
-    submitData() {
-         if(this.type !== null && this.ordertype !== null && this.date !== null){
-          this.$store.dispatch('product/OrderTemplate', {
-            user_id: parseInt(localStorage.getItem('Id')),
-            // dealer_id: parseInt(localStorage.getItem('Id')),
-            delivery_date: this.date,
-            template_id: this.template_id.template_id,
-            order_type: this.ordertype,
-            delivery_type: this.type
-            }).then(response => {
-            this.$vs.notify({
+    submitData () {
+      if (this.type !== null && this.ordertype !== null && this.date !== null) {
+        this.$store.dispatch('product/OrderTemplate', {
+          user_id: parseInt(localStorage.getItem('Id')),
+          // dealer_id: parseInt(localStorage.getItem('Id')),
+          delivery_date: this.date,
+          template_id: this.template_id.template_id,
+          order_type: this.ordertype,
+          delivery_type: this.type
+        }).then(response => {
+          this.$vs.notify({
             title: 'Ordered',
-            text: "Muvafayaqiyta",
+            text: 'Muvafayaqiyta',
             iconPack: 'feather',
             icon: 'icon-alert-circle',
             color: 'success'
           })
           // window.location.reload()
           this.$store.state.product.carts = null
-            })
-            .catch(err => { 
+        })
+          .catch(err => { 
             this.$vs.notify({
-            title: 'Error',
-            text: err,
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'danger'
+              title: 'Error',
+              text: err,
+              iconPack: 'feather',
+              icon: 'icon-alert-circle',
+              color: 'danger'
+            })
+            console.error(err) 
           })
-              console.error(err) })
-          this.Reset()
-         }
-         else{
-          this.$vs.notify({
-            title: 'Error',
-            text: 'Formani toliq toldiring',
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'danger'
-          })
-         }
-    },
-  },
+        this.Reset()
+      } else {
+        this.$vs.notify({
+          title: 'Error',
+          text: 'Formani toliq toldiring',
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        })
+      }
+    }
+  }
 }
 </script>
 <style scoped>

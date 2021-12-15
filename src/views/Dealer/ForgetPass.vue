@@ -101,29 +101,29 @@ export default {
     }
   },
   computed: {
-    validateForm() {
+    validateForm () {
       return !this.errors.any() && this.username !== '' && this.password !== ''
     }
   },
   methods: {
-    ReSend(){
-        this.$vs.loading()
-         this.$store.dispatch('auth/ResetPass', {
-           email: this.email
-         }).then(response => {
-           console.log(response)
-            this.$vs.notify({
-            title: 'OK',
-            text: 'Code sended your email',
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'success'
-          })
-          this.$vs.loading.close()
-          this.sended = true
-          this.code1 = true
-         })
-         .catch(err => {
+    ReSend () {
+      this.$vs.loading()
+      this.$store.dispatch('auth/ResetPass', {
+        email: this.email
+      }).then(response => {
+        console.log(response)
+        this.$vs.notify({
+          title: 'OK',
+          text: 'Code sended your email',
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'success'
+        })
+        this.$vs.loading.close()
+        this.sended = true
+        this.code1 = true
+      })
+        .catch(err => {
           this.$vs.notify({
             title: 'Error',
             text: err.response.data.detail,
@@ -132,39 +132,38 @@ export default {
             color: 'danger'
           })
           this.$vs.loading.close()
-         })
+        })
     },
     Reset () {
-     if(this.sended == false){
-       if(this.email !== ''){
-         this.$vs.loading()
-         this.$store.dispatch('auth/ResetPass', {
-           email: this.email
-         }).then(response => {
-           console.log(response)
+      if (this.sended == false) {
+        if (this.email !== '') {
+          this.$vs.loading()
+          this.$store.dispatch('auth/ResetPass', {
+            email: this.email
+          }).then(response => {
+            console.log(response)
             this.$vs.notify({
-            title: 'OK',
-            text: 'Code sended your email',
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'success'
+              title: 'OK',
+              text: 'Code sended your email',
+              iconPack: 'feather',
+              icon: 'icon-alert-circle',
+              color: 'success'
+            })
+            this.$vs.loading.close()
+            this.sended = true
+            this.code1 = true
           })
-          this.$vs.loading.close()
-          this.sended = true
-          this.code1 = true
-         })
-         .catch(err => {
-          this.$vs.notify({
-            title: 'Error',
-            text: err.response.data.detail,
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'danger'
-          })
-          this.$vs.loading.close()
-         })
-       }
-       else{
+            .catch(err => {
+              this.$vs.notify({
+                title: 'Error',
+                text: err.response.data.detail,
+                iconPack: 'feather',
+                icon: 'icon-alert-circle',
+                color: 'danger'
+              })
+              this.$vs.loading.close()
+            })
+        } else {
           this.$vs.notify({
             title: 'Error',
             text: 'Fill the form correctly',
@@ -172,40 +171,38 @@ export default {
             icon: 'icon-alert-circle',
             color: 'danger'
           })
-       }
-     }
-     else if(this.code1 == true){
-              if(this.code !== ''){
-         this.$vs.loading()
-         this.$store.dispatch('auth/Verify', {
-           code: this.code
-         }).then(response => {
-           console.log(response)
-           this.userId = response.data.user_id
+        }
+      } else if (this.code1 == true) {
+        if (this.code !== '') {
+          this.$vs.loading()
+          this.$store.dispatch('auth/Verify', {
+            code: this.code
+          }).then(response => {
+            console.log(response)
+            this.userId = response.data.user_id
             this.$vs.notify({
-            title: 'OK',
-            text: response.data.message,
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'success'
+              title: 'OK',
+              text: response.data.message,
+              iconPack: 'feather',
+              icon: 'icon-alert-circle',
+              color: 'success'
+            })
+            this.$vs.loading.close()
+            this.code1 = false
+            this.confirmed = true
+            this.sended = true
           })
-          this.$vs.loading.close()
-          this.code1 = false
-          this.confirmed = true
-          this.sended = true
-         })
-         .catch(err => {
-          this.$vs.notify({
-            title: 'Error',
-            text: err.response.data.detail,
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'danger'
-          })
-          this.$vs.loading.close()
-         })
-       }
-       else{
+            .catch(err => {
+              this.$vs.notify({
+                title: 'Error',
+                text: err.response.data.detail,
+                iconPack: 'feather',
+                icon: 'icon-alert-circle',
+                color: 'danger'
+              })
+              this.$vs.loading.close()
+            })
+        } else {
           this.$vs.notify({
             title: 'Error',
             text: 'Fill the form correctly',
@@ -213,41 +210,39 @@ export default {
             icon: 'icon-alert-circle',
             color: 'danger'
           })
-       }
-     }
-          else if(this.confirmed !== ''){
-              if(this.password !== ''){
-         this.$vs.loading()
-         this.$store.dispatch('auth/ChangePass', {
-           password: this.password,
-           user_id: this.userId
-         }).then(response => {
-           console.log(response)
+        }
+      } else if (this.confirmed !== '') {
+        if (this.password !== '') {
+          this.$vs.loading()
+          this.$store.dispatch('auth/ChangePass', {
+            password: this.password,
+            user_id: this.userId
+          }).then(response => {
+            console.log(response)
             this.$vs.notify({
-            title: 'OK',
-            text: response.data.message,
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'success'
+              title: 'OK',
+              text: response.data.message,
+              iconPack: 'feather',
+              icon: 'icon-alert-circle',
+              color: 'success'
+            })
+            this.$vs.loading.close()
+            this.code1 = false
+            this.confirmed = false
+            this.sended = false
+            this.$router.push('/login')
           })
-          this.$vs.loading.close()
-          this.code1 = false
-          this.confirmed = false
-          this.sended = false
-          this.$router.push('/login')
-         })
-         .catch(err => {
-          this.$vs.notify({
-            title: 'Error',
-            text: err.response.data.detail,
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'danger'
-          })
-          this.$vs.loading.close()
-         })
-       }
-       else{
+            .catch(err => {
+              this.$vs.notify({
+                title: 'Error',
+                text: err.response.data.detail,
+                iconPack: 'feather',
+                icon: 'icon-alert-circle',
+                color: 'danger'
+              })
+              this.$vs.loading.close()
+            })
+        } else {
           this.$vs.notify({
             title: 'Error',
             text: 'Fill the form correctly',
@@ -255,8 +250,8 @@ export default {
             icon: 'icon-alert-circle',
             color: 'danger'
           })
-       }
-     }
+        }
+      }
     }
   }
 }

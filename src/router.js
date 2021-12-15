@@ -12,7 +12,7 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      redirect:  '/dealer/main',
+      redirect:  '/dealer/main'
     },
     // Dealer Layout
     {
@@ -105,7 +105,7 @@ const router = new Router({
           meta: {
             rule: 'admin'
           }
-        },
+        }
       ]
     },
     // =============================================================================
@@ -141,7 +141,7 @@ const router = new Router({
           meta: {
             rule: 'editor'
           }
-        },
+        }
       ]
     },
     {

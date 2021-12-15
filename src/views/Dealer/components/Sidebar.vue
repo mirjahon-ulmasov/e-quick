@@ -80,26 +80,26 @@
 <script>
 export default {
   props: {
-    to: { type: [String, Object, null], default: null },
+    to: { type: [String, Object, null], default: null }
   },
-  data() {
+  data () {
     return {
       route: [
-        { to: "/dealer/main", title: "Создать заказ" },
-        { to: "/dealer/journal", title: "Журнал" },
-        { to: "/dealer/templates", title: "Шаблоны" },
-        { to: "/dealer/settings", title: "Настройки" },
-        { to: "/dealer/settings", title: "WHS остатки" },
-      ],
-    };
+        { to: '/dealer/main', title: 'Создать заказ' },
+        { to: '/dealer/journal', title: 'Журнал' },
+        { to: '/dealer/templates', title: 'Шаблоны' },
+        { to: '/dealer/settings', title: 'Настройки' },
+        { to: '/dealer/settings', title: 'WHS остатки' }
+      ]
+    }
   },
   computed: {
-    activeLink() {
-      return !!(this.to === this.$route.path && this.to);
-    },
+    activeLink () {
+      return !!(this.to === this.$route.path && this.to)
+    }
   },
   methods: {
-    LogOut(){
+    LogOut () {
       localStorage.removeItem('access')
       localStorage.removeItem('UserInfo')
       this.$acl.change('editor')
@@ -107,7 +107,7 @@ export default {
       this.$router.push('/login')
     }
   }
-};
+}
 </script>
 <style scoped>
   .ok{

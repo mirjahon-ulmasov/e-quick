@@ -56,28 +56,28 @@
 <script>
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 export default {
-  name: "",
-    data(){
-    return{
-    position: 'admin',
-    fullname: '',
-    username: '',
-    password: '',
-    confirm: '',
-    email: '',
-    phone: '',
-    dataId: null,
-    settings: {
+  name: '',
+  data () {
+    return {
+      position: 'admin',
+      fullname: '',
+      username: '',
+      password: '',
+      confirm: '',
+      email: '',
+      phone: '',
+      dataId: null,
+      settings: {
         maxScrollbarLength: 60
       },
       role: [
         {text:'Admin', value:'admin'},
         {text:'User', value:'user'},
-        {text:'Dealer', value:'dealer'},
-      ],
+        {text:'Dealer', value:'dealer'}
+      ]
     }
   },
-    props: {
+  props: {
     isPopUp: {
       type: Boolean,
       required: true
@@ -87,7 +87,7 @@ export default {
       default: () => {}
     }
   },
-    watch: {
+  watch: {
     isPopUp (val) {
       if (!val) return
       if (Object.entries(this.data).length === 0) {
@@ -107,11 +107,11 @@ export default {
       // Object.entries(this.data).length === 0 ? this.initValues() : { this.dataId, this.dataName, this.dataCategory, this.dataOrder_status, this.dataPrice } = JSON.parse(JSON.stringify(this.data))
     }
   },
-    computed: {
-    roles() {
+  computed: {
+    roles () {
       return this.$store.state.addUser.roles
     },
-        scrollbarTag () { return this.$store.getters.scrollbarTag },
+    scrollbarTag () { return this.$store.getters.scrollbarTag },
     isFormValid () {
       return !this.errors.any()
     },
@@ -126,11 +126,11 @@ export default {
           this.initValues()
         }
       }
-    },
-    },
+    }
+  },
   components: { VuePerfectScrollbar },
   methods:{
-      initValues () {
+    initValues () {
       if (this.data.id) return
       this.dataId = null
       this.fullname = ''
@@ -141,7 +141,7 @@ export default {
       this.confirm = ''
       this.phone = ''
     },
-    Reset(){
+    Reset () {
       this.dataId = null
       this.fullname = ''
       this.username = ''
@@ -152,74 +152,75 @@ export default {
       this.phone = ''
       this.$emit('closeSidebar')
     },
-    submitData() {
-          const obj = {
-            id: this.dataId,
-            username: this.username,
-            password: this.password,
-            full_name: this.fullname,
-            role: this.position,
-            phone_number: this.phone,
-            email: this.email,
-          }
-          if (this.dataId !== null && this.dataId >= 0) {
-            this.$store.dispatch('addUser/updateItem', obj)
-               this.Reset()
-           this.$vs.notify({
-            title: 'Updated',
-            text: 'ok',
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'success'
-            },
-            )
-            .catch(err => { 
+    submitData () {
+      const obj = {
+        id: this.dataId,
+        username: this.username,
+        password: this.password,
+        full_name: this.fullname,
+        role: this.position,
+        phone_number: this.phone,
+        email: this.email
+      }
+      if (this.dataId !== null && this.dataId >= 0) {
+        this.$store.dispatch('addUser/updateItem', obj)
+        this.Reset()
+        this.$vs.notify({
+          title: 'Updated',
+          text: 'ok',
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'success'
+        },
+        )
+          .catch(err => { 
             this.$vs.notify({
-            title: 'Error',
-            text: err.response.data.detail || err.response.data.detail.msg,
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'danger'
+              title: 'Error',
+              text: err.response.data.detail || err.response.data.detail.msg,
+              iconPack: 'feather',
+              icon: 'icon-alert-circle',
+              color: 'danger'
+            })
+            console.log(err.response, 'err')
           })
-              console.log(err.response, 'err')
-             })
-          } else {
-                  this.$validator.validateAll().then(result => {
-        if (result) {
+      } else {
+        this.$validator.validateAll().then(result => {
+          if (result) {
             delete obj.id
             this.$store.dispatch('addUser/addItem', obj)
-            .then(response => {
-            this.$vs.notify({
-            title: 'Created',
-            text: 'ok',
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'success'
-          })
-          this.Reset()
-            })
-            .catch(err => { 
-            this.$vs.notify({
-            title: 'Error',
-            text:  err.response.data.detail,
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'danger'
-          })
-              console.error(err)
-               })
-        }})
-          }
+              .then(response => {
+                this.$vs.notify({
+                  title: 'Created',
+                  text: 'ok',
+                  iconPack: 'feather',
+                  icon: 'icon-alert-circle',
+                  color: 'success'
+                })
+                this.Reset()
+              })
+              .catch(err => { 
+                this.$vs.notify({
+                  title: 'Error',
+                  text:  err.response.data.detail,
+                  iconPack: 'feather',
+                  icon: 'icon-alert-circle',
+                  color: 'danger'
+                })
+                console.error(err)
+              })
+          } 
+        })
+      }
 
     },
-    scrollHandle(evt) {
-        return evt
-    },
+    scrollHandle (evt) {
+      return evt
+    }
   },
-  created(){
-    this.$store.dispatch("addUser/fetchRoles");
+  created () {
+    this.$store.dispatch('addUser/fetchRoles')
   },
-  mounted(){
+  mounted () {
     console.log(this.data, 'data')
   }
 }

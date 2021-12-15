@@ -94,50 +94,50 @@ export default {
   components: {
     PopUpOk
   },
-  name: "Templates",
-  data(){
-    return{
+  name: 'Templates',
+  data () {
+    return {
       search: '',
       PopUp: false,
-      PopUpData: {},
+      PopUpData: {}
     }
   },
   computed: {
-  resultTemplates() {
+    resultTemplates () {
       if (this.search) {
         return this.templates.filter(item => {
-          return this.search.toLowerCase().split(" ").every(v => item.title.toLowerCase().includes(v));
-        });
+          return this.search.toLowerCase().split(' ').every(v => item.title.toLowerCase().includes(v))
+        })
       } else {
-        return this.templates;
+        return this.templates
       }
     },
-  templates(){
-    return  this.$store.state.product.templetes
-    },
+    templates () {
+      return  this.$store.state.product.templetes
+    }
   },
   methods: {
-        Open (id) {
+    Open (id) {
       this.toggleDataSidebar(true)
       this.$store.dispatch('product/GetTemplatesItem', id)
     },
-    deleteTemplete(id){
+    deleteTemplete (id) {
       console.log(id)
       this.$store.dispatch('product/UpdateTemplate', (id))
     },
-        toggleDataSidebar (val = false) {
+    toggleDataSidebar (val = false) {
       this.PopUp = val
-    },
+    }
   },
- created(){
-   this.$store.dispatch('product/GetTemplates')
-   console.log(this.templates, 'chiq')
+  created () {
+    this.$store.dispatch('product/GetTemplates')
+    console.log(this.templates, 'chiq')
   //  this.$store.dispatch('product/GetTemplatesItem')
- },
- mounted(){
-   this.$store.dispatch('product/GetTemplates')
- }
-};
+  },
+  mounted () {
+    this.$store.dispatch('product/GetTemplates')
+  }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -3,7 +3,16 @@ module.exports = {
   important: true,
   // prefix: '',
   // separator: ':',
-
+  future: {
+    purgeLayersByDefault: true,
+  },
+  purge: {
+  content: [
+    './public/**/*.html',
+    './src/**/*.vue',
+    './src/**/*.js'
+  ]
+},
   theme: {
 
     /*

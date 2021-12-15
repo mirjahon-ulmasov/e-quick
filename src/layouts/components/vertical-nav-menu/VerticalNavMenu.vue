@@ -201,7 +201,7 @@ export default {
     windowWidth ()  { this.setVerticalNavMenuWidth() }
   },
   methods: {
-    LogOut(){
+    LogOut () {
       localStorage.removeItem('UserInfo')
       localStorage.removeItem('Id')
       this.$router.push('/login')
@@ -284,8 +284,7 @@ export default {
       this.$store.commit('UPDATE_VERTICAL_NAV_MENU_ITEMS_MIN', false)
 
 
-      if(this.layoutType === 'vertical' || (this.layoutType === 'horizontal' && this.windowWidth < 1200))
-      if (this.windowWidth < 1200) {
+      if (this.layoutType === 'vertical' || (this.layoutType === 'horizontal' && this.windowWidth < 1200)) if (this.windowWidth < 1200) {
 
         // Close NavMenu
         this.$store.commit('TOGGLE_IS_VERTICAL_NAV_MENU_ACTIVE', false)
@@ -306,20 +305,20 @@ export default {
       } else {
 
         // Set reduce
-        this.reduce = this.reduceButton ? true : false
+        this.reduce = !!this.reduceButton
 
         // Open NavMenu
         this.$store.commit('TOGGLE_IS_VERTICAL_NAV_MENU_ACTIVE', true)
 
         // Set Menu Items Only Icon Mode
-        const verticalNavMenuItemsMin = (this.reduceButton && !this.isMouseEnter) ? true : false
+        const verticalNavMenuItemsMin = !!((this.reduceButton && !this.isMouseEnter))
         this.$store.commit('UPDATE_VERTICAL_NAV_MENU_ITEMS_MIN', verticalNavMenuItemsMin)
 
         // Menu Action buttons
         this.clickNotClose   = true
         this.showCloseButton = false
 
-        const verticalNavMenuWidth   = this.isVerticalNavMenuReduced ? "reduced" : "default"
+        const verticalNavMenuWidth   = this.isVerticalNavMenuReduced ? 'reduced' : 'default'
         this.$store.dispatch('updateVerticalNavMenuWidth', verticalNavMenuWidth)
       }
     },

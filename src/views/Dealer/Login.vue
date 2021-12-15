@@ -54,47 +54,45 @@ export default {
     }
   },
   computed: {
-    validateForm() {
+    validateForm () {
       return !this.errors.any() && this.username !== '' && this.password !== ''
     }
   },
   methods: {
     loginJWT () {
-      if(this.validateForm){
+      if (this.validateForm) {
       // Loading
-      this.$vs.loading()
-      const payload = {
-        checkbox_remember_me: this.checkbox_remember_me,
-        userDetails: {
-          username: this.username,
-          password: this.password
+        this.$vs.loading()
+        const payload = {
+          checkbox_remember_me: this.checkbox_remember_me,
+          userDetails: {
+            username: this.username,
+            password: this.password
+          }
         }
-      }
-      this.$store.dispatch('auth/loginJWT', payload)
-        .then(() => {
-          this.$acl.change(localStorage.getItem('UserInfo'))
-          this.$vs.loading.close()
-        if(localStorage.getItem('UserInfo') == 'dealer'){
-          this.$router.push('/')
-        }
-        else if(localStorage.getItem('UserInfo') == 'super_admin'){
-          this.$router.push('/attechments')
-        }
-        else if(localStorage.getItem('UserInfo') == 'admin'){
-          this.$router.push('/user')
-        }
-        })
-        .catch(error => {
-          this.$vs.loading.close()
-          this.$vs.notify({
-            title: 'Error',
-            text: error.message,
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'danger'
+        this.$store.dispatch('auth/loginJWT', payload)
+          .then(() => {
+            this.$acl.change(localStorage.getItem('UserInfo'))
+            this.$vs.loading.close()
+            if (localStorage.getItem('UserInfo') == 'dealer') {
+              this.$router.push('/')
+            } else if (localStorage.getItem('UserInfo') == 'super_admin') {
+              this.$router.push('/attechments')
+            } else if (localStorage.getItem('UserInfo') == 'admin') {
+              this.$router.push('/user')
+            }
           })
-        })
-    }
+          .catch(error => {
+            this.$vs.loading.close()
+            this.$vs.notify({
+              title: 'Error',
+              text: error.message,
+              iconPack: 'feather',
+              icon: 'icon-alert-circle',
+              color: 'danger'
+            })
+          })
+      }
     }
   }
 }

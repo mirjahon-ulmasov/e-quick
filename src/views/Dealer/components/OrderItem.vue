@@ -91,22 +91,22 @@
 </template>
 <script>
 export default {
-  name: "",
-    props: {
+  name: '',
+  props: {
     isPopUp: {
       type: Boolean,
       required: true
-    },
+    }
   },
-    watch: {
+  watch: {
     isPopUp (val) {
       if (!val) return
       // Object.entries(this.data).length === 0 ? this.initValues() : { this.dataId, this.dataName, this.dataCategory, this.dataOrder_status, this.dataPrice } = JSON.parse(JSON.stringify(this.data))
     }
   },
-    computed: {
-    carts(){
-    return  this.$store.state.product.orderItem
+  computed: {
+    carts () {
+      return  this.$store.state.product.orderItem
     },
     isSidebarActiveLocal: {
       get () {
@@ -117,11 +117,11 @@ export default {
           this.$emit('closeSidebar')
         }
       }
-    },
-    },
-  created(){
-   this.$store.dispatch('product/GetOrderItem')
+    }
   },
+  created () {
+    this.$store.dispatch('product/GetOrderItem')
+  }
 }
 </script>
 <style lang="scss" scoped>

@@ -82,8 +82,8 @@
 import Order from './OrderItem.vue'
 export default {
   computed: {
-    orders(){
-    return  this.$store.state.product.orders.reverse()
+    orders () {
+      return  this.$store.state.product.orders.reverse()
     },
     currentPage () {
       if (this.isMounted) {
@@ -99,53 +99,53 @@ export default {
     Order
   },
   data: () => ({
-      fileName: '',
-      cellAutoWidth: true,
-      selectedFormat: 'xlsx',
+    fileName: '',
+    cellAutoWidth: true,
+    selectedFormat: 'xlsx',
     PopUp: false,
     activePrompt: false,
     edit: null,
-      headerTitle: ['Заявка', 'Кол.во продукта', 'Дата', 'Сумма(в сум)', 'Дата (доставки)'],
-      headerVal: ['order_number', 'total_product', 'date_ordered', 'total_price', 'delivery_date'],
+    headerTitle: ['Заявка', 'Кол.во продукта', 'Дата', 'Сумма(в сум)', 'Дата (доставки)'],
+    headerVal: ['order_number', 'total_product', 'date_ordered', 'total_price', 'delivery_date'],
     editProp: {},
     datas: [],
     isMounted: false,
-    search: "",
+    search: '',
     allCheck: false,
     PopUpData: {},
     page: 1,
     max: 100,
     active: 0,
     itemsPerPage: 4,
-    selected: [],
+    selected: []
   }),
   methods: {
     Open (id) {
-    this.$store.dispatch('product/GetOrderItem', id).then(response => {
+      this.$store.dispatch('product/GetOrderItem', id).then(response => {
         this.PopUpData = response.data
-    })
+      })
       this.toggleDataSidebar(true)
     },
-        toggleDataSidebar (val = false) {
+    toggleDataSidebar (val = false) {
       this.$store.dispatch('product/GetOrder')
       this.PopUp = val
       this.$store.dispatch('product/GetOrder')
     },
-        exportToExcel () {
-          const payload = {
-             user_id: parseInt(localStorage.getItem('Id')),
-             orders_ids: this.selected.map(x => x.id),
-             export_type: 'xlsx'
-          }
-          this.$store.dispatch('product/GetFile', payload)
-          console.log(this.selected)
-    },
+    exportToExcel () {
+      const payload = {
+        user_id: parseInt(localStorage.getItem('Id')),
+        orders_ids: this.selected.map(x => x.id),
+        export_type: 'xlsx'
+      }
+      this.$store.dispatch('product/GetFile', payload)
+      console.log(this.selected)
+    }
   },
-  mounted(){
+  mounted () {
     this.GetItem
     this.isMounted = true
   },
-  created(){
+  created () {
     this.$store.dispatch('product/GetOrder')
   }
 }

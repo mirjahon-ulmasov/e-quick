@@ -20,10 +20,10 @@ export default new Vuex.Store({
   actions,
   modules: {
     addUser: admin,
-    dataList: dataList,
+    dataList,
     auth: moduleAuth,
-    category: category,
-    product: product
+    category,
+    product
   },
   strict: process.env.NODE_ENV !== 'production'
 })

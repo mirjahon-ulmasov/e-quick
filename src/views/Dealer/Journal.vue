@@ -54,14 +54,14 @@
         </div>
 </template>
 <script>
-import SideBar from "./components/Sidebar.vue";
-import Table from "./components/Table.vue";
+import SideBar from './components/Sidebar.vue'
+import Table from './components/Table.vue'
 export default {
   components: {
     SideBar,
-    Table,
+    Table
   },
-  name: "Journal",
+  name: 'Journal'
 }
 </script>
 <style lang="scss" scoped>

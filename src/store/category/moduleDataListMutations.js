@@ -2,7 +2,7 @@ export default {
   ADD_ITEM (state, item) {
     state.categories = item
   },
-  ADD_Product(state, product){
+  ADD_Product (state, product) {
     state.product = product
   },
   SET_PRODUCTS (state, products) {

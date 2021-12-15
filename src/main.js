@@ -49,11 +49,9 @@ import i18n from './i18n/i18n'
 import './filters/filters'
 
 
-
 // VeeValidate
 import VeeValidate  from 'vee-validate'
 Vue.use(VeeValidate)
-
 
 
 // Feather font icon

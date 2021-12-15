@@ -272,49 +272,49 @@ import AddCart from './components/AddCart.vue'
 import Order from './components/Order.vue'
 import vSelect from 'vue-select'
 export default {
-  name: "Home",
+  name: 'Home',
   computed: {
-    category(){
-    return  this.$store.state.category.categories
+    category () {
+      return  this.$store.state.category.categories
     },
-    categoryName(){
-    return  this.$store.state.category.categories.map(item => item.name)
+    categoryName () {
+      return  this.$store.state.category.categories.map(item => item.name)
     },
-    carts(){
-    return  this.$store.state.product.carts
+    carts () {
+      return  this.$store.state.product.carts
     },
-    products(){
-    return  this.$store.state.product.productes.results
+    products () {
+      return  this.$store.state.product.productes.results
     },
-     resultQuery() {
+    resultQuery () {
       if (this.searchQuery) {
         return this.category.filter(item => {
-          return this.searchQuery.toLowerCase().split(" ").every(v => item.category.name.toLowerCase().includes(v));
-        });
+          return this.searchQuery.toLowerCase().split(' ').every(v => item.category.name.toLowerCase().includes(v))
+        })
       } else {
-        return this.category;
+        return this.category
       }
     },
-    resultProduct() {
+    resultProduct () {
       if (this.searchProduct) {
         return this.products.filter(item => {
-          return this.searchProduct.toLowerCase().split(" ").every(v => item.name.toLowerCase().includes(v));
-        });
+          return this.searchProduct.toLowerCase().split(' ').every(v => item.name.toLowerCase().includes(v))
+        })
       } else {
-        return this.products;
+        return this.products
       }
     },
-        resultPodCategory() {
+    resultPodCategory () {
       if (this.searchPodCategory) {
         return this.podCategory.filter(item => {
-          return this.searchPodCategory.toLowerCase().split(" ").every(v => item.name.toLowerCase().includes(v));
-        });
+          return this.searchPodCategory.toLowerCase().split(' ').every(v => item.name.toLowerCase().includes(v))
+        })
       } else {
-        return this.podCategory;
+        return this.podCategory
       }
     }
   },
-  data() {
+  data () {
     return {
       edit: false,
       PopUpData: {},
@@ -337,8 +337,8 @@ export default {
       selectedProduct: null,
       incQuan: null,
       incProductId: null,
-      currentEditId: null,
-    };
+      currentEditId: null
+    }
   },
   components: {
     AddCart,
@@ -346,44 +346,44 @@ export default {
     vSelect
   },
   methods: {
-    getCat(name){
+    getCat (name) {
       // this.$vs.loading({
       //   container: '#div-with-loading',
       //   scale: 0.6,
       //   color: 'rgb(62, 97, 121)',
       // })
-    let category = this.category.find(company => company.name === name)
-    this.podCategory =  category.children.map(x => x.name)
-    console.log(this.podCategory, 'cjnccswcwcwcw')
-    this.Cates = category ? category.children : null;
-    console.log(this.podCategory, 'wduihwfiudhwfyufwfwfwfw')
-    this.$store.dispatch('product/GetProduct', this.podCategory.id).then(response => {
+      const category = this.category.find(company => company.name === name)
+      this.podCategory =  category.children.map(x => x.name)
+      console.log(this.podCategory, 'cjnccswcwcwcw')
+      this.Cates = category ? category.children : null
+      console.log(this.podCategory, 'wduihwfiudhwfyufwfwfwfw')
+      this.$store.dispatch('product/GetProduct', this.podCategory.id).then(response => {
       // this.$vs.loading.close('#div-with-loading > .con-vs-loading')
-    })
+      })
     },
-    getProduct(name){
+    getProduct (name) {
       // this.$vs.loading({
       //   container: '#div-with-loading',
       //   scale: 0.6,
       //   color: 'rgb(62, 97, 121)',
       // })
       console.log(this.Cates, 'what')
-     let category = this.Cates.find(company => company.name === name)
-    console.log(category, 'idss')
-     this.$store.dispatch('product/GetProduct', category.id).then(response =>{
-     this.product = response.data.results.map(x => x.name)
-     console.log(this.product, 'ollll')
-    //  this.$vs.loading.close('#div-with-loading > .con-vs-loading')
-     })
+      const category = this.Cates.find(company => company.name === name)
+      console.log(category, 'idss')
+      this.$store.dispatch('product/GetProduct', category.id).then(response => {
+        this.product = response.data.results.map(x => x.name)
+        console.log(this.product, 'ollll')
+        //  this.$vs.loading.close('#div-with-loading > .con-vs-loading')
+      })
     },
     AddCart (data) {
       console.log(data)
-      let category = this.products.find(company => company.name === data)
+      const category = this.products.find(company => company.name === data)
       console.log(category)
       this.PopUpData = category
       this.toggleDataSidebar(true)
     },
-      AddOrder() {
+    AddOrder () {
       this.toggleDataSidebarOrder(true)
       this.$store.dispatch('product/GetCart')
     },
@@ -396,28 +396,28 @@ export default {
       this.PopUpOrder = val
       this.carts = null
     },
-    Inc(tr){
+    Inc (tr) {
       this.edit = true
       this.incProductId = tr.product_id
       this.incQuan = tr.quantity
     },
-    IncEdit(){
-            this.$store.dispatch('product/AddCart', {
-            user_id: parseInt(localStorage.getItem('Id')),
-            product_id: this.incProductId,
-            quantity: parseInt(this.incQuan)
-            }).then(response => {
-              this.incProductId = null
-            this.$vs.notify({
-            title: 'Updated',
-            text: 'Ozgardi',
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'success'
-          })
-          this.$store.dispatch('product/GetCart')
-            })
-          .catch(err => { 
+    IncEdit () {
+      this.$store.dispatch('product/AddCart', {
+        user_id: parseInt(localStorage.getItem('Id')),
+        product_id: this.incProductId,
+        quantity: parseInt(this.incQuan)
+      }).then(response => {
+        this.incProductId = null
+        this.$vs.notify({
+          title: 'Updated',
+          text: 'Ozgardi',
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'success'
+        })
+        this.$store.dispatch('product/GetCart')
+      })
+        .catch(err => { 
           this.$vs.notify({
             title: 'Error',
             text: err,
@@ -426,18 +426,18 @@ export default {
             color: 'danger'
           })
           this.$store.dispatch('product/GetCart')
-           })
+        })
     }
   },
-  created(){
+  created () {
     this.$store.dispatch('category/GetItem')
-     this.$store.dispatch('product/GetCart')
+    this.$store.dispatch('product/GetCart')
   },
-  mounted(){
+  mounted () {
   // this.$store.dispatch('product/GetProduct')
-  this.$store.dispatch('category/GetItem')
-   this.$store.dispatch('product/GetCart')
-   this.AddCart()
+    this.$store.dispatch('category/GetItem')
+    this.$store.dispatch('product/GetCart')
+    this.AddCart()
   }
 }
 </script>

@@ -214,52 +214,52 @@
 <script>
 import AddCart from './components/AddCart.vue'
 import Order from './components/Order.vue'
-import SideBar from "./components/Sidebar.vue"
-import Weather from "./components/Weather.vue"
+import SideBar from './components/Sidebar.vue'
+import Weather from './components/Weather.vue'
 export default {
-  name: "Home",
+  name: 'Home',
   computed: {
-    category(){
-    return  this.$store.state.category.categories
+    category () {
+      return  this.$store.state.category.categories
     },
-    carts(){
-    return  this.$store.state.product.carts
+    carts () {
+      return  this.$store.state.product.carts
     },
-    products(){
-    return  this.$store.state.product.productes.results
+    products () {
+      return  this.$store.state.product.productes.results
     },
-     resultQuery() {
+    resultQuery () {
       if (this.searchQuery) {
         return this.category.filter(item => {
-          return this.searchQuery.toLowerCase().split(" ").every(v => item.name.toLowerCase().includes(v));
-        });
+          return this.searchQuery.toLowerCase().split(' ').every(v => item.name.toLowerCase().includes(v))
+        })
       } else {
-        return this.category;
+        return this.category
       }
     },
-    resultProduct() {
+    resultProduct () {
       if (this.searchProduct) {
         return this.products.filter(item => {
-          return this.searchProduct.toLowerCase().split(" ").every(v => item.name.toLowerCase().includes(v));
-        });
+          return this.searchProduct.toLowerCase().split(' ').every(v => item.name.toLowerCase().includes(v))
+        })
       } else {
-        return this.products;
+        return this.products
       }
     },
-        resultPodCategory() {
+    resultPodCategory () {
       if (this.searchPodCategory) {
         return this.podCategory.filter(item => {
-          return this.searchPodCategory.toLowerCase().split(" ").every(v => item.name.toLowerCase().includes(v));
-        });
+          return this.searchPodCategory.toLowerCase().split(' ').every(v => item.name.toLowerCase().includes(v))
+        })
       } else {
-        return this.podCategory;
+        return this.podCategory
       }
     }
   },
-  data() {
+  data () {
     return {
-        categoryPop: false,
-        podcategoryPop: false,
+      categoryPop: false,
+      podcategoryPop: false,
       edit: false,
       NameWab: '',
       PopUpData: {},
@@ -280,8 +280,8 @@ export default {
       podCategory: null,
       incQuan: null,
       incProductId: null,
-      currentEditId: null,
-    };
+      currentEditId: null
+    }
   },
   components: {
     AddCart,
@@ -290,67 +290,67 @@ export default {
     Weather
   },
   methods: {
-    getCat(data){
+    getCat (data) {
       this.$vs.loading({
         container: '#div-with-loading',
         scale: 0.6,
-        color: 'rgb(62, 97, 121)',
+        color: 'rgb(62, 97, 121)'
       })
-    this.activeCategory = data.name
+      this.activeCategory = data.name
       console.log(data.id)
-    let category = this.category.find(company => company.id === data.id)
-    this.podCategory = category ? category.children : null;
-    this.$store.dispatch('product/GetProduct', data.id).then(
-      response => {this.$vs.loading.close('#div-with-loading > .con-vs-loading')}
-    )
-    this.categoryPop = false
+      const category = this.category.find(company => company.id === data.id)
+      this.podCategory = category ? category.children : null
+      this.$store.dispatch('product/GetProduct', data.id).then(
+        response => { this.$vs.loading.close('#div-with-loading > .con-vs-loading') }
+      )
+      this.categoryPop = false
     // this.podcategoryPop = true
     },
-    getProduct(data){
+    getProduct (data) {
       this.$vs.loading({
         container: '#div-with-loading',
         scale: 0.6,
-        color: 'rgb(62, 97, 121)',
+        color: 'rgb(62, 97, 121)'
       })
-    this.activePod = data.name
-     this.$store.dispatch('product/GetProduct', data.id).then(response =>{
-     this.product = response.data
-     console.log(this.products, 'ollll')
-     this.$vs.loading.close('#div-with-loading > .con-vs-loading')
-     })
-     this.podcategoryPop = false
+      this.activePod = data.name
+      this.$store.dispatch('product/GetProduct', data.id).then(response => {
+        this.product = response.data
+        console.log(this.products, 'ollll')
+        this.$vs.loading.close('#div-with-loading > .con-vs-loading')
+      })
+      this.podcategoryPop = false
     },
     AddCart (data) {
       // this.sidebarData = JSON.parse(JSON.stringify(this.blankData))
       this.PopUpData = data
       this.toggleDataSidebar(true)
     },
-    deleteCartProduct(id){
-     this.$store.dispatch('product/DeleteCartItem', id).then(response => {
-         this.$store.dispatch('product/GetCart')
-     })
+    deleteCartProduct (id) {
+      this.$store.dispatch('product/DeleteCartItem', id).then(response => {
+        this.$store.dispatch('product/GetCart')
+      })
     },
-      AddOrder() {
+    AddOrder () {
       this.toggleDataSidebarOrder(true)
       this.$store.dispatch('product/GetCart')
     },
-    AddWab(){
+    AddWab () {
       const payload = {
         template_name: this.NameWab,
         user_id: parseInt(localStorage.getItem('Id')),
-        cart_id: this.carts.id,
+        cart_id: this.carts.id
       }
-          this.$store.dispatch('product/PostTemplates', (payload)).then(response => {
-            this.$vs.notify({
-            title: 'Created',
-            text: 'Ok',
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'success'
-          })
-          this.NameWab = null
-            })
-          .catch(err => { 
+      this.$store.dispatch('product/PostTemplates', (payload)).then(response => {
+        this.$vs.notify({
+          title: 'Created',
+          text: 'Ok',
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'success'
+        })
+        this.NameWab = null
+      })
+        .catch(err => { 
           this.$vs.notify({
             title: 'Error',
             text: err,
@@ -358,39 +358,39 @@ export default {
             icon: 'icon-alert-circle',
             color: 'danger'
           })
-           })
+        })
     },
     toggleDataSidebar (val = false) {
       this.$store.dispatch('product/GetCart')
-      setTimeout(() => this.$store.dispatch('product/GetCart'), 500);
+      setTimeout(() => this.$store.dispatch('product/GetCart'), 500)
       this.PopUp = val
     },
     toggleDataSidebarOrder (val = false) {
       this.PopUpOrder = val
 
     },
-    Inc(tr){
+    Inc (tr) {
       this.edit = true
       this.incProductId = tr.product_id
       this.incQuan = tr.quantity
     },
-    IncEdit(){
-            this.$store.dispatch('product/AddCart', {
-            user_id: parseInt(localStorage.getItem('Id')),
-            product_id: this.incProductId,
-            quantity: parseInt(this.incQuan)
-            }).then(response => {
-              this.incProductId = null
-            this.$vs.notify({
-            title: 'Updated',
-            text: 'Ozgardi',
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'success'
-          })
-          this.$store.dispatch('product/GetCart')
-            })
-          .catch(err => { 
+    IncEdit () {
+      this.$store.dispatch('product/AddCart', {
+        user_id: parseInt(localStorage.getItem('Id')),
+        product_id: this.incProductId,
+        quantity: parseInt(this.incQuan)
+      }).then(response => {
+        this.incProductId = null
+        this.$vs.notify({
+          title: 'Updated',
+          text: 'Ozgardi',
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'success'
+        })
+        this.$store.dispatch('product/GetCart')
+      })
+        .catch(err => { 
           this.$vs.notify({
             title: 'Error',
             text: err,
@@ -399,16 +399,16 @@ export default {
             color: 'danger'
           })
           this.$store.dispatch('product/GetCart')
-           })
+        })
     }
   },
-  mounted(){
+  mounted () {
     // this.sanoq = this.carts.items.length
   },
-  created(){
-     this.$store.dispatch('product/GetCart')
+  created () {
+    this.$store.dispatch('product/GetCart')
     this.$store.dispatch('category/GetItem')
-  },
+  }
 }
 </script>
 <style scoped>

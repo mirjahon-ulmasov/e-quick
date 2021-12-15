@@ -133,7 +133,7 @@ export default {
     TheCustomizer,
     TheFooter,
     TheNavbarVertical,
-    VNavMenu,
+    VNavMenu
   },
   data () {
     return {

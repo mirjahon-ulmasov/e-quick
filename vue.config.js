@@ -1,9 +1,9 @@
-process.env.VUE_APP_VERSION = require('./package.json').version
 module.exports = {
   publicPath: '/',
-  transpileDependencies: [
-    'resize-detector'
-  ],
+  chainWebpack: config => {
+    config.module.rules.delete('eslint')
+  },
+  transpileDependencies: ['resize-detector'],
   configureWebpack: {
     optimization: {
       splitChunks: {

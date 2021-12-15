@@ -81,31 +81,31 @@
 import vSelect from 'vue-select'
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 export default {
-  name: "",
-    data(){
-    return{
-    position: 'dealer',
-    fullname: '',
-    username: '',
-    password: '',
-    confirm: '',
-    next: false,
-    email: '',
-    phone: '',
-    selected: null,
-    active: false,
-    dataId: null,
-    settings: {
+  name: '',
+  data () {
+    return {
+      position: 'dealer',
+      fullname: '',
+      username: '',
+      password: '',
+      confirm: '',
+      next: false,
+      email: '',
+      phone: '',
+      selected: null,
+      active: false,
+      dataId: null,
+      settings: {
         maxScrollbarLength: 60
       },
       role: [
         {text:'Admin', value:'admin'},
         {text:'User', value:'user'},
-        {text:'Dealer', value:'dealer'},
-      ],
+        {text:'Dealer', value:'dealer'}
+      ]
     }
   },
-    props: {
+  props: {
     isPopUp: {
       type: Boolean,
       required: true
@@ -115,7 +115,7 @@ export default {
       default: () => {}
     }
   },
-    watch: {
+  watch: {
     isPopUp (val) {
       if (!val) return
       if (Object.entries(this.data).length === 0) {
@@ -130,10 +130,9 @@ export default {
         this.phone = phone_number
         this.username = username
         this.password = password
-        if(active == 1){
+        if (active == 1) {
           this.active = true
-        }
-        else{
+        } else {
           this.active = false
         }
         this.initValues()
@@ -141,20 +140,20 @@ export default {
       // Object.entries(this.data).length === 0 ? this.initValues() : { this.dataId, this.dataName, this.dataCategory, this.dataOrder_status, this.dataPrice } = JSON.parse(JSON.stringify(this.data))
     }
   },
-    computed: {
-    roles() {
+  computed: {
+    roles () {
       return this.$store.state.addUser.roles
     },
-    companies() {
+    companies () {
       return this.$store.state.dataList.companies
     },
-    companie() {
+    companie () {
       return this.$store.state.dataList.companies.map(x => x.name)
     },
-        user() {
+    user () {
       return this.$store.state.addUser.admins
     },
-        scrollbarTag () { return this.$store.getters.scrollbarTag },
+    scrollbarTag () { return this.$store.getters.scrollbarTag },
     isFormValid () {
       return !this.errors.any()
     },
@@ -169,11 +168,11 @@ export default {
           this.initValues()
         }
       }
-    },
-    },
+    }
+  },
   components: { VuePerfectScrollbar, vSelect },
   methods:{
-      initValues () {
+    initValues () {
       if (this.data.id) return
       this.dataId = null
       this.fullname = ''
@@ -185,7 +184,7 @@ export default {
       // this.active = false
       this.phone = ''
     },
-    Reset(){
+    Reset () {
       this.dataId = null
       this.fullname = ''
       this.username = ''
@@ -197,73 +196,73 @@ export default {
       this.phone = ''
       this.$emit('closeSidebar')
     },
-    submitData() {
-          if(this.active === false){
-            this.active = -1
-          }
-          else{
-            this.active = 1
-          }
-          const obj = {
-            id: this.dataId,
-            username: this.username,
-            password: this.password,
-            full_name: this.fullname,
-            role: this.position,
-            active: this.active,
-            phone_number: this.phone,
-            email: this.email,
-          }
-          if (this.dataId !== null && this.dataId >= 0) {
-            this.$store.dispatch('addUser/updateItem', obj)
-           this.$vs.notify({
-            title: 'Updated',
-            text: 'ok',
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'success'
-          })
-              this.next = true
-            .catch(err => { 
+    submitData () {
+      if (this.active === false) {
+        this.active = -1
+      } else {
+        this.active = 1
+      }
+      const obj = {
+        id: this.dataId,
+        username: this.username,
+        password: this.password,
+        full_name: this.fullname,
+        role: this.position,
+        active: this.active,
+        phone_number: this.phone,
+        email: this.email
+      }
+      if (this.dataId !== null && this.dataId >= 0) {
+        this.$store.dispatch('addUser/updateItem', obj)
+        this.$vs.notify({
+          title: 'Updated',
+          text: 'ok',
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'success'
+        })
+        this.next = true
+          .catch(err => { 
             this.$vs.notify({
-            title: 'Error',
-            text: err,
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'danger'
+              title: 'Error',
+              text: err,
+              iconPack: 'feather',
+              icon: 'icon-alert-circle',
+              color: 'danger'
+            })
           })
-             })
-          } else {
+      } else {
         this.$validator.validateAll().then(result => {
-        if (result) {
+          if (result) {
             delete obj.id
             delete obj.active
             this.$store.dispatch('addUser/addItem', obj)
-            .then(response => {
-            this.$vs.notify({
-            title: 'Created',
-            text: 'ok',
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'success'
-          })
-          this.next = true
-            })
-            .catch(err => { 
-            this.$vs.notify({
-            title: 'Error',
-            text:  err.response.data.detail,
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'danger'
-          })
-              console.error(err)
-               })
-        }})
-          }
+              .then(response => {
+                this.$vs.notify({
+                  title: 'Created',
+                  text: 'ok',
+                  iconPack: 'feather',
+                  icon: 'icon-alert-circle',
+                  color: 'success'
+                })
+                this.next = true
+              })
+              .catch(err => { 
+                this.$vs.notify({
+                  title: 'Error',
+                  text:  err.response.data.detail,
+                  iconPack: 'feather',
+                  icon: 'icon-alert-circle',
+                  color: 'danger'
+                })
+                console.error(err)
+              })
+          } 
+        })
+      }
     },
-    submitCom(){
-      let id = this.user.find(x => x.full_name == this.fullname).id
+    submitCom () {
+      const id = this.user.find(x => x.full_name == this.fullname).id
       console.log(id)
       // console.log
       console.log(this.selected, 'list')
@@ -271,8 +270,8 @@ export default {
         dealer_id: id,
         company_list: this.selected.map(x => x.id)
       }
-      if(this.selected){
-             this.$store.dispatch("dataList/AddUserCompanies", payload).then(response => {
+      if (this.selected) {
+        this.$store.dispatch('dataList/AddUserCompanies', payload).then(response => {
           this.$vs.notify({
             title: 'Created',
             text: 'ok',
@@ -282,37 +281,36 @@ export default {
           })
           this.Reset()
           this.next = false
-     })
-     .catch(err => {
-          this.$vs.notify({
-            title: 'Error',
-            text: err.response.data.detail,
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'danger'
+        })
+          .catch(err => {
+            this.$vs.notify({
+              title: 'Error',
+              text: err.response.data.detail,
+              iconPack: 'feather',
+              icon: 'icon-alert-circle',
+              color: 'danger'
+            })
           })
-     })
-      }
-      else{
-          this.$vs.notify({
-            title: 'Error',
-            text: 'Fill correctly, please',
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'danger'
-          })
+      } else {
+        this.$vs.notify({
+          title: 'Error',
+          text: 'Fill correctly, please',
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        })
       }
     },
-    scrollHandle(evt) {
-        return evt
-    },
+    scrollHandle (evt) {
+      return evt
+    }
   },
-  created(){
-    this.$store.dispatch("dataList/fetchDataCompanies");
-    this.$store.dispatch("addUser/fetchRoles");
-     this.$store.dispatch("addUser/fetchDataListItems");
+  created () {
+    this.$store.dispatch('dataList/fetchDataCompanies')
+    this.$store.dispatch('addUser/fetchRoles')
+    this.$store.dispatch('addUser/fetchDataListItems')
   },
-  mounted(){
+  mounted () {
     console.log(this.user, 'data1')
   }
 }

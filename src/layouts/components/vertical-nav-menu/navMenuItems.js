@@ -32,6 +32,6 @@ export default [
     slug: 'user',
     icon: 'TimeIcon',
     i18n: 'Users'
-  },
+  }
 ]
 

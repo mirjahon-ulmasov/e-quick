@@ -85,43 +85,43 @@
 </template>
 <script>
 export default {
-  name: "",
-    data(){
-    return{
-    date: null,
-    type: null,
-    ordertype: null,
-    orders: [
-      {
-        text: "ЗАКАЗ ДИЛЕРА НА ПОКУПКУ",
-        value: "DEALER_PURCHASE_ORDER"
-      },
-      {
-        text: "ЗАКАЗ ДИЛЕРА ВОЗВРАТА",
-        value: "DEALER_RETURN_ORDER"
-      },
-      {
-        text: "СПЕЦИАЛЬНЫЙ ЗАКАЗ ДИЛЕРА",
-        value: "DEALER_SPECIAL_ORDER"
-      }
-    ]
+  name: '',
+  data () {
+    return {
+      date: null,
+      type: null,
+      ordertype: null,
+      orders: [
+        {
+          text: 'ЗАКАЗ ДИЛЕРА НА ПОКУПКУ',
+          value: 'DEALER_PURCHASE_ORDER'
+        },
+        {
+          text: 'ЗАКАЗ ДИЛЕРА ВОЗВРАТА',
+          value: 'DEALER_RETURN_ORDER'
+        },
+        {
+          text: 'СПЕЦИАЛЬНЫЙ ЗАКАЗ ДИЛЕРА',
+          value: 'DEALER_SPECIAL_ORDER'
+        }
+      ]
     }
   },
-    props: {
+  props: {
     isPopUpOrder: {
       type: Boolean,
       required: true
-    },
+    }
   },
-    watch: {
+  watch: {
     isPopUpOrder (val) {
       if (!val) return
     }
   },
-    computed: {
-      validateForm(){
-       return !this.errors.any() && this.type !== '' && this.ordertype !== '' && this.date !== ''
-      },
+  computed: {
+    validateForm () {
+      return !this.errors.any() && this.type !== '' && this.ordertype !== '' && this.date !== ''
+    },
     isSidebarActiveLocal: {
       get () {
         return this.isPopUpOrder
@@ -131,54 +131,54 @@ export default {
           this.$emit('closeSidebarOrder')
         }
       }
-    },
-    },
+    }
+  },
   methods:{
-    Reset(){
-    this.date = null,
-    this.type = null
+    Reset () {
+      this.date = null,
+      this.type = null
       this.$emit('closeSidebarOrder')
     },
-    submitData() {
-         if(this.type !== null && this.ordertype !== null && this.date !== null){
-          this.$store.dispatch('product/Order', {
-            user_id: parseInt(localStorage.getItem('Id')),
-            delivery_date: this.date,
-            order_type: this.ordertype,
-            delivery_type: this.type
-            }).then(response => {
-            this.$vs.notify({
+    submitData () {
+      if (this.type !== null && this.ordertype !== null && this.date !== null) {
+        this.$store.dispatch('product/Order', {
+          user_id: parseInt(localStorage.getItem('Id')),
+          delivery_date: this.date,
+          order_type: this.ordertype,
+          delivery_type: this.type
+        }).then(response => {
+          this.$vs.notify({
             title: 'Ordered',
-            text: "Muvafayaqiyta",
+            text: 'Muvafayaqiyta',
             iconPack: 'feather',
             icon: 'icon-alert-circle',
             color: 'success'
           })
           // window.location.reload()
           this.$store.state.product.carts = null
-            })
-            .catch(err => { 
+        })
+          .catch(err => { 
             this.$vs.notify({
-            title: 'Error',
-            text: err,
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'danger'
+              title: 'Error',
+              text: err,
+              iconPack: 'feather',
+              icon: 'icon-alert-circle',
+              color: 'danger'
+            })
+            console.error(err) 
           })
-              console.error(err) })
-          this.Reset()
-         }
-         else{
-          this.$vs.notify({
-            title: 'Error',
-            text: 'Formani toliq toldiring',
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'danger'
-          })
-         }
-    },
-  },
+        this.Reset()
+      } else {
+        this.$vs.notify({
+          title: 'Error',
+          text: 'Formani toliq toldiring',
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'danger'
+        })
+      }
+    }
+  }
 }
 </script>
 <style scoped>

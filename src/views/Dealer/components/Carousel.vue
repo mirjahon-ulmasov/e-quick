@@ -27,28 +27,28 @@ export default {
   data: () => ({
     current: 0,
     direction: 1,
-    transitionName: "fade",
+    transitionName: 'fade',
     show: false,
     slides: [
-      { className: "blue" },
-      { className: "red" },
-      { className: "yellow" },
-    ],
+      { className: 'blue' },
+      { className: 'red' },
+      { className: 'yellow' }
+    ]
   }),
   methods: {
-    slide(dir) {
-      this.direction = dir;
+    slide (dir) {
+      this.direction = dir
       dir === 1
-        ? (this.transitionName = "slide-next")
-        : (this.transitionName = "slide-prev");
-      var len = this.slides.length;
-      this.current = (this.current + (dir % len) + len) % len;
-    },
+        ? (this.transitionName = 'slide-next')
+        : (this.transitionName = 'slide-prev')
+      const len = this.slides.length
+      this.current = (this.current + (dir % len) + len) % len
+    }
   },
-  mounted() {
-    this.show = true;
-  },
-};
+  mounted () {
+    this.show = true
+  }
+}
 </script>
 
 <style lang="scss" scoped>

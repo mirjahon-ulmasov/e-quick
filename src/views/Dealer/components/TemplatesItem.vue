@@ -92,30 +92,30 @@
 <script>
 import OrderTemplate from './OrderTemplete.vue'
 export default {
-  name: "",
-    props: {
+  name: '',
+  props: {
     isPopUp: {
       type: Boolean,
       required: true
-    },
+    }
   },
   components: {
     OrderTemplate
   },
-  data(){
-    return{
-      Temp: false,
+  data () {
+    return {
+      Temp: false
     }
   },
-    watch: {
+  watch: {
     isPopUp (val) {
       if (!val) return
       // Object.entries(this.data).length === 0 ? this.initValues() : { this.dataId, this.dataName, this.dataCategory, this.dataOrder_status, this.dataPrice } = JSON.parse(JSON.stringify(this.data))
     }
   },
-    computed: {
-    detail(){
-    return  this.$store.state.product.tempDetail
+  computed: {
+    detail () {
+      return  this.$store.state.product.tempDetail
     },
     isSidebarActiveLocal: {
       get () {
@@ -126,49 +126,50 @@ export default {
           this.$emit('closeSidebar')
         }
       }
+    }
+  },
+  methods: {
+    Order () {
+      this.isSidebarActiveLocal = false
+      this.toggleDataOrder(true)
     },
-    },
-    methods: {
-     Order(){
-       this.isSidebarActiveLocal = false
-        this.toggleDataOrder(true)
-     },
-     AddCart(){
-       this.isSidebarActiveLocal = false
-          this.$store.dispatch('product/AddCartTemplate', {
-            user_id: parseInt(localStorage.getItem('Id')),
-            template_id: this.detail.template_id,
-            }).then(response => {
-              this.isSidebarActiveLocal = false
-            this.$vs.notify({
-            title: 'Success',
-            text: "Muvafayaqiyta",
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'success'
-          })
-          this.isSidebarActiveLocal = false
-          this.$router.push('/dealer/main')
-            })
-            .catch(err => { 
-            this.$vs.notify({
+    AddCart () {
+      this.isSidebarActiveLocal = false
+      this.$store.dispatch('product/AddCartTemplate', {
+        user_id: parseInt(localStorage.getItem('Id')),
+        template_id: this.detail.template_id
+      }).then(response => {
+        this.isSidebarActiveLocal = false
+        this.$vs.notify({
+          title: 'Success',
+          text: 'Muvafayaqiyta',
+          iconPack: 'feather',
+          icon: 'icon-alert-circle',
+          color: 'success'
+        })
+        this.isSidebarActiveLocal = false
+        this.$router.push('/dealer/main')
+      })
+        .catch(err => { 
+          this.$vs.notify({
             title: 'Error',
             text: err,
             iconPack: 'feather',
             icon: 'icon-alert-circle',
             color: 'danger'
           })
-              console.error(err) })
-     },
-             toggleDataOrder (val = false) {
+          console.error(err) 
+        })
+    },
+    toggleDataOrder (val = false) {
       this.Temp = val
-    },
-    },
-  created(){
-   this.$store.dispatch('product/GetTemplatesItem')
-   console.log(this.detail)
+    }
   },
-  mounted(){
+  created () {
+    this.$store.dispatch('product/GetTemplatesItem')
+    console.log(this.detail)
+  },
+  mounted () {
     this.$store.dispatch('product/GetTemplatesItem')
   }
 }

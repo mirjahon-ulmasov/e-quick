@@ -49,7 +49,7 @@ export default {
       return !!((this.to === this.$route.path || this.$route.meta.parent === this.slug) && this.to)
     }
   },
-  created(){
+  created () {
     console.log(this.$store.dispatch('actions/updateUserRole'), 'om')
   }
 }

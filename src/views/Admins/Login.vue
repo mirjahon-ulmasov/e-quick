@@ -85,15 +85,13 @@ export default {
         .then(() => {
           this.$acl.change(localStorage.getItem('UserInfo'))
           this.$vs.loading.close()
-        if(localStorage.getItem('UserInfo') == 'dealer'){
-          this.$router.push('/')
-        }
-        else if(localStorage.getItem('UserInfo') == 'super_admin'){
-          this.$router.push('/attechments')
-        }
-        else if(localStorage.getItem('UserInfo') == 'admin'){
-          this.$router.push('/user')
-        }
+          if (localStorage.getItem('UserInfo') == 'dealer') {
+            this.$router.push('/')
+          } else if (localStorage.getItem('UserInfo') == 'super_admin') {
+            this.$router.push('/attechments')
+          } else if (localStorage.getItem('UserInfo') == 'admin') {
+            this.$router.push('/user')
+          }
         })
         .catch(error => {
           this.$vs.loading.close()
@@ -105,11 +103,11 @@ export default {
             color: 'danger'
           })
         })
-    },
+    }
   },
-  mounted(){
+  mounted () {
     // const nus = 'admin'
-    console.log(this.$acl);
+    console.log(this.$acl)
   }
 }
 

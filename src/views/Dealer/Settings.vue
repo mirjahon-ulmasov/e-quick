@@ -58,55 +58,55 @@
 import StarRating from 'vue-star-rating'
 export default {
   components: {
-   StarRating
+    StarRating
   },
   computed: {
-      info(){
-    return  this.$store.state.auth.info
-    },
+    info () {
+      return  this.$store.state.auth.info
+    }
   },
-  data(){
-    return{
+  data () {
+    return {
       swich: true,
       name: '',
       surname: '',
       email: '',
       password: '',
       rating: 4,
-      image: 'https://guaranteedremovals.com/wp-content/uploads/2020/05/business-man-quote-1024x1024.png',
+      image: 'https://guaranteedremovals.com/wp-content/uploads/2020/05/business-man-quote-1024x1024.png'
     }
   },
-  name: "Settings",
+  name: 'Settings',
   methods:{
-    SaveInfo(){
+    SaveInfo () {
       const payload = {
-            role: 'dealer',
-            id: localStorage.getItem('Id'),
-            username: this.surname,
-            password: this.password,
-            full_name: this.name,
-            email: this.email,
-            phone_number: this.info.phone_number
+        role: 'dealer',
+        id: localStorage.getItem('Id'),
+        username: this.surname,
+        password: this.password,
+        full_name: this.name,
+        email: this.email,
+        phone_number: this.info.phone_number
       }
-        this.$store.dispatch('auth/updateItem', payload)
-            .then(response => {
-           this.$vs.notify({
+      this.$store.dispatch('auth/updateItem', payload)
+        .then(response => {
+          this.$vs.notify({
             title: 'Updated',
             text: 'ok',
             iconPack: 'feather',
             icon: 'icon-check-circle',
             color: 'success'
           })
-            })
-            .catch(err => { 
-            this.$vs.notify({
+        })
+        .catch(err => { 
+          this.$vs.notify({
             title: 'Error',
             text: err.response.data.detail,
             iconPack: 'feather',
             icon: 'icon-alert-circle',
             color: 'danger'
           })
-             })
+        })
     },
     updateCurrImg (input) {
       if (input.target.files && input.target.files[0]) {
@@ -118,15 +118,15 @@ export default {
         console.log(this.img, 'nusrat')
         reader.readAsDataURL(input.target.files[0])
       }
-    },
+    }
   },
-  created(){
+  created () {
     this.name = this.info.full_name,
     this.surname = this.info.username
     this.email = this.info.email
     this.$store.dispatch('auth/DealerInfo')
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
