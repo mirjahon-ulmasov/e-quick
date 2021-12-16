@@ -1,5 +1,5 @@
 <template>
-    <div>
+  <div>
     <vs-popup
       background-color="rgb(45 39 39 / 70%)"
       background-color-popup="linear-gradient(90deg, #5E585C 0%, #000000 100%)"
@@ -58,142 +58,166 @@
           >
             Тип доставки:
           </h3>
-        <vs-button class="close" 
-          @click="isSidebarActiveLocal = false" >Закрыть</vs-button>
+          <vs-button class="close" @click="isSidebarActiveLocal = false"
+            >Закрыть</vs-button
+          >
         </div>
         <div class="w-1/2">
           <input
-          v-validate="'required'"
+            v-validate="'required'"
             class="picker"
             type="date"
             style="height: 55px"
             placeholder="Select Date"
             v-model="date"
+          />
+          <select
+            v-model="ordertype"
+            v-validate="'required'"
+            class="picker"
+            style="margin-top: 20px; height: 55px"
           >
-          <select v-model="ordertype" v-validate="'required'" class="picker" style="margin-top: 20px; height: 55px">
-            <option v-for="(item, i) in orders" :key="i" :value="item.value" >{{ item.text }}</option>
+            <option v-for="(item, i) in orders" :key="i" :value="item.value">
+              {{ item.text }}
+            </option>
           </select>
-          <select v-model="type" v-validate="'required'" class="picker" style="margin-top: 20px; height: 55px">
-            <option value="THROUGH_THE_BASE" >ЧЕРЕЗ БАЗУ</option>
-            <option value="DIRECT_DELIVERY" >ПРЯМАЯ ДОСТАВКА</option>
+          <select
+            v-model="type"
+            v-validate="'required'"
+            class="picker"
+            style="margin-top: 20px; height: 55px"
+          >
+            <option value="THROUGH_THE_BASE">ЧЕРЕЗ БАЗУ</option>
+            <option value="DIRECT_DELIVERY">ПРЯМАЯ ДОСТАВКА</option>
           </select>
-          <vs-button @click="submitData" style="margin-top: 25px !important" class="confirmac">Подтвердить</vs-button>
+          <vs-button
+            @click="submitData"
+            style="margin-top: 25px !important"
+            class="confirmac"
+            >Подтвердить</vs-button
+          >
         </div>
       </div>
     </vs-popup>
-    </div>
+  </div>
 </template>
 <script>
 export default {
-  name: '',
-  data () {
+  name: "",
+  data() {
     return {
       date: null,
       type: null,
       ordertype: null,
       orders: [
         {
-          text: 'ЗАКАЗ ДИЛЕРА НА ПОКУПКУ',
-          value: 'DEALER_PURCHASE_ORDER'
+          text: "ЗАКАЗ ДИЛЕРА НА ПОКУПКУ",
+          value: "DEALER_PURCHASE_ORDER",
         },
         {
-          text: 'ЗАКАЗ ДИЛЕРА ВОЗВРАТА',
-          value: 'DEALER_RETURN_ORDER'
+          text: "ЗАКАЗ ДИЛЕРА ВОЗВРАТА",
+          value: "DEALER_RETURN_ORDER",
         },
         {
-          text: 'СПЕЦИАЛЬНЫЙ ЗАКАЗ ДИЛЕРА',
-          value: 'DEALER_SPECIAL_ORDER'
-        }
-      ]
-    }
+          text: "СПЕЦИАЛЬНЫЙ ЗАКАЗ ДИЛЕРА",
+          value: "DEALER_SPECIAL_ORDER",
+        },
+      ],
+    };
   },
   props: {
     Temp: {
       type: Boolean,
-      required: true
-    }
+      required: true,
+    },
   },
   watch: {
-    Temp (val) {
-      if (!val) return
-    }
+    Temp(val) {
+      if (!val) return;
+    },
   },
   computed: {
-    template_id () {
-      return this.$store.state.product.tempDetail
+    template_id() {
+      return this.$store.state.product.tempDetail;
     },
-    validateForm () {
-      return !this.errors.any() && this.type !== '' && this.ordertype !== '' && this.date !== ''
+    validateForm() {
+      return (
+        !this.errors.any() &&
+        this.type !== "" &&
+        this.ordertype !== "" &&
+        this.date !== ""
+      );
     },
     isSidebarActiveLocal: {
-      get () {
-        return this.Temp
+      get() {
+        return this.Temp;
       },
-      set (val) {
+      set(val) {
         if (!val) {
-          this.$emit('closeSidebar')
+          this.$emit("closeSidebar");
         }
-      }
-    }
-  },
-  methods:{
-    Reset () {
-      this.date = null,
-      this.type = null
-      this.$emit('closeSidebar')
+      },
     },
-    submitData () {
+  },
+  methods: {
+    Reset() {
+      (this.date = null), (this.type = null);
+      this.$emit("closeSidebar");
+    },
+    submitData() {
       if (this.type !== null && this.ordertype !== null && this.date !== null) {
-        this.$store.dispatch('product/OrderTemplate', {
-          user_id: parseInt(localStorage.getItem('Id')),
-          // dealer_id: parseInt(localStorage.getItem('Id')),
-          delivery_date: this.date,
-          template_id: this.template_id.template_id,
-          order_type: this.ordertype,
-          delivery_type: this.type
-        }).then(response => {
-          this.$vs.notify({
-            title: 'Ordered',
-            text: 'Muvafayaqiyta',
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'success'
+        this.$store
+          .dispatch("product/OrderTemplate", {
+            user_id: parseInt(localStorage.getItem("Id")),
+            // dealer_id: parseInt(localStorage.getItem('Id')),
+            delivery_date: this.date,
+            template_id: this.template_id.template_id,
+            order_type: this.ordertype,
+            delivery_type: this.type,
           })
-          // window.location.reload()
-          this.$store.state.product.carts = null
-        })
-          .catch(err => { 
+          .then((response) => {
             this.$vs.notify({
-              title: 'Error',
-              text: err,
-              iconPack: 'feather',
-              icon: 'icon-alert-circle',
-              color: 'danger'
-            })
-            console.error(err) 
+              title: "Ordered",
+              text: "Muvafayaqiyta",
+              iconPack: "feather",
+              icon: "icon-alert-circle",
+              color: "success",
+            });
+            // window.location.reload()
+            this.$store.state.product.carts = null;
           })
-        this.Reset()
+          .catch((err) => {
+            this.$vs.notify({
+              title: "Error",
+              text: err,
+              iconPack: "feather",
+              icon: "icon-alert-circle",
+              color: "danger",
+            });
+            console.error(err);
+          });
+        this.Reset();
       } else {
         this.$vs.notify({
-          title: 'Error',
-          text: 'Formani toliq toldiring',
-          iconPack: 'feather',
-          icon: 'icon-alert-circle',
-          color: 'danger'
-        })
+          title: "Error",
+          text: "Formani toliq toldiring",
+          iconPack: "feather",
+          icon: "icon-alert-circle",
+          color: "danger",
+        });
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 <style scoped>
-.scroll-area{
+.scroll-area {
   height: 420px;
 }
-.text-danger{
-    margin-bottom: 15px !important;
-    margin-top: -10px  !important;
-    margin-left: 7px;
+.text-danger {
+  margin-bottom: 15px !important;
+  margin-top: -10px !important;
+  margin-left: 7px;
 }
 .add-item {
   margin-top: 15px !important;
@@ -222,11 +246,11 @@ export default {
 
   color: #ffffff;
 }
-.add-item span:hover{
-color: rgba(58, 159, 209, 1);
+.add-item span:hover {
+  color: rgba(58, 159, 209, 1);
 }
 .photo {
-    margin-right: 10px;
+  margin-right: 10px;
   width: auto;
   height: 76px;
   display: flex;
@@ -245,7 +269,11 @@ color: rgba(58, 159, 209, 1);
 .confirmac {
   width: 289.15px;
   /* height: 37.31px; */
-  background: linear-gradient(102.4deg, #3f4f61 -160.6%, #3a9fd1 156.82%) !important;
+  background: linear-gradient(
+    102.4deg,
+    #3f4f61 -160.6%,
+    #3a9fd1 156.82%
+  ) !important;
   border-radius: 3.73099px;
   font-family: Lato;
   font-style: normal;
@@ -259,11 +287,11 @@ color: rgba(58, 159, 209, 1);
 
   color: #ffffff;
 }
-.confirmac:hover{
+.confirmac:hover {
   box-shadow: none !important;
 }
 .picker {
-padding-left: 15px;
+  padding-left: 15px;
   color: white;
   width: 289.15px;
   border: 2.12684px solid #ffffff;
@@ -275,27 +303,27 @@ padding-left: 15px;
   padding-left: 6px;
   padding-right: 6px;
 }
- select::after {
-    content:'\25BC';
-    display:inline-block;
-    color:#000;
-    background-color:#fff;
-    margin-left:-17px;   /* remove the damn :after space */
-    pointer-events:none; /* let the click pass trough */
+select::after {
+  content: "\25BC";
+  display: inline-block;
+  color: #000;
+  background-color: #fff;
+  margin-left: -17px; /* remove the damn :after space */
+  pointer-events: none; /* let the click pass trough */
 }
- .picker option{
-    color: #000;
-    height: 30px !important;
+.picker option {
+  color: #000;
+  height: 30px !important;
 }
-  input[type="date"]::-webkit-calendar-picker-indicator{
-    filter: invert(1);
-    padding-right: 15px !important;
-} 
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  padding-right: 15px !important;
+}
 .close {
   margin-top: 20px !important;
   width: 289.15px;
   /* height: 37.31px; */
- margin-top: 45px !important;
+  margin-top: 45px !important;
   background: #f2f2f2 !important;
   border-radius: 5.18092px;
   font-family: Lato;
@@ -310,7 +338,7 @@ padding-left: 15px;
 
   color: #000000 !important;
 }
-.close:hover{
+.close:hover {
   box-shadow: none !important;
 }
 </style>

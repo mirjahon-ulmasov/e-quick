@@ -57,10 +57,7 @@
             <vs-button
               @click="Reset()"
               class="confirmac"
-              style="
-              color: #000 !important; 
-              background: #F2F2F2 !important;
-              "
+              style="color: #000 !important; background: #f2f2f2 !important"
             >
               Закрыть
             </vs-button>
@@ -94,144 +91,144 @@
   </div>
 </template>
 <script>
-import VuePerfectScrollbar from 'vue-perfect-scrollbar'
+import VuePerfectScrollbar from "vue-perfect-scrollbar";
 export default {
-  name: '',
-  data () {
+  name: "",
+  data() {
     return {
       picture: null,
-      name: '',
-      description: '',
+      name: "",
+      description: "",
       price: null,
       calcPrice: null,
       count: 1,
-      dataId: null
-    }
+      dataId: null,
+    };
   },
   props: {
     isPopUp: {
       type: Boolean,
-      required: true
+      required: true,
     },
     data: {
       type: Object,
-      default: () => {}
-    }
+      default: () => {},
+    },
   },
   watch: {
-    isPopUp (val) {
-      if (!val) return
+    isPopUp(val) {
+      if (!val) return;
       if (Object.entries(this.data).length === 0) {
-        this.initValues()
-        this.$validator.reset()
+        this.initValues();
+        this.$validator.reset();
       } else {
         const { id, name, picture, price } = JSON.parse(
           JSON.stringify(this.data)
         );
-        (this.dataId = id), (this.name = name)
-        this.picture = picture
-        this.calcPrice = price
-        this.price = price
-        this.initValues()
+        (this.dataId = id), (this.name = name);
+        this.picture = picture;
+        this.calcPrice = price;
+        this.price = price;
+        this.initValues();
       }
       // Object.entries(this.data).length === 0 ? this.initValues() : { this.dataId, this.dataName, this.dataCategory, this.dataOrder_status, this.dataPrice } = JSON.parse(JSON.stringify(this.data))
-    }
+    },
   },
   computed: {
     isSidebarActiveLocal: {
-      get () {
-        return this.isPopUp
+      get() {
+        return this.isPopUp;
       },
-      set (val) {
+      set(val) {
         if (!val) {
-          this.$emit('closeSidebar')
-          this.$validator.reset()
-          this.initValues()
+          this.$emit("closeSidebar");
+          this.$validator.reset();
+          this.initValues();
         }
-      }
-    }
+      },
+    },
   },
   components: { VuePerfectScrollbar },
   methods: {
-    initValues () {
-      if (this.data.id) return
-      this.dataId = null
-      this.price = null
-      this.name = ''
-      this.count = 1
-      this.picture = null
+    initValues() {
+      if (this.data.id) return;
+      this.dataId = null;
+      this.price = null;
+      this.name = "";
+      this.count = 1;
+      this.picture = null;
     },
-    Reset () {
-      this.dataId = null
-      this.price = null
-      this.name = ''
-      this.count = 1
-      this.picture = null
-      this.$emit('closeSidebar')
+    Reset() {
+      this.dataId = null;
+      this.price = null;
+      this.name = "";
+      this.count = 1;
+      this.picture = null;
+      this.$emit("closeSidebar");
     },
-    submitData () {
+    submitData() {
       if (this.dataId !== null && this.dataId >= 0) {
         this.$store
-          .dispatch('product/AddCart', {
-            user_id: parseInt(localStorage.getItem('Id')),
+          .dispatch("product/AddCart", {
+            user_id: parseInt(localStorage.getItem("Id")),
             product_id: this.dataId,
-            quantity: this.count
+            quantity: this.count,
           })
           .then((response) => {
-            if (response.statusText == 'Created') {
+            if (response.statusText == "Created") {
               this.$vs.notify({
-                title: 'Created',
-                text: 'Cartga joylandi',
-                iconPack: 'feather',
-                icon: 'icon-alert-circle',
-                color: 'success'
-              })
+                title: "Created",
+                text: "Cartga joylandi",
+                iconPack: "feather",
+                icon: "icon-alert-circle",
+                color: "success",
+              });
             } else {
               this.$vs.notify({
-                title: 'Updated',
-                text: 'Product yangilandi',
-                iconPack: 'feather',
-                icon: 'icon-alert-circle',
-                color: 'warning'
-              })
+                title: "Updated",
+                text: "Product yangilandi",
+                iconPack: "feather",
+                icon: "icon-alert-circle",
+                color: "warning",
+              });
             }
           })
           .catch((err) => {
             this.$vs.notify({
-              title: 'Error',
+              title: "Error",
               text: err,
-              iconPack: 'feather',
-              icon: 'icon-alert-circle',
-              color: 'danger'
-            })
-            console.error(err)
-          })
+              iconPack: "feather",
+              icon: "icon-alert-circle",
+              color: "danger",
+            });
+            console.error(err);
+          });
       }
       // this.$emit('closeSidebar')
       // some chANGES
-      this.Reset()
+      this.Reset();
     },
-    scrollHandle (evt) {
-      return evt
+    scrollHandle(evt) {
+      return evt;
     },
-    Minus () {
+    Minus() {
       if (this.count > 1) {
-        this.count = this.count - 1
-        this.calcPrice = this.price / this.count
+        this.count = this.count - 1;
+        this.calcPrice = this.price / this.count;
       } else {
-        this.count = 1
-        this.calcPrice = this.price
+        this.count = 1;
+        this.calcPrice = this.price;
       }
     },
-    Plus () {
-      this.count = this.count + 1
-      this.calcPrice = this.count * this.price
-    }
+    Plus() {
+      this.count = this.count + 1;
+      this.calcPrice = this.count * this.price;
+    },
   },
-  created () {
-    this.$store.dispatch('product/GetProduct')
-  }
-}
+  created() {
+    this.$store.dispatch("product/GetProduct");
+  },
+};
 </script>
 <style scoped>
 .scroll-area {
@@ -310,7 +307,7 @@ export default {
 
   color: #ffffff;
 }
-.confirmac:hover{
+.confirmac:hover {
   box-shadow: none !important;
 }
 .picker {

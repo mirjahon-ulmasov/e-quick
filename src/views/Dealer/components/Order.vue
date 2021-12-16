@@ -2,8 +2,7 @@
     <div>
     <vs-popup
       background-color="rgb(45 39 39 / 70%)"
-      background-color-popup="linear-gradient(90deg, #5E585C 0%, #000000 100%)"
-      class=""
+      background-color-popup="#FFFFFF"
       :active.sync="isSidebarActiveLocal"
     >
       <h1
@@ -13,12 +12,12 @@
           font-weight: bold;
           font-size: 25px;
           line-height: 30px;
-          color: #ffffff;
+          color: #000000;
         "
       >
         Выберите необходимые данные
       </h1>
-      <div class="flex" style="margin-top: 40px">
+      <div class="flex pl-10" style="margin-top: 40px">
         <div class="w-1/2">
           <h3
             style="
@@ -27,7 +26,7 @@
               font-weight: normal;
               font-size: 29px;
               line-height: 36px;
-              color: #ffffff;
+              color: #000000;
             "
           >
             Дата доставки:
@@ -40,7 +39,7 @@
               font-weight: normal;
               font-size: 29px;
               line-height: 36px;
-              color: #ffffff;
+              color: #000000;
             "
           >
             Тип заказа:
@@ -53,7 +52,7 @@
               font-weight: normal;
               font-size: 29px;
               line-height: 36px;
-              color: #ffffff;
+              color: #000000;
             "
           >
             Тип доставки:
@@ -75,7 +74,7 @@
           </select>
           <select v-model="type" v-validate="'required'" class="picker" style="margin-top: 20px; height: 55px">
             <option value="THROUGH_THE_BASE" >ЧЕРЕЗ БАЗУ</option>
-            <option value="DIRECT_DELIVERY" >ПРЯМАЯ ДОСТАВКА</option>
+            <option value="DIRECT_DELIVERY" >ПРЯМАЯ Д</option>
           </select>
           <vs-button @click="submitData" style="margin-top: 25px !important" class="confirmac">Подтвердить</vs-button>
         </div>
@@ -93,15 +92,15 @@ export default {
       ordertype: null,
       orders: [
         {
-          text: 'ЗАКАЗ ДИЛЕРА НА ПОКУПКУ',
+          text: 'ЗНП',
           value: 'DEALER_PURCHASE_ORDER'
         },
         {
-          text: 'ЗАКАЗ ДИЛЕРА ВОЗВРАТА',
+          text: 'ЗДВ',
           value: 'DEALER_RETURN_ORDER'
         },
         {
-          text: 'СПЕЦИАЛЬНЫЙ ЗАКАЗ ДИЛЕРА',
+          text: 'СЗД',
           value: 'DEALER_SPECIAL_ORDER'
         }
       ]
@@ -195,7 +194,7 @@ export default {
   width: 88.56px;
   margin-left: 38px;
   height: 27px;
-  border: 1.01618px solid #ffffff;
+  border: 1.01618px solid #000000;
   box-sizing: border-box;
   border-radius: 4.32px;
   padding: 5px;
@@ -215,7 +214,7 @@ export default {
   letter-spacing: -0.02em;
   text-transform: uppercase;
 
-  color: #ffffff;
+  color: #000000;
 }
 .add-item span:hover{
 color: rgba(58, 159, 209, 1);
@@ -240,15 +239,13 @@ color: rgba(58, 159, 209, 1);
 .confirmac {
   width: 289.15px;
   /* height: 37.31px; */
-  background: linear-gradient(102.4deg, #3f4f61 -160.6%, #3a9fd1 156.82%) !important;
-  border-radius: 3.73099px;
+background: linear-gradient(81.75deg, #3C4A5A 99.96%, #3A9FD1 183.61%) !important;
+border-radius: 8px;
   font-family: Lato;
   font-style: normal;
   font-weight: normal;
   font-size: 16.3022px;
   line-height: 22px;
-  /* or 133% */
-
   text-align: center;
   letter-spacing: -0.02em;
 
@@ -259,39 +256,52 @@ color: rgba(58, 159, 209, 1);
 }
 .picker {
 padding-left: 15px;
-  color: white;
+  color: #000000;
   width: 289.15px;
-  border: 2.12684px solid #ffffff;
+  border: 2.12684px solid #000000;
   box-sizing: border-box;
-  background: transparent !important;
+  background: transparent ;
   border-radius: 9.04168px;
+  font-family: Montserrat;
+font-style: normal;
+font-weight: normal;
+font-size: 26px;
+line-height: 36px;
+    -moz-appearance:none; /* Firefox */
+    -webkit-appearance:none; /* Safari and Chrome */
+    appearance:none;
+
+color: #000000;
 }
-.picker select {
+ select {
   padding-left: 6px;
   padding-right: 6px;
-}
- select::after {
-    content:'\25BC';
-    display:inline-block;
-    color:#000;
-    background-color:#fff;
-    margin-left:-17px;   /* remove the damn :after space */
-    pointer-events:none; /* let the click pass trough */
+text-indent: 1px;
+  text-overflow: '';
+  width: 100px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 2px 2px 2px 2px;
+  border: none;
+  background: transparent url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) no-repeat 250px center !important;
 }
  .picker option{
     color: #000;
     height: 30px !important;
+    font-size: 17px;
 }
   input[type="date"]::-webkit-calendar-picker-indicator{
     filter: invert(1);
     padding-right: 15px !important;
+    color: #000000;
 } 
 .close {
   margin-top: 20px !important;
   width: 289.15px;
   /* height: 37.31px; */
  margin-top: 45px !important;
-  background: #f2f2f2 !important;
+  background: #DDDDDD !important;
   border-radius: 5.18092px;
   font-family: Lato;
   font-style: normal;
@@ -302,7 +312,7 @@ padding-left: 15px;
 
   text-align: center;
   letter-spacing: -0.02em;
-
+border-radius: 6.06021px;
   color: #000000 !important;
 }
 .close:hover{

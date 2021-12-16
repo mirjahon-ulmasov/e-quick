@@ -4,7 +4,7 @@
     class="con-vs-tooltip"
     @mouseleave="mouseleavex"
     @mouseenter="mouseenterx"
-    @mouseup="destroy"  >
+    @mouseup="destroy">
     <transition name="tooltip-fade">
       <div
         v-show="active"

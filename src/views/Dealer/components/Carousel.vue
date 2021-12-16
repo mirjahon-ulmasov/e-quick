@@ -1,54 +1,59 @@
 <template>
-<div class="carousel-slider">
-  <div id="slider">
-    <transition-group tag="div" :name="transitionName" class="slides-group">
-      <div @click="slide(1)" v-if="show" :key="current" class="slide" :class="slides[current].className">
-        <p>{{slides[current].className}}</p>
+  <div class="carousel-slider">
+    <div id="slider">
+      <transition-group tag="div" :name="transitionName" class="slides-group">
+        <div
+          @click="slide(1)"
+          v-if="show"
+          :key="current"
+          class="slide"
+          :class="slides[current].className"
+        >
+          <p>{{ slides[current].className }}</p>
+        </div>
+      </transition-group>
+      <div class="btn btn-prev" aria-label="Previous slide" @click="slide(-1)">
+        &#10094;
       </div>
-    </transition-group>
-    <div class="btn btn-prev" aria-label="Previous slide" @click="slide(-1)">
-      &#10094;
+      <div class="btn btn-next" aria-label="Next slide" @click="slide(1)">
+        &#10095;
+      </div>
     </div>
-    <div class="btn btn-next" aria-label="Next slide" @click="slide(1)">
-      &#10095;
+    <div class="progress-bar">
+      <div class="progress">
+        <div class="color"></div>
+      </div>
+      <span>Потрачено</span>
     </div>
   </div>
-  <div class="progress-bar">
-    <div class="progress">
-      <div class="color">
-      </div>
-    </div>
-    <span>Потрачено</span>
-  </div>
-</div>
 </template>
 <script>
 export default {
   data: () => ({
     current: 0,
     direction: 1,
-    transitionName: 'fade',
+    transitionName: "fade",
     show: false,
     slides: [
-      { className: 'blue' },
-      { className: 'red' },
-      { className: 'yellow' }
-    ]
+      { className: "blue" },
+      { className: "red" },
+      { className: "yellow" },
+    ],
   }),
   methods: {
-    slide (dir) {
-      this.direction = dir
+    slide(dir) {
+      this.direction = dir;
       dir === 1
-        ? (this.transitionName = 'slide-next')
-        : (this.transitionName = 'slide-prev')
-      const len = this.slides.length
-      this.current = (this.current + (dir % len) + len) % len
-    }
+        ? (this.transitionName = "slide-next")
+        : (this.transitionName = "slide-prev");
+      const len = this.slides.length;
+      this.current = (this.current + (dir % len) + len) % len;
+    },
   },
-  mounted () {
-    this.show = true
-  }
-}
+  mounted() {
+    this.show = true;
+  },
+};
 </script>
 
 <style lang="scss" scoped>

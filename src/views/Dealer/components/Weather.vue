@@ -31,11 +31,20 @@
         </div>
         <div class="">
           <div class="flex">
-            <input type="text" v-model="value" class="custom" @keyup="Currency()" />
-            <select class="custom-select ml-2" @click="Currency()" v-model="exchange" >
-              <option value="USD">Usd</option>
-              <option value="RUB">Rub</option>
-              <option value="EUR">Eur</option>
+            <input
+              type="text"
+              v-model="value"
+              class="custom"
+              @keyup="Currency()"
+            />
+            <select
+              class="custom-select ml-2"
+              @click="Currency()"
+              v-model="exchange"
+            >
+              <option value="USD">USD</option>
+              <option value="RUB">RUB</option>
+              <option value="EUR">EUR</option>
             </select>
           </div>
           <input type="text" v-model="currencies" class="custom mt-2" />
@@ -45,96 +54,98 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
+import axios from "axios";
 export default {
-  name: 'weather',
-  data () {
+  name: "weather",
+  data() {
     return {
       weather: null,
-      date: '',
-      month: '',
-      day: '',
-      region: '',
-      exchange: 'USD',
+      date: "",
+      month: "",
+      day: "",
+      region: "",
+      exchange: "USD",
       value: null,
-      currencies: null
-    }
+      currencies: null,
+    };
   },
   methods: {
-     Geolocation: async  function () {
+    Geolocation: async function () {
       axios
-        .get('https://ipinfo.io/195.158.4.138?token=b717c9d541b33e')
+        .get("https://ipinfo.io/195.158.4.138?token=b717c9d541b33e")
         .then((response) => {
-          this.region = response.data.region
-          console.log(response, 'loca')
-        })
+          this.region = response.data.region;
+          console.log(response, "loca");
+        });
     },
-    Currency () {
-      const item = 
-         {
-           code: this.exchange,
-           value: this.value
-         }
-      this.$store.dispatch('product/GetOrderExchange', item).then(response => {
-        this.currencies = `${Number(response.data.value).toLocaleString('de-DE')  }  ` + 'soum'
-      })
+    Currency() {
+      const item = {
+        code: this.exchange,
+        value: this.value,
+      };
+      this.$store
+        .dispatch("product/GetOrderExchange", item)
+        .then((response) => {
+          this.currencies =
+            `${Number(response.data.value).toLocaleString("de-DE")}  ` + "soum";
+        });
     },
-     Weathers: async  function () {
-      const Current = `https://api.weatherapi.com/v1/current.json?key=8820a279f8d041ac96043919211412&q=${this.region}&aqi=yes`
+    Weathers: async function () {
+      const Current = `https://api.weatherapi.com/v1/current.json?key=8820a279f8d041ac96043919211412&q=${this.region}&aqi=yes`;
       axios.get(Current).then((response) => {
-        console.log(response, 'weaher')
-        this.weather = Math.round(response.data.current.temp_c)
-      })
+        console.log(response, "weaher");
+        this.weather = Math.round(response.data.current.temp_c);
+      });
     },
-    CurrentDates () {
+    CurrentDates() {
       const monthNames = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December'
-      ]
-      const today = new Date()
-      this.date = String(today.getDate()).padStart(2, '0')
-      this.month = monthNames[today.getMonth()]
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+      const today = new Date();
+      this.date = String(today.getDate()).padStart(2, "0");
+      this.month = monthNames[today.getMonth()];
       switch (new Date().getDay()) {
-      case 0:
-        this.day = 'Sunday'
-        break
-      case 1:
-        this.day = 'Monday'
-        break
-      case 2:
-        this.day = 'Tuesday'
-        break
-      case 3:
-        this.day = 'Wednesday'
-        break
-      case 4:
-        this.day = 'Thursday'
-        break
-      case 5:
-        this.day = 'Friday'
-        break
-      case 6:
-        this.day = 'Saturday'
+        case 0:
+          this.day = "Sunday";
+          break;
+        case 1:
+          this.day = "Monday";
+          break;
+        case 2:
+          this.day = "Tuesday";
+          break;
+        case 3:
+          this.day = "Wednesday";
+          break;
+        case 4:
+          this.day = "Thursday";
+          break;
+        case 5:
+          this.day = "Friday";
+          break;
+        case 6:
+          this.day = "Saturday";
       }
-    }
+    },
   },
-  mounted () {
-    this.Geolocation()
-    setTimeout(() => this.Weathers(), 500)
-    this.Currency()
-    this.CurrentDates()
-  }
-}
+  mounted() {
+    this.Geolocation();
+    setTimeout(() => this.Weathers(), 500);
+    this.Currency();
+    this.CurrentDates();
+  },
+};
 </script>
 <style lang="scss">
 .weather {

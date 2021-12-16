@@ -1,37 +1,67 @@
 <template>
-  <div style="width: 100%;">
-      <div class="row flex vx-row">
-        <div class="vx-col lg:w-3/5 flex" style="padding: 20px; padding-left: 20px; padding-right: 40px">
-          <div class="vx-row">
-          <div class="vx-col sm:w-full md:w-1/2" >
+  <div style="width: 100%">
+    <div class="row flex vx-row">
+      <div
+        class="vx-col lg:w-3/5 flex"
+        style="padding: 20px; padding-left: 20px; padding-right: 40px"
+      >
+        <div class="vx-row">
+          <div class="vx-col sm:w-full md:w-1/2">
             <h2 class="cathaed">Выберите категорию</h2>
-            <input class="sle" @click="categoryPop = true" v-model="activeCategory" placeholder="Выберите категорию" />
+            <input
+              class="sle"
+              @click="categoryPop = true"
+              v-model="activeCategory"
+              placeholder="Выберите категорию"
+            />
           </div>
           <div class="vx-col sm:w-full md:w-1/2">
             <h2 class="cathaed">Выберите подкатегорию</h2>
-            <input v-model="activePod" @click="podcategoryPop = true" class="sle" placeholder="Выберите подкатегорию" />
+            <input
+              v-model="activePod"
+              @click="podcategoryPop = true"
+              class="sle"
+              placeholder="Выберите подкатегорию"
+            />
           </div>
-          <div class="vx-col w-full mt-4"> 
+          <div class="vx-col w-full mt-4">
             <h2 class="cathaed">Выберите продукт</h2>
-            <input class="large" v-model="searchProduct" placeholder="Выберите продукт" />
-            <div class="demo-alignment vs-con-loading__container" style="height: 43vh !important; z-index: 1" id="div-with-loading" >
-              <span class="texts" @click="AddCart(item)"  v-for="(item, i) in resultProduct" :key="i"> 
-                  {{ item.name }}
-                 </span>
+            <input
+              class="large"
+              v-model="searchProduct"
+              placeholder="Выберите продукт"
+            />
+            <div
+              class="demo-alignment vs-con-loading__container"
+              style="height: 43vh !important; z-index: 1"
+              id="div-with-loading"
+            >
+              <span
+                class="texts"
+                @click="AddCart(item)"
+                v-for="(item, i) in resultProduct"
+                :key="i"
+              >
+                {{ item.name }}
+              </span>
             </div>
             <div class="vx-col w-full mt-6">
-                  <weather></weather>
+              <weather></weather>
             </div>
           </div>
-          </div>
         </div>
-        <div class="vx-col sm:w-full  lg:w-2/5 left-bg">
-          <div >
-            <div class="flex" v-if="carts" style="justify-content: space-between">
-              <h2 class="zayhaed">Products  №: {{ carts.items.length }} </h2>
-        <vs-dropdown :vs-custom-content="true" :vs-trigger-click="true" class="cursor-pointer">
+      </div>
+      <div class="vx-col sm:w-full lg:w-2/5 left-bg">
+        <div>
+          <div class="flex" v-if="carts" style="justify-content: space-between">
+            <h2 class="zayhaed">Products №: {{ carts.items.length }}</h2>
+            <vs-dropdown
+              :vs-custom-content="true"
+              :vs-trigger-click="true"
+              class="cursor-pointer"
+            >
               <svg
-              href.prevent
+                href.prevent
                 width="32"
                 height="32"
                 viewBox="0 0 32 32"
@@ -56,212 +86,266 @@
                   </linearGradient>
                 </defs>
               </svg>
-          <vs-dropdown-menu class="wab" style="width: 186px; padding: 0px 15px 0px 15px important" >
-              <h4
-              class="wab-name"
+              <vs-dropdown-menu
+                class="wab"
+                style="width: 186px; padding: 0px 15px 0px 15px important"
               >
-             Сохранить как шаблон
-              </h4>
-              <input class="wab-input" v-model="NameWab" type="text" placeholder="Введите название для шаблона" >
-              <vs-dropdown-item class="com flex mt-4 mb-1">
-                <div class="flex">
-                  <button @click="AddWab()" class="wab-ok">
-                  Сохранить
-                </button>
-                <button class="wab-no ml-3">
-                   Отменить
-                </button>
-                </div>
-              </vs-dropdown-item>
-          </vs-dropdown-menu>
-        </vs-dropdown>
-            </div>
-            <!-- <span class="date"> от 01.11.21 </span> -->
-            <br>
-            <h5 style="margin-top: 30px" v-if="!carts">
-              No aviable data on your cart, please select products !
-            </h5>
-            <vs-table
-              ref="table"
-              maxHeight="55vh"
-              class="produ mt-4"
-              v-if="carts"
-              :data="carts.items"
-            >
-              <template slot="thead">
-                <vs-th sort-key="id">№</vs-th>
-                <vs-th
-                  sort-key="product_name"
-                  style="
-                    border-left: 1px solid #3a9fd1 !important;
-                    border-right: 1px solid #3a9fd1 !important;
-                  "
-                  >Наименования</vs-th
-                >
-                <vs-th
-                  sort-key="quantity"
-                  style="border-right: 1px solid #3a9fd1 !important"
-                  >Количество</vs-th
-                >
-                <vs-th sort-key="total_price" style="border-right: 1px solid #3a9fd1 !important" >Цена (сум)</vs-th>
-                <vs-th sort-key="total_price">Trash</vs-th>
-              </template>
-              <template slot-scope="{ data }" class="scr">
-                <tbody>
-                  <vs-tr
-                    :data="tr"
-                    :key="indextr"
-                    v-for="(tr, indextr) in data"
+                <h4 class="wab-name">Сохранить как шаблон</h4>
+                <input
+                  class="wab-input"
+                  v-model="NameWab"
+                  type="text"
+                  placeholder="Введите название для шаблона"
+                />
+                <vs-dropdown-item class="com flex mt-4 mb-1">
+                  <div class="flex">
+                    <button @click="AddWab()" class="wab-ok">Сохранить</button>
+                    <button class="wab-no ml-3">Отменить</button>
+                  </div>
+                </vs-dropdown-item>
+              </vs-dropdown-menu>
+            </vs-dropdown>
+          </div>
+          <!-- <span class="date"> от 01.11.21 </span> -->
+          <br />
+          <h5 style="margin-top: 30px" v-if="!carts">
+            No aviable data on your cart, please select products !
+          </h5>
+          <vs-table
+            ref="table"
+            maxHeight="55vh"
+            class="produ mt-4"
+            v-if="carts"
+            :data="carts.items"
+          >
+            <template slot="thead">
+              <vs-th sort-key="id">№</vs-th>
+              <vs-th
+                sort-key="product_name"
+                style="
+                  border-left: 1px solid #3a9fd1 !important;
+                  border-right: 1px solid #3a9fd1 !important;
+                "
+                >Наименования</vs-th
+              >
+              <vs-th
+                sort-key="quantity"
+                style="border-right: 1px solid #3a9fd1 !important"
+                >Количество</vs-th
+              >
+              <vs-th
+                sort-key="total_price"
+                style="border-right: 1px solid #3a9fd1 !important"
+                >Цена (сум)</vs-th
+              >
+              <vs-th sort-key="total_price">Trash</vs-th>
+            </template>
+            <template slot-scope="{ data }" class="scr">
+              <tbody>
+                <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
+                  <vs-td>
+                    <p>{{ indextr + 1 }}</p>
+                  </vs-td>
+                  <vs-td
+                    style="
+                      border-left: 1px solid #3a9fd1 !important;
+                      border-right: 1px solid #3a9fd1 !important;
+                    "
                   >
-                    <vs-td>
-                      <p>{{ indextr + 1 }}</p>
-                    </vs-td>
-                    <vs-td
-                      style="
-                        border-left: 1px solid #3a9fd1 !important;
-                        border-right: 1px solid #3a9fd1 !important;
-                      "
-                    >
-                      <p>{{ tr.product_name }}</p>
-                    </vs-td>
-                    <vs-td style="border-right: 1px solid #3a9fd1 !important">
-                    <div  class="flex">
+                    <p>{{ tr.product_name }}</p>
+                  </vs-td>
+                  <vs-td style="border-right: 1px solid #3a9fd1 !important">
+                    <div class="flex">
                       <input
-                         class="add"
-                         v-if="incProductId === tr.product_id"
-                         :placeholder="tr.quantity"
+                        class="add"
+                        v-if="incProductId === tr.product_id"
+                        :placeholder="tr.quantity"
                         v-model="incQuan"
-                        type="text" />
-                        <input
-                         class="add"
-                         v-if="!incProductId"
-                         :placeholder="tr.quantity"
-                        type="text" />
-                        <feather-icon icon="EditIcon"
+                        type="text"
+                      />
+                      <input
+                        class="add"
+                        v-if="!incProductId"
+                        :placeholder="tr.quantity"
+                        type="text"
+                      />
+                      <feather-icon
+                        icon="EditIcon"
                         v-if="!incProductId"
                         @click="Inc(tr)"
-                        style="margin-left: -19px !important;"
-                        svgClasses="h-3 w-4 hover:text-primary" 
+                        style="margin-left: -19px !important"
+                        svgClasses="h-3 w-4 hover:text-primary"
                         class="ml-1"
-                           />
-                        <feather-icon v-if="incProductId === tr.product_id" style="margin-left: -19px !important;" icon="CheckIcon" 
+                      />
+                      <feather-icon
+                        v-if="incProductId === tr.product_id"
+                        style="margin-left: -19px !important"
+                        icon="CheckIcon"
                         @click="IncEdit()"
-                          svgClasses="h-4 w-5 text-success" class="ml-1"
-                           />
-                    </div>
-                    </vs-td>
-                    <vs-td style="border-right: 1px solid #3a9fd1 !important" >
-                      <p class="prise">
-                        {{ tr.total_price.toLocaleString('de-DE') }}
-                      </p>
-                    </vs-td>
-                    <vs-td style="text-align: center;">
-                      <feather-icon icon="TrashIcon"
-                      @click="deleteCartProduct(tr.id)"
-                        svgClasses="h-5 w-5 hover:text-success text-danger" 
+                        svgClasses="h-4 w-5 text-success"
                         class="ml-1"
-                           />
-                    </vs-td>
-                  </vs-tr>
-                </tbody>
-              </template>
-            </vs-table>
-            <div v-if="carts">
-              <div class="itogo mt-4">
-                <h2 class="text">Итоговая сумма:</h2>
-                <h1 class="prise">{{ Number(carts.total_price).toLocaleString('de-DE') }} сум</h1>
-              </div>
-              <vs-button @click="AddOrder()" class="offering">
-                <span> Оформить заявку </span>
-              </vs-button>
+                      />
+                    </div>
+                  </vs-td>
+                  <vs-td style="border-right: 1px solid #3a9fd1 !important">
+                    <p class="prise">
+                      {{ tr.total_price.toLocaleString("de-DE") }}
+                    </p>
+                  </vs-td>
+                  <vs-td style="text-align: center">
+                    <feather-icon
+                      icon="TrashIcon"
+                      @click="deleteCartProduct(tr.id)"
+                      svgClasses="h-5 w-5 hover:text-success text-danger"
+                      class="ml-1"
+                    />
+                  </vs-td>
+                </vs-tr>
+              </tbody>
+            </template>
+          </vs-table>
+          <div v-if="carts">
+            <div class="itogo mt-4">
+              <h2 class="text">Итоговая сумма:</h2>
+              <h1 class="prise">
+                {{ Number(carts.total_price).toLocaleString("de-DE") }} сум
+              </h1>
             </div>
+            <vs-button @click="AddOrder()" class="offering">
+              <span> Оформить заявку </span>
+            </vs-button>
           </div>
-          <!-- <div class="imzo"></div> -->
         </div>
-        <vs-popup 
-         background-color="rgb(45 39 39 / 70%)"
-         background-color-popup="linear-gradient(90deg, #5E585C 0%, #000000 100%)"
-        :active.sync="categoryPop">
-         <input class="sle" v-model="searchQuery" placeholder="Выберите категорию" />
-            <div class="demo-alignment">
-              <span class="texts" v-for="(item, i) in resultQuery" @click="getCat(item)" :key="i">
-                   {{ item.name }} 
-              </span>
-                <span class="texts" v-if="resultQuery === null"  style="color: red !important">
-                      No aviable data
-                 </span>
-            </div>
-        </vs-popup>
-          <vs-popup 
-            background-color="rgb(45 39 39 / 70%)"
-             background-color-popup="linear-gradient(90deg, #5E585C 0%, #000000 100%)"
-            :active.sync="podcategoryPop">
-            <input v-model="searchPodCategory"  class="sle" placeholder="Выберите категорию" />
-            <div class="demo-alignment">
-              <span class="texts"  v-for="(item, i) in resultPodCategory" @click="getProduct(item)" :key="i"> 
-                  {{ item.name }}
-                 </span>
-                  <span class="texts" v-if="podCategory == null"  style="color: red !important">
-                      No aviable data
-                 </span>
-            </div>
-           </vs-popup>
+        <!-- <div class="imzo"></div> -->
       </div>
-    <add-cart :isPopUp="PopUp" @closeSidebar="toggleDataSidebar" :data="PopUpData" ></add-cart>
-    <order :isPopUpOrder="PopUpOrder" @closeSidebarOrder="toggleDataSidebarOrder"></order>
+      <vs-popup
+        background-color="rgb(45 39 39 / 70%)"
+        background-color-popup="linear-gradient(90deg, #5E585C 0%, #000000 100%)"
+        :active.sync="categoryPop"
+      >
+        <input
+          class="sle"
+          v-model="searchQuery"
+          placeholder="Выберите категорию"
+        />
+        <div class="demo-alignment">
+          <span
+            class="texts"
+            v-for="(item, i) in resultQuery"
+            @click="getCat(item)"
+            :key="i"
+          >
+            {{ item.name }}
+          </span>
+          <span
+            class="texts"
+            v-if="resultQuery === null"
+            style="color: red !important"
+          >
+            No aviable data
+          </span>
+        </div>
+      </vs-popup>
+      <vs-popup
+        background-color="rgb(45 39 39 / 70%)"
+        background-color-popup="linear-gradient(90deg, #5E585C 0%, #000000 100%)"
+        :active.sync="podcategoryPop"
+      >
+        <input
+          v-model="searchPodCategory"
+          class="sle"
+          placeholder="Выберите категорию"
+        />
+        <div class="demo-alignment">
+          <span
+            class="texts"
+            v-for="(item, i) in resultPodCategory"
+            @click="getProduct(item)"
+            :key="i"
+          >
+            {{ item.name }}
+          </span>
+          <span
+            class="texts"
+            v-if="podCategory == null"
+            style="color: red !important"
+          >
+            No aviable data
+          </span>
+        </div>
+      </vs-popup>
+    </div>
+    <add-cart
+      :isPopUp="PopUp"
+      @closeSidebar="toggleDataSidebar"
+      :data="PopUpData"
+    ></add-cart>
+    <order
+      :isPopUpOrder="PopUpOrder"
+      @closeSidebarOrder="toggleDataSidebarOrder"
+    ></order>
   </div>
 </template>
 <script>
-import AddCart from './components/AddCart.vue'
-import Order from './components/Order.vue'
-import SideBar from './components/Sidebar.vue'
-import Weather from './components/Weather.vue'
+import AddCart from "./components/AddCart.vue";
+import Order from "./components/Order.vue";
+import SideBar from "./components/Sidebar.vue";
+import Weather from "./components/Weather.vue";
 export default {
-  name: 'Home',
+  name: "Home",
   computed: {
-    category () {
-      return  this.$store.state.category.categories
+    category() {
+      return this.$store.state.category.categories;
     },
-    carts () {
-      return  this.$store.state.product.carts
+    carts() {
+      return this.$store.state.product.carts;
     },
-    products () {
-      return  this.$store.state.product.productes.results
+    products() {
+      return this.$store.state.product.productes.results;
     },
-    resultQuery () {
+    resultQuery() {
       if (this.searchQuery) {
-        return this.category.filter(item => {
-          return this.searchQuery.toLowerCase().split(' ').every(v => item.name.toLowerCase().includes(v))
-        })
+        return this.category.filter((item) => {
+          return this.searchQuery
+            .toLowerCase()
+            .split(" ")
+            .every((v) => item.name.toLowerCase().includes(v));
+        });
       } else {
-        return this.category
+        return this.category;
       }
     },
-    resultProduct () {
+    resultProduct() {
       if (this.searchProduct) {
-        return this.products.filter(item => {
-          return this.searchProduct.toLowerCase().split(' ').every(v => item.name.toLowerCase().includes(v))
-        })
+        return this.products.filter((item) => {
+          return this.searchProduct
+            .toLowerCase()
+            .split(" ")
+            .every((v) => item.name.toLowerCase().includes(v));
+        });
       } else {
-        return this.products
+        return this.products;
       }
     },
-    resultPodCategory () {
+    resultPodCategory() {
       if (this.searchPodCategory) {
-        return this.podCategory.filter(item => {
-          return this.searchPodCategory.toLowerCase().split(' ').every(v => item.name.toLowerCase().includes(v))
-        })
+        return this.podCategory.filter((item) => {
+          return this.searchPodCategory
+            .toLowerCase()
+            .split(" ")
+            .every((v) => item.name.toLowerCase().includes(v));
+        });
       } else {
-        return this.podCategory
+        return this.podCategory;
       }
-    }
+    },
   },
-  data () {
+  data() {
     return {
       categoryPop: false,
       podcategoryPop: false,
       edit: false,
-      NameWab: '',
+      NameWab: "",
       PopUpData: {},
       PopUp: false,
       sanoq: null,
@@ -280,136 +364,139 @@ export default {
       podCategory: null,
       incQuan: null,
       incProductId: null,
-      currentEditId: null
-    }
+      currentEditId: null,
+    };
   },
   components: {
     AddCart,
     Order,
     SideBar,
-    Weather
+    Weather,
   },
   methods: {
-    getCat (data) {
+    getCat(data) {
       this.$vs.loading({
-        container: '#div-with-loading',
+        container: "#div-with-loading",
         scale: 0.6,
-        color: 'rgb(62, 97, 121)'
-      })
-      this.activeCategory = data.name
-      console.log(data.id)
-      const category = this.category.find(company => company.id === data.id)
-      this.podCategory = category ? category.children : null
-      this.$store.dispatch('product/GetProduct', data.id).then(
-        response => { this.$vs.loading.close('#div-with-loading > .con-vs-loading') }
-      )
-      this.categoryPop = false
-    // this.podcategoryPop = true
+        color: "rgb(62, 97, 121)",
+      });
+      this.activeCategory = data.name;
+      console.log(data.id);
+      const category = this.category.find((company) => company.id === data.id);
+      this.podCategory = category ? category.children : null;
+      this.$store.dispatch("product/GetProduct", data.id).then((response) => {
+        this.$vs.loading.close("#div-with-loading > .con-vs-loading");
+      });
+      this.categoryPop = false;
+      // this.podcategoryPop = true
     },
-    getProduct (data) {
+    getProduct(data) {
       this.$vs.loading({
-        container: '#div-with-loading',
+        container: "#div-with-loading",
         scale: 0.6,
-        color: 'rgb(62, 97, 121)'
-      })
-      this.activePod = data.name
-      this.$store.dispatch('product/GetProduct', data.id).then(response => {
-        this.product = response.data
-        console.log(this.products, 'ollll')
-        this.$vs.loading.close('#div-with-loading > .con-vs-loading')
-      })
-      this.podcategoryPop = false
+        color: "rgb(62, 97, 121)",
+      });
+      this.activePod = data.name;
+      this.$store.dispatch("product/GetProduct", data.id).then((response) => {
+        this.product = response.data;
+        console.log(this.products, "ollll");
+        this.$vs.loading.close("#div-with-loading > .con-vs-loading");
+      });
+      this.podcategoryPop = false;
     },
-    AddCart (data) {
+    AddCart(data) {
       // this.sidebarData = JSON.parse(JSON.stringify(this.blankData))
-      this.PopUpData = data
-      this.toggleDataSidebar(true)
+      this.PopUpData = data;
+      this.toggleDataSidebar(true);
     },
-    deleteCartProduct (id) {
-      this.$store.dispatch('product/DeleteCartItem', id).then(response => {
-        this.$store.dispatch('product/GetCart')
-      })
+    deleteCartProduct(id) {
+      this.$store.dispatch("product/DeleteCartItem", id).then((response) => {
+        this.$store.dispatch("product/GetCart");
+      });
     },
-    AddOrder () {
-      this.toggleDataSidebarOrder(true)
-      this.$store.dispatch('product/GetCart')
+    AddOrder() {
+      this.toggleDataSidebarOrder(true);
+      this.$store.dispatch("product/GetCart");
     },
-    AddWab () {
+    AddWab() {
       const payload = {
         template_name: this.NameWab,
-        user_id: parseInt(localStorage.getItem('Id')),
-        cart_id: this.carts.id
-      }
-      this.$store.dispatch('product/PostTemplates', (payload)).then(response => {
-        this.$vs.notify({
-          title: 'Created',
-          text: 'Ok',
-          iconPack: 'feather',
-          icon: 'icon-alert-circle',
-          color: 'success'
-        })
-        this.NameWab = null
-      })
-        .catch(err => { 
+        user_id: parseInt(localStorage.getItem("Id")),
+        cart_id: this.carts.id,
+      };
+      this.$store
+        .dispatch("product/PostTemplates", payload)
+        .then((response) => {
           this.$vs.notify({
-            title: 'Error',
-            text: err,
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'danger'
-          })
+            title: "Created",
+            text: "Ok",
+            iconPack: "feather",
+            icon: "icon-alert-circle",
+            color: "success",
+          });
+          this.NameWab = null;
         })
-    },
-    toggleDataSidebar (val = false) {
-      this.$store.dispatch('product/GetCart')
-      setTimeout(() => this.$store.dispatch('product/GetCart'), 500)
-      this.PopUp = val
-    },
-    toggleDataSidebarOrder (val = false) {
-      this.PopUpOrder = val
-
-    },
-    Inc (tr) {
-      this.edit = true
-      this.incProductId = tr.product_id
-      this.incQuan = tr.quantity
-    },
-    IncEdit () {
-      this.$store.dispatch('product/AddCart', {
-        user_id: parseInt(localStorage.getItem('Id')),
-        product_id: this.incProductId,
-        quantity: parseInt(this.incQuan)
-      }).then(response => {
-        this.incProductId = null
-        this.$vs.notify({
-          title: 'Updated',
-          text: 'Ozgardi',
-          iconPack: 'feather',
-          icon: 'icon-alert-circle',
-          color: 'success'
-        })
-        this.$store.dispatch('product/GetCart')
-      })
-        .catch(err => { 
+        .catch((err) => {
           this.$vs.notify({
-            title: 'Error',
+            title: "Error",
             text: err,
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'danger'
-          })
-          this.$store.dispatch('product/GetCart')
+            iconPack: "feather",
+            icon: "icon-alert-circle",
+            color: "danger",
+          });
+        });
+    },
+    toggleDataSidebar(val = false) {
+      this.$store.dispatch("product/GetCart");
+      setTimeout(() => this.$store.dispatch("product/GetCart"), 500);
+      this.PopUp = val;
+    },
+    toggleDataSidebarOrder(val = false) {
+      this.PopUpOrder = val;
+    },
+    Inc(tr) {
+      this.edit = true;
+      this.incProductId = tr.product_id;
+      this.incQuan = tr.quantity;
+    },
+    IncEdit() {
+      this.$store
+        .dispatch("product/AddCart", {
+          user_id: parseInt(localStorage.getItem("Id")),
+          product_id: this.incProductId,
+          quantity: parseInt(this.incQuan),
         })
-    }
+        .then((response) => {
+          this.incProductId = null;
+          this.$vs.notify({
+            title: "Updated",
+            text: "Ozgardi",
+            iconPack: "feather",
+            icon: "icon-alert-circle",
+            color: "success",
+          });
+          this.$store.dispatch("product/GetCart");
+        })
+        .catch((err) => {
+          this.$vs.notify({
+            title: "Error",
+            text: err,
+            iconPack: "feather",
+            icon: "icon-alert-circle",
+            color: "danger",
+          });
+          this.$store.dispatch("product/GetCart");
+        });
+    },
   },
-  mounted () {
+  mounted() {
     // this.sanoq = this.carts.items.length
   },
-  created () {
-    this.$store.dispatch('product/GetCart')
-    this.$store.dispatch('category/GetItem')
-  }
-}
+  created() {
+    this.$store.dispatch("product/GetCart");
+    this.$store.dispatch("category/GetItem");
+  },
+};
 </script>
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;600;700;800;900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
@@ -440,8 +527,8 @@ export default {
 
   color: #ffffff;
 }
-.add-item span:hover{
-color: rgba(58, 159, 209, 1);
+.add-item span:hover {
+  color: rgba(58, 159, 209, 1);
 }
 .photo {
   width: 81px;
@@ -524,24 +611,24 @@ color: rgba(58, 159, 209, 1);
 .demo-alignment::-webkit-scrollbar-thumb {
   background: linear-gradient(99.52deg, #3f4f61 -14.96%, #3a9fd1 156.83%);
   border-radius: 7.41868px;
-    width: 3px;
+  width: 3px;
   margin-right: 6px;
   margin-right: 6px;
 }
-  .demo-alignment::-webkit-scrollbar-track {
-    /* background: linear-gradient(90deg, #5E585C 0%, #000000 100%); */
-border-radius: 0px 0px 7.41868px 7.41868px;
-  }
-  .convert{
-    width: 100%;
-height: 78.25px;
-left: 560.35px;
-top: 782px;
+.demo-alignment::-webkit-scrollbar-track {
+  /* background: linear-gradient(90deg, #5E585C 0%, #000000 100%); */
+  border-radius: 0px 0px 7.41868px 7.41868px;
+}
+.convert {
+  width: 100%;
+  height: 78.25px;
+  left: 560.35px;
+  top: 782px;
 
-background: #FFFFFF;
-box-shadow: 0px 3.72603px 13.0411px rgba(0, 0, 0, 0.1);
-border-radius: 7.45205px;
-  }
+  background: #ffffff;
+  box-shadow: 0px 3.72603px 13.0411px rgba(0, 0, 0, 0.1);
+  border-radius: 7.45205px;
+}
 .offer-text {
   font-family: Lato;
   font-style: normal;
@@ -604,404 +691,151 @@ border-radius: 7.45205px;
   font-weight: bold;
   font-size: 22.2742px;
   line-height: 33px;
-           background-image: linear-gradient(99.52deg, #3F4F61 -14.96%, #3A9FD1 156.83%);
-           -webkit-background-clip: text !important;
+  background-image: linear-gradient(99.52deg, #3f4f61 -14.96%, #3a9fd1 156.83%);
+  -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  color: transparent ;
+  color: transparent;
   display: table;
   /* identical to box height, or 150% */
 
   letter-spacing: 0.371237px;
 }
-.wab-name{
-font-family: Poppins;
-font-style: normal;
-font-weight: bold;
-font-size: 13px;
-line-height: 44px;
-/* or 550% */
-margin-left: 15px;
-display: flex;
-align-items: center;
-
-color: #000;
-}
-.wab-input{
-  width: 152px;
-height: 24px;
-padding: 5px;
-margin-left: 9px;
-border: 1px solid #110d0d;
-box-sizing: border-box;
-border-radius: 2px;
-}
-.wab-ok{
-  width: 70px;
-height: 20px;
-padding: 5px;
-background: linear-gradient(99.52deg, #3F4F61 -14.96%, #3A9FD1 156.83%);
-border-radius: 2px;
-text-align: center;
-font-family: Poppins;
-font-style: normal;
-font-weight: bold;
-font-size: 9px;
-line-height: 44px;
-    padding-left: 12px;
-display: flex;
-align-items: center;
-border: none;
-color: #FFFFFF;
-}
-.wab-no{
-  width: 70px;
-height: 20px;
-padding: 5px;
-padding-left: 12px;
-background: #E1E1E1;;
-border-radius: 2px;
-text-align: center;
-font-family: Poppins;
-font-style: normal;
-font-weight: bold;
-font-size: 9px;
-line-height: 44px;
-/* identical to box height, or 880% */
-border: none;
-display: flex;
-align-items: center;
-
-color: #000000;
-}
-.offer {
-  cursor: pointer;
-  width: 100%;
-  height: 32px;
-  background: linear-gradient(90deg, #5e585c 0%, #000000 100%);
-  border-radius: 5.9434px;
-}
-.cathaed {
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 15px !important;
-  background: linear-gradient(90deg, #5E585C 0%, #000000 100%);
-           -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent ;
-  display: table;
-  line-height: 19px;
-}
-.itogo{
-    margin-right: 1%;
-}
-.itogo .prise {
-font-family: Montserrat;
-font-style: normal;
-font-weight: bold;
-font-size: 34.3583px;
-line-height: 41px;
-/* identical to box height, or 120% */
-color: #222021;
-text-align: end;
-letter-spacing: 0.458111px;
-}
-.itogo .text {
-font-family: Montserrat;
-font-style: normal;
-font-weight: bold;
-font-size: 20.615px;
-line-height: 41px;
-          background-image: linear-gradient(99.52deg, #3F4F61 -14.96%, #3A9FD1 156.83%);
-           -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent ;
-  /* display: table; */
-/* identical to box height, or 200% */
-
-text-align: end;
-letter-spacing: 0.458111px;
-}
-.offering {
-  width: 99%;
-  /* height: 35px; */
-  background: linear-gradient(90deg, #5e585c 0%, #000000 100%) !important;
-  border-radius: 5.9434px;
-}
-.offering {
-  cursor: pointer;
-  margin-top: 30px;
-font-family: Lato;
-font-style: normal;
-font-weight: normal;
-font-size: 13.8679px;
-/* line-height: 18px; */
-/* identical to box height, or 133% */
-
-text-align: center;
-letter-spacing: -0.02em;
-
-color: #FFFFFF;
-}
-.offering:hover{
-  box-shadow: none !important;
-}
 </style>
 <style lang="scss" scoped>
-    .row {
-      height: 100%;
-      width: 100%;
-      display: flex;
-      overflow-y: scroll;
-      &::-webkit-scrollbar {
-        width: 10px;
-      }
-      &::-webkit-scrollbar-thumb {
-        border-radius: 10px;
-        background-color: #234b79;
-      }
-      .left-bg{
-        background: #f9fafc; 
-        padding: 20px 0px 20px 20px; 
-        border-bottom-right-radius: 30px;
-        border-top-right-radius: 30px;
-      }
-      .imzo {
-        background: url("~@/assets/dealer/img/icons/imzo.svg");
-        width: 100%;
-        height: 375px;
-        mix-blend-mode: normal;
-        // opacity: 0.9;
-        height: 400px;
-        border-radius: 0px 0px 28px 0px;
-        background-repeat: no-repeat;
-        background-size: cover;
-        display: flex;
-        align-items: center;
-        box-sizing: border-box;
-      }
-      input.sle {
-        position: relative;
-        margin-top: 12px !important;
-        background: #ffffff;
-        box-shadow: 0px 3.70934px 12.9827px rgba(0, 0, 0, 0.1);
-        border-radius: 7.41868px;
-        width: 100%;
-        border: none !important;
-        padding-right: 20px;
-        font-family: Montserrat;
-        font-style: normal;
-        font-weight: 400;
-        font-size: 13.91px;
-        padding-left: 14%;
-        // width: 230px;
-        line-height: 17px;
-        height: 55px;
-        color: rgba(58, 159, 209, 1) !important;
-        &::placeholder {
-          background-position: 12%;
-          // color: rgba(58, 159, 209, 1) !important;
-          background-image: linear-gradient(99.52deg, #3F4F61 -14.96%, #3A9FD1 156.83%);
-           -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent ;
-  display: table;
-
-        }
-        &:nth-child(2) {
-          content: "";
-          display: block;
-          position: relative;
-          background: url("~@/assets/dealer/img/icons/ham.svg");
-          background-repeat: no-repeat;
-          background-position: 5%;
-          background-size: 7%;
-        }
-      }
-      input.large {
-        position: relative;
-        margin-top: 12px !important;
-        background: #ffffff;
-        box-shadow: 0px 3.70934px 12.9827px rgba(0, 0, 0, 0.1);
-        border-radius: 7.41868px;
-        border: none !important;
-        padding-right: 20px;
-        font-family: Montserrat;
-        font-style: normal;
-        font-weight: 400;
-        font-size: 13.91px;
-        width: 100%;
-        padding-left: 7%;
-        // width: 230px;
-        line-height: 17px;
-        height: 55px;
-        color: rgba(58, 159, 209, 1) !important;
-        &::placeholder {
-          background-position: 10%;
-          background-image: linear-gradient(99.52deg, #3F4F61 -14.96%, #3A9FD1 156.83%);
-           -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent ;
-  display: table;
-        }
-        &:nth-child(2) {
-          content: "";
-          display: block;
-          position: relative;
-          background: url("~@/assets/dealer/img/icons/ham.svg");
-          background-repeat: no-repeat;
-          background-position: 2%;
-          background-size: 4%;
-          // flex-direction: row;
-        }
-      }
-      .vs-con-table {
-      .vs-con-tbody{
-         width: 100% !important;
-         overflow: auto !important;
-      }
-        .vs-con-tbody::-webkit-scrollbar{
-    width: 5px;
+.row {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 10px;
   }
-  .vs-con-tbody::-webkit-scrollbar-track {
-    background: rgb(97, 48, 48) !important;
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #234b79;
   }
-  .vs-con-tbody::-webkit-scrollbar-thumb {
-    background-color: rgb(204, 41, 41) !important;
-    border-radius: 6px;
-    // border: 3px solid blue;
+  .left-bg {
+    background: #f9fafc;
+    padding: 20px 0px 20px 20px;
+    border-bottom-right-radius: 30px;
+    border-top-right-radius: 30px;
   }
-     .product-name {
-          max-width: 23rem;
-        }
-
-        .vs-table--header {
-          display: flex;
-          flex-wrap: wrap;
-          margin-left: 1.5rem;
-          margin-right: 1.5rem;
-          > span {
-            display: flex;
-            flex-grow: 1;
-          }
-
-          .vs-table--search {
-            padding-top: 0;
-
-            .vs-table--search-input {
-              padding: 0.9rem 2.5rem;
-              font-size: 1rem;
-
-              & + i {
-                left: 1rem;
-              }
-
-              &:focus + i {
-                left: 1rem;
-              }
-            }
-          }
-        }
-
-        .vs-table {
-          border-collapse: separate;
-          border-spacing: 0 1.3rem;
-          padding: 0 1rem;
-          tr {
-            background: #f9fafc !important;
-            box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
-            border-bottom: 1px solid #3a9fd1;
-            td {
-              padding: 10px;
-              &:first-child {
-                border-top-left-radius: 0.5rem;
-                border-bottom-left-radius: 0.5rem;
-              }
-              &:last-child {
-                border-top-right-radius: 0.5rem;
-                border-bottom-right-radius: 0.5rem;
-              }
-            }
-            td.td-check {
-              padding: 20px !important;
-            }
-          }
-        }
-        .vs-table--thead {
-          background: #f9fafc !important;
-          border-bottom: 1px solid #3a9fd1 !important;
-          tr {
-            background: red !important;
-            box-shadow: none;
-          }
-          th {
-            border-bottom: 1px solid #3a9fd1 !important;
-            font-family: Montserrat !important;
-            font-style: normal;
-            font-weight: bold;
-            font-size: 12px !important;
-            /* or 278% */
-               background: #f9fafc !important;
-            letter-spacing: 0.400518px;
-
-            color: #000000 !important;
-
-            .vs-table-text {
-              text-transform: uppercase;
-              font-weight: 600;
-            }
-          }
-          th.td-check {
-            padding: 0 15px !important;
-          }
-        }
-        .vs-table--pagination {
-          justify-content: center;
-        }
-      }
-      .con-select {
-        .vs-select--input {
-          padding: 10px;
-          font-size: 1rem;
-          background: transparent !important;
-        }
-      }
+  input.sle {
+    position: relative;
+    margin-top: 12px !important;
+    background: #ffffff;
+    box-shadow: 0px 3.70934px 12.9827px rgba(0, 0, 0, 0.1);
+    border-radius: 7.41868px;
+    width: 100%;
+    border: none !important;
+    padding-right: 20px;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13.91px;
+    padding-left: 14%;
+    // width: 230px;
+    line-height: 17px;
+    height: 55px;
+    color: rgba(58, 159, 209, 1) !important;
+    &::placeholder {
+      background-position: 12%;
+      // color: rgba(58, 159, 209, 1) !important;
+      background-image: linear-gradient(
+        99.52deg,
+        #3f4f61 -14.96%,
+        #3a9fd1 156.83%
+      );
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+      display: table;
     }
-          input.sle {
-        position: relative;
-        margin-top: 12px !important;
-        background: #ffffff;
-        box-shadow: 0px 3.70934px 12.9827px rgba(0, 0, 0, 0.1);
-        border-radius: 7.41868px;
-        width: 100%;
-        border: none !important;
-        padding-right: 20px;
-        font-family: Montserrat;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 13.91px;
-        padding-left: 39px;
-        // width: 230px;
-        line-height: 17px;
-        height: 55px;
-        color: rgba(58, 159, 209, 1) !important;
-        &::placeholder {
-          background-position: 10%;
-          color: rgba(58, 159, 209, 1) !important;
-        }
-        &:nth-child(2) {
-          content: "";
-          display: block;
-          position: relative;
-          background: url("~@/assets/dealer/img/icons/search.svg");
-          background-repeat: no-repeat;
-          background-position: 5%;
-          background-size: 7%;
-        }
-          }
+    &:nth-child(2) {
+      content: "";
+      display: block;
+      position: relative;
+      background: url("~@/assets/dealer/img/icons/ham.svg");
+      background-repeat: no-repeat;
+      background-position: 5%;
+      background-size: 7%;
+    }
+  }
+  input.large {
+    position: relative;
+    margin-top: 12px !important;
+    background: #ffffff;
+    box-shadow: 0px 3.70934px 12.9827px rgba(0, 0, 0, 0.1);
+    border-radius: 7.41868px;
+    border: none !important;
+    padding-right: 20px;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13.91px;
+    width: 100%;
+    padding-left: 7%;
+    // width: 230px;
+    line-height: 17px;
+    height: 55px;
+    color: rgba(58, 159, 209, 1) !important;
+    &::placeholder {
+      background-position: 10%;
+      background-image: linear-gradient(
+        99.52deg,
+        #3f4f61 -14.96%,
+        #3a9fd1 156.83%
+      );
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+      display: table;
+    }
+    &:nth-child(2) {
+      content: "";
+      display: block;
+      position: relative;
+      background: url("~@/assets/dealer/img/icons/ham.svg");
+      background-repeat: no-repeat;
+      background-position: 2%;
+      background-size: 4%;
+      // flex-direction: row;
+    }
+  }
+}
+input.sle {
+  position: relative;
+  margin-top: 12px !important;
+  background: #ffffff;
+  box-shadow: 0px 3.70934px 12.9827px rgba(0, 0, 0, 0.1);
+  border-radius: 7.41868px;
+  width: 100%;
+  border: none !important;
+  padding-right: 20px;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13.91px;
+  padding-left: 39px;
+  // width: 230px;
+  line-height: 17px;
+  height: 55px;
+  color: rgba(58, 159, 209, 1) !important;
+  &::placeholder {
+    background-position: 10%;
+    color: rgba(58, 159, 209, 1) !important;
+  }
+  &:nth-child(2) {
+    content: "";
+    display: block;
+    position: relative;
+    background: url("~@/assets/dealer/img/icons/search.svg");
+    background-repeat: no-repeat;
+    background-position: 5%;
+    background-size: 7%;
+  }
+}
 </style>

@@ -12,30 +12,69 @@
     <img class="logo" src="@/assets/dealer/img/svg/login/logo.png" alt="" />
     <div class="block">
       <div class="col" style="margin-left: 0px">
-        <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer">
-          <div class="user">
+
+            <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer">
+             <feather-icon class="user" svgClasses="cursor-pointer text-danger w-6 h-6" :badge="3">
+          </feather-icon>
+
+    <vs-dropdown-menu class="notification-dropdown dropdown-custom vx-navbar-dropdown">
+
+      <div class="notification-top text-center p-5 bg-danger text-white">
+        <h3 class="text-white">44 New</h3>
+        <p class="opacity-75">App Notifications</p>
+      </div>
+
+      <component :is="scrollbarTag" ref="mainSidebarPs" class="scroll-area--nofications-dropdown p-0 mb-10" :settings="settings" :key="$vs.rtl">
+        <ul class="bordered-items">
+          <li class="flex justify-between px-4 py-4 notification cursor-pointer">
+                  jksdsdhnsd
+            <!-- <small class="mt-1 whitespace-no-wrap">{{ elapsedTime(ntf.time) }}</small> -->
+          </li>
+        </ul>
+      </component>
+
+      <div class="
+        checkout-footer
+        fixed
+        bottom-0
+        rounded-b-lg
+        text-danger
+        w-full
+        p-2
+        font-semibold
+        text-center
+        border
+        border-b-0
+        border-l-0
+        border-r-0
+        border-solid
+        d-theme-border-grey-light
+        cursor-pointer">
+        <span>View All Notifications</span>
+      </div>
+    </vs-dropdown-menu>
+  </vs-dropdown>
+        <div class="id" style="text-align: center" >ID: {{ info.id }}</div>
+      </div>
+      <div class="col">
+        <p class="name">{{ info.full_name }}</p>
+        <p class="email">{{ info.phone_number }}</p>
+        <p class="email">{{ info.email }}</p>
+      </div>
+    </div>
+          <div class="log">
+          <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer w-full">
             <div class="logout">
-              <feather-icon
-                style="color: #cfcfcf; border-radius: 2px"
-                icon="LogOutIcon"
-                svgClasses="h-10 w-10"
-                class="cursor-pointer text-white mt-2 ml-2"
-              />
+              <h2>
+                Выйти из профиля
+              </h2>
             </div>
-          </div>
-          <vs-dropdown-menu>
-            <vs-dropdown-item style="width: 140px;" >
-              <h4
-                style="
-                  font-family: Poppins;
-                  font-weight: 600;
-                  font-size: 11px;
-                  color: #000000;
-                "
-              >
+          <vs-dropdown-menu >
+            <vs-dropdown-item style="width: 200px;" >
+              <h4 style="font-weight: 500; font-size: 12px; line-height: 29px; text-align: center" >
               Profildan chiqasmi?
               </h4>
-              <div class="com flex mt-4 mb-1">
+              <div class="com flex mt-1 mb-1 justify-center">
                 <button class="ok" @click="LogOut()" >
                   Ha
                 </button>
@@ -46,14 +85,7 @@
             </vs-dropdown-item>
           </vs-dropdown-menu>
         </vs-dropdown>
-        <div class="id" style="text-align: center" >ID: {{ info.id }}</div>
-      </div>
-      <div class="col">
-        <p class="name">{{ info.full_name }}</p>
-        <p class="email">{{ info.phone_number }}</p>
-        <p class="email">{{ info.email }}</p>
-      </div>
-    </div>
+          </div>
        <div class="link">
              <router-link
       v-for="(routes, i) in route"
@@ -81,7 +113,9 @@
 </template>
 
 <script>
+import FeatherIcon from '../../../components/FeatherIcon.vue'
 export default {
+  components: { FeatherIcon },
   props: {
     to: { type: [String, Object, null], default: null }
   },
@@ -176,10 +210,8 @@ div.side-bar-container {
     font-size: 10px;
     line-height: 14px;
     /* or 175% */
-
     display: flex;
     align-items: center;
-
     color: #cfcfcf;
   }
   .lang {
@@ -211,10 +243,10 @@ div.side-bar-container {
   }
   .block {
     margin: 20px 0px;
-    margin-bottom: 50px;
+    // margin-bottom: 50px;
     display: flex !important;
     flex-direction: row;
-    .vs-con-dropdown {
+    .user {
       cursor: pointer;
       background-image: url("https://guaranteedremovals.com/wp-content/uploads/2020/05/business-man-quote-1024x1024.png");
       width: 49px;
@@ -225,22 +257,36 @@ div.side-bar-container {
       border-radius: 8.84722px;
       position: relative;
     }
-    .logout {
-      display: none;
-      height: 100%;
-    }
     
   }
-  .vs-con-dropdown:hover .logout {
-    cursor: pointer;
-    display: block;
-  }
-  .vs-con-dropdown:hover {
-    cursor: pointer;
-    display: block;
-    background-color: #3c4a5a;
-    opacity: 0.8;
-  }
+ .log{
+   margin-bottom: 50px;
+   width: 221px;
+         .logout {
+// height: 25px;
+width: 100%;
+background: linear-gradient(81.75deg, #3C4A5A 99.96%, #3A9FD1 183.61%);
+border-radius: 8px;
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 6px;
+h2{
+  font-family: Montserrat;
+font-style: normal;
+font-weight: normal;
+font-size: 10px;
+line-height: 14px;
+/* identical to box height, or 140% */
+
+display: flex;
+align-items: center;
+text-align: center;
+
+color: #FFFFFF;
+}
+    }
+ }
   .col {
     margin-left: 10px;
     display: flex;

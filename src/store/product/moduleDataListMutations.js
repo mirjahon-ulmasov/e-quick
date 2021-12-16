@@ -31,6 +31,14 @@ export default {
     const cartsIndex = state.carts.findIndex((p) => p.id === carts.id)
     Object.assign(state.carts[cartsIndex], carts)
   },
+  UPDATE_QUANTITY (state, payload) {
+    const ItemIndex = state.carts.items.filter(p =>  p.id === payload.id )
+    ItemIndex[0].quantity = payload.quantity
+    const total = payload.item_price * payload.quantity
+    ItemIndex[0].total_price = total
+    console.log(payload.item_price)
+    state.carts.total_price = payload.total_price
+  },
   ADD_Templates (state, templetes) {
     state.templetes = templetes
   },
