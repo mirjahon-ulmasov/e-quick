@@ -81,7 +81,7 @@ export default {
     Currency() {
       const item = {
         code: this.exchange,
-        value: this.value,
+        value: parseInt(this.value),
       };
       this.$store
         .dispatch("product/GetOrderExchange", item)
@@ -141,8 +141,7 @@ export default {
   },
   mounted() {
     this.Geolocation();
-    setTimeout(() => this.Weathers(), 500);
-    this.Currency();
+    setTimeout(() => this.Weathers(), 1000);
     this.CurrentDates();
   },
 };

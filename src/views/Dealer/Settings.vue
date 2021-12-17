@@ -101,7 +101,7 @@
       </div>
     </form>
     <div class="container-footer">
-      <p class="contact">www.imzo.uz</p>
+      <a href="https://imzo.uz" target="__blank" class="contact">www.imzo.uz</a>
     </div>
   </div>
 </template>
@@ -126,7 +126,7 @@ export default {
       password: "",
       rating: 4,
       image:
-        "https://guaranteedremovals.com/wp-content/uploads/2020/05/business-man-quote-1024x1024.png",
+        "https://eros.mingle2.com/main/resources/assets/no_photo_male-69f72765b4837e51717fb0a56e2aaa3c.png",
     };
   },
   name: "Settings",
@@ -490,12 +490,14 @@ export default {
   width: 100%;
   height: 20%;
   box-sizing: border-box;
-  background-image: url("~@/assets/dealer/img/svg/components/Footer3.png");
+  background-image: url("~@/assets/images/bg2.jpg");
   background-repeat: no-repeat;
   background: cover cover;
   box-sizing: border-box;
-  background-size: 100% 100%;
+  background-size: cover;
   display: flex;
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 30px;
   align-items: center;
 
   .contact {

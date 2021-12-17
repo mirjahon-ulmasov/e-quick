@@ -101,16 +101,19 @@ export default {
   },
   // Get order exchange
   GetOrderExchange ({ commit }, item) {
-    return new Promise((resolve, reject) => {
-      axios.post('/api/v1/exchange', (item)
-      )
-        .then((response) => {
-          // commit('ADD_Orders', response.data)
-          console.log(response.data)
-          resolve(response)
-        })
-        .catch((error) => { reject(error) })
-    })
+    console.log(item)
+    if(item.value !== null){
+      return new Promise((resolve, reject) => {
+        axios.post('/api/v1/exchange', (item)
+        )
+          .then((response) => {
+            // commit('ADD_Orders', response.data)
+            console.log(response.data)
+            resolve(response)
+          })
+          .catch((error) => { reject(error) })
+      })
+    }
   },
   // Post templates list
   PostTemplates ({ commit }, payload) {

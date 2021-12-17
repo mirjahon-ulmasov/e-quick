@@ -50,16 +50,16 @@
       <Table />
     </div>
     <div class="container-footer">
-      <p class="contact">Engelberg 7600</p>
+      <div class="image">
+        <a href="https://akfagroup.com/uz/engelberg-7600.html" target="__blank" class="contact">Engelberg 7600</a>
+      </div>
     </div>
   </div>
 </template>
 <script>
-import SideBar from "./components/Sidebar.vue";
-import Table from "./components/Table.vue";
+import Table from "@/components/dealers/order/Table.vue";
 export default {
   components: {
-    SideBar,
     Table,
   },
   name: "Journal",
@@ -221,20 +221,31 @@ export default {
 .container-footer {
   width: 100%;
   height: 20%;
-  background-image: url("~@/assets/dealer/img/svg/components/Footer2.png");
-  background-repeat: no-repeat;
-  background: cover cover;
+    border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 30px;
   box-sizing: border-box;
-  background-size: 100% 100%;
-  display: flex;
+  // background-size: 100% 100%;
+  .image{
+          background-image: url("https://akfagroup.com/img/src/promo/engelberg-7600.jpg");
+      background-size: cover;
+      background-position-y: center;
+        position: relative;
+  background-repeat: no-repeat;
+  width: 100%;
+      border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    overflow: hidden;
+  height: 100%;
+  background: cover cover;
+    display: flex;
   align-items: center;
-
-  .contact {
+    .contact {
     font-family: "Montserrat" sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 25px;
     line-height: 30px;
+    z-index: 222;
     color: #ffffff;
     position: relative;
     margin-left: 150px;
@@ -250,5 +261,17 @@ export default {
       background-repeat: no-repeat;
     }
   }
+  }
+.image:before{
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(20, 18, 18, 0.4);
+    content: "";
+    z-index: 3;
+}
 }
 </style>

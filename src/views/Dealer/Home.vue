@@ -10,10 +10,12 @@
             <h2 class="cathaed">Выберите категорию</h2>
               <v-select 
                class="sle"
+               maxHeight="800px"
                @input="getCat"
                v-model="activeCategory" 
                :options="category" 
                label="name" />
+                <vs-spacer class="spacer" style="height: 175px" />
             <!-- <div class="demo-alignment">
               <span
                 class="texts"
@@ -36,16 +38,16 @@
             <h2 class="cathaed">Выберите подкатегорию</h2>
               <v-select 
                class="sle"
-               @open="activeCategory"
                @input="getProduct"
                v-model="activePod" 
                :options="podCategory" 
                label="name" />
+                <vs-spacer class="spacer" style="height: 175px" />
           </div>
           <div class="vx-col w-full mt-6">
             <h2 class="cathaed">Выберите продукт</h2>
               <v-select 
-               class="sle "
+               class="sle"
                @input="AddCart"
                v-model="activeProduct" 
                :options="products" 
@@ -54,7 +56,7 @@
                     <vs-spacer />
                      <vs-spacer />
                       <vs-spacer />
-            <div class="vx-col w-full mt-6">
+            <div class="vx-col w-full mt-6" style="padding-top: 120px">
               <weather></weather>
             </div>
           </div>
@@ -73,10 +75,9 @@
   </div>
 </template>
 <script>
-import AddCart from "./components/AddCart.vue";
-import SideBar from "./components/Sidebar.vue";
-import Weather from "./components/Weather.vue";
-import CartTable from "./components/CartTable.vue";
+import AddCart from "@/components/dealers/carts/AddCart.vue";
+import Weather from "@/components/dealers/Weather.vue";
+import CartTable from "@/components/dealers/carts/CartTable.vue";
 import VSelect from 'vue-select'
 export default {
   name: "Home",
@@ -143,13 +144,12 @@ export default {
       activeProduct: null,
       popupActive: false,
       popupActive1: false,
-      podCategory: '',
+      podCategory: [],
       currentEditId: null,
     };
   },
   components: {
     AddCart,
-    SideBar,
     Weather,
     CartTable,
     VSelect
@@ -162,7 +162,6 @@ export default {
       //   color: "rgb(62, 97, 121)",
       // });
       console.log(this.activeCategory)
-      console.log(data.id);
       // const category = this.category.find((company) => company.id === data.id);
       this.podCategory = this.activeCategory ? this.activeCategory.children : null;
       this.$store.dispatch("product/GetProduct", this.activeCategory.id).then((response) => {
@@ -197,7 +196,6 @@ export default {
     },
   },
   mounted() {
-    this.getCat()
     // this.sanoq = this.carts.items.length
   },
   created() {
@@ -278,89 +276,17 @@ export default {
     border-bottom-right-radius: 30px;
     border-top-right-radius: 30px;
   }
-  input.sle {
-    position: relative;
-    margin-top: 12px !important;
-    background: #ffffff;
-    box-shadow: 0px 3.70934px 12.9827px rgba(0, 0, 0, 0.1);
-    border-radius: 7.41868px;
-    width: 100%;
-    border: none !important;
-    padding-right: 20px;
-    font-family: Montserrat;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 13.91px;
-    padding-left: 12%;
-    // width: 230px;
-    line-height: 17px;
-    height: 55px;
-    color: rgba(58, 159, 209, 1) !important;
-    &::placeholder {
-      background-position: 12%;
-      // color: rgba(58, 159, 209, 1) !important;
-      background-image: linear-gradient(
-        99.52deg,
-        #3f4f61 -14.96%,
-        #3a9fd1 156.83%
-      );
-      -webkit-background-clip: text !important;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      color: transparent;
-      display: table;
-    }
-    &:nth-child(2) {
-      content: "";
-      display: block;
-      position: relative;
-      background: url("~@/assets/dealer/img/icons/search.svg");
-      background-repeat: no-repeat;
-      background-position: 5%;
-      background-size: 5%;
-    }
+  .sle, .v-select {
+    .vs__dropdown-menu  {
+    margin-top: 10px;
+    height: 300px !important;
+    overflow-y: scroll;
   }
-  input.large {
-    position: relative;
-    margin-top: 12px !important;
-    background: #ffffff;
-    box-shadow: 0px 3.70934px 12.9827px rgba(0, 0, 0, 0.1);
-    border-radius: 7.41868px;
-    border: none !important;
-    padding-right: 20px;
-    font-family: Montserrat;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 13.91px;
-    width: 100%;
-    padding-left: 6%;
-    // width: 230px;
-    line-height: 17px;
-    height: 55px !important;
-    color: rgba(58, 159, 209, 1) !important;
-    &::placeholder {
-      background-position: 10%;
-      background-image: linear-gradient(
-        99.52deg,
-        #3f4f61 -14.96%,
-        #3a9fd1 156.83%
-      );
-      -webkit-background-clip: text !important;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      color: transparent;
-      display: table;
-    }
-    &:nth-child(2) {
-      content: "";
-      display: block;
-      position: relative;
-      background: url("~@/assets/dealer/img/icons/search.svg");
-      background-repeat: no-repeat;
-      background-position: 2%;
-      background-size: 3%;
-      // flex-direction: row;
-    }
+  }
+}
+@media (max-width: 1500px) {
+  .spacer{
+    height: auto !important;
   }
 }
 </style>

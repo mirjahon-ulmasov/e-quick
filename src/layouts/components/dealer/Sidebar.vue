@@ -13,54 +13,24 @@
     <div class="block">
       <div class="col" style="margin-left: 0px">
 
-            <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer">
-             <feather-icon class="user" svgClasses="cursor-pointer text-danger w-6 h-6" :badge="3">
+             <feather-icon @click="toggleDataSidebar(true)" class="user" svgClasses="cursor-pointer text-danger w-6 h-6" :badge="3">
           </feather-icon>
-
-    <vs-dropdown-menu class="notification-dropdown dropdown-custom vx-navbar-dropdown">
-
-      <div class="notification-top text-center p-5 bg-danger text-white">
-        <h3 class="text-white">44 New</h3>
-        <p class="opacity-75">App Notifications</p>
-      </div>
-
-      <component :is="scrollbarTag" ref="mainSidebarPs" class="scroll-area--nofications-dropdown p-0 mb-10" :settings="settings" :key="$vs.rtl">
-        <ul class="bordered-items">
-          <li class="flex justify-between px-4 py-4 notification cursor-pointer">
-                  jksdsdhnsd
-            <!-- <small class="mt-1 whitespace-no-wrap">{{ elapsedTime(ntf.time) }}</small> -->
-          </li>
-        </ul>
-      </component>
-
-      <div class="
-        checkout-footer
-        fixed
-        bottom-0
-        rounded-b-lg
-        text-danger
-        w-full
-        p-2
-        font-semibold
-        text-center
-        border
-        border-b-0
-        border-l-0
-        border-r-0
-        border-solid
-        d-theme-border-grey-light
-        cursor-pointer">
-        <span>View All Notifications</span>
-      </div>
-    </vs-dropdown-menu>
-  </vs-dropdown>
         <div class="id" style="text-align: center" >ID: {{ info.id }}</div>
       </div>
-      <div class="col">
+      <div class="col display-none">
         <p class="name">{{ info.full_name }}</p>
         <p class="email">{{ info.phone_number }}</p>
         <p class="email">{{ info.email }}</p>
       </div>
+      <!-- <div class="col">
+<svg width="13" class="burced" height="18" viewBox="0 0 13 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M-3.93402e-07 8.875L12.9053 0.322997L12.9053 17.427L-3.93402e-07 8.875Z" fill="white"/>
+</svg>
+
+        <div class="notify">
+
+        </div>
+      </div> -->
     </div>
           <div class="log">
           <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer w-full">
@@ -109,18 +79,21 @@
         Xatolar bo'lsa, qo'ng'iroq markaziga murojaat qiling - 71 000 00 00
       </span>
     </div>
+    <Notisfications       :isPopUpNotis="PopUpNotis" @closeSidebarNotis="toggleDataSidebar" />
   </div>
 </template>
 
 <script>
 import FeatherIcon from '../../../components/FeatherIcon.vue'
+import Notisfications from '@/components/dealers/Notisfications.vue'
 export default {
-  components: { FeatherIcon },
+  components: { FeatherIcon, Notisfications },
   props: {
     to: { type: [String, Object, null], default: null }
   },
   data () {
     return {
+      PopUpNotis: false,
       route: [
         { to: '/dealer/main', title: 'Создать заказ' },
         { to: '/dealer/journal', title: 'Журнал' },
@@ -149,6 +122,9 @@ export default {
       console.log('okkk')
       this.$router.push('/login')
       window.location.reload()
+    },
+    toggleDataSidebar(val = false){
+      this.PopUpNotis = val
     }
   },
   created () {
@@ -188,6 +164,23 @@ border: none;
 padding: 3px 0px;
 text-align: center;
 color: #000000;
+  }
+  .notify{
+    position: absolute;
+width: 208.4px;
+height: 79px;
+background: #FFFFFF;
+z-index: 111;
+border-radius: 6.21277px;
+  }
+  .burced{
+    width: 19.75px;
+height: 17.21px;
+left: 108px;
+top: 272.75px;
+
+background: #FFFFFF;
+transform: rotate(-90deg);
   }
 </style>
 <style lang="scss" scoped>
@@ -240,6 +233,7 @@ div.side-bar-container {
   .logo {
     width: 170px;
     margin: 50px 0px 15px 0px;
+    z-index: 999;
   }
   .block {
     margin: 20px 0px;
@@ -248,7 +242,7 @@ div.side-bar-container {
     flex-direction: row;
     .user {
       cursor: pointer;
-      background-image: url("https://guaranteedremovals.com/wp-content/uploads/2020/05/business-man-quote-1024x1024.png");
+      background-image: url("https://eros.mingle2.com/main/resources/assets/no_photo_male-69f72765b4837e51717fb0a56e2aaa3c.png");
       width: 49px;
       height: 49px;
       background-position: center;
@@ -262,6 +256,7 @@ div.side-bar-container {
  .log{
    margin-bottom: 50px;
    width: 221px;
+   z-index: 999;
          .logout {
 // height: 25px;
 width: 100%;

@@ -19,30 +19,29 @@
           color: #000000;
         "
       >
-        Данные о Заявке №{{ carts.order_number }}
+        Данные о {{ detail.title }}
       </h2>
       <div class="flex" style="justify-content: center">
         <vs-table
           ref="table"
           maxHeight="50vh"
           style="max-width: 400px !important"
-          class="produc mt-4"
-          v-if="carts"
-          :data="carts.items"
+          class="produ mt-4"
+          :data="detail.items"
         >
           <template slot="thead">
             <vs-th sort-key="name">№</vs-th>
             <vs-th
               sort-key="Наименование_онлайн_савдо"
               style="
-                border-left: 2px solid #3a9fd1 !important;
-                border-right: 2px solid #3a9fd1 !important;
+                border-left: 1px solid #3a9fd1 !important;
+                border-right: 1px solid #3a9fd1 !important;
               "
               >Наименования</vs-th
             >
             <vs-th
               sort-key="Завод"
-              style="border-right: 2px solid #3a9fd1 !important"
+              style="border-right: 1px solid #3a9fd1 !important"
               >Количество</vs-th
             >
             <vs-th sort-key="Баланс">Цена (сум)</vs-th>
@@ -55,8 +54,8 @@
                 </vs-td>
                 <vs-td
                   style="
-                    border-left: 2px solid #3a9fd1 !important;
-                    border-right: 2px solid #3a9fd1 !important;
+                    border-left: 1px solid #3a9fd1 !important;
+                    border-right: 1px solid #3a9fd1 !important;
                     background: white;
                   "
                 >
@@ -64,7 +63,7 @@
                 </vs-td>
                 <vs-td
                   style="
-                    border-right: 2px solid #3a9fd1 !important;
+                    border-right: 1px solid #3a9fd1 !important;
                     background: white;
                   "
                 >
@@ -86,20 +85,21 @@
       </div>
       <div class="itogo mt-4">
         <h2 class="text">Итоговая сумма:</h2>
-        <h1 class="prise">{{ carts.total_price }} сум</h1>
+        <h1 class="prise">{{ detail.total_price }} сум</h1>
       </div>
-      <!-- <div class="flex mt-4">
-                  <vs-button @click="isSidebarActiveLocal = false" class="submit">
-                      Сохранить
-                  </vs-button>
-                    <vs-button @click="isSidebarActiveLocal = false" class="cancel" >
-                      Закрыть
-                  </vs-button>
-              </div> -->
+      <div class="flex mt-4">
+        <vs-button @click="Order()" class="submit"> Order </vs-button>
+        <vs-button @click="AddCart()" class="cancel"> Add cart </vs-button>
+      </div>
     </vs-popup>
+    <order-template
+      :Temp="Temp"
+      @closeSidebar="toggleDataOrder"
+    ></order-template>
   </div>
 </template>
 <script>
+import OrderTemplate from "./OrderTemplete.vue";
 export default {
   name: "",
   props: {
@@ -108,6 +108,14 @@ export default {
       required: true,
     },
   },
+  components: {
+    OrderTemplate,
+  },
+  data() {
+    return {
+      Temp: false,
+    };
+  },
   watch: {
     isPopUp(val) {
       if (!val) return;
@@ -115,8 +123,8 @@ export default {
     },
   },
   computed: {
-    carts() {
-      return this.$store.state.product.orderItem;
+    detail() {
+      return this.$store.state.product.tempDetail;
     },
     isSidebarActiveLocal: {
       get() {
@@ -129,8 +137,51 @@ export default {
       },
     },
   },
+  methods: {
+    Order() {
+      this.isSidebarActiveLocal = false;
+      this.toggleDataOrder(true);
+    },
+    AddCart() {
+      this.isSidebarActiveLocal = false;
+      this.$store
+        .dispatch("product/AddCartTemplate", {
+          user_id: parseInt(localStorage.getItem("Id")),
+          template_id: this.detail.template_id,
+        })
+        .then((response) => {
+          this.isSidebarActiveLocal = false;
+          this.$vs.notify({
+            title: "Success",
+            text: "Muvafayaqiyta",
+            iconPack: "feather",
+            icon: "icon-alert-circle",
+            color: "success",
+          });
+          this.isSidebarActiveLocal = false;
+          this.$router.push("/dealer/main");
+        })
+        .catch((err) => {
+          this.$vs.notify({
+            title: "Error",
+            text: err,
+            iconPack: "feather",
+            icon: "icon-alert-circle",
+            color: "danger",
+          });
+          console.error(err);
+        });
+    },
+    toggleDataOrder(val = false) {
+      this.Temp = val;
+    },
+  },
   created() {
-    this.$store.dispatch("product/GetOrderItem");
+    this.$store.dispatch("product/GetTemplatesItem");
+    console.log(this.detail);
+  },
+  mounted() {
+    this.$store.dispatch("product/GetTemplatesItem");
   },
 };
 </script>
@@ -165,11 +216,17 @@ export default {
   ) !important;
   border-radius: 6.87619px !important;
 }
+.submit:hover {
+  box-shadow: none !important;
+}
 .cancel {
   width: 205px !important;
   margin-left: 10px !important;
   background: linear-gradient(90deg, #5e585c 0%, #000000 100%) !important;
   border-radius: 5.9434px !important;
+}
+.cancel:hover {
+  box-shadow: none !important;
 }
 .itogo {
   margin-left: 20%;
@@ -253,7 +310,7 @@ export default {
     tr {
       background: transparent !important;
       box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
-      border-bottom: 2px solid #3a9fd1;
+      border-bottom: 1px solid #3a9fd1;
       td {
         padding: 10px;
         &:first-child {
@@ -272,13 +329,13 @@ export default {
   }
   .vs-table--thead {
     background: transparent !important;
-    border-bottom: 2px solid #3a9fd1 !important;
+    border-bottom: 1px solid #3a9fd1 !important;
     tr {
       background: red !important;
       box-shadow: none;
     }
     th {
-      border-bottom: 2px solid #3a9fd1 !important;
+      border-bottom: 1px solid #3a9fd1 !important;
       font-family: Montserrat !important;
       font-style: normal;
       font-weight: bold;

@@ -46,7 +46,7 @@ align-items: center;
 top: 43.56%;
 bottom: 48%;
 height: 77px;
-z-index: 9999;
+z-index: 99;
 border-radius: 11px;
 padding-right: 10px;
 /* background: linear-gradient(215.31deg, #3f4f61 8.35%, #3a9fd1 137.05%);; */

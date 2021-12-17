@@ -287,10 +287,9 @@
   </div>
 </template>
 <script>
-import AddCart from "./components/AddCart.vue";
-import Order from "./components/Order.vue";
-import SideBar from "./components/Sidebar.vue";
-import Weather from "./components/Weather.vue";
+import AddCart from "@/components/dealers/cart/AddCart.vue";
+import Order from "@/components/dealers/order/Order.vue";
+import Weather from "@/components/dealers/Weather.vue";
 export default {
   name: "Home",
   computed: {
@@ -370,7 +369,6 @@ export default {
   components: {
     AddCart,
     Order,
-    SideBar,
     Weather,
   },
   methods: {

@@ -105,7 +105,7 @@
 </template>
 
 <script>
-import PopUpOk from "./components/TemplatesItem.vue";
+import PopUpOk from "@/components/dealers/templates/TemplatesItem.vue";
 export default {
   components: {
     PopUpOk,

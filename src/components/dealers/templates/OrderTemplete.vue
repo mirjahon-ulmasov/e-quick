@@ -184,7 +184,6 @@ export default {
               color: "success",
             });
             // window.location.reload()
-            this.$store.state.product.carts = null;
           })
           .catch((err) => {
             this.$vs.notify({

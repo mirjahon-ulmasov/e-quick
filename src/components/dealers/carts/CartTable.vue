@@ -162,8 +162,8 @@
   </div>
 </template>
 <script>
-import Order from "./Order.vue";
-import Temp from "./saveTemp.vue"
+import Order from "../order/Order.vue";
+import Temp from "../templates/saveTemp.vue"
 export default {
   name: "Home",
   computed: {
@@ -222,7 +222,6 @@ export default {
     Inc(tr) {
       const quantity = {
         item_price: tr.total_price / tr.quantity,
-        total_price: this.carts.total_price + tr.total_price / tr.quantity,
         quantity: tr.quantity + 1,
         id: tr.id
       }
@@ -236,7 +235,6 @@ export default {
     Min(tr) {
       const quantity = {
         item_price: tr.total_price / tr.quantity,
-        total_price: this.carts.total_price - tr.total_price / tr.quantity,
         quantity: tr.quantity - 1,
         id: tr.id
       }
@@ -283,9 +281,6 @@ export default {
   created() {
     this.$store.dispatch("product/GetCart");
   },
-  mounted(){
-    this.Inc()
-  }
 };
 </script>
 <style lang="scss" scoped>
