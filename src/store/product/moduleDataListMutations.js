@@ -37,7 +37,7 @@ export default {
     const total = payload.item_price * payload.quantity
     ItemIndex[0].total_price = total
     console.log(payload.item_price)
-    state.carts.total_price = payload.total_price
+    state.carts.total_price = state.carts.total_price + payload.item_price
   },
   ADD_Templates (state, templetes) {
     state.templetes = templetes

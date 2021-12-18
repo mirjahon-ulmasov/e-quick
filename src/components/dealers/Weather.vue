@@ -2,10 +2,9 @@
   <div class="vx-row weather">
     <div class="vx-col sm:w-full lg:w-2/5 pl-0">
       <div class="bg1">
-        <div style="float: right; padding: 5px">
+        <div style="display: flex; justify-content: flex-end;padding: 5px">
           <img src="@/assets/dealer/img/icons/oy.svg" alt="oy" />
         </div>
-        <br />
         <div class="flex">
           <h2 class="head">{{ weather }}°</h2>
           <div class="ml-3">
@@ -150,10 +149,13 @@ export default {
 .weather {
   .bg1 {
     width: 100%;
-    height: 80.61px;
+    min-height: 85.61px;
     background: linear-gradient(99.52deg, #3f4f61 -14.96%, #3a9fd1 156.83%);
     border-radius: 7.68696px;
+        display: flex;
+    flex-direction: column;
     .flex {
+          margin-top: -5px;
       justify-content: center;
       align-items: center;
     }

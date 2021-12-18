@@ -284,7 +284,7 @@ export default {
   }
   }
 }
-@media (max-width: 1500px) {
+@media (max-width: 1600px) {
   .spacer{
     height: auto !important;
   }
