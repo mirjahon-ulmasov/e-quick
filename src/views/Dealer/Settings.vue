@@ -85,12 +85,12 @@
         <p class="title">Уведомления</p>
         <p class="sub-title">Оповещание о событий</p>
         <label class="checkbox-container">
-          <input type="checkbox" checked="checked" />
+          <input type="checkbox" v-model="sitenotf" checked="checked" />
           <span class="checkmark"></span>
           Получать уведомления
         </label>
         <div class="flex mb-6 mt-3">
-          <vs-switch color="#31b778" v-model="swich" id="swich"></vs-switch>
+          <vs-switch color="#31b778" v-model="emailnotf" id="swich"></vs-switch>
           <label class="checkmark1" for="#swich">
             Получать сообщения на почту</label
           >
@@ -114,12 +114,14 @@ export default {
   },
   computed: {
     info() {
-      return this.$store.state.auth.info;
+      return this.$store.state.auth.info
     },
   },
   data() {
     return {
       swich: true,
+      sitenotf: true,
+      emailnotf: false,
       name: "",
       surname: "",
       email: "",
@@ -130,10 +132,19 @@ export default {
     };
   },
   name: "Settings",
+  // watch: {
+  //  User(){
+  //    this.name = this.info.full_name
+  //  }
+  // },
   methods: {
     SaveInfo() {
+      // const sitenotefy = this.sitenotf ? 'inactive' : 'active',
+      // const emailnotefy = this.emailnotf ? 'inactive' : 'active',
       const payload = {
         role: "dealer",
+        site_notifications: this.sitenotf ? 'active' : 'inactive',
+        email_notifications : this.emailnotf ? 'active' : 'inactive',
         id: localStorage.getItem("Id"),
         username: this.surname,
         password: this.password,
@@ -173,11 +184,17 @@ export default {
         reader.readAsDataURL(input.target.files[0]);
       }
     },
+    user(){
+      this.name = this.info.full_name,
+       this.surname = this.info.username , 
+          this.email = this.info.email,
+    this.sitenotf = this.info.site_notifications === 'active' ? true : false,
+    this.emailnotf = this.info.email_notifications === 'active'  ? true : false
+    }
   },
   created() {
-    (this.name = this.info.full_name), (this.surname = this.info.username);
-    this.email = this.info.email;
-    this.$store.dispatch("auth/DealerInfo");
+    setTimeout(() =>   this.user(), 500 )
+    this.$store.dispatch("auth/DealerInfo")
   },
 };
 </script>

@@ -23,7 +23,7 @@ export default {
     })
   },
   updateItem ({ commit }, item) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => { 
       axios.put(`/api/v1/users/${item.id}`, (item))
         .then((response) => {
           commit('UPDATE_User', response.data)
@@ -63,5 +63,27 @@ export default {
           .catch((error) => { reject(error) })
       })
     }
+  },
+  NotisfyGet ({ commit },) {
+      return new Promise((resolve, reject) => {
+        axios.get(`/api/v1/notifications/${localStorage.getItem('Id')}`)
+          .then((response) => {
+            console.log(response)
+            commit('SET_Notisfy', response.data)
+            resolve(response)
+          })
+          .catch((error) => { reject(error) })
+      })
+  },
+     NotisfyPut ({ commit }, id) {
+      return new Promise((resolve, reject) => {
+        axios.put(`/api/v1/notifications/seen/${id}`)
+          .then((response) => {
+            console.log(response)
+            commit('SET_Notisfy', response.data)
+            resolve(response)
+          })
+          .catch((error) => { reject(error) })
+      })
   }
 }

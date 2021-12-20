@@ -146,7 +146,7 @@ const router = new Router({
     },
     {
       path: '*',
-      redirect: '/pages/error-404'
+      redirect: '/dealer/main'
     }
   ]
 })

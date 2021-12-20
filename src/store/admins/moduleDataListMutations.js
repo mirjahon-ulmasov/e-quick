@@ -14,5 +14,8 @@ export default {
   },
   SET_UserById (state, detail) {
     state.detail = detail
+  },
+  SET_Notisfy(state, notisfy){
+    state.notisfy = notisfy
   }
 }

@@ -9,10 +9,10 @@
         Уведомления
     </h2>
     <div class="">
-     <div class="notis">
-         <div class="flex">
+     <div class="notis" v-for="(notis, i) in  notisfy" :key="i">
+         <div class="flex" >
              <img src="https://vtrand.ru/content/uploads/photos/2020/11/vtrand_0f7db75d2ef81bcc0a6a526310e56b6e.jpg" width="33" height="33" style="border-radius: 11.7329px;" alt="">
-        <div class="ml-6" >
+        <div class="ml-6" style="width: 420px" >
             <div class="data flex">
                <span class="ok">
                    admin
@@ -21,23 +21,24 @@
 <path d="M1.57 2.16C1.31667 2.16 1.1 2.07333 0.92 1.9C0.746667 1.72667 0.66 1.50667 0.66 1.24C0.66 0.986667 0.75 0.773333 0.93 0.6C1.11 0.42 1.32333 0.33 1.57 0.33C1.81667 0.33 2.02667 0.42 2.2 0.6C2.38 0.773333 2.47 0.986667 2.47 1.24C2.47 1.50667 2.38 1.72667 2.2 1.9C2.02667 2.07333 1.81667 2.16 1.57 2.16Z" fill="black" fill-opacity="0.56"/>
 </svg>
                <span class="ok">
-                   Now
+                   {{ notis.created_at.slice(11,16) }}
                </span>
             </div>
             <p class="tex">
-              Ваша заявка готова, ожидайте Ваш заказ
+              {{ notis.title }}
             </p>
             <p class="tex1">
-                Для того чтобы просмотреть вашу заявку зайдите на страницу
-                <router-link :to="''">
+                {{ notis.message }}
+                <router-link :to="'/journal'">
                     Журнал
                 </router-link>
             </p>
         </div>
                       <feather-icon
-                        style="margin-top: -82px !important;"
+                      @click="update(notis.id)"
+                        style="margin-top: -59px !important; color: #7F8C8D"
                         icon="XIcon"
-                        svgClasses="h-4 w-5 text-success"
+                        svgClasses="h-6 w-6 text-success"
                         class="ml-1 cursor-pointer"
                       />
          </div>
@@ -69,6 +70,9 @@ export default {
     }
   },
   computed: {
+    notisfy(){
+      return this.$store.state.addUser.notisfy
+    },
     isSidebarActiveLocal: {
       get () {
         return this.isPopUpNotis
@@ -81,6 +85,35 @@ export default {
     }
   },
   methods:{
+    update(id){
+      this.$store.dispatch('addUser/NotisfyPut', id).then(res => {
+            this.$vs.notify({
+            title: "Seen",
+            text: "ok",
+            iconPack: "feather",
+            icon: "icon-check-circle",
+            color: "success",
+          });
+          this.$store.dispatch('addUser/NotisfyGet')
+          this.$store.dispatch('addUser/NotisfyGet')
+      })
+      .catch(err => {
+            this.$vs.notify({
+            title: "Error",
+            text: err.response.data,
+            iconPack: "feather",
+            icon: "icon-check-circle",
+            color: "danger",
+          });
+      })
+    }
+  },
+    created () {
+    this.$store.dispatch('auth/DealerInfo')
+    this.$store.dispatch('addUser/NotisfyGet')
+  },
+  mounted(){
+    console.log(this.notisfy)
   }
 }
 </script>
@@ -164,7 +197,6 @@ font-size: 14px;
 line-height: 20px;
 /* or 143% */
 
-
 color: #373737;
 flex: none;
 order: 1;
@@ -180,8 +212,7 @@ font-size: 12px;
 line-height: 18px;
 /* or 150% */
 
-
-color: rgba(0, 0, 0, 0.56);
+ 
 
 mix-blend-mode: normal;
 

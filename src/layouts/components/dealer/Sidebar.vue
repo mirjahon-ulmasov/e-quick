@@ -13,7 +13,7 @@
     <div class="block">
       <div class="col" style="margin-left: 0px">
 
-             <feather-icon @click="toggleDataSidebar(true)" class="user" svgClasses="cursor-pointer text-danger w-6 h-6" :badge="3">
+             <feather-icon @click="toggleDataSidebar(true)" class="user" svgClasses="cursor-pointer text-danger w-6 h-6" :badge="notisfy.length">
           </feather-icon>
         <div class="id" style="text-align: center" >ID: {{ info.id }}</div>
       </div>
@@ -110,6 +110,9 @@ export default {
     info () {
       return  this.$store.state.auth.info
     },
+    notisfy(){
+      return this.$store.state.addUser.notisfy
+    },
     activeLink () {
       return !!(this.to === this.$route.path && this.to)
     }
@@ -129,6 +132,10 @@ export default {
   },
   created () {
     this.$store.dispatch('auth/DealerInfo')
+    this.$store.dispatch('addUser/NotisfyGet')
+  },
+  mounted(){
+    console.log(this.notisfy)
   }
 }
 </script>
