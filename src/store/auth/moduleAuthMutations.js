@@ -4,12 +4,12 @@ export default {
   SET_BEARER (state, access) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${access}`
     // Set token globally
-    localStorage.setItem('access', access )
+    localStorage.setItem('access', access)
   },
-  SetInfo(state, info){
+  SetInfo (state, info) {
     state.info = info
   },
-  UpdateInfo(state, info){
+  UpdateInfo (state, info) {
     state.info = info
   }
 }

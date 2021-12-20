@@ -10,25 +10,25 @@ export default {
           console.log(response)
           if (response) {
             // Decode jwt token
-            function parseJwt(token) {
+            function parseJwt (token) {
               try {
                 // Get Token Header
-                const base64HeaderUrl = token.split('.')[0];
-                const base64Header = base64HeaderUrl.replace('-', '+').replace('_', '/');
-                const headerData = JSON.parse(window.atob(base64Header));
+                const base64HeaderUrl = token.split('.')[0]
+                const base64Header = base64HeaderUrl.replace('-', '+').replace('_', '/')
+                const headerData = JSON.parse(window.atob(base64Header))
             
                 // Get Token payload and date's
-                const base64Url = token.split('.')[1];
-                const base64 = base64Url.replace('-', '+').replace('_', '/');
-                const dataJWT = JSON.parse(window.atob(base64));
-                dataJWT.header = headerData;
+                const base64Url = token.split('.')[1]
+                const base64 = base64Url.replace('-', '+').replace('_', '/')
+                const dataJWT = JSON.parse(window.atob(base64))
+                dataJWT.header = headerData
             
-            // TODO: add expiration at check ...
+                // TODO: add expiration at check ...
             
             
-                return dataJWT;
+                return dataJWT
               } catch (err) {
-                return false;
+                return false
               }
             }
             //  User Info
@@ -49,7 +49,7 @@ export default {
   },
   DealerInfo ({ commit }) {
     return new Promise((resolve, reject) => {
-      axios.get('/api/v1/users/' + localStorage.getItem('Id') )
+      axios.get(`/api/v1/users/${  localStorage.getItem('Id')}`)
         .then((response) => {
           commit('SetInfo', response.data)
           console.log(response)
@@ -70,7 +70,7 @@ export default {
   },
   ResetPass ({ commit }, item) {
     return new Promise((resolve, reject) => {
-      axios.post(`/api/v1/users/reset_password`, (item))
+      axios.post('/api/v1/users/reset_password', (item))
         .then((response) => {
           resolve(response)
         })
@@ -79,7 +79,7 @@ export default {
   },
   Verify ({ commit }, item) {
     return new Promise((resolve, reject) => {
-      axios.post(`/api/v1/users/verify`, (item))
+      axios.post('/api/v1/users/verify', (item))
         .then((response) => {
           resolve(response)
         })
@@ -88,11 +88,11 @@ export default {
   },
   ChangePass ({ commit }, item) {
     return new Promise((resolve, reject) => {
-      axios.post(`/api/v1/users/change_password`, (item))
+      axios.post('/api/v1/users/change_password', (item))
         .then((response) => {
           resolve(response)
         })
         .catch((error) => { reject(error) })
     })
-  },
+  }
 }

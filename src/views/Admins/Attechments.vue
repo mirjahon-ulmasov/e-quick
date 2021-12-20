@@ -411,24 +411,24 @@
 <script>
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 import PopUpList from './components/AddAdmin.vue'
-import VueEasyPieChart from "vue-easy-pie-chart";
-import "vue-easy-pie-chart/dist/vue-easy-pie-chart.css";
+import VueEasyPieChart from 'vue-easy-pie-chart'
+import 'vue-easy-pie-chart/dist/vue-easy-pie-chart.css'
 export default {
-  name: "",
+  name: '',
   components: { VueEasyPieChart, PopUpList, VuePerfectScrollbar },
-    data(){
-    return{
+  data () {
+    return {
       PopUp: false,
       activeUser: null,
       PopUpData: {},
       haveValue: false,
       settings: {
         maxScrollbarLength: 60
-      },
+      }
     }
   },
-    computed: {
-      scrollbarTag () { return this.$store.getters.scrollbarTag },
+  computed: {
+    scrollbarTag () { return this.$store.getters.scrollbarTag },
     currentPage () {
       if (this.isMounted) {
         return this.$refs.table.currentx
@@ -443,8 +443,8 @@ export default {
     }
   },
   methods:{
-    getUser(id){
-    this.activeUser = this.admins.find(x => x.id === id)
+    getUser (id) {
+      this.activeUser = this.admins.find(x => x.id === id)
     },
     addNewData () {
       this.PopUpData = {}
@@ -453,17 +453,17 @@ export default {
     deleteData (id) {
       this.$store.dispatch('addUser/removeItem', id)
       this.$store.dispatch('addUser/fetchDataListItems').then(
-      response => {
-                  this.$vs.notify({
+        response => {
+          this.$vs.notify({
             title: 'Deleted',
             text: 'Ok',
             iconPack: 'feather',
             icon: 'icon-alert-circle',
             color: 'success'
           })
-        this.activeUser = response.data[0]
-      }
-    )
+          this.activeUser = response.data[0]
+        }
+      )
     },
     editData (data) {
       // this.sidebarData = JSON.parse(JSON.stringify(this.blankData))
@@ -474,27 +474,27 @@ export default {
       this.PopUp = val
       this.$store.dispatch('addUser/fetchDataListItems')
       this.$store.dispatch('addUser/fetchDataListItems').then(
-      response => {
-        this.activeUser = response.data[0]
-      }
-    )
+        response => {
+          this.activeUser = response.data[0]
+        }
+      )
     },
-    scrollHandle(evt) {
-        return evt
-    },
+    scrollHandle (evt) {
+      return evt
+    }
   },
-  created(){
+  created () {
     this.$store.dispatch('addUser/fetchDataListItems').then(
       response => {
         this.activeUser = response.data[0]
       }
     )
   },
-  mounted(){
+  mounted () {
     this.$store.dispatch('addUser/fetchDataListItems')
     console.log(this.activeUser, 'active')
   }
-};
+}
 </script>
 <style scoped>
 .heading {

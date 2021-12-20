@@ -120,22 +120,16 @@
 <script>
 import BackToTop           from 'vue-backtotop'
 import navMenuItems        from '@/layouts/components/vertical-nav-menu/navMenuItems.js'
-import TheCustomizer       from '@/layouts/components/customizer/TheCustomizer.vue'
 import TheNavbarVertical   from '@/layouts/components/navbar/TheNavbarVertical.vue'
-import TheFooter           from '@/layouts/components/TheFooter.vue'
 import themeConfig         from '@/../themeConfig.js'
 import VNavMenu            from '@/layouts/components/vertical-nav-menu/VerticalNavMenu.vue'
 
-const VxTour = () => import('@/components/VxTour.vue')
 
 export default {
   components: {
     BackToTop,
-    TheCustomizer,
-    TheFooter,
     TheNavbarVertical,
-    VNavMenu,
-    VxTour
+    VNavMenu
   },
   data () {
     return {
@@ -297,7 +291,7 @@ export default {
 </script>
 <style scoped>
 .layout--main{
-    background-image: url('~@/assets/images/pages/bg1.svg') !important;
+    background-image: url('~@/assets/images/bg1.svg') !important;
     background-color: #fff !important;
     background-repeat: no-repeat;
     background-size: cover !important;

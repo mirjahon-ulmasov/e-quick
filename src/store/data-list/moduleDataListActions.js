@@ -21,7 +21,7 @@ export default {
         .catch((error) => { reject(error) })
     })
   },
-    fetchDataCompanies ({ commit }) {
+  fetchDataCompanies ({ commit }) {
     return new Promise((resolve, reject) => {
       axios.get('/api/v1/companies')
         .then((response) => {

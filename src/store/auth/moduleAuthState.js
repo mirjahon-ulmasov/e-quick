@@ -1,4 +1,4 @@
 export default {
 // user
-info: []
+  info: []
 }

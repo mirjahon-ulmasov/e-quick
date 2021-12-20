@@ -51,33 +51,33 @@
 <script>
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 export default {
-  name: "",
-    data(){
-    return{
-    ids: null,
-    position: '',
-    fullname: '',
-    ok: '',
-    inputs: [
+  name: '',
+  data () {
+    return {
+      ids: null,
+      position: '',
+      fullname: '',
+      ok: '',
+      inputs: [
         {
-        key: '',
-        value: '',
+          key: '',
+          value: ''
         }
-        ],
+      ],
       options: {},
-    description: '',
-    dataId: null,
-    settings: {
+      description: '',
+      dataId: null,
+      settings: {
         maxScrollbarLength: 60
       },
       role: [
         {text:'Admin', value:'admin'},
         {text:'User', value:'user'},
-        {text:'Dealer', value:'dealer'},
-      ],
+        {text:'Dealer', value:'dealer'}
+      ]
     }
   },
-    props: {
+  props: {
     isPopUp: {
       type: Boolean,
       required: true
@@ -87,7 +87,7 @@ export default {
       default: () => {}
     }
   },
-    watch: {
+  watch: {
     isPopUp (val) {
       if (!val) return
       if (Object.entries(this.data).length === 0) {
@@ -105,11 +105,11 @@ export default {
       // Object.entries(this.data).length === 0 ? this.initValues() : { this.dataId, this.dataName, this.dataCategory, this.dataOrder_status, this.dataPrice } = JSON.parse(JSON.stringify(this.data))
     }
   },
-    computed: {
-    company() {
-      return this.$store.state.dataList.products;
+  computed: {
+    company () {
+      return this.$store.state.dataList.products
     },
-        scrollbarTag () { return this.$store.getters.scrollbarTag },
+    scrollbarTag () { return this.$store.getters.scrollbarTag },
     isFormValid () {
       return !this.errors.any()
     },
@@ -124,39 +124,39 @@ export default {
           this.initValues()
         }
       }
-    },
-    },
+    }
+  },
   components: { VuePerfectScrollbar },
   methods:{
-      initValues () {
+    initValues () {
       if (this.data.id) return
-        this.dataId = null
-        this.position = null
-        this.inputs = [
+      this.dataId = null
+      this.position = null
+      this.inputs = [
         {
-        key: this.key,
-        value: this.value
+          key: this.key,
+          value: this.value
         }
-        ],
-        this.description = ''
-        this.fullname = ''
+      ],
+      this.description = ''
+      this.fullname = ''
     },
-    Reset(){
-        this.dataId = null
-        this.position = null
-        this.inputs = [
+    Reset () {
+      this.dataId = null
+      this.position = null
+      this.inputs = [
         {
-        key: this.key,
-        value: this.value
+          key: this.key,
+          value: this.value
         }
-        ],
-        this.description = ''
-        this.fullname = ''
+      ],
+      this.description = ''
+      this.fullname = ''
       this.$emit('closeSidebar')
     },
-    submitData() {
-        this.options =  this.inputs.reduce((acc, {key, value}) => ({...acc, [key]: value}), {})
-        console.log(this.options, 'option')
+    submitData () {
+      this.options =  this.inputs.reduce((acc, {key, value}) => ({...acc, [key]: value}), {})
+      console.log(this.options, 'option')
       this.$validator.validateAll().then(result => {
         if (result) {
           const obj = {
@@ -178,25 +178,25 @@ export default {
         }
       })
     },
-    scrollHandle(evt) {
-        return evt
+    scrollHandle (evt) {
+      return evt
     },
-        add(index) {
-            this.inputs.push({ key: '', value: '' } );
-        },
-        remove(index) {
-            this.options.splice(index, 1);
-        },
+    add (index) {
+      this.inputs.push({ key: '', value: '' })
+    },
+    remove (index) {
+      this.options.splice(index, 1)
+    }
   },
-  created(){
-    this.$store.dispatch("dataList/fetchDataListItems");
+  created () {
+    this.$store.dispatch('dataList/fetchDataListItems')
     this.$store.dispatch('dataList/fetchDataListItems').then(
       response => {
         this.ids = response.data
       })
   },
-  mounted(){
-      this.ids = this.company.map(x => x.id)
+  mounted () {
+    this.ids = this.company.map(x => x.id)
      
   }
 }

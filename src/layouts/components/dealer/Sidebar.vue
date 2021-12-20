@@ -12,30 +12,39 @@
     <img class="logo" src="@/assets/dealer/img/svg/login/logo.png" alt="" />
     <div class="block">
       <div class="col" style="margin-left: 0px">
-        <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer">
-          <div class="user">
+
+             <feather-icon @click="toggleDataSidebar(true)" class="user" svgClasses="cursor-pointer text-danger w-6 h-6" :badge="3">
+          </feather-icon>
+        <div class="id" style="text-align: center" >ID: {{ info.id }}</div>
+      </div>
+      <div class="col display-none">
+        <p class="name">{{ info.full_name }}</p>
+        <p class="email">{{ info.phone_number }}</p>
+        <p class="email">{{ info.email }}</p>
+      </div>
+      <!-- <div class="col">
+<svg width="13" class="burced" height="18" viewBox="0 0 13 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M-3.93402e-07 8.875L12.9053 0.322997L12.9053 17.427L-3.93402e-07 8.875Z" fill="white"/>
+</svg>
+
+        <div class="notify">
+
+        </div>
+      </div> -->
+    </div>
+          <div class="log">
+          <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer w-full">
             <div class="logout">
-              <feather-icon
-                style="color: #cfcfcf; border-radius: 2px"
-                icon="LogOutIcon"
-                svgClasses="h-10 w-10"
-                class="cursor-pointer text-white mt-2 ml-2"
-              />
+              <h2>
+                Выйти из профиля
+              </h2>
             </div>
-          </div>
-          <vs-dropdown-menu>
-            <vs-dropdown-item style="width: 140px;" >
-              <h4
-                style="
-                  font-family: Poppins;
-                  font-weight: 600;
-                  font-size: 11px;
-                  color: #000000;
-                "
-              >
+          <vs-dropdown-menu >
+            <vs-dropdown-item style="width: 200px;" >
+              <h4 style="font-weight: 500; font-size: 12px; line-height: 29px; text-align: center" >
               Profildan chiqasmi?
               </h4>
-              <div class="com flex mt-4 mb-1">
+              <div class="com flex mt-1 mb-1 justify-center">
                 <button class="ok" @click="LogOut()" >
                   Ha
                 </button>
@@ -46,14 +55,7 @@
             </vs-dropdown-item>
           </vs-dropdown-menu>
         </vs-dropdown>
-        <div class="id" style="text-align: center" >ID: {{ info.id }}</div>
-      </div>
-      <div class="col">
-        <p class="name">{{ info.full_name }}</p>
-        <p class="email">{{ info.phone_number }}</p>
-        <p class="email">{{ info.email }}</p>
-      </div>
-    </div>
+          </div>
        <div class="link">
              <router-link
       v-for="(routes, i) in route"
@@ -77,50 +79,58 @@
         Xatolar bo'lsa, qo'ng'iroq markaziga murojaat qiling - 71 000 00 00
       </span>
     </div>
+    <Notisfications       :isPopUpNotis="PopUpNotis" @closeSidebarNotis="toggleDataSidebar" />
   </div>
 </template>
 
 <script>
+import FeatherIcon from '../../../components/FeatherIcon.vue'
+import Notisfications from '@/components/dealers/Notisfications.vue'
 export default {
+  components: { FeatherIcon, Notisfications },
   props: {
-    to: { type: [String, Object, null], default: null },
+    to: { type: [String, Object, null], default: null }
   },
-  data() {
+  data () {
     return {
+      PopUpNotis: false,
       route: [
-        { to: "/dealer/main", title: "Создать заказ" },
-        { to: "/dealer/journal", title: "Журнал" },
-        { to: "/dealer/templates", title: "Шаблоны" },
-        { to: "/dealer/settings", title: "Настройки" },
-        { to: "/dealer/settings", title: "WHS остатки" },
+        { to: '/dealer/main', title: 'Создать заказ' },
+        { to: '/dealer/journal', title: 'Журнал' },
+        { to: '/dealer/templates', title: 'Шаблоны' },
+        { to: '/dealer/settings', title: 'Настройки' },
+        { to: '/dealer/settings', title: 'WHS остатки' }
       ],
       settings: {
         maxScrollbarLength: 5
-      },
-    };
+      }
+    }
   },
   computed: {
-          info(){
-    return  this.$store.state.auth.info
+    info () {
+      return  this.$store.state.auth.info
     },
-    activeLink() {
-      return !!(this.to === this.$route.path && this.to);
-    },
+    activeLink () {
+      return !!(this.to === this.$route.path && this.to)
+    }
   },
   methods: {
-    LogOut(){
+    LogOut () {
       localStorage.removeItem('access')
       localStorage.removeItem('UserInfo')
       this.$acl.change('editor')
       console.log('okkk')
       this.$router.push('/login')
       window.location.reload()
+    },
+    toggleDataSidebar(val = false){
+      this.PopUpNotis = val
     }
   },
-  created(){
+  created () {
     this.$store.dispatch('auth/DealerInfo')
   }
-};
+}
 </script>
 <style scoped>
   a.active{
@@ -155,6 +165,23 @@ padding: 3px 0px;
 text-align: center;
 color: #000000;
   }
+  .notify{
+    position: absolute;
+width: 208.4px;
+height: 79px;
+background: #FFFFFF;
+z-index: 111;
+border-radius: 6.21277px;
+  }
+  .burced{
+    width: 19.75px;
+height: 17.21px;
+left: 108px;
+top: 272.75px;
+
+background: #FFFFFF;
+transform: rotate(-90deg);
+  }
 </style>
 <style lang="scss" scoped>
 div.side-bar-container {
@@ -176,10 +203,8 @@ div.side-bar-container {
     font-size: 10px;
     line-height: 14px;
     /* or 175% */
-
     display: flex;
     align-items: center;
-
     color: #cfcfcf;
   }
   .lang {
@@ -208,15 +233,16 @@ div.side-bar-container {
   .logo {
     width: 170px;
     margin: 50px 0px 15px 0px;
+    z-index: 999;
   }
   .block {
     margin: 20px 0px;
-    margin-bottom: 50px;
+    // margin-bottom: 50px;
     display: flex !important;
     flex-direction: row;
-    .vs-con-dropdown {
+    .user {
       cursor: pointer;
-      background-image: url("https://guaranteedremovals.com/wp-content/uploads/2020/05/business-man-quote-1024x1024.png");
+      background-image: url("https://eros.mingle2.com/main/resources/assets/no_photo_male-69f72765b4837e51717fb0a56e2aaa3c.png");
       width: 49px;
       height: 49px;
       background-position: center;
@@ -225,22 +251,37 @@ div.side-bar-container {
       border-radius: 8.84722px;
       position: relative;
     }
-    .logout {
-      display: none;
-      height: 100%;
-    }
     
   }
-  .vs-con-dropdown:hover .logout {
-    cursor: pointer;
-    display: block;
-  }
-  .vs-con-dropdown:hover {
-    cursor: pointer;
-    display: block;
-    background-color: #3c4a5a;
-    opacity: 0.8;
-  }
+ .log{
+   margin-bottom: 50px;
+   width: 221px;
+   z-index: 999;
+         .logout {
+// height: 25px;
+width: 100%;
+background: linear-gradient(81.75deg, #3C4A5A 99.96%, #3A9FD1 183.61%);
+border-radius: 8px;
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 6px;
+h2{
+  font-family: Montserrat;
+font-style: normal;
+font-weight: normal;
+font-size: 10px;
+line-height: 14px;
+/* identical to box height, or 140% */
+
+display: flex;
+align-items: center;
+text-align: center;
+
+color: #FFFFFF;
+}
+    }
+ }
   .col {
     margin-left: 10px;
     display: flex;

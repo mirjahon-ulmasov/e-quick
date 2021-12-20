@@ -3,7 +3,7 @@
   <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer">
     <feather-icon icon="BellIcon" class="cursor-pointer mt-1 sm:mr-6 mr-2" />
 
-    <!-- <vs-dropdown-menu class="notification-dropdown dropdown-custom vx-navbar-dropdown">
+    <vs-dropdown-menu class="notification-dropdown dropdown-custom vx-navbar-dropdown">
 
       <div class="notification-top text-center p-5 bg-primary text-white">
         <h3 class="text-white">{{ unreadNotifications.length }} New</h3>
@@ -44,7 +44,7 @@
         cursor-pointer">
         <span>View All Notifications</span>
       </div>
-    </vs-dropdown-menu> -->
+    </vs-dropdown-menu>
   </vs-dropdown>
 </template>
 

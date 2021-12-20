@@ -432,11 +432,11 @@ color: #000000;"
 <script>
 import PopUpList from './components/AddUser.vue'
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
-import VueEasyPieChart from "vue-easy-pie-chart";
-import "vue-easy-pie-chart/dist/vue-easy-pie-chart.css";
+import VueEasyPieChart from 'vue-easy-pie-chart'
+import 'vue-easy-pie-chart/dist/vue-easy-pie-chart.css'
 export default {
-  name: "Company",
-  data() {
+  name: 'Company',
+  data () {
     return {
       activePrompt: false,
       itemsPerPage: 4,
@@ -445,35 +445,35 @@ export default {
       PopUpData: {},
       settings: {
         maxScrollbarLength: 60
-      },
-    };
+      }
+    }
   },
   components: { VueEasyPieChart, VuePerfectScrollbar, PopUpList },
   computed: {
     scrollbarTag () { return this.$store.getters.scrollbarTag },
-    currentPage() {
+    currentPage () {
       if (this.isMounted) {
-        return this.$refs.table.currentx;
+        return this.$refs.table.currentx
       }
-      return 0;
+      return 0
     },
-    company() {
+    company () {
       return this.$store.state.addUser.admins.reverse()
     },
-    details(){
+    details () {
       return this.$store.state.addUser.details
     },
-    queriedItems() {
+    queriedItems () {
       return this.$refs.table
         ? this.$refs.table.queriedResults.length
-        : this.products.length;
-    },
+        : this.products.length
+    }
   },
   methods: {
-    getUser(id){
-      this.$store.dispatch("addUser/fetchUserById", id)
+    getUser (id) {
+      this.$store.dispatch('addUser/fetchUserById', id)
       console.log(id)
-    this.activeUser = this.company.find(x => x.id === id)
+      this.activeUser = this.company.find(x => x.id === id)
     },
     addNewData () {
       this.PopUpData = {}
@@ -483,7 +483,7 @@ export default {
       this.$store.dispatch('addUser/removeItem', id)
       this.$store.dispatch('addUser/fetchDataListItems')
       this.$store.dispatch('addUser/fetchDataListItems').then(
-      response => {
+        response => {
           this.$vs.notify({
             title: 'deleted',
             text: 'Ok',
@@ -491,9 +491,9 @@ export default {
             icon: 'icon-alert-circle',
             color: 'success'
           })
-        this.activeUser = response.data[0]
-      }
-    )
+          this.activeUser = response.data[0]
+        }
+      )
     },
     editData (data) {
       this.PopUpData = data
@@ -503,27 +503,27 @@ export default {
       this.PopUp = val
       this.$store.dispatch('addUser/fetchDataListItems')
       this.$store.dispatch('addUser/fetchDataListItems').then(
-      response => {
-        this.activeUser = response.data[0]
-      }
-    )
+        response => {
+          this.activeUser = response.data[0]
+        }
+      )
     },
-    scrollHandle(evt) {
-        return evt
-    },
+    scrollHandle (evt) {
+      return evt
+    }
   },
-  mounted(){
-        this.$store.dispatch("addUser/fetchDataListItems");
+  mounted () {
+    this.$store.dispatch('addUser/fetchDataListItems')
     this.getUser()
   },
-  created() {
-    this.$store.dispatch("addUser/fetchUserById");
-          this.$store.dispatch('addUser/fetchDataListItems').then(
+  created () {
+    this.$store.dispatch('addUser/fetchUserById')
+    this.$store.dispatch('addUser/fetchDataListItems').then(
       response => {
         this.activeUser = response.data[0]
       })
-  },
-};
+  }
+}
 </script>
 <style scoped>
 .scr{
