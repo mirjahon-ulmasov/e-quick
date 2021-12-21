@@ -2,7 +2,7 @@
   <div>
     <vs-popup
       background-color="rgb(45 39 39 / 70%)"
-      background-color-popup="linear-gradient(90deg, #5E585C 0%, #000000 100%)"
+      background-color-popup="rgb(255, 255, 255)"
       :active.sync="isSidebarActiveLocal"
     >
       <div class="flex">
@@ -13,10 +13,10 @@
               font-weight: bold;
               font-size: 17px;
               line-height: 17px;
-              color: #ffffff;
+              color: #000000;
             "
           >
-            Продукты
+            {{ $t('cart.product') }}
           </h2>
           <div :style="{ 'background-image': `url(${picture})` }" class="photo">
             <div class="inner" style="padding: 5px">
@@ -44,10 +44,10 @@
                 font-size: 18px;
                 margin-top: 5px;
                 line-height: 17px;
-                color: #ffffff;
+                color: #000000;
               "
             >
-              Количество:
+              {{ $t('cart.quantity') }}
             </h2>
             <div class="add-item">
               <span @click="Minus()"> - </span>
@@ -59,7 +59,7 @@
               class="confirmac"
               style="color: #000 !important; background: #f2f2f2 !important"
             >
-              Закрыть
+              {{ $t('cart.close') }}
             </vs-button>
           </div>
           <div style="text-align: start; margin-left: 14px">
@@ -70,10 +70,10 @@
                 font-size: 18px;
                 margin-top: 5px;
                 line-height: 17px;
-                color: #ffffff;
+                color: #000000;
               "
             >
-              Цена:
+               {{ $t('cart.price') }}
             </h2>
             <input
               style="width: 179px; height: 27px; margin-top: 15px"
@@ -82,7 +82,7 @@
               class="picker"
             />
             <vs-button @click="submitData()" class="confirmac">
-              Создать заявку
+               {{ $t('cart.offerCart') }}
             </vs-button>
           </div>
         </div>
@@ -244,7 +244,7 @@ export default {
   width: 88.56px;
   margin-left: 38px;
   height: 27px;
-  border: 1.01618px solid #ffffff;
+  border: 1.01618px solid #000000;
   box-sizing: border-box;
   border-radius: 4.32px;
   padding: 5px;
@@ -264,7 +264,7 @@ export default {
   letter-spacing: -0.02em;
   text-transform: uppercase;
 
-  color: #ffffff;
+  color: #000000;
 }
 .add-item span:hover {
   color: rgba(58, 159, 209, 1);
@@ -287,12 +287,12 @@ export default {
   border-radius: 2px;
 }
 .confirmac {
-  height: 26px;
+  /* height: 26px; */
   width: 170px;
   margin-top: 20px !important;
   font-size: 12px;
   font-weight: 400;
-  padding: 6px !important;
+  padding: 6px !important; 
   background: linear-gradient(
     102.4deg,
     #3f4f61 -160.6%,
@@ -312,9 +312,9 @@ export default {
 }
 .picker {
   padding-left: 15px;
-  color: white;
+  color: #000000;
   width: 289.15px;
-  border: 2.12684px solid #ffffff;
+  border: 2.12684px solid #000000;
   box-sizing: border-box;
   background: transparent !important;
   border-radius: 9.04168px;

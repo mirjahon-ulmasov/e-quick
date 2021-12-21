@@ -56,6 +56,7 @@
         <textarea
           id="custom-input"
           cols="30"
+          v-model="message"
           rows="10"
           placeholder="Напишите что Вам больше всего нравится, либо чтобы вы хотели улучшить."
         ></textarea>
@@ -66,7 +67,7 @@
           :max-rating="5"
           :star-size="30"
         ></star-rating>
-          <vs-button class="save-btn mt-2 p-2" @click="SaveInfo()"
+        <vs-button class="save-btn mt-2 p-2" @click="SaveReview()"
           >Отправить отзыв</vs-button
         >
       </div>
@@ -114,7 +115,7 @@ export default {
   },
   computed: {
     info() {
-      return this.$store.state.auth.info
+      return this.$store.state.auth.info;
     },
   },
   data() {
@@ -126,6 +127,7 @@ export default {
       surname: "",
       email: "",
       password: "",
+      message: '',
       rating: 4,
       image:
         "https://eros.mingle2.com/main/resources/assets/no_photo_male-69f72765b4837e51717fb0a56e2aaa3c.png",
@@ -143,8 +145,8 @@ export default {
       // const emailnotefy = this.emailnotf ? 'inactive' : 'active',
       const payload = {
         role: "dealer",
-        site_notifications: this.sitenotf ? 'active' : 'inactive',
-        email_notifications : this.emailnotf ? 'active' : 'inactive',
+        site_notifications: this.sitenotf ? "active" : "inactive",
+        email_notifications: this.emailnotf ? "active" : "inactive",
         id: localStorage.getItem("Id"),
         username: this.surname,
         password: this.password,
@@ -184,17 +186,46 @@ export default {
         reader.readAsDataURL(input.target.files[0]);
       }
     },
-    user(){
-      this.name = this.info.full_name,
-       this.surname = this.info.username , 
-          this.email = this.info.email,
-    this.sitenotf = this.info.site_notifications === 'active' ? true : false,
-    this.emailnotf = this.info.email_notifications === 'active'  ? true : false
-    }
+    SaveReview() {
+      const payload = {
+        user_id: localStorage.getItem("Id"),
+        message: this.message,
+        rate: this.rating,
+      };
+      this.$store
+        .dispatch("addUser/UserReviews", payload)
+        .then((response) => {
+          this.$vs.notify({
+            title: "Thank you",
+            text: "ok",
+            iconPack: "feather",
+            icon: "icon-check-circle",
+            color: "success",
+          });
+        })
+        .catch((err) => {
+          this.$vs.notify({
+            title: "Error",
+            text: err.response.data.detail,
+            iconPack: "feather",
+            icon: "icon-alert-circle",
+            color: "danger",
+          });
+        });
+    },
+    user() {
+      (this.name = this.info.full_name),
+        (this.surname = this.info.username),
+        (this.email = this.info.email),
+        (this.sitenotf =
+          this.info.site_notifications === "active" ? true : false),
+        (this.emailnotf =
+          this.info.email_notifications === "active" ? true : false);
+    },
   },
   created() {
-    setTimeout(() =>   this.user(), 500 )
-    this.$store.dispatch("auth/DealerInfo")
+    setTimeout(() => this.user(), 500);
+    this.$store.dispatch("auth/DealerInfo");
   },
 };
 </script>
@@ -402,7 +433,11 @@ export default {
       cursor: pointer;
       width: 305.13px;
       // height: 44.91px;
-      background: linear-gradient(81.75deg, #3C4A5A 99.96%, #3A9FD1 183.61%) !important;
+      background: linear-gradient(
+        81.75deg,
+        #3c4a5a 99.96%,
+        #3a9fd1 183.61%
+      ) !important;
       border-radius: 8.6357px !important;
       text-align: center;
       font-family: "Lato" sans-serif !important;

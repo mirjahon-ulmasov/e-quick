@@ -1,18 +1,17 @@
 <template>
   <div
   class="side-bar-container">
-    <div class="lang">
+    <div class="lang" @click="langUp('uz')" v-if="$i18n.locale === 'ru'" >
       <img src="@/assets/dealer/img/icons/uz.svg" alt="" />
-      Узбек тилига утиш
+    Перейти на  Узбек
     </div>
-    <!-- <div class="lang">
+    <div class="lang" @click="langUp('ru')" v-else >
           <img src="@/assets/dealer/img/icons/ru.svg" alt="" />
-          Перейти на русский язык
-      </div> -->
+          Rus tiliga o'tish
+      </div>
     <img class="logo" src="@/assets/dealer/img/svg/login/logo.png" alt="" />
     <div class="block">
       <div class="col" style="margin-left: 0px">
-
              <feather-icon @click="toggleDataSidebar(true)" class="user" svgClasses="cursor-pointer text-danger w-6 h-6" :badge="notisfy.length">
           </feather-icon>
         <div class="id" style="text-align: center" >ID: {{ info.id }}</div>
@@ -58,12 +57,34 @@
           </div>
        <div class="link">
              <router-link
-      v-for="(routes, i) in route"
-      :key="i"
       class="route"
-      :to="routes.to"
+      :to="'/dealer/main'"
     >
-      {{ routes.title }}
+      {{ $t('cart.title') }}
+    </router-link>
+    <router-link
+      class="route"
+      :to="'/dealer/journal'"
+    >
+      {{ $t('journal.title') }}
+    </router-link>
+    <router-link
+      class="route"
+      :to="'/dealer/templates'"
+    >
+      {{ $t('templates.title') }}
+    </router-link>
+      <router-link
+      class="route"
+      :to="'/dealer/settings'"
+    >
+      {{ $t('profile.title') }}
+    </router-link>
+                 <router-link
+      class="route"
+      :to="'/dealer/settings'"
+    >
+      WHS остатки
     </router-link>
        </div>
     <div
@@ -76,7 +97,7 @@
         class="cursor-pointer mt-1 sm:mr-2 mr-2"
       />
       <span class="end">
-        Xatolar bo'lsa, qo'ng'iroq markaziga murojaat qiling - 71 000 00 00
+       {{ $t('xato') }} - <a style="color: #cfcfcf !important;" href="tel:71 000 00 00">71 000 00 00</a>
       </span>
     </div>
     <Notisfications       :isPopUpNotis="PopUpNotis" @closeSidebarNotis="toggleDataSidebar" />
@@ -94,13 +115,6 @@ export default {
   data () {
     return {
       PopUpNotis: false,
-      route: [
-        { to: '/dealer/main', title: 'Создать заказ' },
-        { to: '/dealer/journal', title: 'Журнал' },
-        { to: '/dealer/templates', title: 'Шаблоны' },
-        { to: '/dealer/settings', title: 'Настройки' },
-        { to: '/dealer/settings', title: 'WHS остатки' }
-      ],
       settings: {
         maxScrollbarLength: 5
       }
@@ -128,15 +142,28 @@ export default {
     },
     toggleDataSidebar(val = false){
       this.PopUpNotis = val
+    },
+      langUp(loc){
+    this.$i18n.locale = loc
+    console.log(loc, 'mana')
+    localStorage.setItem("lang", loc);
+    const payload = {
+      role: "dealer",
+      user_lang: loc
     }
+    this.$store.dispatch("auth/updateItem", payload)
+    console.log(this.$i18n.locale, 'boldi3')
+  }
   },
   created () {
     this.$store.dispatch('auth/DealerInfo')
     this.$store.dispatch('addUser/NotisfyGet')
+    console.log(this.$i18n.locale, 'boldi')
   },
   mounted(){
     console.log(this.notisfy)
-  }
+    console.log(this.$i18n.locale, 'boldi2')
+  },
 }
 </script>
 <style scoped>
@@ -210,16 +237,16 @@ div.side-bar-container {
     font-size: 10px;
     line-height: 14px;
     /* or 175% */
-    display: flex;
+    // display: flex;
     align-items: center;
-    color: #cfcfcf;
+    color: #cfcfcf !important;
   }
   .lang {
     display: flex;
     justify-content: space-around;
     align-items: center;
     text-align: start;
-    width: 170px;
+    width: 150px;
     height: 57px;
     padding: 5px;
     margin-top: 25px;

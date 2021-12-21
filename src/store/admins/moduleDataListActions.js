@@ -85,5 +85,33 @@ export default {
           })
           .catch((error) => { reject(error) })
       })
-  }
+  },
+  NotisfySeenAll ({ commit }) {
+    return new Promise((resolve, reject) => {
+      axios.put(`/api/v1/notifications/seen/all/${localStorage.getItem('Id')}`)
+        .then((response) => {
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+},
+NotisfyDelete ({ commit }, id) {
+  return new Promise((resolve, reject) => {
+    axios.put(`/api/v1/notifications/delete/${id}`)
+      .then((response) => {
+        resolve(response)
+      })
+      .catch((error) => { reject(error) })
+  })
+},
+  UserReviews ({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      axios.post(`/api/v1/users/review`, (payload))
+        .then((response) => {
+          console.log(response)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+}
 }

@@ -15,7 +15,7 @@
           color: #000000;
         "
       >
-        Выберите необходимые данные
+       {{ $t('cart.sOfffer') }}
       </h1>
       <div class="flex pl-10" style="margin-top: 40px">
         <div class="w-1/2">
@@ -29,7 +29,7 @@
               color: #000000;
             "
           >
-            Дата доставки:
+            {{ $t('cart.dOffer') }}
           </h3>
           <h3
             style="
@@ -42,7 +42,7 @@
               color: #000000;
             "
           >
-            Тип заказа:
+            {{ $t('cart.tOffer') }}
           </h3>
           <h3
             style="
@@ -55,10 +55,10 @@
               color: #000000;
             "
           >
-            Тип доставки:
+            {{ $t('cart.dyOffer') }}
           </h3>
         <vs-button class="close" 
-          @click="isSidebarActiveLocal = false" >Закрыть</vs-button>
+          @click="isSidebarActiveLocal = false" >{{ $t('cart.close') }}</vs-button>
         </div>
         <div class="w-1/2">
           <input
@@ -70,13 +70,15 @@
             v-model="date"
           >
           <select v-model="ordertype" v-validate="'required'" class="picker" style="margin-top: 20px; height: 55px">
-            <option v-for="(item, i) in orders" :key="i" :value="item.value" >{{ item.text }}</option>
+            <option value="DEALER_PURCHASE_ORDER" >{{ $t('cart.type1') }}</option>
+             <option value="DEALER_RETURN_ORDER" >{{ $t('cart.type2') }}</option>
+              <option value="DEALER_SPECIAL_ORDER" >{{ $t('cart.type3') }}</option>
           </select>
           <select v-model="type" v-validate="'required'" class="picker" style="margin-top: 20px; height: 55px">
-            <option value="THROUGH_THE_BASE" >ЧЕРЕЗ БАЗУ</option>
-            <option value="DIRECT_DELIVERY" >ПРЯМАЯ Д</option>
+            <option value="THROUGH_THE_BASE" >{{ $t('cart.dtype1') }}</option>
+            <option value="DIRECT_DELIVERY" >{{ $t('cart.dtype2') }}</option>
           </select>
-          <vs-button @click="submitData" style="margin-top: 25px !important" class="confirmac">Подтвердить</vs-button>
+          <vs-button @click="submitData" style="margin-top: 25px !important" class="confirmac">{{ $t('cart.submit') }}</vs-button>
         </div>
       </div>
     </vs-popup>
@@ -148,7 +150,7 @@ export default {
         }).then(response => {
           this.$vs.notify({
             title: 'Ordered',
-            text: 'Muvafayaqiyta',
+            text: this.$t('cart.successOffer'),
             iconPack: 'feather',
             icon: 'icon-alert-circle',
             color: 'success'

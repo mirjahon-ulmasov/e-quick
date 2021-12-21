@@ -49,7 +49,7 @@ export default {
   },
   DealerInfo ({ commit }) {
     return new Promise((resolve, reject) => {
-      axios.get(`/api/v1/users/${  localStorage.getItem('Id')}`)
+      axios.get(`/api/v1/users/${ localStorage.getItem('Id')}`)
         .then((response) => {
           commit('SetInfo', response.data)
           console.log(response)
@@ -60,7 +60,7 @@ export default {
   },
   updateItem ({ commit }, item) {
     return new Promise((resolve, reject) => {
-      axios.put(`/api/v1/users/${item.id}`, (item))
+      axios.put(`/api/v1/users/${localStorage.getItem("Id")}`, (item))
         .then((response) => {
           commit('UpdateInfo', item)
           resolve(response)
