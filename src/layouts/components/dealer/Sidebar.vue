@@ -3,11 +3,11 @@
   class="side-bar-container">
     <div class="lang" @click="langUp('uz')" v-if="$i18n.locale === 'ru'" >
       <img src="@/assets/dealer/img/icons/uz.svg" alt="" />
-    Перейти на  Узбек
+    Перейти на  {{ $t('lang.uz') }}
     </div>
-    <div class="lang" @click="langUp('ru')" v-else >
+    <div class="lang" style="width: 140px" @click="langUp('ru')" v-else >
           <img src="@/assets/dealer/img/icons/ru.svg" alt="" />
-          Rus tiliga o'tish
+          {{ $t('lang.ru') }}ga o'tish
       </div>
     <img class="logo" src="@/assets/dealer/img/svg/login/logo.png" alt="" />
     <div class="block">
@@ -149,7 +149,16 @@ export default {
     localStorage.setItem("lang", loc);
     const payload = {
       role: "dealer",
-      user_lang: loc
+      user_lang: loc,
+        site_notifications: this.info.site_notifications,
+        email_notifications: this.info.email_notifications,
+        password: '',
+        id: localStorage.getItem("Id"),
+        username: this.info.username,
+        full_name: this.info.full_name,
+        email: this.info.email,
+        savdo_id: this.info.savdo_id,
+        phone_number: this.info.phone_number,
     }
     this.$store.dispatch("auth/updateItem", payload)
     console.log(this.$i18n.locale, 'boldi3')
@@ -246,7 +255,7 @@ div.side-bar-container {
     justify-content: space-around;
     align-items: center;
     text-align: start;
-    width: 150px;
+    width: 165px;
     height: 57px;
     padding: 5px;
     margin-top: 25px;

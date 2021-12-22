@@ -46,7 +46,7 @@
           </div>
         </div>
       </div>
-      <h2 class="head">Журнал последних заявок:</h2>
+      <h2 class="head">{{ $t('journal.lastJ') }}</h2>
       <Table />
     </div>
     <div class="container-footer">

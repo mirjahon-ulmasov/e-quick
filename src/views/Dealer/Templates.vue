@@ -4,7 +4,7 @@
       <input
         type="text"
         v-model="search"
-        placeholder="Поиск шаблонов"
+        :placeholder="$t('templates.search')"
         class="search"
       />
     </div>
@@ -39,14 +39,14 @@
                     border-left: 1px solid #3a9fd1 !important;
                     border-right: 1px solid #3a9fd1 !important;
                   "
-                  >Наименования</vs-th
+                  >{{ $t('templates.name') }}</vs-th
                 >
                 <vs-th
                   sort-key="Завод"
                   style="border-right: 1px solid #3a9fd1 !important"
-                  >Количество</vs-th
+                  >{{ $t('templates.quantity') }}</vs-th
                 >
-                <vs-th sort-key="Баланс">Цена (сум)</vs-th>
+                <vs-th sort-key="Баланс">{{ $t('templates.price') }}</vs-th>
               </template>
               <template slot-scope="{ data }" class="scr">
                 <tbody>
@@ -127,7 +127,7 @@ export default {
             .split(" ")
             .every((v) => item.title.toLowerCase().includes(v));
         });
-      } else {
+      } else {  
         return this.templates;
       }
     },

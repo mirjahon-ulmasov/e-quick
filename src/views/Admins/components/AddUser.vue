@@ -24,7 +24,7 @@
           ref="password"
           type="password"
           data-vv-validate-on="blur"
-          v-validate="'required|max:10'" />
+          v-validate="'required|min:3'" />
           <span class="text-danger text-sm" v-show="errors.has('password')">{{ errors.first('password') }}</span>
         <!-- Confrim -->
           <input v-model="confirm" 

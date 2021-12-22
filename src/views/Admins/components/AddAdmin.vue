@@ -25,7 +25,7 @@
           ref="password"
           type="password"
           data-vv-validate-on="blur"
-          v-validate="'required|max:10'" />
+          v-validate="'required|min:3'" />
           <span class="text-danger text-sm" v-show="errors.has('password')">{{ errors.first('password') }}</span>
         <!-- Confrim -->
           <input v-model="confirm" 
@@ -39,7 +39,7 @@
          <!-- email -->
           <input v-model="email" type="text" placeholder="Email"  name="email" data-vv-validate-on="blur" v-validate="'required|email'" />
           <span class="text-danger text-sm" v-show="errors.has('email')">{{ errors.first('email') }}</span>
-           <input v-model="phone" type="text" placeholder="Phone Number"  name="phone" data-vv-validate-on="blur" v-validate="'required|min:9|max:10|numeric'" />
+           <input v-model="phone" type="text" placeholder="Phone Number"  name="phone" data-vv-validate-on="blur" v-validate="'required|min:9|max:9|numeric'" />
           <span class="text-danger text-sm" v-show="errors.has('phone')">{{ errors.first('phone') }}</span>
       </div>
     </div>

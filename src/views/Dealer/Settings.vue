@@ -7,7 +7,7 @@
           style="padding-right: 20%"
         >
           <div>
-            <p class="title">Профиль</p>
+            <p class="title">{{ $t('profile.title') }}</p>
             <p class="sub-title">ФИО, E-mail</p>
           </div>
           <div
@@ -32,33 +32,32 @@
           class="custom-input"
           v-model="name"
           type="text"
-          placeholder="Name"
+          :placeholder="$t('profile.fullname')"
         />
         <input
           class="custom-input"
           v-model="surname"
           type="text"
-          placeholder="Surname"
+          :placeholder="$t('profile.username')"
         />
         <input
           class="custom-input"
           v-model="email"
           type="text"
-          placeholder="Email"
+          :placeholder="$t('profile.email')"
         />
       </div>
       <div class="col">
-        <p class="title">Вам нравится E-Quick?</p>
+        <p class="title">{{ $t('profile.ok') }}</p>
         <p class="text mb-4 mt-3">
-          Чтобы помочь нам усовершенствовать данный продукт, прошу оставить
-          отзыв и оценить приложение по пяти бальной шкале (от 1 до 5)
+          {{ $t('profile.star') }}
         </p>
         <textarea
           id="custom-input"
           cols="30"
           v-model="message"
           rows="10"
-          placeholder="Напишите что Вам больше всего нравится, либо чтобы вы хотели улучшить."
+          :placeholder="$t('profile.message')"
         ></textarea>
         <star-rating
           v-model="rating"
@@ -72,32 +71,33 @@
         >
       </div>
       <div class="col">
-        <p class="title">Пароль</p>
-        <p class="sub-title">Ваша почта - {{ info.email }}</p>
-        <input class="custom-input" type="text" placeholder="Password" />
+        <p class="title">{{ $t('profile.password') }}</p>
+        <p class="sub-title">{{ $t('profile.curemail') }} - {{ info.email }}</p>
+        <input class="custom-input" type="text" :placeholder="$t('profile.old')" />
         <input
           class="custom-input"
           v-model="password"
           type="text"
-          placeholder="New password"
+          :placeholder="$t('profile.new')"
         />
       </div>
       <div class="col">
-        <p class="title">Уведомления</p>
+        <p class="title">{{ $t('profile.notis') }}</p>
         <p class="sub-title">Оповещание о событий</p>
         <label class="checkbox-container">
           <input type="checkbox" v-model="sitenotf" checked="checked" />
           <span class="checkmark"></span>
-          Получать уведомления
+          {{ $t('profile.siteNotis') }}
         </label>
         <div class="flex mb-6 mt-3">
           <vs-switch color="#31b778" v-model="emailnotf" id="swich"></vs-switch>
           <label class="checkmark1" for="#swich">
-            Получать сообщения на почту</label
+            {{ $t('profile.emailNotis') }}
+            </label
           >
         </div>
         <vs-button class="save-btn mt-4" @click="SaveInfo()"
-          >Сохранить настройки</vs-button
+          >{{ $t('profile.save') }}</vs-button
         >
       </div>
     </form>
@@ -152,6 +152,7 @@ export default {
         password: this.password,
         full_name: this.name,
         email: this.email,
+        savdo_id: this.info.savdo_id,
         phone_number: this.info.phone_number,
       };
       this.$store
