@@ -6,8 +6,8 @@
       :active.sync="isSidebarActiveLocal"
     >
       <h2 class="title mb-6">Уведомления</h2>
-      <div class="">
-        <div v-for="(notis, i) in notisfy" :key="i" :class="notis.status = `NOT_SEEN` ? 'notis' : 'seen'">
+      <div class="scroll-area" :is="scrollbarTag" :settings="settings">
+        <div v-for="(notis, i) in notisfy" :key="i" :class="notis.status == `NOT_SEEN` ? 'notis' : 'seen'">
           <div class="flex" @click="Seen(notis.id)" >
             <img
               src="https://vtrand.ru/content/uploads/photos/2020/11/vtrand_0f7db75d2ef81bcc0a6a526310e56b6e.jpg"
@@ -62,12 +62,19 @@
   </div>
 </template>
 <script>
+import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 export default {
   name: "",
   data() {
     return {
       date: null,
+      settings: {
+        maxScrollbarLength: 60
+      },
     };
+  },
+  components: {
+    VuePerfectScrollbar
   },
   props: {
     isPopUpNotis: {
@@ -81,6 +88,7 @@ export default {
     },
   },
   computed: {
+    scrollbarTag () { return this.$store.getters.scrollbarTag },
     notisfy() {
       return this.$store.state.addUser.notisfy;
     },
@@ -149,14 +157,14 @@ export default {
         .dispatch("addUser/NotisfyDelete", id)
         .then((res) => {
           this.$vs.notify({
-            title: "Seen",
+            title: "Delete",
             text: "ok",
             iconPack: "feather",
             icon: "icon-check-circle",
             color: "success",
           });
           this.$store.dispatch("addUser/NotisfyGet");
-          this.$store.dispatch("addUser/NotisfyGet");
+          // this.$store.dispatch("addUser/NotisfyGet");
         })
         .catch((err) => {
           this.$vs.notify({
@@ -183,6 +191,9 @@ export default {
 };
 </script>
 <style scoped>
+.scroll-area{
+  height: 550px;
+}
 .title {
   font-family: Montserrat;
   font-style: normal;
