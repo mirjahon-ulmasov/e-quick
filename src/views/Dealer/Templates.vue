@@ -193,7 +193,25 @@ export default {
     padding-left: 40px;
     &::placeholder {
       background-position: 10%;
-      color: rgba(58, 159, 209, 1) !important;
+      font-family: Lato;
+      font-weight: bold;
+      // color: rgba(58, 159, 209, 1) !important;
+      background-image: linear-gradient(
+        99.52deg,
+        #3f4f61 -14.96%,
+        #3a9fd1 156.83%
+      );
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+      font-family: Lato;
+font-style: normal;
+font-weight: bold;
+font-size: 12.9333px;
+line-height: 16px;
+/* identical to box height */
+      // display: table;
     }
     &:nth-child(1) {
       content: "";

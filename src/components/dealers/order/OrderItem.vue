@@ -124,6 +124,7 @@ export default {
       },
       set(val) {
         if (!val) {
+          this.carts = null
           this.$emit("closeSidebar");
         }
       },
@@ -186,17 +187,25 @@ export default {
   color: #000000;
 }
 .itogo .text {
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 15px;
-  line-height: 30px;
-  text-align: start !important;
-  /* identical to box height, or 200% */
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15.615px;
+    line-height: 31px;
+    background-image: linear-gradient(
+      99.52deg,
+      #3f4f61 -14.96%,
+      #3a9fd1 156.83%
+    );
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    display: table;
+    /* identical to box height, or 200% */
 
-  text-align: center;
-  letter-spacing: 0.333333px;
-  color: rgba(58, 159, 209, 1);
+    text-align: start;
+    letter-spacing: 0.458111px;
 }
 .vs-con-table {
   .vs-con-tbody {

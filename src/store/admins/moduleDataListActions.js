@@ -70,6 +70,7 @@ export default {
           .then((response) => {
             console.log(response)
             commit('SET_Notisfy', response.data)
+            commit('SET_notseen', response.data)
             resolve(response)
           })
           .catch((error) => { reject(error) })

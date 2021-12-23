@@ -2,5 +2,6 @@ export default {
   admins: [],
   detail: [],
   roles: [],
-  notisfy: []
+  notisfy: [],
+  not_seen: [],
 }

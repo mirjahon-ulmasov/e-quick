@@ -31,8 +31,10 @@ export default {
                 return false
               }
             }
+
             //  User Info
             const userInfo = parseJwt(response.data.access_token)
+            console.log(userInfo, 'manana')
             // Set userId
             localStorage.setItem('Id', userInfo.id)
             // Set userRole in mutations

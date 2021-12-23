@@ -12,7 +12,9 @@
     <img class="logo" src="@/assets/dealer/img/svg/login/logo.png" alt="" />
     <div class="block">
       <div class="col" style="margin-left: 0px">
-             <feather-icon @click="toggleDataSidebar(true)" class="user" svgClasses="cursor-pointer text-danger w-6 h-6" :badge="notisfy.length">
+             <feather-icon @click="toggleDataSidebar(true)" v-if="notisfy.length" class="user" svgClasses="cursor-pointer text-danger w-6 h-6" :badge="notisfy.length">
+          </feather-icon>
+          <feather-icon @click="toggleDataSidebar(true)" v-else class="user" svgClasses="cursor-pointer text-danger w-6 h-6">
           </feather-icon>
         <div class="id" style="text-align: center" >ID: {{ info.id }}</div>
       </div>
@@ -125,7 +127,7 @@ export default {
       return  this.$store.state.auth.info
     },
     notisfy(){
-      return this.$store.state.addUser.notisfy
+        return this.$store.state.addUser.not_seen
     },
     activeLink () {
       return !!(this.to === this.$route.path && this.to)
@@ -161,7 +163,7 @@ export default {
         phone_number: this.info.phone_number,
     }
     this.$store.dispatch("auth/updateItem", payload)
-    console.log(this.$i18n.locale, 'boldi3')
+    console.log(this.notisfy, 'boldi3')
   }
   },
   created () {

@@ -17,5 +17,9 @@ export default {
   },
   SET_Notisfy(state, notisfy){
     state.notisfy = notisfy
+    // state.not_seen = notisfy.filter(x => x.status !== 'SEEN')
+  },
+  SET_notseen(state, notisfy){
+     state.not_seen = notisfy.filter(x => x.status !== 'SEEN')
   }
 }

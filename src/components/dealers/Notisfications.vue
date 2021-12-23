@@ -3,12 +3,13 @@
     <vs-popup
       background-color="rgb(45 39 39 / 70%)"
       background-color-popup="#FFFFFF"
+      style="z-index: 1011 !important"
       :active.sync="isSidebarActiveLocal"
     >
       <h2 class="title mb-6">Уведомления</h2>
       <div class="scroll-area" :is="scrollbarTag" :settings="settings">
         <div v-for="(notis, i) in notisfy" :key="i" :class="notis.status == `NOT_SEEN` ? 'notis' : 'seen'">
-          <div class="flex" @click="Seen(notis.id)" >
+          <div class="flex">
             <img
               src="https://vtrand.ru/content/uploads/photos/2020/11/vtrand_0f7db75d2ef81bcc0a6a526310e56b6e.jpg"
               width="33"
@@ -34,7 +35,7 @@
                   />
                 </svg>
                 <span class="ok">
-                  {{ notis.created_at.slice(11, 16) }}
+                  {{ notis.created_at }}
                 </span>
               </div>
               <p class="tex">
@@ -42,39 +43,44 @@
               </p>
               <p class="tex1">
                 {{ notis.message }}
-                <a href="#" @click.prevent="journal()"> Журнал </a>
+                <a href="#" @click="Seen(notis)"> Журнал </a>
               </p>
             </div>
             <feather-icon
               @click="Delete(notis.id)"
               style="margin-top: -59px !important; color: #7f8c8d"
               icon="XIcon"
-              svgClasses="h-6 w-6 text-success"
+              svgClasses="h-6 w-6"
               class="ml-1 cursor-pointer"
             />
           </div>
         </div>
-        <vs-button @click.prevent="SeenAll()" class="delete">
+      </div>
+              <vs-button @click.prevent="SeenAll()" class="delete">
           Удалить все уведомления
         </vs-button>
-      </div>
     </vs-popup>
+    <order :isPopUp="PopUp" @closeSidebar="toggleDataSidebar"></order>
   </div>
 </template>
 <script>
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
+import Order from './order/OrderItem.vue'
 export default {
   name: "",
   data() {
     return {
       date: null,
+      PopUpData: {},
+      PopUp: false,
       settings: {
         maxScrollbarLength: 60
       },
     };
   },
   components: {
-    VuePerfectScrollbar
+    VuePerfectScrollbar,
+    Order
   },
   props: {
     isPopUpNotis: {
@@ -104,10 +110,11 @@ export default {
     },
   },
   methods: {
-    Seen(id) {
+    Seen(item) {
       this.$store
-        .dispatch("addUser/NotisfyPut", id)
+        .dispatch("addUser/NotisfyPut", item.id)
         .then((res) => {
+          // this.isSidebarActiveLocal = false;
           this.$vs.notify({
             title: "Seen",
             text: "ok",
@@ -117,6 +124,16 @@ export default {
           });
           this.$store.dispatch("addUser/NotisfyGet");
           this.$store.dispatch("addUser/NotisfyGet");
+          this.toggleDataSidebar(true);
+          // this.$router.push("/dealer/journal");
+            this.$store.dispatch("product/GetOrderItem", item.order_id).then((response) => {
+        if(response !== null ){
+          this.PopUpData = response.data;
+        }
+        else{
+          this.PopUpData = null
+        }
+      });
         })
         .catch((err) => {
           this.$vs.notify({
@@ -176,9 +193,9 @@ export default {
           });
         });
     },
-    journal() {
-      this.isSidebarActiveLocal = false;
-      this.$router.push("/dealer/journal");
+    toggleDataSidebar(val = false) {
+      this.PopUp = val;
+      this.PopUpData = null
     },
   },
   created() {
@@ -192,7 +209,8 @@ export default {
 </script>
 <style scoped>
 .scroll-area{
-  height: 550px;
+  min-height: 200px;
+  max-height: 550px;
 }
 .title {
   font-family: Montserrat;
