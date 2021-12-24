@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex" v-if="carts" style="justify-content: space-between">
-      <h2 class="zayhaed">Products №: {{ carts.items.length }}</h2>
+      <h2 class="zayhaed">{{ $t('cart.cart') }} {{ carts.items.length }}</h2>
       <svg
       @click="AddWab()"
       class="cursor-pointer"
@@ -34,7 +34,7 @@
     <!-- <span class="date"> от 01.11.21 </span> -->
     <br />
     <h5 style="margin-top: 30px" v-if="!carts">
-      No aviable data on your cart, please select products !
+      {{ $t('cart.nullCart') }}
     </h5>
     <vs-table
       ref="table"
@@ -51,19 +51,19 @@
             border-left: 1px solid #3a9fd1 !important;
             border-right: 1px solid #3a9fd1 !important;
           "
-          >Наименования</vs-th
+          >{{ $t('cart.p_name') }}</vs-th
         >
         <vs-th
           sort-key="quantity"
           style="border-right: 1px solid #3a9fd1 !important"
-          >Количество</vs-th
+          >{{ $t('cart.quantity') }}</vs-th
         >
         <vs-th
           sort-key="total_price"
           style="border-right: 1px solid #3a9fd1 !important"
-          >Цена (сум)</vs-th
+          >{{ $t('cart.price') }}</vs-th
         >
-        <vs-th sort-key="total_price">Trash</vs-th>
+        <vs-th sort-key="total_price">{{ $t('cart.delete') }}</vs-th>
       </template>
       <template slot-scope="{ data }" class="scr">
         <tbody>
@@ -142,13 +142,13 @@
     </vs-table>
     <div v-if="carts">
       <div class="itogo mt-4">
-        <h2 class="text">Итоговая сумма:</h2>
+        <h2 class="text">{{ $t('cart.total_price') }}</h2>
         <h1 class="prise">
           {{ Number(carts.total_price).toLocaleString("de-DE") }} сум
         </h1>
       </div>
       <vs-button @click="AddOrder()" class="offering">
-        <span> Оформить заявку </span>
+        <span> {{ $t('cart.offerZa') }} </span>
       </vs-button>
     </div>
     <order

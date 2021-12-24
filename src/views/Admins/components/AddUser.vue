@@ -24,7 +24,7 @@
           ref="password"
           type="password"
           data-vv-validate-on="blur"
-          v-validate="'required|max:10'" />
+          v-validate="'required|min:3'" />
           <span class="text-danger text-sm" v-show="errors.has('password')">{{ errors.first('password') }}</span>
         <!-- Confrim -->
           <input v-model="confirm" 
@@ -40,6 +40,8 @@
           <span class="text-danger text-sm" v-show="errors.has('email')">{{ errors.first('email') }}</span>
            <input v-model="phone" type="text" placeholder="Phone Number"  name="phone" data-vv-validate-on="blur" v-validate="'required|min:9|max:10|numeric'" />
           <span class="text-danger text-sm" v-show="errors.has('phone')">{{ errors.first('phone') }}</span>
+            <input v-model="savdo_id" type="text" placeholder="Savdo Id"  name="savdo" data-vv-validate-on="blur" v-validate="'required|numeric'" />
+          <span class="text-danger text-sm" v-show="errors.has('savdo_id')">{{ errors.first('savdo_id') }}</span>
               <div v-if="dataId !== null && dataId >= 0" class="mt-4 flex justify-around">
                 <h5>User Status</h5>
                 <vs-switch v-model="active" />
@@ -92,6 +94,7 @@ export default {
       next: false,
       email: '',
       phone: '',
+      savdo_id: null,
       selected: null,
       active: false,
       dataId: null,
@@ -122,11 +125,12 @@ export default {
         this.initValues()
         this.$validator.reset()
       } else {
-        const { id, username, password, full_name, active, phone_number, role, email } = JSON.parse(JSON.stringify(this.data))
+        const { id, username, password, full_name, active, phone_number, role, email, savdo_id } = JSON.parse(JSON.stringify(this.data))
         this.dataId = id
         this.position = role
         this.fullname = full_name
         this.email = email,
+        this.savdo_id = savdo_id
         this.phone = phone_number
         this.username = username
         this.password = password
@@ -180,7 +184,9 @@ export default {
       this.position = ''
       this.email = ''
       this.password = ''
+      this.savdo_id = null
       this.confirm = ''
+      this.selected = null
       // this.active = false
       this.phone = ''
     },
@@ -193,7 +199,9 @@ export default {
       // this.active = false
       this.password = ''
       this.confirm = ''
+      this.savdo_id = null
       this.phone = ''
+      this.selected = null
       this.$emit('closeSidebar')
     },
     submitData () {
@@ -210,7 +218,8 @@ export default {
         role: this.position,
         active: this.active,
         phone_number: this.phone,
-        email: this.email
+        email: this.email,
+        savdo_id: this.savdo_id
       }
       if (this.dataId !== null && this.dataId >= 0) {
         this.$store.dispatch('addUser/updateItem', obj)
@@ -221,7 +230,7 @@ export default {
           icon: 'icon-alert-circle',
           color: 'success'
         })
-        this.next = true
+        this.Reset()
           .catch(err => { 
             this.$vs.notify({
               title: 'Error',

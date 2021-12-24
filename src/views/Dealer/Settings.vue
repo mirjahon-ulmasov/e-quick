@@ -7,7 +7,7 @@
           style="padding-right: 20%"
         >
           <div>
-            <p class="title">Профиль</p>
+            <p class="title">{{ $t('profile.title') }}</p>
             <p class="sub-title">ФИО, E-mail</p>
           </div>
           <div
@@ -32,32 +32,32 @@
           class="custom-input"
           v-model="name"
           type="text"
-          placeholder="Name"
+          :placeholder="$t('profile.fullname')"
         />
         <input
           class="custom-input"
           v-model="surname"
           type="text"
-          placeholder="Surname"
+          :placeholder="$t('profile.username')"
         />
         <input
           class="custom-input"
           v-model="email"
           type="text"
-          placeholder="Email"
+          :placeholder="$t('profile.email')"
         />
       </div>
       <div class="col">
-        <p class="title">Вам нравится E-Quick?</p>
+        <p class="title">{{ $t('profile.ok') }}</p>
         <p class="text mb-4 mt-3">
-          Чтобы помочь нам усовершенствовать данный продукт, прошу оставить
-          отзыв и оценить приложение по пяти бальной шкале (от 1 до 5)
+          {{ $t('profile.star') }}
         </p>
         <textarea
           id="custom-input"
           cols="30"
+          v-model="message"
           rows="10"
-          placeholder="Напишите что Вам больше всего нравится, либо чтобы вы хотели улучшить."
+          :placeholder="$t('profile.message')"
         ></textarea>
         <star-rating
           v-model="rating"
@@ -66,37 +66,38 @@
           :max-rating="5"
           :star-size="30"
         ></star-rating>
-          <vs-button class="save-btn mt-2 p-2" @click="SaveInfo()"
+        <vs-button class="save-btn mt-2 p-2" @click="SaveReview()"
           >Отправить отзыв</vs-button
         >
       </div>
       <div class="col">
-        <p class="title">Пароль</p>
-        <p class="sub-title">Ваша почта - {{ info.email }}</p>
-        <input class="custom-input" type="text" placeholder="Password" />
+        <p class="title">{{ $t('profile.password') }}</p>
+        <p class="sub-title">{{ $t('profile.curemail') }} - {{ info.email }}</p>
+        <input class="custom-input" type="text" :placeholder="$t('profile.old')" />
         <input
           class="custom-input"
           v-model="password"
           type="text"
-          placeholder="New password"
+          :placeholder="$t('profile.new')"
         />
       </div>
       <div class="col">
-        <p class="title">Уведомления</p>
+        <p class="title">{{ $t('profile.notis') }}</p>
         <p class="sub-title">Оповещание о событий</p>
         <label class="checkbox-container">
-          <input type="checkbox" checked="checked" />
+          <input type="checkbox" v-model="sitenotf" checked="checked" />
           <span class="checkmark"></span>
-          Получать уведомления
+          {{ $t('profile.siteNotis') }}
         </label>
         <div class="flex mb-6 mt-3">
-          <vs-switch color="#31b778" v-model="swich" id="swich"></vs-switch>
+          <vs-switch color="#31b778" v-model="emailnotf" id="swich"></vs-switch>
           <label class="checkmark1" for="#swich">
-            Получать сообщения на почту</label
+            {{ $t('profile.emailNotis') }}
+            </label
           >
         </div>
         <vs-button class="save-btn mt-4" @click="SaveInfo()"
-          >Сохранить настройки</vs-button
+          >{{ $t('profile.save') }}</vs-button
         >
       </div>
     </form>
@@ -120,25 +121,38 @@ export default {
   data() {
     return {
       swich: true,
+      sitenotf: true,
+      emailnotf: false,
       name: "",
       surname: "",
       email: "",
       password: "",
+      message: '',
       rating: 4,
       image:
         "https://eros.mingle2.com/main/resources/assets/no_photo_male-69f72765b4837e51717fb0a56e2aaa3c.png",
     };
   },
   name: "Settings",
+  // watch: {
+  //  User(){
+  //    this.name = this.info.full_name
+  //  }
+  // },
   methods: {
     SaveInfo() {
+      // const sitenotefy = this.sitenotf ? 'inactive' : 'active',
+      // const emailnotefy = this.emailnotf ? 'inactive' : 'active',
       const payload = {
         role: "dealer",
+        site_notifications: this.sitenotf ? "active" : "inactive",
+        email_notifications: this.emailnotf ? "active" : "inactive",
         id: localStorage.getItem("Id"),
         username: this.surname,
         password: this.password,
         full_name: this.name,
         email: this.email,
+        savdo_id: this.info.savdo_id,
         phone_number: this.info.phone_number,
       };
       this.$store
@@ -173,10 +187,45 @@ export default {
         reader.readAsDataURL(input.target.files[0]);
       }
     },
+    SaveReview() {
+      const payload = {
+        user_id: localStorage.getItem("Id"),
+        message: this.message,
+        rate: this.rating,
+      };
+      this.$store
+        .dispatch("addUser/UserReviews", payload)
+        .then((response) => {
+          this.$vs.notify({
+            title: "Thank you",
+            text: "ok",
+            iconPack: "feather",
+            icon: "icon-check-circle",
+            color: "success",
+          });
+        })
+        .catch((err) => {
+          this.$vs.notify({
+            title: "Error",
+            text: err.response.data.detail,
+            iconPack: "feather",
+            icon: "icon-alert-circle",
+            color: "danger",
+          });
+        });
+    },
+    user() {
+      (this.name = this.info.full_name),
+        (this.surname = this.info.username),
+        (this.email = this.info.email),
+        (this.sitenotf =
+          this.info.site_notifications === "active" ? true : false),
+        (this.emailnotf =
+          this.info.email_notifications === "active" ? true : false);
+    },
   },
   created() {
-    (this.name = this.info.full_name), (this.surname = this.info.username);
-    this.email = this.info.email;
+    setTimeout(() => this.user(), 500);
     this.$store.dispatch("auth/DealerInfo");
   },
 };
@@ -385,7 +434,11 @@ export default {
       cursor: pointer;
       width: 305.13px;
       // height: 44.91px;
-      background: linear-gradient(81.75deg, #3C4A5A 99.96%, #3A9FD1 183.61%) !important;
+      background: linear-gradient(
+        81.75deg,
+        #3c4a5a 99.96%,
+        #3a9fd1 183.61%
+      ) !important;
       border-radius: 8.6357px !important;
       text-align: center;
       font-family: "Lato" sans-serif !important;

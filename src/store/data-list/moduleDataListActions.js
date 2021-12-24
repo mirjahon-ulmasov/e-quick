@@ -23,7 +23,7 @@ export default {
   },
   fetchDataCompanies ({ commit }) {
     return new Promise((resolve, reject) => {
-      axios.get('/api/v1/companies')
+      axios.get('/api/v1/companies_parents')
         .then((response) => {
           commit('SET_Companies', response.data)
           resolve(response)

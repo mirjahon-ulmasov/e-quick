@@ -37,14 +37,14 @@
                 border-left: 1px solid #3a9fd1 !important;
                 border-right: 1px solid #3a9fd1 !important;
               "
-              >Наименования</vs-th
+              >{{ $t('templates.name') }}</vs-th
             >
             <vs-th
               sort-key="Завод"
               style="border-right: 1px solid #3a9fd1 !important"
-              >Количество</vs-th
+              >{{ $t('templates.quantity') }}</vs-th
             >
-            <vs-th sort-key="Баланс">Цена (сум)</vs-th>
+            <vs-th sort-key="Баланс">{{ $t('templates.price') }}</vs-th>
           </template>
           <template slot-scope="{ data }" class="scr">
             <tbody>
@@ -84,12 +84,12 @@
         </vs-table>
       </div>
       <div class="itogo mt-4">
-        <h2 class="text">Итоговая сумма:</h2>
+        <h2 class="text">{{ $t('cart.total_price') }}</h2>
         <h1 class="prise">{{ detail.total_price }} сум</h1>
       </div>
       <div class="flex mt-4">
-        <vs-button @click="Order()" class="submit"> Order </vs-button>
-        <vs-button @click="AddCart()" class="cancel"> Add cart </vs-button>
+        <vs-button @click="Order()" class="submit"> {{ $t('templates.order') }} </vs-button>
+        <vs-button @click="AddCart()" class="cancel"> {{ $t('templates.addCart') }} </vs-button>
       </div>
     </vs-popup>
     <order-template
@@ -132,6 +132,7 @@ export default {
       },
       set(val) {
         if (!val) {
+          this.data = null
           this.$emit("closeSidebar");
         }
       },
@@ -243,17 +244,25 @@ export default {
   color: #000000;
 }
 .itogo .text {
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 15px;
-  line-height: 30px;
-  text-align: start !important;
-  /* identical to box height, or 200% */
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 15.615px;
+    line-height: 31px;
+    background-image: linear-gradient(
+      99.52deg,
+      #3f4f61 -14.96%,
+      #3a9fd1 156.83%
+    );
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    display: table;
+    /* identical to box height, or 200% */
 
-  text-align: center;
-  letter-spacing: 0.333333px;
-  color: rgba(58, 159, 209, 1);
+    text-align: start;
+    letter-spacing: 0.458111px;
 }
 .vs-con-table {
   .vs-con-tbody {

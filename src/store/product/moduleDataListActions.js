@@ -5,7 +5,7 @@ export default {
   GetProduct ({ commit }, id) {
     if (id >= 0) {
       return new Promise((resolve, reject) => {
-        axios.get('api/v1/products_by_subcategory/' + `${id}/`
+        axios.get('api/v1/subcategory/' + `${id}/products  `
         )
           .then((response) => {
             commit('ADD_Product', response.data)

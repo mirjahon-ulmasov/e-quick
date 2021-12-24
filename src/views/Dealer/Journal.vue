@@ -46,7 +46,7 @@
           </div>
         </div>
       </div>
-      <h2 class="head">Журнал последних заявок:</h2>
+      <h2 class="head mt-4">{{ $t('journal.lastJ') }}</h2>
       <Table />
     </div>
     <div class="container-footer">
@@ -183,12 +183,22 @@ export default {
     font-family: Montserrat;
     font-style: normal;
     font-weight: bold;
-    font-size: 22.2742px;
-    margin: 20px 0px 0px 0px;
+    font-size: 22.615px;
     line-height: 33px;
-    /* identical to box height, or 150% */
-    color: #135c81;
-    letter-spacing: 0.371237px;
+    background-image: linear-gradient(
+      99.52deg,
+      #3f4f61 -14.96%,
+      #3a9fd1 156.83%
+    );
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    display: table;
+    /* identical to box height, or 200% */
+
+    // text-align: end;
+    letter-spacing: 0.458111px;
   }
   .export {
     padding-right: 25px;

@@ -14,7 +14,7 @@
         icon-no-border
         icon="icon icon-user"
         icon-pack="feather"
-        placeholder="Логин"
+        :placeholder="$t('auth.login')"
         v-model="username"
         class="custom-input"
         type="text"
@@ -32,7 +32,7 @@
         icon-no-border
         icon="icon icon-lock"
         icon-pack="feather"
-        placeholder="Пароль"
+        :placeholder="$t('auth.parol')"
         v-model="password"
         class="custom-input1"
       />
@@ -41,7 +41,7 @@
       </span>
       <vs-button @click="loginJWT" class="submit-btn">Войти</vs-button>
       <div class="row">
-        <router-link :to="'/forget-password'">Забыли пароль?</router-link>
+        <router-link :to="'/forget-password'">{{ $t('auth.forget') }}</router-link>
       </div>
     </div>
   </div>

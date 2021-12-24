@@ -19,12 +19,12 @@
       :data="orders"
     >
       <template slot="thead">
-        <vs-th sort-key="order_number">Заявка</vs-th>
-        <vs-th sort-key="total_product">Кол.во продукта</vs-th>
-        <vs-th sort-key="date_ordered">Дата</vs-th>
-        <vs-th sort-key="status">Статус</vs-th>
-        <vs-th sort-key="total_price">Сумма(в сум)</vs-th>
-        <vs-th sort-key="delivery_date">Дата (доставки)</vs-th>
+        <vs-th sort-key="order_number">{{ $t('journal.offerNum') }}</vs-th>
+        <vs-th sort-key="total_product">{{ $t('journal.quantity') }}</vs-th>
+        <vs-th sort-key="date_ordered">{{ $t('journal.date') }}</vs-th>
+        <vs-th sort-key="status">{{ $t('journal.status') }}</vs-th>
+        <vs-th sort-key="total_price">{{ $t('journal.d') }}</vs-th>
+        <vs-th sort-key="delivery_date">{{ $t('journal.price') }}</vs-th>
         <!-- <vs-th sort-key="Категория">Действие</vs-th> -->
       </template>
 
@@ -57,14 +57,14 @@
             </vs-td>
             <vs-td>
               <vs-chip v-if="tr.status === 0" class="status">
-                <span style="font-size: 11px; color: #ffffff"> Ожидается </span>
+                <span style="font-size: 11px; color: #ffffff"> {{ $t('journal.status1') }}</span>
               </vs-chip>
               <vs-chip
                 style="background: rgb(49, 183, 120) !important"
                 v-if="tr.status === 1"
                 class="status"
               >
-                <span style="font-size: 11px; color: #ffffff"> Completed </span>
+                <span style="font-size: 11px; color: #ffffff"> {{ $t('journal.status2') }}d </span>
               </vs-chip>
             </vs-td>
             <vs-td> {{ tr.total_price }} <span class="ml-1">Sum</span> </vs-td>

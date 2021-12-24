@@ -7,7 +7,7 @@
       >
         <div class="vx-row">
           <div class="vx-col sm:w-full md:w-1/2">
-            <h2 class="cathaed">Выберите категорию</h2>
+            <h2 class="cathaed">{{ $t('cart.category') }}</h2>
               <v-select 
                class="sle"
                maxHeight="800px"
@@ -35,7 +35,7 @@
             </div> -->
           </div>
           <div class="vx-col sm:w-full md:w-1/2">
-            <h2 class="cathaed">Выберите подкатегорию</h2>
+            <h2 class="cathaed">{{ $t('cart.podcategory') }}</h2>
               <v-select 
                class="sle"
                @input="getProduct"
@@ -45,7 +45,7 @@
                 <vs-spacer class="spacer" style="height: 175px" />
           </div>
           <div class="vx-col w-full mt-6">
-            <h2 class="cathaed">Выберите продукт</h2>
+            <h2 class="cathaed">{{ $t('cart.productS') }}</h2>
               <v-select 
                class="sle"
                @input="AddCart"
