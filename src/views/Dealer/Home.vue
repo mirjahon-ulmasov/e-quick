@@ -3,8 +3,7 @@
     <div class="row flex vx-row">
       <div
         class="vx-col lg:w-3/5 flex"
-        style="padding: 20px; padding-left: 20px; padding-right: 40px"
-      >
+        style="padding: 20px; padding-left: 20px; padding-right: 40px">
         <div class="vx-row">
           <div class="vx-col sm:w-full md:w-1/2">
             <h2 class="cathaed">{{ $t('cart.category') }}</h2>
@@ -16,23 +15,6 @@
                :options="category" 
                label="name" />
                 <vs-spacer class="spacer" style="height: 175px" />
-            <!-- <div class="demo-alignment">
-              <span
-                class="texts"
-                v-for="(item, i) in resultQuery"
-                @click="getCat(item)"
-                :key="i"
-              >
-                {{ item.name }}
-              </span>
-              <span
-                class="texts"
-                v-if="resultQuery === null"
-                style="color: red !important"
-              >
-                No aviable data
-              </span>
-            </div> -->
           </div>
           <div class="vx-col sm:w-full md:w-1/2">
             <h2 class="cathaed">{{ $t('cart.podcategory') }}</h2>

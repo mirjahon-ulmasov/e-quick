@@ -4,7 +4,7 @@
       class="ozgar"
       background-color="rgb(45 39 39 / 70%)"
       background-color-popup="#ffffff"
-      :active.sync="isSidebarActiveLocal"
+      :active.sync=" isSidebarActiveLocal"
     >
       <h2
         style="
@@ -124,8 +124,9 @@ export default {
       },
       set(val) {
         if (!val) {
-          this.carts = null
-          this.$emit("closeSidebar");
+          this.$emit("closeSidebar").then((ok) => {
+            console.log(ok, 'vay')
+          } )
         }
       },
     },
