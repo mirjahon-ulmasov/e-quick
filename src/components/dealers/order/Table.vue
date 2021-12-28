@@ -146,7 +146,6 @@ export default {
     toggleDataSidebar(val = false) {
       this.$store.dispatch("product/GetOrder");
       this.PopUp = val;
-      this.$store.dispatch("product/GetOrder");
     },
     exportToExcel() {
       const payload = {

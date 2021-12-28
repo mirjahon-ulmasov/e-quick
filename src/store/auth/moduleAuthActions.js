@@ -62,7 +62,12 @@ export default {
   },
   updateItem ({ commit }, item) {
     return new Promise((resolve, reject) => {
-      axios.put(`/api/v1/users/${localStorage.getItem("Id")}`, (item))
+      axios.put(`/api/v1/users/${localStorage.getItem("Id")}`, (item),{
+        headers: {
+          'content-type': 'multipart/form-data',
+          'accept': 'multipart/form-data'
+        }
+      })
         .then((response) => {
           commit('UpdateInfo', item)
           resolve(response)

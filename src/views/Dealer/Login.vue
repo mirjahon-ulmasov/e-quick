@@ -8,12 +8,8 @@
       />
       <input
         v-validate="'required|min:3'"
-        data-vv-validate-on="blur"
         name="username"
         autocomplete="off"
-        icon-no-border
-        icon="icon icon-user"
-        icon-pack="feather"
         :placeholder="$t('auth.login')"
         v-model="username"
         class="custom-input"
@@ -24,14 +20,10 @@
       </span>
       <input
         @keypress.enter="loginJWT"
-        data-vv-validate-on="blur"
         v-validate="'required|min:3'"
         type="password"
         name="password"
         autocomplete="off"
-        icon-no-border
-        icon="icon icon-lock"
-        icon-pack="feather"
         :placeholder="$t('auth.parol')"
         v-model="password"
         class="custom-input1"

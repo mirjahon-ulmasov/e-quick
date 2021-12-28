@@ -7,18 +7,37 @@
           style="padding-right: 20%"
         >
           <div>
-            <p class="title">{{ $t('profile.title') }}</p>
+            <p class="title">{{ $t("profile.title") }}</p>
             <p class="sub-title">ФИО, E-mail</p>
           </div>
           <div
+            v-if="image"
             @click="$refs.updateImgInput.click()"
             :style="{ 'background-image': `url(${image})` }"
             class="user"
           >
+            <input
+              type="file"
+              id="updateImgInput"
+              class="hidden"
+              ref="updateImgInput"
+              @change="updateCurrImg"
+              accept="image/*"
+            />
             <div class="edit">
               <img src="@/assets/dealer/img/icons/edit.svg" alt="img" />
             </div>
           </div>
+          <!-- <div
+            v-if="!image"
+            @click="$refs.updateImgInput.click()"
+            :style="{ 'background-image': `url(${image})` }"
+            class="user"
+          >
+          <div class="edit">
+              <img src="@/assets/dealer/img/icons/edit.svg" alt="img" />
+            </div>
+          </div> -->
           <input
             type="file"
             id="updateImgInput"
@@ -32,25 +51,40 @@
           class="custom-input"
           v-model="name"
           type="text"
+          name="fullname"
+          v-validate="'required|min:3'"
           :placeholder="$t('profile.fullname')"
         />
+        <span class="text-danger text-sm" v-show="errors.has('fullname')">{{
+          errors.first("fullname")
+        }}</span>
         <input
           class="custom-input"
           v-model="surname"
           type="text"
+          name="username"
+          v-validate="'required|min:3'"
           :placeholder="$t('profile.username')"
         />
+        <span class="text-danger text-sm" v-show="errors.has('username')">{{
+          errors.first("username")
+        }}</span>
         <input
           class="custom-input"
           v-model="email"
           type="text"
+          name="email"
+          v-validate.bails="'required|email'"
           :placeholder="$t('profile.email')"
         />
+        <span class="text-danger text-sm" v-show="errors.has('email')">{{
+          errors.first("email")
+        }}</span>
       </div>
       <div class="col">
-        <p class="title">{{ $t('profile.ok') }}</p>
+        <p class="title">{{ $t("profile.ok") }}</p>
         <p class="text mb-4 mt-3">
-          {{ $t('profile.star') }}
+          {{ $t("profile.star") }}
         </p>
         <textarea
           id="custom-input"
@@ -71,34 +105,57 @@
         >
       </div>
       <div class="col">
-        <p class="title">{{ $t('profile.password') }}</p>
-        <p class="sub-title">{{ $t('profile.curemail') }} - {{ info.email }}</p>
-        <input class="custom-input" type="text" :placeholder="$t('profile.old')" />
+        <p class="title">{{ $t("profile.password") }}</p>
+        <p class="sub-title">{{ $t("profile.curemail") }} - {{ info.email }}</p>
+        <input
+         v-if="password === ''"
+          class="custom-input"
+          v-model="old_password"
+          :placeholder="$t('profile.old')"
+          name="oldpassword"
+          type="password"
+        />
+        <div 
+        v-else
+        style="display: flex; flex-direction: column"
+         >
+          <input
+          class="custom-input"
+          v-model="old_password"
+          :placeholder="$t('profile.old')"
+          name="oldpassword"
+          type="password"
+          v-validate="'min:3|required'"
+        />
+        <span class="text-danger text-sm" v-show="errors.has('oldpassword')">{{
+          errors.first("oldpassword")
+        }}</span>
+        </div>
         <input
           class="custom-input"
           v-model="password"
-          type="text"
+          type="password"
+          ref="password"
           :placeholder="$t('profile.new')"
         />
       </div>
       <div class="col">
-        <p class="title">{{ $t('profile.notis') }}</p>
+        <p class="title">{{ $t("profile.notis") }}</p>
         <p class="sub-title">Оповещание о событий</p>
         <label class="checkbox-container">
           <input type="checkbox" v-model="sitenotf" checked="checked" />
           <span class="checkmark"></span>
-          {{ $t('profile.siteNotis') }}
+          {{ $t("profile.siteNotis") }}
         </label>
         <div class="flex mb-6 mt-3">
           <vs-switch color="#31b778" v-model="emailnotf" id="swich"></vs-switch>
           <label class="checkmark1" for="#swich">
-            {{ $t('profile.emailNotis') }}
-            </label
-          >
+            {{ $t("profile.emailNotis") }}
+          </label>
         </div>
-        <vs-button class="save-btn mt-4" @click="SaveInfo()"
-          >{{ $t('profile.save') }}</vs-button
-        >
+        <vs-button class="save-btn mt-4" @click="SaveInfo()">{{
+          $t("profile.save")
+        }}</vs-button>
       </div>
     </form>
     <div class="container-footer">
@@ -127,10 +184,12 @@ export default {
       surname: "",
       email: "",
       password: "",
-      message: '',
+      old_password: "",
+      message: "",
       rating: 4,
       image:
         "https://eros.mingle2.com/main/resources/assets/no_photo_male-69f72765b4837e51717fb0a56e2aaa3c.png",
+      img: null,
     };
   },
   name: "Settings",
@@ -140,9 +199,21 @@ export default {
   //  }
   // },
   methods: {
+    updateCurrImg(input) {
+      if (input.target.files && input.target.files[0]) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.image = e.target.result;
+        };
+        this.img = input.target.files[0];
+        console.log(this.img, "nusrat");
+        reader.readAsDataURL(input.target.files[0]);
+      }
+    },
     SaveInfo() {
-      // const sitenotefy = this.sitenotf ? 'inactive' : 'active',
-      // const emailnotefy = this.emailnotf ? 'inactive' : 'active',
+      let formData = new FormData();
+      formData.append("image", this.img);
+      console.log(formData, "nima yoqmayapti ?");
       const payload = {
         role: "dealer",
         site_notifications: this.sitenotf ? "active" : "inactive",
@@ -150,69 +221,74 @@ export default {
         id: localStorage.getItem("Id"),
         username: this.surname,
         password: this.password,
+        old_password: this.old_password,
         full_name: this.name,
         email: this.email,
         savdo_id: this.info.savdo_id,
         phone_number: this.info.phone_number,
       };
-      this.$store
-        .dispatch("auth/updateItem", payload)
-        .then((response) => {
-          this.$vs.notify({
-            title: "Updated",
-            text: "ok",
-            iconPack: "feather",
-            icon: "icon-check-circle",
-            color: "success",
-          });
-        })
-        .catch((err) => {
-          this.$vs.notify({
-            title: "Error",
-            text: err.response.data.detail,
-            iconPack: "feather",
-            icon: "icon-alert-circle",
-            color: "danger",
-          });
-        });
-    },
-    updateCurrImg(input) {
-      if (input.target.files && input.target.files[0]) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.image = e.target.result;
-        };
-        this.img = this.$refs.updateImgInput.files[0];
-        console.log(this.img, "nusrat");
-        reader.readAsDataURL(input.target.files[0]);
-      }
+      this.$validator.validateAll().then((result) => {
+        if (result) {
+          this.$store
+            .dispatch("auth/updateItem", payload)
+            .then((response) => {
+              this.$vs.notify({
+                title: "Updated",
+                text: "ok",
+                iconPack: "feather",
+                icon: "icon-check-circle",
+                color: "success",
+              });
+            })
+            .catch((err) => {
+              this.$vs.notify({
+                title: "Error",
+                text: err,
+                iconPack: "feather",
+                icon: "icon-alert-circle",
+                color: "danger",
+              });
+            });
+        }
+      });
     },
     SaveReview() {
-      const payload = {
-        user_id: localStorage.getItem("Id"),
-        message: this.message,
-        rate: this.rating,
-      };
-      this.$store
-        .dispatch("addUser/UserReviews", payload)
-        .then((response) => {
-          this.$vs.notify({
-            title: "Thank you",
-            text: "ok",
-            iconPack: "feather",
-            icon: "icon-check-circle",
-            color: "success",
+      if (this.message !== "") {
+        const payload = {
+          user_id: localStorage.getItem("Id"),
+          message: this.message,
+          rate: this.rating,
+        };
+        this.$store
+          .dispatch("addUser/UserReviews", payload)
+          .then((response) => {
+            this.message = "";
+            this.$vs.notify({
+              title: "Thank you",
+              text: "ok",
+              iconPack: "feather",
+              icon: "icon-check-circle",
+              color: "success",
+            });
+          })
+          .catch((err) => {
+            this.$vs.notify({
+              title: "Error",
+              text: err.response.data.detail,
+              iconPack: "feather",
+              icon: "icon-alert-circle",
+              color: "danger",
+            });
           });
-        })
-        .catch((err) => {
-          this.$vs.notify({
-            title: "Error",
-            text: err.response.data.detail,
-            iconPack: "feather",
-            icon: "icon-alert-circle",
-            color: "danger",
-          });
+      } else {
+        this.$vs.notify({
+          title: "Error",
+          text: "Fill the form correctly",
+          iconPack: "feather",
+          icon: "icon-alert-circle",
+          color: "danger",
         });
+      }
     },
     user() {
       (this.name = this.info.full_name),

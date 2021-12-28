@@ -233,7 +233,8 @@ export default {
       // this.incQuan = tr.quantity;
     },
     Min(tr) {
-      const quantity = {
+       if(tr.quantity > 1){
+        const quantity = {
         item_price: tr.total_price / tr.quantity,
         quantity: tr.quantity - 1,
         id: tr.id
@@ -241,9 +242,10 @@ export default {
       this.incQuan = tr.quantity - 1
       this.incProductId = tr.product_id
       console.log(this.incQuan, 'owdi')
-      this.$store.commit('product/UPDATE_QUANTITY', quantity)
+      this.$store.commit('product/MIN_QUANTITY', quantity)
       // this.incProductId = tr.product_id;
       // this.incQuan = tr.quantity;
+       }
     },
     IncEdit(tr) {
       this.incProductId = tr.product_id

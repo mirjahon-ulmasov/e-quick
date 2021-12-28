@@ -39,6 +39,14 @@ export default {
     console.log(payload.item_price)
     state.carts.total_price = state.carts.total_price + payload.item_price
   },
+  MIN_QUANTITY (state, payload) {
+    const ItemIndex = state.carts.items.filter(p =>  p.id === payload.id )
+    ItemIndex[0].quantity = payload.quantity
+    const total = payload.item_price * payload.quantity
+    ItemIndex[0].total_price = total
+    console.log(payload.item_price)
+    state.carts.total_price = state.carts.total_price - payload.item_price
+  },
   ADD_Templates (state, templetes) {
     state.templetes = templetes
   },
