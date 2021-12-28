@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form class="container-body">
+    <form  enctype="multipart/form-data" class="container-body">
       <div class="col">
         <div
           class="flex justify-between items-center mb-6"
@@ -28,16 +28,6 @@
               <img src="@/assets/dealer/img/icons/edit.svg" alt="img" />
             </div>
           </div>
-          <!-- <div
-            v-if="!image"
-            @click="$refs.updateImgInput.click()"
-            :style="{ 'background-image': `url(${image})` }"
-            class="user"
-          >
-          <div class="edit">
-              <img src="@/assets/dealer/img/icons/edit.svg" alt="img" />
-            </div>
-          </div> -->
           <input
             type="file"
             id="updateImgInput"
@@ -189,7 +179,7 @@ export default {
       rating: 4,
       image:
         "https://eros.mingle2.com/main/resources/assets/no_photo_male-69f72765b4837e51717fb0a56e2aaa3c.png",
-      img: null,
+      img: [],
     };
   },
   name: "Settings",
@@ -200,20 +190,27 @@ export default {
   // },
   methods: {
     updateCurrImg(input) {
-      if (input.target.files && input.target.files[0]) {
+      if (input.target.files && input.target.files[0] && input.target.files[0].size < 4627393  ) {
         const reader = new FileReader();
+         reader.readAsDataURL(input.target.files[0]);
         reader.onload = (e) => {
           this.image = e.target.result;
         };
-        this.img = input.target.files[0];
-        console.log(this.img, "nusrat");
-        reader.readAsDataURL(input.target.files[0]);
+        this.img = new FormData();
+        this.img.append("image", input.target.files[0])
+        console.log(input.target.files[0])
+      }
+      else{
+              this.$vs.notify({
+                title: "Error",
+                text: 'Image size must be pover 5 MB',
+                iconPack: "feather",
+                icon: "icon-alert-circle",
+                color: "danger",
+              });
       }
     },
     SaveInfo() {
-      let formData = new FormData();
-      formData.append("image", this.img);
-      console.log(formData, "nima yoqmayapti ?");
       const payload = {
         role: "dealer",
         site_notifications: this.sitenotf ? "active" : "inactive",
@@ -224,9 +221,21 @@ export default {
         old_password: this.old_password,
         full_name: this.name,
         email: this.email,
+        user_lang: localStorage.getItem('lang'),
         savdo_id: this.info.savdo_id,
         phone_number: this.info.phone_number,
       };
+        this.$store
+        .dispatch("auth/updateIMG", this.img )
+                    .catch((err) => {
+              this.$vs.notify({
+                title: "Error",
+                text: err,
+                iconPack: "feather",
+                icon: "icon-alert-circle",
+                color: "danger",
+              });
+            });
       this.$validator.validateAll().then((result) => {
         if (result) {
           this.$store
@@ -294,6 +303,7 @@ export default {
       (this.name = this.info.full_name),
         (this.surname = this.info.username),
         (this.email = this.info.email),
+        (this.image = process.env.VUE_APP_IMG + this.info.profile_picture)
         (this.sitenotf =
           this.info.site_notifications === "active" ? true : false),
         (this.emailnotf =

@@ -10,6 +10,13 @@ export default {
     state.info = info
   },
   UpdateInfo (state, info) {
-    state.info = info
+    state.info.email = info.email
+    state.info.full_name = info.full_name
+    state.info.phone_number = info.phone_number
+  },
+  UpdateIMG(state, info){
+   state.info.profile_picture = info
+   console.log(info),
+   console.log
   }
 }

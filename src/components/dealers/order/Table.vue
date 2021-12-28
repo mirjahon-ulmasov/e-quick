@@ -153,8 +153,18 @@ export default {
         orders_ids: this.selected.map((x) => x.id),
         export_type: "xlsx",
       };
-      this.$store.dispatch("product/GetFile", payload);
-      console.log(this.selected);
+      this.$store.dispatch("product/GetFile", payload)
+      .then(res => {
+        console.log(res)
+        const url = URL.createObjectURL(new Blob([res.data], {
+        type: 'application/vnd.ms-excel'
+       }))
+    const link = document.createElement('a')
+    link.href = url
+    link.setAttribute('download', 'excel')
+    document.body.appendChild(link)
+    link.click()
+      });
     },
   },
   mounted() {

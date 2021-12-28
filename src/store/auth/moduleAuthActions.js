@@ -63,13 +63,24 @@ export default {
   updateItem ({ commit }, item) {
     return new Promise((resolve, reject) => {
       axios.put(`/api/v1/users/${localStorage.getItem("Id")}`, (item),{
-        headers: {
-          'content-type': 'multipart/form-data',
-          'accept': 'multipart/form-data'
-        }
       })
         .then((response) => {
           commit('UpdateInfo', item)
+          resolve(response)
+        })
+        .catch((error) => { reject(error) })
+    })
+  },
+  updateIMG ({ commit }, item) {
+    return new Promise((resolve, reject) => {
+      axios.post(`/api/v1/users/upload_picture/${localStorage.getItem("Id")}`, item,{
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+        .then((response) => {
+          commit('UpdateIMG', response.data)
+          console.log(response)
           resolve(response)
         })
         .catch((error) => { reject(error) })

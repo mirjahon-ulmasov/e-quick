@@ -158,8 +158,6 @@ export default {
     return new Promise((resolve, reject) => {
       axios.post('api/v1/orders/export', (payload))
         .then((response) => {
-          //  commit('ADD_File', response.data)
-          console.log(response.data)
           resolve(response)
         })
         .catch((error) => { reject(error) })
