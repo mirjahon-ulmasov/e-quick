@@ -14,7 +14,7 @@
       <div class="col" style="margin-left: 0px">
              <feather-icon @click="toggleDataSidebar(true)" v-if="notisfy.length" class="user" svgClasses="cursor-pointer text-danger w-6 h-6" :badge="notisfy.length">
           </feather-icon>
-          <feather-icon @click="toggleDataSidebar(true)" v-else class="user" svgClasses="cursor-pointer text-danger w-6 h-6">
+          <feather-icon @click="toggleDataSidebar(true)" v-else class="user"  :style="{ 'background-image': `url(${BaseUrl + info.profile_picture})` }" svgClasses="cursor-pointer text-danger w-6 h-6">
           </feather-icon>
         <div class="id" style="text-align: center" >ID: {{ info.id }}</div>
       </div>
@@ -119,7 +119,8 @@ export default {
       PopUpNotis: false,
       settings: {
         maxScrollbarLength: 5
-      }
+      },
+      BaseUrl: null
     }
   },
   computed: {
@@ -167,13 +168,13 @@ export default {
   }
   },
   created () {
+    this.BaseUrl = process.env.VUE_APP_IMG
     this.$store.dispatch('auth/DealerInfo')
     this.$store.dispatch('addUser/NotisfyGet')
     console.log(this.$i18n.locale, 'boldi')
   },
   mounted(){
-    console.log(this.notisfy)
-    console.log(this.$i18n.locale, 'boldi2')
+    console.log(process.env.VUE_APP_BASE, 'boldi2')
   },
 }
 </script>
@@ -287,12 +288,11 @@ div.side-bar-container {
     flex-direction: row;
     .user {
       cursor: pointer;
-      background-image: url("https://eros.mingle2.com/main/resources/assets/no_photo_male-69f72765b4837e51717fb0a56e2aaa3c.png");
       width: 49px;
       height: 49px;
       background-position: center;
       background-color: white;
-      background-size: contain;
+      background-size: cover;
       border-radius: 8.84722px;
       position: relative;
     }
