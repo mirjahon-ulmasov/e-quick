@@ -156,7 +156,9 @@ export default {
   // Templates list export
   GetFile ({ commit }, payload) {
     return new Promise((resolve, reject) => {
-      axios.post('api/v1/orders/export', (payload))
+      axios.post('api/v1/orders/export', (payload),
+      { responseType: 'blob' }
+      )
         .then((response) => {
           resolve(response)
         })

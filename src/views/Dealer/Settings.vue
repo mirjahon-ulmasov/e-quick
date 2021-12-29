@@ -12,10 +12,16 @@
           </div>
           <div
             v-if="image"
-            @click="$refs.updateImgInput.click()"
+            @click="upload()"
             :style="{ 'background-image': `url(${image})` }"
             class="user"
           >
+            <!-- <image-compressor
+    :done="getFiles"
+    :scale="scale"
+    ref="compressor"
+    :quality="quality">
+  </image-compressor> -->
             <input
               type="file"
               id="updateImgInput"
@@ -156,9 +162,11 @@
 
 <script>
 import StarRating from "vue-star-rating";
+import imageCompressor from 'vue-image-compressor'
 export default {
   components: {
     StarRating,
+    imageCompressor
   },
   computed: {
     info() {
@@ -177,9 +185,11 @@ export default {
       old_password: "",
       message: "",
       rating: 4,
+       scale: null,
+      quality: null,
       image:
         "https://eros.mingle2.com/main/resources/assets/no_photo_male-69f72765b4837e51717fb0a56e2aaa3c.png",
-      img: [],
+      img: null,
     };
   },
   name: "Settings",
@@ -189,17 +199,82 @@ export default {
   //  }
   // },
   methods: {
+          upload () {
+        let compressor = this.$refs.updateImgInput
+        compressor.click()
+      },
+      //   getFiles(obj){
+      //    if(obj.compressed.size === "0 kB"){
+      //     this.scale = 15
+      //    this.quality = 100
+      //    }
+      //    setTimeout(() => {
+      //      console.log(obj)
+      //              if(obj.compressed.file.size < 999999){
+      //      this.image = obj.original.base64
+      //   }
+      //   // else if(obj.compressed.size === "0 kB"){
+      //   //         this.$vs.notify({
+      //   //         title: "Sorry",
+      //   //         text: 'Something went wrong !',
+      //   //         iconPack: "feather",
+      //   //         icon: "icon-alert-circle",
+      //   //         color: "danger",
+      //   //       })
+      //   // }
+      //         else{
+      //         this.$vs.notify({
+      //           title: "Error",
+      //           text: 'Image size must be pover 1 MB',
+      //           iconPack: "feather",
+      //           icon: "icon-alert-circle",
+      //           color: "danger",
+      //         })
+      // }
+      //    }, 5000);
+      // },
     updateCurrImg(input) {
-      if (input.target.files && input.target.files[0] && input.target.files[0].size < 4627393  ) {
+      if (input.target.files && input.target.files[0] && input.target.files[0].size < 1227393  ) {
         const reader = new FileReader();
          reader.readAsDataURL(input.target.files[0]);
-        reader.onload = (e) => {
-          this.image = e.target.result;
+        reader.onload = (event) => {
+          this.image = event.target.result
         };
         this.img = new FormData();
         this.img.append("image", input.target.files[0])
-        console.log(input.target.files[0])
+        // console.log(input.target.files[0])
       }
+//       else if(input.target.files[0].size > 1227393){
+//          console.log(input.target.files[0])
+//       const reader = new FileReader();
+//          reader.readAsDataURL(input.target.files[0]);
+//         reader.onload = (event) => {
+//           const imgElement = document.createElement("img");
+//           imgElement.src = event.target.result;
+//         imgElement.onload =  (e) => {
+//       const canvas = document.createElement("canvas");
+//       const MAX_WIDTH = 400;
+//       const scaleSize = MAX_WIDTH / e.target.width;
+//       canvas.width = MAX_WIDTH;
+//       canvas.height = e.target.height * scaleSize;
+//       const ctx = canvas.getContext("2d");
+//       ctx.drawImage(e.target, 0, 0, canvas.width, canvas.height);
+//       const srcEncoded = ctx.canvas.toDataURL(e.target, "image/png");
+//       console.log(ctx)
+//       // you can send srcEncoded to the server
+//       this.image = srcEncoded;
+//     };
+//         };
+//         const i = this.image.indexOf('base64,');
+// const buffer = Buffer.from(this.image.slice(i + 10000), 'base64');
+// const file = new File(buffer,['IMG_0400'], {
+//    type: 'image/png'
+// })
+// console.log(file);
+//         this.img = new FormData();
+//         this.img.append("image", file)
+
+//       }
       else{
               this.$vs.notify({
                 title: "Error",
@@ -224,8 +299,9 @@ export default {
         user_lang: localStorage.getItem('lang'),
         savdo_id: this.info.savdo_id,
         phone_number: this.info.phone_number,
-      };
-        this.$store
+      }
+     if(this.img !== null ){
+               this.$store
         .dispatch("auth/updateIMG", this.img )
                     .catch((err) => {
               this.$vs.notify({
@@ -236,6 +312,7 @@ export default {
                 color: "danger",
               });
             });
+     }
       this.$validator.validateAll().then((result) => {
         if (result) {
           this.$store
