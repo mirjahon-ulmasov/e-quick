@@ -12,7 +12,7 @@
     <img class="logo" src="@/assets/dealer/img/svg/login/logo.png" alt="" />
     <div class="block">
       <div class="col" style="margin-left: 0px">
-             <feather-icon @click="toggleDataSidebar(true)" v-if="notisfy.length" class="user" svgClasses="cursor-pointer text-danger w-6 h-6" :badge="notisfy.length">
+             <feather-icon @click="toggleDataSidebar(true)" v-if="notisfy.length" :style="{ 'background-image': `url(${BaseUrl + info.profile_picture})` }" class="user" svgClasses="cursor-pointer text-danger w-6 h-6" :badge="notisfy.length">
           </feather-icon>
           <feather-icon @click="toggleDataSidebar(true)" v-else class="user"  :style="{ 'background-image': `url(${BaseUrl + info.profile_picture})` }" svgClasses="cursor-pointer text-danger w-6 h-6">
           </feather-icon>
@@ -29,7 +29,6 @@
 </svg>
 
         <div class="notify">
-
         </div>
       </div> -->
     </div>
@@ -107,13 +106,9 @@
 </template>
 
 <script>
-import FeatherIcon from '../../../components/FeatherIcon.vue'
 import Notisfications from '@/components/dealers/Notisfications.vue'
 export default {
-  components: { FeatherIcon, Notisfications },
-  props: {
-    to: { type: [String, Object, null], default: null }
-  },
+  components: { Notisfications },
   data () {
     return {
       PopUpNotis: false,
@@ -130,9 +125,6 @@ export default {
     notisfy(){
         return this.$store.state.addUser.not_seen
     },
-    activeLink () {
-      return !!(this.to === this.$route.path && this.to)
-    }
   },
   methods: {
     LogOut () {
@@ -164,17 +156,12 @@ export default {
         phone_number: this.info.phone_number,
     }
     this.$store.dispatch("auth/updateItem", payload)
-    console.log(this.notisfy, 'boldi3')
   }
   },
   created () {
     this.BaseUrl = process.env.VUE_APP_IMG
     this.$store.dispatch('auth/DealerInfo')
     this.$store.dispatch('addUser/NotisfyGet')
-    console.log(this.$i18n.locale, 'boldi')
-  },
-  mounted(){
-    console.log(process.env.VUE_APP_BASE, 'boldi2')
   },
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="flex" v-if="carts" style="justify-content: space-between">
-      <h2 class="zayhaed">{{ $t('cart.cart') }} {{ carts.items.length }}</h2>
+    <div class="flex" v-if="carts !== null" style="justify-content: space-between">
+      <h2 class="zayhaed" >{{ $t('cart.cart') }} {{ carts.items.length || '' }}</h2>
       <svg
       @click="AddWab()"
       class="cursor-pointer"
@@ -33,14 +33,14 @@
     </div>
     <!-- <span class="date"> от 01.11.21 </span> -->
     <br />
-    <h5 style="margin-top: 30px" v-if="!carts">
+    <h5 style="margin-top: 30px" v-if="carts === null">
       {{ $t('cart.nullCart') }}
     </h5>
     <vs-table
       ref="table"
       maxHeight="55vh"
       class="produ mt-4"
-      v-if="carts"
+      v-if="carts !== null"
       :data="carts.items"
     >
       <template slot="thead">
@@ -140,7 +140,7 @@
         </tbody>
       </template>
     </vs-table>
-    <div v-if="carts">
+    <div v-if="carts !== null">
       <div class="itogo mt-4">
         <h2 class="text">{{ $t('cart.total_price') }}</h2>
         <h1 class="prise">
@@ -168,7 +168,7 @@ export default {
   name: "Home",
   computed: {
     carts() {
-      return this.$store.state.product.carts;
+        return this.$store.state.product.carts;
     },
   },
   data() {
@@ -187,11 +187,6 @@ export default {
   components: {
     Order,
     Temp
-  },
-  watch: {
-    $route(to, from) {
-      console.log(to, from);
-    },
   },
   methods: {
     deleteCartProduct(id) {

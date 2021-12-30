@@ -193,11 +193,6 @@ export default {
     };
   },
   name: "Settings",
-  // watch: {
-  //  User(){
-  //    this.name = this.info.full_name
-  //  }
-  // },
   methods: {
           upload () {
         let compressor = this.$refs.updateImgInput
@@ -242,7 +237,6 @@ export default {
         };
         this.img = new FormData();
         this.img.append("image", input.target.files[0])
-        // console.log(input.target.files[0])
       }
 //       else if(input.target.files[0].size > 1227393){
 //          console.log(input.target.files[0])
@@ -278,7 +272,7 @@ export default {
       else{
               this.$vs.notify({
                 title: "Error",
-                text: 'Image size must be pover 5 MB',
+                text: 'Image size must be  2 MB',
                 iconPack: "feather",
                 icon: "icon-alert-circle",
                 color: "danger",
@@ -327,13 +321,24 @@ export default {
               });
             })
             .catch((err) => {
-              this.$vs.notify({
+             if (err.response.status === 400) {
+                this.$vs.notify({
+                title: "Error",
+                text: "Old password invalid !, try again",
+                iconPack: "feather",
+                icon: "icon-alert-circle",
+                color: "danger",
+              });
+             }
+             else{
+                this.$vs.notify({
                 title: "Error",
                 text: err,
                 iconPack: "feather",
                 icon: "icon-alert-circle",
                 color: "danger",
               });
+             }
             });
         }
       });

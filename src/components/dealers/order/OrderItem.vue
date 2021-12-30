@@ -27,8 +27,7 @@
           maxHeight="50vh"
           style="max-width: 400px !important"
           class="produc mt-4"
-          v-if="carts"
-          :data="carts.items"
+          :data="carts.items || []"
         >
           <template slot="thead">
             <vs-th sort-key="name">№</vs-th>

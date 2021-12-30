@@ -138,15 +138,13 @@ export default {
   },
   methods: {
     getCat(data) {
-      // this.$vs.loading({
-      //   container: "#div-with-loading",
-      //   scale: 0.6,
-      //   color: "rgb(62, 97, 121)",
-      // });
       console.log(this.activeCategory)
-      // const category = this.category.find((company) => company.id === data.id);
       this.podCategory = this.activeCategory ? this.activeCategory.children : null;
-      this.$store.dispatch("product/GetProduct", this.activeCategory.id).then((response) => {
+      const obj = {
+      id:  this.activeCategory.id,
+      'page': 1
+      }
+      this.$store.dispatch("product/GetProduct", obj).then((response) => {
         // this.$vs.loading.close("#div-with-loading > .con-vs-loading");
       });
       console.log(this.podCategory)

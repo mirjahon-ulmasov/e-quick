@@ -86,7 +86,7 @@ import Order from "./OrderItem.vue";
 export default {
   computed: {
     orders() {
-      return this.$store.state.product.orders.reverse();
+      return this.$store.state.product.orders
     },
     currentPage() {
       if (this.isMounted) {
