@@ -86,7 +86,7 @@ import Order from "./OrderItem.vue";
 export default {
   computed: {
     orders() {
-      return this.$store.state.product.orders.reverse();
+      return this.$store.state.product.orders
     },
     currentPage() {
       if (this.isMounted) {
@@ -157,11 +157,14 @@ export default {
       .then(res => {
         console.log(res)
         const url = URL.createObjectURL(new Blob([res.data], {
-        type: 'application/vnd.ms-excel'
-       }))
+        type: 'application/xml',
+       }
+       )
+       )
+       console.log(url)
     const link = document.createElement('a')
     link.href = url
-    link.setAttribute('download', 'excel')
+    link.setAttribute('download', 'OrdersList.xlsx')
     document.body.appendChild(link)
     link.click()
       });

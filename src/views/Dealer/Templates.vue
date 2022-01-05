@@ -8,8 +8,9 @@
         class="search"
       />
     </div>
-    <div class="row">
-      <div
+    <div style="height: 70%;">
+     <div class="row" v-show="templates !== null">
+             <div
         v-for="(temp, i) in resultTemplates"
         :key="i"
         class="card cursor-pointer"
@@ -96,6 +97,7 @@
           </button>
         </div>
       </div>
+     </div>
     </div>
     <div class="container-footer">
       <p class="contact">71 203 01 01</p>
@@ -141,15 +143,10 @@ export default {
       this.$store.dispatch("product/GetTemplatesItem", id);
     },
     deleteTemplete(id) {
-      console.log(id);
-                    this.$vs.notify({
-                title: "OK",
-                text: "Deleted",
-                iconPack: "feather",
-                icon: "icon-alert-circle",
-                color: "success",
-              });
-      this.$store.dispatch("product/UpdateTemplate", id).then(() => {
+             this.$store.dispatch("product/UpdateTemplate", id).then(() => {
+             setTimeout(() => {
+               this.$store.dispatch("product/GetTemplates");
+             }, 10);
               this.$vs.notify({
                 title: "OK",
                 text: "Deleted",
@@ -157,6 +154,10 @@ export default {
                 icon: "icon-alert-circle",
                 color: "success",
               });
+              if(this.templates.length === 0){
+                this.templates = null
+              }
+              console.log(this.templates, 'sdjdjd')
       } );
     },
     toggleDataSidebar(val = false) {

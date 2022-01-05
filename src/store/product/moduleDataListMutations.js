@@ -14,16 +14,16 @@ export default {
   REMOVE_CART (state, id) {
     const carts = state.carts
     const ItemIndex = carts.items.findIndex(p => { p.id === id })
+    console.log(ItemIndex)
     state.carts.items.splice(ItemIndex, 1)
     if (state.carts.items.length == 0) {
       state.carts = null
     }
   },
   REMOVE_Temp (state, template_id) {
-    const carts = state.templetes
-    const ItemIndex = carts.findIndex(p => { p.template_id === template_id })
+    const ItemIndex = state.templetes.findIndex(p => { console.log(p), p.template_id === template_id })
     state.templetes.splice(ItemIndex, 1)
-    if (state.templetes.items.length == 0) {
+    if (state.templetes.length === 0) {
       state.templetes = null
     }
   },

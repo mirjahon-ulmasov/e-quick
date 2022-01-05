@@ -114,18 +114,9 @@ export default {
       this.$store
         .dispatch("addUser/NotisfyPut", item.id)
         .then((res) => {
-          // this.isSidebarActiveLocal = false;
-          this.$vs.notify({
-            title: "Seen",
-            text: "ok",
-            iconPack: "feather",
-            icon: "icon-check-circle",
-            color: "success",
-          });
           this.$store.dispatch("addUser/NotisfyGet");
           this.$store.dispatch("addUser/NotisfyGet");
           this.toggleDataSidebar(true);
-          // this.$router.push("/dealer/journal");
             this.$store.dispatch("product/GetOrderItem", item.order_id).then((response) => {
         if(response !== null ){
           this.PopUpData = response.data;

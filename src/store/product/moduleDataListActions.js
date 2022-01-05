@@ -2,10 +2,11 @@
 import axios from '@/axios.js'
 export default {
   // Get product by category id
-  GetProduct ({ commit }, id) {
-    if (id >= 0) {
+  GetProduct ({ commit }, obj) {
+    console.log(obj)
+    if (obj.id >= 0) {
       return new Promise((resolve, reject) => {
-        axios.get('api/v1/subcategory/' + `${id}/products  `
+        axios.get('api/v1/subcategory/' + `${obj.id}/products`
         )
           .then((response) => {
             commit('ADD_Product', response.data)
@@ -78,7 +79,7 @@ export default {
     return new Promise((resolve, reject) => {
       axios.get(`/api/v1/orders/${  localStorage.getItem('Id')}`)
         .then((response) => {
-          commit('ADD_Orders', response.data)
+          commit('ADD_Orders', response.data.reverse())
           console.log(response.data)
           resolve(response)
         })
@@ -156,7 +157,9 @@ export default {
   // Templates list export
   GetFile ({ commit }, payload) {
     return new Promise((resolve, reject) => {
-      axios.post('api/v1/orders/export', (payload))
+      axios.post('api/v1/orders/export', (payload),
+      { responseType: 'blob' }
+      )
         .then((response) => {
           resolve(response)
         })
@@ -165,7 +168,6 @@ export default {
   },
   // Templates Delete
   UpdateTemplate ({  commit }, template_id) {
-    console.log(template_id, 'vay')
     return new Promise((resolve, reject) => {
       axios.put(`api/v1/templates/${template_id}`)
         .then((response) => {
