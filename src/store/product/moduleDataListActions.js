@@ -3,10 +3,10 @@ import axios from '@/axios.js'
 export default {
   // Get product by category id
   GetProduct ({ commit }, obj) {
-    if (obj.id >= 0) {
+    if (obj.id !== undefined) {
       return new Promise((resolve, reject) => {
         axios.get('api/v1/subcategory/' + `${obj.id}/products`,
-        { params: { page: 2 } }
+        { params: { page: obj.page  } }
         )
           .then((response) => {
             commit('ADD_Product', response.data)

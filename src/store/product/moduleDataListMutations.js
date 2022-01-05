@@ -2,6 +2,9 @@ export default {
   ADD_Product (state, productes) {
     state.productes = productes
   },
+  Pagination(state, data){
+     state.productes.results.push(...data.results)
+  },
   ADD_Carts (state, carts) {
     state.carts = carts
   },
@@ -52,5 +55,9 @@ export default {
   },
   ADD_TemplatesItem (state, tempDetail) {
     state.tempDetail = tempDetail
+  },
+  NullData (state) {
+  state.orderItem = null
+  console.log('nulled')
   }
 }

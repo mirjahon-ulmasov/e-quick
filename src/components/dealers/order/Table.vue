@@ -141,13 +141,20 @@ export default {
       this.$store.dispatch("product/GetOrderItem", id).then((response) => {
         this.PopUpData = response.data;
       });
-      this.toggleDataSidebar(true);
+     setTimeout(() => {
+        this.toggleDataSidebar(true);
+     }, 200);
     },
     toggleDataSidebar(val = false) {
       this.$store.dispatch("product/GetOrder");
       this.PopUp = val;
     },
     exportToExcel() {
+      this.$vs.loading({
+        type: 'sound',
+        text: 'Iltimos kuting !',
+        color: 'rgb(62, 97, 121)'
+      })
       const payload = {
         user_id: parseInt(localStorage.getItem("Id")),
         orders_ids: this.selected.map((x) => x.id),
@@ -155,11 +162,11 @@ export default {
       };
       this.$store.dispatch("product/GetFile", payload)
       .then(res => {
+        this.$vs.loading.close()
         console.log(res)
         const url = URL.createObjectURL(new Blob([res.data], {
         type: 'application/xml',
-       }
-       )
+       })
        )
        console.log(url)
     const link = document.createElement('a')
@@ -167,7 +174,12 @@ export default {
     link.setAttribute('download', 'OrdersList.xlsx')
     document.body.appendChild(link)
     link.click()
-      });
+      })
+             .catch(err => {
+         console.log(err)
+         this.$vs.loading.close()
+       })
+      
     },
   },
   mounted() {

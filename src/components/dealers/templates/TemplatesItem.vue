@@ -132,7 +132,6 @@ export default {
       },
       set(val) {
         if (!val) {
-          this.data = null
           this.$emit("closeSidebar");
         }
       },

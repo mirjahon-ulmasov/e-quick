@@ -7,7 +7,7 @@
       :active.sync="isSidebarActiveLocal"
     >
       <h2 class="title mb-6">Уведомления</h2>
-      <div class="scroll-area" :is="scrollbarTag" :settings="settings">
+      <div class="scroll-area" :is="scrollbarTag" v-if="notisfy" :settings="settings">
         <div v-for="(notis, i) in notisfy" :key="i" :class="notis.status == `NOT_SEEN` ? 'notis' : 'seen'">
           <div class="flex">
             <img
@@ -114,16 +114,10 @@ export default {
       this.$store
         .dispatch("addUser/NotisfyPut", item.id)
         .then((res) => {
-          this.$store.dispatch("addUser/NotisfyGet");
-          this.$store.dispatch("addUser/NotisfyGet");
-          this.toggleDataSidebar(true);
-            this.$store.dispatch("product/GetOrderItem", item.order_id).then((response) => {
-        if(response !== null ){
-          this.PopUpData = response.data;
-        }
-        else{
-          this.PopUpData = null
-        }
+            this.$store.dispatch("product/GetOrderItem", item.order_id).then(() => {
+        setTimeout(() => {
+        this.toggleDataSidebar(true);
+     }, 200);
       });
         })
         .catch((err) => {
@@ -186,7 +180,7 @@ export default {
     },
     toggleDataSidebar(val = false) {
       this.PopUp = val;
-      this.PopUpData = null
+              this.$store.dispatch("addUser/NotisfyGet");
     },
   },
   created() {

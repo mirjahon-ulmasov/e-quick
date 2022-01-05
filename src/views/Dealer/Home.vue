@@ -3,41 +3,55 @@
     <div class="row flex vx-row">
       <div
         class="vx-col lg:w-3/5 flex"
-        style="padding: 20px; padding-left: 20px; padding-right: 40px">
+        style="padding: 20px; padding-left: 20px; padding-right: 40px"
+      >
         <div class="vx-row">
           <div class="vx-col sm:w-full md:w-1/2">
-            <h2 class="cathaed">{{ $t('cart.category') }}</h2>
-              <v-select 
-               class="sle"
-               maxHeight="800px"
-               @input="getCat"
-               v-model="activeCategory" 
-               :options="category" 
-               label="name" />
-                <vs-spacer class="spacer" style="height: 175px" />
+            <h2 class="cathaed">{{ $t("cart.category") }}</h2>
+            <v-select
+              class="sle"
+              maxHeight="800px"
+              @input="getCat"
+              v-model="activeCategory"
+              :options="category"
+              label="name"
+            />
+            <vs-spacer class="spacer" style="height: 175px" />
           </div>
           <div class="vx-col sm:w-full md:w-1/2">
-            <h2 class="cathaed">{{ $t('cart.podcategory') }}</h2>
-              <v-select 
-               class="sle"
-               @input="getProduct"
-               v-model="activePod" 
-               :options="podCategory" 
-               label="name" />
-                <vs-spacer class="spacer" style="height: 175px" />
+            <h2 class="cathaed">{{ $t("cart.podcategory") }}</h2>
+            <v-select
+              class="sle"
+              @input="getProduct"
+              v-model="activePod"
+              :options="podCategory"
+              label="name"
+            />
+            <vs-spacer class="spacer" style="height: 175px" />
           </div>
           <div class="vx-col w-full mt-6">
-            <h2 class="cathaed">{{ $t('cart.productS') }}</h2>
-              <v-select 
-               class="sle"
-               @input="AddCart"
-               v-model="activeProduct" 
-               :options="products" 
-               label="name" />
-                   <vs-spacer style="height: 200px" />
-                    <vs-spacer />
-                     <vs-spacer />
-                      <vs-spacer />
+            <h2 class="cathaed">{{ $t("cart.productS") }}</h2>
+            <v-select
+              class="sle"
+              @input="AddCart"
+              v-model="activeProduct"
+              @search="(query) => (searchProduct = query)"
+              :options="paginated"
+              :filterable="false"
+              @open="onOpen"
+              @close="onClose"
+              label="name"
+            >
+              <template #list-footer>
+                <li v-show="hasNextPage" ref="load" class="loader">
+                  Loading more options...
+                </li>
+              </template>
+            </v-select>
+            <vs-spacer style="height: 200px" />
+            <vs-spacer />
+            <vs-spacer />
+            <vs-spacer />
             <div class="vx-col w-full mt-6" style="padding-top: 120px">
               <weather></weather>
             </div>
@@ -60,7 +74,8 @@
 import AddCart from "@/components/dealers/carts/AddCart.vue";
 import Weather from "@/components/dealers/Weather.vue";
 import CartTable from "@/components/dealers/carts/CartTable.vue";
-import VSelect from 'vue-select'
+import VSelect from "vue-select";
+import axios from '../../axios'
 export default {
   name: "Home",
   computed: {
@@ -69,18 +84,6 @@ export default {
     },
     products() {
       return this.$store.state.product.productes.results;
-    },
-    resultQuery() {
-      if (this.activeCategory) {
-        return this.category.filter((item) => {
-          return this.activeCategory
-            .toLowerCase()
-            .split(" ")
-            .every((v) => item.name.toLowerCase().includes(v));
-        });
-      } else {
-        return this.category;
-      }
     },
     resultProduct() {
       if (this.searchProduct) {
@@ -92,6 +95,26 @@ export default {
         });
       } else {
         return this.products;
+      }
+    },
+    paginated() {
+      if(this.products){
+        return this.resultProduct.slice(0, this.limit)
+      }
+    },
+    hasNextPage() {
+      return this.$store.state.product.productes.count > this.paginated.length
+    },
+    resultQuery() {
+      if (this.activeCategory) {
+        return this.category.filter((item) => {
+          return this.activeCategory
+            .toLowerCase()
+            .split(" ")
+            .every((v) => item.name.toLowerCase().includes(v));
+        });
+      } else {
+        return this.category;
       }
     },
     resultPodCategory() {
@@ -109,6 +132,8 @@ export default {
   },
   data() {
     return {
+      limit: 50,
+      observer: null,
       categoryPop: false,
       podcategoryPop: false,
       edit: false,
@@ -134,39 +159,36 @@ export default {
     AddCart,
     Weather,
     CartTable,
-    VSelect
+    VSelect,
   },
   methods: {
     getCat(data) {
-      console.log(this.activeCategory)
-      this.podCategory = this.activeCategory ? this.activeCategory.children : null;
+      console.log(this.activeCategory);
+      this.podCategory = this.activeCategory
+        ? this.activeCategory.children
+        : null;
       const obj = {
-      id:  this.activeCategory.id,
-      'page': 1
-      }
+        id: this.activeCategory.id,
+        page: 1,
+      };
       this.$store.dispatch("product/GetProduct", obj).then((response) => {
         // this.$vs.loading.close("#div-with-loading > .con-vs-loading");
       });
-      console.log(this.podCategory)
+      console.log(this.podCategory);
       this.categoryPop = false;
       // this.podcategoryPop = true
     },
-    getProduct(data) {
-      // this.$vs.loading({
-      //   container: "#div-with-loading",
-      //   scale: 0.6,
-      //   color: "rgb(62, 97, 121)",
-      // });
-      this.$store.dispatch("product/GetProduct", this.activePod.id).then((response) => {
-        this.product = response.data;
-        console.log(this.products, "ollll");
-        // this.$vs.loading.close("#div-with-loading > .con-vs-loading");
-      });
+    getProduct() {
+      const obj = {
+        id: this.activePod.id,
+        page: 1,
+      };
+      this.$store
+        .dispatch("product/GetProduct", obj)
       this.podcategoryPop = false;
     },
-    AddCart(data) {
-      // this.sidebarData = JSON.parse(JSON.stringify(this.blankData))
-      this.PopUpData = this.activeProduct;
+    AddCart() {
+            this.PopUpData = this.activeProduct;
       this.toggleDataSidebar(true);
     },
     toggleDataSidebar(val = false) {
@@ -174,9 +196,43 @@ export default {
       setTimeout(() => this.$store.dispatch("product/GetCart"), 500);
       this.PopUp = val;
     },
+    async onOpen() {
+      if (this.hasNextPage) {
+        await this.$nextTick();
+        this.observer.observe(this.$refs.load);
+      }
+    },
+    onClose() {
+      this.observer.disconnect();
+    },
+    async infiniteScroll([{ isIntersecting, target }]) {
+      if (isIntersecting) {
+      const obj = {
+        id: this.activeCategory.id,
+        page: this.paginated.length / 50 + 1,
+      };
+      axios.get('api/v1/subcategory/' + `${obj.id}/products`, 
+      { params: { page: obj.page  } }
+      ).then(res => {
+        this.$store.commit("product/Pagination", res.data)
+              this.$store
+        .dispatch("product/GetProduct")
+        console.log(res, 'mana');
+      })
+        console.log(target, 'target')
+        const ul = target.offsetParent;
+        const scrollTop = target.offsetParent.scrollTop;
+        this.limit += 50;
+        await this.$nextTick();
+        ul.scrollTop = scrollTop;
+      }
+      else{
+
+      }
+    },
   },
   mounted() {
-    // this.sanoq = this.carts.items.length
+    this.observer = new IntersectionObserver(this.infiniteScroll);
   },
   created() {
     this.$store.dispatch("category/GetItem");
@@ -250,22 +306,27 @@ export default {
     display: table;
     line-height: 19px;
   }
+  .loader {
+    text-align: center;
+    color: #bbbbbb;
+  }
   .left-bg {
     background: #f9fafc;
     padding: 20px 0px 20px 20px;
     border-bottom-right-radius: 30px;
     border-top-right-radius: 30px;
   }
-  .sle, .v-select {
-    .vs__dropdown-menu  {
-    margin-top: 10px;
-    height: 300px !important;
-    overflow-y: scroll;
-  }
+  .sle,
+  .v-select {
+    .vs__dropdown-menu {
+      margin-top: 10px;
+      height: 300px !important;
+      overflow-y: scroll;
+    }
   }
 }
 @media (max-width: 1600px) {
-  .spacer{
+  .spacer {
     height: auto !important;
   }
 }

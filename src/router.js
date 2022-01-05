@@ -16,11 +16,11 @@ const router = new Router({
     },
     // Dealer Layout
     {
-      path: '',
+      path: '/dealer/',
       component: () => import('./layouts/dealer-page/Dealer.vue'),
       children: [
         {
-          path: '/dealer/main',
+          path: 'main',
           name: 'dealer-main',
           component: () => import('./views/Dealer/Home.vue'),
           meta: {

@@ -7,6 +7,7 @@
       :active.sync=" isSidebarActiveLocal"
     >
       <h2
+        v-if="carts"
         style="
           margin-top: -20px;
           margin-bottom: 15px;
@@ -19,7 +20,7 @@
           color: #000000;
         "
       >
-        Данные о Заявке №{{ carts.order_number }}
+        Данные о Заявке №{{ carts.order_number || '' }}
       </h2>
       <div class="flex" style="justify-content: center">
         <vs-table
@@ -27,6 +28,7 @@
           maxHeight="50vh"
           style="max-width: 400px !important"
           class="produc mt-4"
+          v-if="carts"
           :data="carts.items || []"
         >
           <template slot="thead">
@@ -85,7 +87,7 @@
       </div>
       <div class="itogo mt-4">
         <h2 class="text">{{ $t('cart.total_price') }}</h2>
-        <h1 class="prise">{{ carts.total_price }} сум</h1>
+        <h1 class="prise" v-if="carts" >{{ carts.total_price }} сум</h1>
       </div>
       <!-- <div class="flex mt-4">
                   <vs-button @click="isSidebarActiveLocal = false" class="submit">
@@ -110,7 +112,6 @@ export default {
   watch: {
     isPopUp(val) {
       if (!val) return;
-      // Object.entries(this.data).length === 0 ? this.initValues() : { this.dataId, this.dataName, this.dataCategory, this.dataOrder_status, this.dataPrice } = JSON.parse(JSON.stringify(this.data))
     },
   },
   computed: {
@@ -123,9 +124,10 @@ export default {
       },
       set(val) {
         if (!val) {
-          this.$emit("closeSidebar").then((ok) => {
-            console.log(ok, 'vay')
-          } )
+          this.$emit("closeSidebar")
+          setTimeout(() => {
+            this.$store.commit("product/NullData")
+          }, 220);
         }
       },
     },
