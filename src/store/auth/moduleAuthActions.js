@@ -80,7 +80,6 @@ export default {
       })
         .then((response) => {
           commit('UpdateIMG', response.data)
-          console.log(response)
           resolve(response)
         })
         .catch((error) => { reject(error) })
