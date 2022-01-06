@@ -114,6 +114,8 @@ export default {
       this.$store
         .dispatch("addUser/NotisfyPut", item.id)
         .then((res) => {
+          this.$store.dispatch("addUser/NotisfyGet");
+          this.$store.dispatch("addUser/NotisfyGet");
             this.$store.dispatch("product/GetOrderItem", item.order_id).then(() => {
         setTimeout(() => {
         this.toggleDataSidebar(true);

@@ -44,7 +44,7 @@
             >
               <template #list-footer>
                 <li v-show="hasNextPage" ref="load" class="loader">
-                  Loading more options...
+                  <!-- Loading more options... -->
                 </li>
               </template>
             </v-select>
@@ -188,7 +188,7 @@ export default {
       this.podcategoryPop = false;
     },
     AddCart() {
-            this.PopUpData = this.activeProduct;
+      this.PopUpData = this.activeProduct;
       this.toggleDataSidebar(true);
     },
     toggleDataSidebar(val = false) {
