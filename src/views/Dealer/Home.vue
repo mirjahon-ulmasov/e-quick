@@ -215,8 +215,6 @@ export default {
       { params: { page: obj.page  } }
       ).then(res => {
         this.$store.commit("product/Pagination", res.data)
-              this.$store
-        .dispatch("product/GetProduct")
         console.log(res, 'mana');
       })
         console.log(target, 'target')
