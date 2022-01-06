@@ -55,7 +55,7 @@ deploy:
       echo '
       VUE_APP_BASE=https://e-quick.uz:8990
       VUE_APP_IMG=https://e-quick.uz
-      ' > .env
+      ' > dist/.env
     - ssh root@test "mkdir -p /var/www/e-quick-dealer-front/"
     - rsync -za -P dist/ test:/var/www/e-quick-dealer-front
   only:
@@ -113,7 +113,7 @@ alpha-deploy:
      echo '
      VUE_APP_BASE=https://e-quick.uz:8990
      VUE_APP_IMG=https://e-quick.uz
-     ' > .env
+     ' > dist/.env
     - ssh root@10.7.5.112 "mkdir -p /var/www/e-quick-dealer-front/"
     - rsync -za -P dist/ 10.7.5.112:/var/www/e-quick-dealer-front
   only:
