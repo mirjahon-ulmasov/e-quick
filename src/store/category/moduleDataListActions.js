@@ -7,7 +7,6 @@ export default {
       axios.get(`/api/v1/company_group/dealer/${  localStorage.getItem('Id')}`)
         .then((response) => {
           commit('ADD_ITEM', response.data)
-          console.log(response.data)
           resolve(response)
         })
         .catch((error) => { reject(error) })

@@ -17,7 +17,6 @@ export default {
   REMOVE_CART (state, id) {
     const carts = state.carts
     const ItemIndex = carts.items.findIndex(p => { p.id === id })
-    console.log(ItemIndex)
     state.carts.items.splice(ItemIndex, 1)
     if (state.carts.items.length == 0) {
       state.carts = null
@@ -39,7 +38,6 @@ export default {
     ItemIndex[0].quantity = payload.quantity
     const total = payload.item_price * payload.quantity
     ItemIndex[0].total_price = total
-    console.log(payload.item_price)
     state.carts.total_price = state.carts.total_price + payload.item_price
   },
   MIN_QUANTITY (state, payload) {
@@ -47,7 +45,6 @@ export default {
     ItemIndex[0].quantity = payload.quantity
     const total = payload.item_price * payload.quantity
     ItemIndex[0].total_price = total
-    console.log(payload.item_price)
     state.carts.total_price = state.carts.total_price - payload.item_price
   },
   ADD_Templates (state, templetes) {
@@ -58,6 +55,5 @@ export default {
   },
   NullData (state) {
   state.orderItem = null
-  console.log('nulled')
   }
 }

@@ -16,7 +16,5 @@ export default {
   },
   UpdateIMG(state, info){
    state.info.profile_picture = info
-   console.log(info),
-   console.log
   }
 }

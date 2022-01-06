@@ -2,15 +2,14 @@
 import axios from '@/axios.js'
 export default {
   // Get product by category id
-  GetProduct ({ commit }, obj) {
-    if (obj.id !== undefined) {
+  GetProduct ({ commit }, id) {
+    if (id) {
       return new Promise((resolve, reject) => {
-        axios.get('api/v1/subcategory/' + `${obj.id}/products`,
-        { params: { page: obj.page  } }
+        axios.get('api/v1/subcategory/' + `${id}/products`,
+        // { params: { page: obj.page  } }
         )
           .then((response) => {
             commit('ADD_Product', response.data)
-            console.log(response)
             resolve(response)
           })
           .catch((error) => { reject(error) })
@@ -35,7 +34,6 @@ export default {
       )
         .then((response) => {
           commit('ADD_Carts', response.data)
-          console.log(response, 'cart')
           resolve(response)
         })
         .catch((error) => { reject(error) })
@@ -80,7 +78,6 @@ export default {
       axios.get(`/api/v1/orders/${  localStorage.getItem('Id')}`)
         .then((response) => {
           commit('ADD_Orders', response.data.reverse())
-          console.log(response.data)
           resolve(response)
         })
         .catch((error) => { reject(error) })
@@ -93,7 +90,6 @@ export default {
         axios.get(`/api/v1/orders/${  localStorage.getItem('Id')  }/${id}`)
           .then((response) => {
             commit('ADD_OrdersItem', response.data)
-            console.log(response.data)
             resolve(response)
           })
           .catch((error) => { reject(error) })
@@ -108,8 +104,6 @@ export default {
         axios.post('/api/v1/exchange', (item)
         )
           .then((response) => {
-            // commit('ADD_Orders', response.data)
-            console.log(response.data)
             resolve(response)
           })
           .catch((error) => { reject(error) })
@@ -121,8 +115,6 @@ export default {
     return new Promise((resolve, reject) => {
       axios.post('/api/v1/templates', (payload))
         .then((response) => {
-          // commit('ADD_Templates', response.data)
-          console.log(response.data)
           resolve(response)
         })
         .catch((error) => { reject(error) })
@@ -134,7 +126,6 @@ export default {
       axios.get(`/api/v1/templates/${  localStorage.getItem('Id')}`)
         .then((response) => {
           commit('ADD_Templates', response.data)
-          console.log(response.data)
           resolve(response)
         })
         .catch((error) => { reject(error) })
@@ -147,7 +138,6 @@ export default {
         axios.get(`api/v1/templates/${localStorage.getItem('Id')}/${template_id}`)
           .then((response) => {
             commit('ADD_TemplatesItem', response.data)
-            console.log(response.data)
             resolve(response)
           })
           .catch((error) => { reject(error) })
@@ -172,7 +162,6 @@ export default {
       axios.put(`api/v1/templates/${template_id}`)
         .then((response) => {
           commit('REMOVE_Temp', template_id)
-          console.log(response.data)
           resolve(response)
         })
         .catch((error) => { reject(error) })
@@ -182,7 +171,6 @@ export default {
     return new Promise((resolve, reject) => {
       axios.post('api/v1/templates/checkout ', (payload))
         .then((response) => {
-          console.log(response.data)
           resolve(response)
         })
         .catch((error) => { reject(error) })
@@ -192,7 +180,6 @@ export default {
     return new Promise((resolve, reject) => {
       axios.post('api/v1/templates/add/cart', (payload))
         .then((response) => {
-          console.log(response.data)
           resolve(response)
         })
         .catch((error) => { reject(error) })

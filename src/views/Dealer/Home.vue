@@ -171,10 +171,9 @@ export default {
         id: this.activeCategory.id,
         page: 1,
       };
-      this.$store.dispatch("product/GetProduct", obj).then((response) => {
+      this.$store.dispatch("product/GetProduct", obj.id).then((response) => {
         // this.$vs.loading.close("#div-with-loading > .con-vs-loading");
       });
-      console.log(this.podCategory);
       this.categoryPop = false;
       // this.podcategoryPop = true
     },
@@ -184,7 +183,7 @@ export default {
         page: 1,
       };
       this.$store
-        .dispatch("product/GetProduct", obj)
+        .dispatch("product/GetProduct", obj.id)
       this.podcategoryPop = false;
     },
     AddCart() {
@@ -192,7 +191,6 @@ export default {
       this.toggleDataSidebar(true);
     },
     toggleDataSidebar(val = false) {
-      this.$store.dispatch("product/GetCart");
       setTimeout(() => this.$store.dispatch("product/GetCart"), 500);
       this.PopUp = val;
     },
@@ -215,7 +213,6 @@ export default {
       { params: { page: obj.page  } }
       ).then(res => {
         this.$store.commit("product/Pagination", res.data)
-        console.log(res, 'mana');
       })
         console.log(target, 'target')
         const ul = target.offsetParent;

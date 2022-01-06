@@ -243,7 +243,8 @@ export default {
        }
     },
     IncEdit(tr) {
-      this.incProductId = tr.product_id
+      if(this.incQuan){
+              this.incProductId = tr.product_id
       this.$store
         .dispatch("product/AddCart", {
           user_id: parseInt(localStorage.getItem("Id")),
@@ -273,6 +274,7 @@ export default {
         //   });
           // this.$store.dispatch("product/GetCart");
         // });
+      }
     },
   },
   created() {
