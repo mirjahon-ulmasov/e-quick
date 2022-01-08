@@ -3,7 +3,7 @@ import { AclInstaller, AclCreate, AclRule } from 'vue-acl'
 import router from '@/router'
 
 Vue.use(AclInstaller)
-let initialRole = 'admin'
+let initialRole = 'editor'
 if (localStorage.getItem('UserInfo')) {
   initialRole = localStorage.getItem('UserInfo')
 }

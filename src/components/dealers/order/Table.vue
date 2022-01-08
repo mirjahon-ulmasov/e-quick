@@ -19,12 +19,12 @@
       :data="orders"
     >
       <template slot="thead">
-        <vs-th sort-key="order_number">{{ $t('journal.offerNum') }}</vs-th>
-        <vs-th sort-key="total_product">{{ $t('journal.quantity') }}</vs-th>
-        <vs-th sort-key="date_ordered">{{ $t('journal.date') }}</vs-th>
-        <vs-th sort-key="status">{{ $t('journal.status') }}</vs-th>
-        <vs-th sort-key="total_price">{{ $t('journal.d') }}</vs-th>
-        <vs-th sort-key="delivery_date">{{ $t('journal.price') }}</vs-th>
+        <vs-th sort-key="order_number">{{ $t("journal.offerNum") }}</vs-th>
+        <vs-th sort-key="total_product">{{ $t("journal.quantity") }}</vs-th>
+        <vs-th sort-key="date_ordered">{{ $t("journal.date") }}</vs-th>
+        <vs-th sort-key="status">{{ $t("journal.status") }}</vs-th>
+        <vs-th sort-key="total_price">{{ $t("journal.d") }}</vs-th>
+        <vs-th sort-key="delivery_date">{{ $t("journal.price") }}</vs-th>
         <!-- <vs-th sort-key="Категория">Действие</vs-th> -->
       </template>
 
@@ -56,15 +56,74 @@
               </p>
             </vs-td>
             <vs-td>
-              <vs-chip v-if="tr.status === 0" class="status">
-                <span style="font-size: 11px; color: #ffffff"> {{ $t('journal.status1') }}</span>
+              <!-- Draft -->
+              <vs-chip v-show="tr.status === 0" class="status">
+                <span style="font-size: 11px; color: #ffffff">
+                  {{ $t("journal.status1") }}</span
+                >
               </vs-chip>
+              <!-- SENT_TO_TRADEHOUSE -->
               <vs-chip
                 style="background: rgb(49, 183, 120) !important"
                 v-if="tr.status === 1"
                 class="status"
               >
-                <span style="font-size: 11px; color: #ffffff"> {{ $t('journal.status2') }}d </span>
+                <span style="font-size: 11px; color: #ffffff">
+                  {{ $t("journal.status2") }}
+                </span>
+              </vs-chip>
+              <!-- IN_PROGRESS -->
+              <vs-chip v-show="tr.status === 2" class="status" style="background: rgb(49, 183, 120) !important" >
+                <span style="font-size: 11px; color: #ffffff">
+                  {{ $t("journal.status5") }}
+                </span>
+              </vs-chip>
+              <!-- ACCESS_TO_SHIPMENT  -->
+              <vs-chip v-show="tr.status === 3" class="status" style="background: rgb(49, 183, 120) !important" >
+                <span style="font-size: 11px; color: #ffffff">
+                  {{ $t("journal.status6") }}
+                </span>
+              </vs-chip>
+                <!-- CANCEL_ORDER = 4 -->
+              <vs-chip v-show="tr.status === 4" class="status">
+                <span style="font-size: 11px; color: #ffffff">
+                  {{ $t("journal.status4") }}
+                </span>
+              </vs-chip>
+               <!-- PARTIALLY_CLOSED -->
+              <vs-chip v-show="tr.status === 5" class="status" style="background: rgb(49, 183, 120) !important" >
+                <span style="font-size: 11px; color: #ffffff">
+                  {{ $t("journal.status7") }}
+                </span>
+              </vs-chip>
+              <!-- CLOSED  -->
+              <vs-chip
+                style="background: rgb(49, 183, 120) !important"
+                v-show="tr.status === 6"
+                class="status"
+              >
+                <span style="font-size: 11px; color: #ffffff">
+                  {{ $t("journal.status8") }}
+                </span>
+              </vs-chip>
+              <!-- ORDER_CREATED = 7
+               SENT_TO_SAVDO = 8
+               FAILED_SENT_TO_SAVDO = 9
+               FAILED_PRODUCT_SAVDO = 10
+               FAILED_DEALER_SAVDO = 11  -->
+              <vs-chip
+                v-show="
+                  tr.status === 7 ||
+                  tr.status === 8 ||
+                  tr.status === 9 ||
+                  tr.status === 10 ||
+                  tr.status === 11
+                "
+                class="status"
+              >
+                <span style="font-size: 11px; color: #ffffff">
+                  {{ $t("journal.status3") }}
+                </span>
               </vs-chip>
             </vs-td>
             <vs-td> {{ tr.total_price }} <span class="ml-1">Sum</span> </vs-td>
@@ -86,7 +145,7 @@ import Order from "./OrderItem.vue";
 export default {
   computed: {
     orders() {
-      return this.$store.state.product.orders
+      return this.$store.state.product.orders;
     },
     currentPage() {
       if (this.isMounted) {
@@ -110,20 +169,6 @@ export default {
     PopUp: false,
     activePrompt: false,
     edit: null,
-    headerTitle: [
-      "Заявка",
-      "Кол.во продукта",
-      "Дата",
-      "Сумма(в сум)",
-      "Дата (доставки)",
-    ],
-    headerVal: [
-      "order_number",
-      "total_product",
-      "date_ordered",
-      "total_price",
-      "delivery_date",
-    ],
     editProp: {},
     datas: [],
     isMounted: false,
@@ -141,9 +186,9 @@ export default {
       this.$store.dispatch("product/GetOrderItem", id).then((response) => {
         this.PopUpData = response.data;
       });
-     setTimeout(() => {
+      setTimeout(() => {
         this.toggleDataSidebar(true);
-     }, 200);
+      }, 200);
     },
     toggleDataSidebar(val = false) {
       this.$store.dispatch("product/GetOrder");
@@ -151,33 +196,34 @@ export default {
     },
     exportToExcel() {
       this.$vs.loading({
-        type: 'sound',
-        text: 'Iltimos kuting !',
-        color: 'rgb(62, 97, 121)'
-      })
+        type: "sound",
+        text: "Iltimos kuting !",
+        color: "rgb(62, 97, 121)",
+      });
       const payload = {
         user_id: parseInt(localStorage.getItem("Id")),
         orders_ids: this.selected.map((x) => x.id),
         export_type: "xlsx",
       };
-      this.$store.dispatch("product/GetFile", payload)
-      .then(res => {
-        this.$vs.loading.close()
-        const url = URL.createObjectURL(new Blob([res.data], {
-        type: 'application/xml',
-       })
-       )
-    const link = document.createElement('a')
-    link.href = url
-    link.setAttribute('download', 'OrdersList.xlsx')
-    document.body.appendChild(link)
-    link.click()
-      })
-             .catch(err => {
-         console.log(err)
-         this.$vs.loading.close()
-       })
-      
+      this.$store
+        .dispatch("product/GetFile", payload)
+        .then((res) => {
+          this.$vs.loading.close();
+          const url = URL.createObjectURL(
+            new Blob([res.data], {
+              type: "application/xml",
+            })
+          );
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", "OrdersList.xlsx");
+          document.body.appendChild(link);
+          link.click();
+        })
+        .catch((err) => {
+          console.log(err);
+          this.$vs.loading.close();
+        });
     },
   },
   mounted() {
