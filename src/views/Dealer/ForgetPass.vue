@@ -6,7 +6,7 @@
         src="@/assets/dealer/img/svg/login/logo.png"
         alt=""
       />
-      <h2 class="text">Сброс пароля</h2>
+      <h2 class="text">{{ $t('auth.rePass') }}</h2>
       <input
         @keypress.enter="Reset"
         v-show="sended == false"
@@ -29,7 +29,7 @@
         v-validate="'required|min:5|max:5'"
         type="password"
         name="code"
-        placeholder="Введите полученный код"
+        :placeholder="$t('auth.typeCode')"
         v-model="code"
         class="custom-input2"
       />
@@ -38,10 +38,10 @@
         </span> -->
       <div v-show="code1" style="justify-content: space-between" class="row">
         <router-link :to="''"
-          >You not reseve your verification code?
+          >{{ $t('auth.notSend') }}
         </router-link>
         <a style="color: #22292f; text-decoration: underline" @click="ReSend()">
-          Resend code
+          {{ $t('auth.reSend') }}
         </a>
       </div>
       <input
@@ -52,7 +52,7 @@
         type="password"
         name="password"
         ref="password"
-        placeholder="Новый пароль"
+        :placeholder="$t('auth.newPass')"
         v-model="password"
         class="custom-input3"
       />
@@ -64,7 +64,7 @@
         type="password"
         name="confirm"
         autocomplete="off"
-        placeholder="подтвердите пароль"
+        :placeholder="$t('auth.confirmPass')"
         data-vv-as="password"
         v-model="confirm_password"
         class="custom-input4"
@@ -75,7 +75,7 @@
       >
         {{ errors.first("confirm") }}
       </span>
-      <vs-button @click="Reset()" class="submit-btn">Отправить</vs-button>
+      <vs-button @click="Reset()" class="submit-btn">{{ $t('auth.send') }}</vs-button>
       <!-- <div class="row">
                 <router-link :to="'/login'" >Login</router-link>
 
@@ -115,7 +115,7 @@ export default {
         .then((response) => {
           this.$vs.notify({
             title: "OK",
-            text: "Code sended your email",
+            text: this.$t('auth.sended'),
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "success",
@@ -146,7 +146,7 @@ export default {
             .then((response) => {
               this.$vs.notify({
                 title: "OK",
-                text: "Code sended your email",
+                text: this.$t('auth.sended'),
                 iconPack: "feather",
                 icon: "icon-alert-circle",
                 color: "success",
@@ -168,7 +168,7 @@ export default {
         } else {
           this.$vs.notify({
             title: "Error",
-            text: "Fill the form correctly",
+            text: this.$t('auth.fillCorrect'),
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "danger",
@@ -208,7 +208,7 @@ export default {
         } else {
           this.$vs.notify({
             title: "Error",
-            text: "Fill the form correctly",
+            text: this.$t('auth.fillCorrect'),
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "danger",
@@ -249,7 +249,7 @@ export default {
         } else {
           this.$vs.notify({
             title: "Error",
-            text: "Fill the form correctly",
+            text: this.$t('auth.fillCorrect'),
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "danger",

@@ -4,7 +4,17 @@ export default {
     auth: {
       login: 'Tizimga kirish',
       parol: 'Maxfiy so’z ',
-      forget: 'Maxfiy so’zni unutdingizmi? '
+      forget: 'Maxfiy so’zni unutdingizmi? ',
+      kirish: 'Kirish',
+      send: 'Yuborish',
+      typeCode: 'Qabul qilingan kodni kiriting',
+      sended: 'Tasdiqlash kodi emailingizga yuborildi',
+      notSend: 'Tasdiqlash qilish kodi kelmadimi ? ',
+      rePass: 'Parolni qayta tiklash',
+      reSend: 'Kodni qayta yuborish',
+      newPass: 'Yangi parol',
+      confirmPass: 'Parolni tasdiqlang',
+      fillCorrect: `Iltimos formani to'g'ri to'ldiring`
     },
     xato: 'Agar xato bo’lsa, qo’llab-quvvatlash xizmatiga murojaat qiling',
     cart: {
@@ -89,7 +99,17 @@ export default {
     auth: {
       login: 'Логин',
       parol: 'Пароль',
-      forget: 'Забыли пароль?'
+      forget: 'Забыли пароль?',
+      kirish: 'Войти',
+      send: 'Отправлять',
+      typeCode: 'Введите полученный код',
+      sended: 'Код подтверждения был отправлен на вашу электронную почту',
+      notSend: 'Не получили код подтверждения? ',
+      rePass: 'Сброс пароля',
+      reSend: 'Отправить код еще раз',
+      newPass: 'новый пароль',
+      confirmPass: 'Подтвердите пароль',
+      fillCorrect: `Пожалуйста, заполните форму правильно`
     },
     xato: 'Если нашли ошибку, обратитесь в службу поддержки',
     cart: {

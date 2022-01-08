@@ -93,7 +93,7 @@
                <!-- PARTIALLY_CLOSED -->
               <vs-chip v-show="tr.status === 5" class="status" style="background: rgb(49, 183, 120) !important" >
                 <span style="font-size: 11px; color: #ffffff">
-                  {{ $t("journal.status7") }}
+                  {{ $t("journal.status7") }} 
                 </span>
               </vs-chip>
               <!-- CLOSED  -->
