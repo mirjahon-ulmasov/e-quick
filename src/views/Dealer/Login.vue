@@ -15,8 +15,13 @@
         class="custom-input"
         type="text"
       />
-      <span class="text-danger text-sm flex justify-content-flex-end mt-2 ml-2"
-        >{{ errors.first("username") }}
+      <span v-if="errors.first('username') === 'The username field must be at least 3 characters'" class="text-danger text-sm flex justify-content-flex-end mt-2 ml-2"
+        >
+        {{ $t('auth.logReqM') }}
+      </span>
+      <span v-if="errors.first('username') === 'The username field is required'" class="text-danger text-sm flex justify-content-flex-end mt-2 ml-2"
+        >
+        {{ $t('auth.logReq') }} 
       </span>
       <input
         @keypress.enter="loginJWT"
@@ -28,10 +33,15 @@
         v-model="password"
         class="custom-input1"
       />
-      <span class="text-danger flex justify-content-flex-end text-sm mt-2 ml-2">
-        {{ errors.first("password") }}
+      <span v-if="errors.first('password') === 'The password field must be at least 3 characters'" class="text-danger text-sm flex justify-content-flex-end mt-2 ml-2"
+        >
+        {{ $t('auth.passReqM') }}
       </span>
-      <vs-button @click="loginJWT" class="submit-btn">Войти</vs-button>
+      <span v-if="errors.first('password') === 'The password field is required'" class="text-danger text-sm flex justify-content-flex-end mt-2 ml-2"
+        >
+        {{ $t('auth.pasReq') }} 
+      </span>
+      <vs-button @click="loginJWT" class="submit-btn">{{ $t('auth.kirish') }}</vs-button>
       <div class="row">
         <router-link :to="'/forget-password'">{{ $t('auth.forget') }}</router-link>
       </div>
@@ -174,7 +184,7 @@ div.wrapper {
         line-height: 28px;
         color: #ffffff;
       }
-      &:nth-child(4) {
+      &:nth-child(3) {
         background-image: url("../../assets/dealer/img/icons/lock.svg");
         background-repeat: no-repeat;
         background-position: 5%;
