@@ -190,6 +190,7 @@ export default {
     this.$store.dispatch("addUser/NotisfyGet");
   },
   mounted() {
+    console.log(this.notisfy);
   },
 };
 </script>

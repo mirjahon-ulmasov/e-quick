@@ -4,6 +4,8 @@ import actions from './moduleDataListActions.js'
 import getters from './moduleDataListGetters.js'
 
 export default {
+  isRegistered: false,
+  namespaced: true,
   state,
   mutations,
   actions,
