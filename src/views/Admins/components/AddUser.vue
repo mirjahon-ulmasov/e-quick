@@ -272,9 +272,6 @@ export default {
     },
     submitCom () {
       const id = this.user.find(x => x.full_name == this.fullname).id
-      console.log(id)
-      // console.log
-      console.log(this.selected, 'list')
       const payload = {
         dealer_id: id,
         company_list: this.selected.map(x => x.id)

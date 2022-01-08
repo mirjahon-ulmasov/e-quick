@@ -157,7 +157,6 @@ export default {
               if(this.templates.length === 0){
                 this.templates = null
               }
-              console.log(this.templates, 'sdjdjd')
       } );
     },
     toggleDataSidebar(val = false) {
@@ -166,7 +165,6 @@ export default {
   },
   created() {
     this.$store.dispatch("product/GetTemplates");
-    console.log(this.templates, "chiq");
     //  this.$store.dispatch('product/GetTemplatesItem')
   },
   mounted() {

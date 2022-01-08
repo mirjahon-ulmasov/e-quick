@@ -98,7 +98,6 @@ export default {
   },
   // Get order exchange
   GetOrderExchange ({ commit }, item) {
-    console.log(item)
     if(item.value !== null){
       return new Promise((resolve, reject) => {
         axios.post('/api/v1/exchange', (item)

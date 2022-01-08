@@ -178,7 +178,6 @@ export default {
   },
   created() {
     this.$store.dispatch("product/GetTemplatesItem");
-    console.log(this.detail);
   },
   mounted() {
     this.$store.dispatch("product/GetTemplatesItem");

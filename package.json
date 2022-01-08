@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.24.0",
+    "compressorjs": "^1.1.1",
     "jsonwebtoken": "^8.5.1",
     "material-icons": "^0.3.1",
     "postcss-rtl": "^1.5.0",
@@ -21,6 +22,7 @@
     "vue-feather-icons": "^5.0.0",
     "vue-i18n": "^8.11.2",
     "vue-image-compressor": "^1.0.3",
+    "vue-image-upload-resize": "^2.3.0",
     "vue-perfect-scrollbar": "^0.1.0",
     "vue-router": "^3.0.6",
     "vue-select": "^3.1.0",

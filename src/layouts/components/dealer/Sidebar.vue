@@ -131,7 +131,6 @@ export default {
       localStorage.removeItem('access')
       localStorage.removeItem('UserInfo')
       this.$acl.change('editor')
-      console.log('okkk')
       this.$router.push('/login')
       window.location.reload()
     },
@@ -140,7 +139,6 @@ export default {
     },
       langUp(loc){
     this.$i18n.locale = loc
-    console.log(loc, 'mana')
     localStorage.setItem("lang", loc);
     const payload = {
       role: "dealer",

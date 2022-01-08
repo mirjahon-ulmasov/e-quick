@@ -163,7 +163,6 @@ export default {
   },
   methods: {
     getCat(data) {
-      console.log(this.activeCategory);
       this.podCategory = this.activeCategory
         ? this.activeCategory.children
         : null;
@@ -214,7 +213,6 @@ export default {
       ).then(res => {
         this.$store.commit("product/Pagination", res.data)
       })
-        console.log(target, 'target')
         const ul = target.offsetParent;
         const scrollTop = target.offsetParent.scrollTop;
         this.limit += 50;

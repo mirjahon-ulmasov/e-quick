@@ -44,10 +44,8 @@ const mutations = {
   UPDATE_USER_INFO (state, payload) {
     // Get Data localStorage
     const list = Object.assign(payload)
-    console.log(list)
     // Store data in localStorage
     localStorage.setItem('UserInfo', list.user_type)
-    console.log(localStorage.getItem('UserInfo'))
   }
 }
 

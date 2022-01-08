@@ -163,12 +163,10 @@ export default {
       this.$store.dispatch("product/GetFile", payload)
       .then(res => {
         this.$vs.loading.close()
-        console.log(res)
         const url = URL.createObjectURL(new Blob([res.data], {
         type: 'application/xml',
        })
        )
-       console.log(url)
     const link = document.createElement('a')
     link.href = url
     link.setAttribute('download', 'OrdersList.xlsx')

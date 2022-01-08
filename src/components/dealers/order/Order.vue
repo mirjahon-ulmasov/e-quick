@@ -155,6 +155,9 @@ export default {
             icon: 'icon-alert-circle',
             color: 'success'
           })
+          setTimeout(() => {
+            this.$store.dispatch("addUser/NotisfyGet");
+          }, 4000);
           // window.location.reload()
           this.$store.state.product.carts = null
         })

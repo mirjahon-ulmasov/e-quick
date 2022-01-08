@@ -222,7 +222,6 @@ export default {
       }
       this.incQuan = tr.quantity + 1
       this.incProductId = tr.product_id
-      console.log(this.incQuan, 'owdi')
       this.$store.commit('product/UPDATE_QUANTITY', quantity)
       // this.incProductId = tr.product_id;
       // this.incQuan = tr.quantity;
@@ -236,7 +235,6 @@ export default {
       }
       this.incQuan = tr.quantity - 1
       this.incProductId = tr.product_id
-      console.log(this.incQuan, 'owdi')
       this.$store.commit('product/MIN_QUANTITY', quantity)
       // this.incProductId = tr.product_id;
       // this.incQuan = tr.quantity;

@@ -492,7 +492,6 @@ export default {
   },
   mounted () {
     this.$store.dispatch('addUser/fetchDataListItems')
-    console.log(this.activeUser, 'active')
   }
 }
 </script>

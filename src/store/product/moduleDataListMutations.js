@@ -23,7 +23,7 @@ export default {
     }
   },
   REMOVE_Temp (state, template_id) {
-    const ItemIndex = state.templetes.findIndex(p => { console.log(p), p.template_id === template_id })
+    const ItemIndex = state.templetes.findIndex(p => { p.template_id === template_id })
     state.templetes.splice(ItemIndex, 1)
     if (state.templetes.length === 0) {
       state.templetes = null

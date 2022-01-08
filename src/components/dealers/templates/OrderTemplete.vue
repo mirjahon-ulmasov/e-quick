@@ -184,6 +184,9 @@ export default {
               color: "success",
             });
             // window.location.reload()
+          setTimeout(() => {
+            this.$store.dispatch("addUser/NotisfyGet");
+          }, 4000);
           })
           .catch((err) => {
             this.$vs.notify({

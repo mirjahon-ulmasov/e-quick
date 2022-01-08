@@ -113,7 +113,6 @@ export default {
           email: this.email,
         })
         .then((response) => {
-          console.log(response);
           this.$vs.notify({
             title: "OK",
             text: "Code sended your email",
@@ -145,7 +144,6 @@ export default {
               email: this.email,
             })
             .then((response) => {
-              console.log(response);
               this.$vs.notify({
                 title: "OK",
                 text: "Code sended your email",
@@ -184,7 +182,6 @@ export default {
               code: this.code,
             })
             .then((response) => {
-              console.log(response);
               this.userId = response.data.user_id;
               this.$vs.notify({
                 title: "OK",
@@ -226,7 +223,6 @@ export default {
               user_id: this.userId,
             })
             .then((response) => {
-              console.log(response);
               this.$vs.notify({
                 title: "OK",
                 text: response.data.message,

@@ -74,7 +74,6 @@ export default {
         .get("https://ipinfo.io/195.158.4.138?token=b717c9d541b33e")
         .then((response) => {
           this.region = response.data.region;
-          console.log(response, "loca");
         });
     },
     Currency() {
@@ -92,7 +91,6 @@ export default {
     Weathers: async function () {
       const Current = `https://api.weatherapi.com/v1/current.json?key=8820a279f8d041ac96043919211412&q=${this.region}&aqi=yes`;
       axios.get(Current).then((response) => {
-        console.log(response, "weaher");
         this.weather = Math.round(response.data.current.temp_c);
       });
     },

@@ -15,7 +15,6 @@ export default {
     return new Promise((resolve, reject) => {
       axios.get('/api/v1/users')
         .then((response) => {
-          console.log(response)
           commit('SET_User', response.data)
           resolve(response)
         })
@@ -56,7 +55,6 @@ export default {
       return new Promise((resolve, reject) => {
         axios.get(`/api/v1/users/${id}`)
           .then((response) => {
-            console.log(response)
             commit('SET_UserById', response.data)
             resolve(response)
           })
@@ -68,7 +66,6 @@ export default {
       return new Promise((resolve, reject) => {
         axios.get(`/api/v1/notifications/${localStorage.getItem('Id')}`)
           .then((response) => {
-            console.log(response)
             commit('SET_Notisfy', response.data)
             commit('SET_notseen', response.data)
             resolve(response)
@@ -80,7 +77,6 @@ export default {
       return new Promise((resolve, reject) => {
         axios.put(`/api/v1/notifications/seen/${id}`)
           .then((response) => {
-            console.log(response)
             commit('SET_Notisfy', response.data)
             resolve(response)
           })
@@ -109,7 +105,6 @@ NotisfyDelete ({ commit }, id) {
     return new Promise((resolve, reject) => {
       axios.post(`/api/v1/users/review`, (payload))
         .then((response) => {
-          console.log(response)
           resolve(response)
         })
         .catch((error) => { reject(error) })

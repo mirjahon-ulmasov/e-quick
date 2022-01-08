@@ -481,7 +481,6 @@ export default {
   },
   methods: {
     getUser (id) {
-      console.log(id)
       this.activeUser = this.company.find(x => x.id === id)
     },
     addNewData () {

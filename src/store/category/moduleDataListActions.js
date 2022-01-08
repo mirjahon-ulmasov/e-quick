@@ -2,7 +2,7 @@ import axios from '@/axios.js'
 
 export default {
   // Get Categories by dealer Id
-  GetItem ({ commit }, item) {
+   GetItem ({ commit }, item) {
     return new Promise((resolve, reject) => {
       axios.get(`/api/v1/company_group/dealer/${  localStorage.getItem('Id')}`)
         .then((response) => {

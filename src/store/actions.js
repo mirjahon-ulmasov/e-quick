@@ -43,7 +43,6 @@ const actions = {
   updateUserRole ({ dispatch }, payload) {
     // Change client side
     payload.aclChangeRole(payload)
-    console.log(payload)
     dispatch('updateUserInfo', {userRole: payload})
   }
 }

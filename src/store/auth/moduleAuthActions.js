@@ -7,7 +7,6 @@ export default {
     return new Promise((resolve, reject) => {
       jwt.login(payload.userDetails.username, payload.userDetails.password)
         .then(response => {
-          console.log(response)
           if (response) {
             // Decode jwt token
             function parseJwt (token) {
@@ -34,7 +33,6 @@ export default {
 
             //  User Info
             const userInfo = parseJwt(response.data.access_token)
-            console.log(userInfo, 'manana')
             // Set userId
             localStorage.setItem('Id', userInfo.id)
             // Set userRole in mutations
@@ -54,7 +52,6 @@ export default {
       axios.get(`/api/v1/users/${ localStorage.getItem('Id')}`)
         .then((response) => {
           commit('SetInfo', response.data)
-          console.log(response)
           resolve(response)
         })
         .catch((error) => { reject(error) })

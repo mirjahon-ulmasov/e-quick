@@ -49,7 +49,6 @@ export default {
     }
   },
   mounted () {
-    // console.log(env.VUE_APP_ROOT_API, 'korsat')
     this.toggleClassInBody(themeConfig.theme)
     this.$store.commit('UPDATE_WINDOW_WIDTH', window.innerWidth)
 
