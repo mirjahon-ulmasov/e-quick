@@ -36,14 +36,14 @@
                     <feather-icon
               @click="showPassword1 = !showPassword1"
                   :icon="showPassword1 ? 'EyeIcon' : 'EyeOffIcon'"
-                  style="color: #ffffff !important; margin-left: 305px !important; margin-top: -53px;"
+                  style="color: #ffffff !important; margin-left: 315px !important; margin-top: -53px;"
                   svgClasses="h-7 w-7"
                 />
-      <span v-if="errors.first('password') === 'The password field must be at least 3 characters'" class="text-danger text-sm flex justify-content-flex-end mt-2 ml-2"
+      <span v-if="errors.first('password') === 'The password field must be at least 3 characters'" class="text-danger text-sm flex justify-content-flex-end mt-8 ml-2"
         >
         {{ $t('auth.passReqM') }}
       </span>
-      <span v-if="errors.first('password') === 'The password field is required'" class="text-danger text-sm flex justify-content-flex-end mt-2 ml-2"
+      <span v-if="errors.first('password') === 'The password field is required'" class="text-danger text-sm flex justify-content-flex-end mt-8 ml-2"
         >
         {{ $t('auth.pasReq') }} 
       </span>
@@ -202,7 +202,7 @@ div.wrapper {
     button.submit-btn {
       margin: 15px;
       width: 100%;
-      margin-top: 45px !important;
+      margin-top: 40px !important;
       border: none;
       outline: none;
       cursor: pointer;

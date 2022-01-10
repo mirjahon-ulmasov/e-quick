@@ -109,6 +109,17 @@ export default {
       })
     }
   },
+    //  Order Cart items
+    OrderResend ({ commit }, item) {
+      return new Promise((resolve, reject) => {
+        axios.post('/api/v1/orders/resend', (item))
+          .then((response) => {
+            // commit('UPDATE_PRODUCT', response.data)
+            resolve(response)
+          })
+          .catch((error) => { reject(error) })
+      })
+    },
   // Post templates list
   PostTemplates ({ commit }, payload) {
     return new Promise((resolve, reject) => {

@@ -89,14 +89,19 @@
         <h2 class="text">{{ $t('cart.total_price') }}</h2>
         <h1 class="prise" v-if="carts" >{{ Number(carts.total_price).toLocaleString("de-DE") }} сум</h1>
       </div>
-      <!-- <div class="flex mt-4">
-                  <vs-button @click="isSidebarActiveLocal = false" class="submit">
-                      Сохранить
+      <div         v-if="
+                  carts.status === 8 ||
+                  carts.status === 9 ||
+                  carts.status === 10 ||
+                  carts.status === 11"
+                class="flex mt-5 " style="justify-content: center">
+                  <vs-button @click="isSidebarActiveLocal = false" class="cancel" >
+                      {{ $t('cart.close') }}
                   </vs-button>
-                    <vs-button @click="isSidebarActiveLocal = false" class="cancel" >
-                      Закрыть
+                  <vs-button @click="OrderResend()" class="submit">
+                      {{ $t('cart.resend') }}
                   </vs-button>
-              </div> -->
+              </div>
     </vs-popup>
   </div>
 </template>
@@ -132,6 +137,37 @@ export default {
       },
     },
   },
+  methods: {
+    OrderResend(){
+      const payload = {
+        user_id: parseInt(localStorage.getItem('Id')),
+        order_id: this.carts.id
+      }
+      this.$store.dispatch('product/OrderResend', payload)
+      .then(response => {
+          this.$vs.notify({
+            text: this.$t('cart.successOffer'),
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'success'
+          })
+          setTimeout(() => {
+            this.$store.dispatch("addUser/NotisfyGet");
+          }, 4000);
+          // window.location.reload()
+          this.$store.state.product.carts = null
+        })
+          .catch(err => { 
+            this.$vs.notify({
+              text: err,
+              iconPack: 'feather',
+              icon: 'icon-alert-circle',
+              color: 'danger'
+            })
+            console.error(err) 
+          })
+    }
+  },
   created() {
     this.$store.dispatch("product/GetOrderItem");
   },
@@ -160,7 +196,8 @@ export default {
 }
 .submit {
   width: 205px;
-  margin-left: 18%;
+  margin-left: 4%;
+   padding: 12px !important;
   background: linear-gradient(
     99.52deg,
     #3f4f61 -14.96%,
@@ -168,11 +205,18 @@ export default {
   ) !important;
   border-radius: 6.87619px !important;
 }
+.submit:hover{
+  box-shadow: none !important;
+}
 .cancel {
+  padding: 12px  !important;
   width: 205px !important;
   margin-left: 10px !important;
   background: linear-gradient(90deg, #5e585c 0%, #000000 100%) !important;
   border-radius: 5.9434px !important;
+}
+.cancel:hover{
+  box-shadow: none !important;
 }
 .itogo {
   margin-left: 20%;
