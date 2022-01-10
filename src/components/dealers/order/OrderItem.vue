@@ -154,8 +154,6 @@ export default {
           setTimeout(() => {
             this.$store.dispatch("addUser/NotisfyGet");
           }, 4000);
-          // window.location.reload()
-          this.$store.state.product.carts = null
         })
           .catch(err => { 
             this.$vs.notify({

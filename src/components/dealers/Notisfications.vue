@@ -35,7 +35,7 @@
                   />
                 </svg>
                 <span class="ok">
-                  <span>{{ notis.created_at.slice(0,10) }}</span> <span class="ml-4" >{{ notis.created_at.slice(11,18) }}</span>
+                  <span>{{ notis.created_at.slice(0,10) }}</span> <span class="ml-4" >{{ notis.created_at.slice(11,16) }}</span>
                 </span>
               </div>
               <p class="tex">
@@ -187,9 +187,6 @@ export default {
   created() {
     this.$store.dispatch("auth/DealerInfo");
     this.$store.dispatch("addUser/NotisfyGet");
-  },
-  mounted() {
-    console.log(this.notisfy);
   },
 };
 </script>

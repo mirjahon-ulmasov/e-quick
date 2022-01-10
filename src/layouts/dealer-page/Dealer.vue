@@ -1,13 +1,12 @@
 <template>
     <div class="wrapper" >
-      <SideBar  :style="active ? 'display: none !important; transition: 0.3s;' : 'width: 16% !important; transition: 0.3s;' "  />
-       <div class="container1" :style="active ? 'width: 100% !important' : 'width: 84% !important' " >
+      <SideBar :class="active ? 'sideNone' : 'side'"  />
+       <div :class="active ? 'container2' : 'container1'" >
               <transition :name="routerTransition" mode="out-in">
-                <router-view @setAppClasses="(classesStr) => $emit('setAppClasses', classesStr)" />
+                <router-view  />
               </transition>
        </div>
-      <div class="close-side"
-        :style="active ? 'left: 0.6%;background: #3e586d;width: 33px;' : 'left: 16.4%;background: #3e6179;width: 63px;' "
+      <div class="close-side" :class="active ? 'close-side' : 'close-side-none'"
        @click="active=!active" 
       >
       <img src="@/assets/dealer/img/icons/arrow.svg" v-if="!active"  style="color: #cfcfcf; border-radius: 2px; margin-right: 5px" class="cursor-pointer" alt="cvxzv">
@@ -65,21 +64,51 @@ div.wrapper{
     background: linear-gradient(99.52deg, #3F4F61 -14.96%, #3A9FD1 156.83%);
     display: flex;
     justify-content: center;
-    // transition: margin-left 0.5s;
+    transition: all 0.3s ease-in;
     align-items: center;
     div.container1{
-    // width: 80% !important;
+    width: 84% !important;
     height: 100%;
     padding: 0px !important;
     margin-right: 0;
-    transition: margin-left 0.5s;
     // margin-left: 0;
     background: white;
     display: flex;
-    // flex-direction: column;
     justify-content: center;
     border-radius: 35px;
     justify-content: flex-start;
+  transition: width 0.3s ease-in;
+    }
+  div.container2{
+    width: 100% !important;
+    height: 100%;
+    padding: 0px !important;
+    margin-right: 0;
+    background: white;
+    display: flex;
+    justify-content: center;
+    border-radius: 35px;
+    justify-content: flex-start;
+  transition: width 0.3s ease-in;
+    }
+    .close-side{
+      left: 0.6%;
+      background: #3e586d;width: 33px;
+      transition: all 0.2s ease-in;
+    }
+    .close-side-none{
+      left: 16.4%;
+      background: #3e6179;width: 63px;
+      transition: all 0.2s ease-in;
+    }
+    .sideNone{
+      display: none !important; 
+transition: width 0.5s ease 0s;
+
+    }
+    .side{
+      width: 16% !important; 
+transition: all 0.5s ease 0s;
     }
 }
 </style>
