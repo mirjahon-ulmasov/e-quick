@@ -160,7 +160,7 @@ router.afterEach(() => {
 router.beforeEach((to, from, next) => {
   const publicPages = ['/login', '/forget-password']
   const authRequired = !publicPages.includes(to.path)
-  const loggedIn = localStorage.getItem('UserInfo')
+  const loggedIn = localStorage.getItem('access')
   if (authRequired && !loggedIn) {
     !publicPages
     return next('/login')

@@ -1,4 +1,5 @@
 export default {
 // user
-  info: []
+  info: [],
+  usertype: null,
 }

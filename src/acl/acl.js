@@ -4,8 +4,32 @@ import router from '@/router'
 
 Vue.use(AclInstaller)                     
 let initialRole = 'editor'
-if (localStorage.getItem('UserInfo')) {
-  initialRole = localStorage.getItem('UserInfo')
+if (localStorage.getItem('access')) {
+  function parseJwt (token) {
+    try {
+      // Get Token Header
+      const base64HeaderUrl = token.split('.')[0]
+      const base64Header = base64HeaderUrl.replace('-', '+').replace('_', '/')
+      const headerData = JSON.parse(window.atob(base64Header))
+  
+      // Get Token payload and date's
+      const base64Url = token.split('.')[1]
+      const base64 = base64Url.replace('-', '+').replace('_', '/')
+      const dataJWT = JSON.parse(window.atob(base64))
+      dataJWT.header = headerData
+  
+      // TODO: add expiration at check ...
+  
+  
+      return dataJWT
+    } catch (err) {
+      return false
+    }
+  }
+
+  //  User Info
+  const userInfo = parseJwt(localStorage.getItem('access'))
+  initialRole = userInfo.user_type
 }
 export default new AclCreate({
   initial  : initialRole,

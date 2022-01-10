@@ -79,13 +79,14 @@ export default {
         this.$store
           .dispatch("auth/loginJWT", payload)
           .then(() => {
-            this.$acl.change(localStorage.getItem("UserInfo"));
+            this.$acl.change(this.$store.state.userType);
+            const user = this.$store.state.userType
             this.$vs.loading.close();
-            if (localStorage.getItem("UserInfo") == "dealer") {
+            if (user === "dealer") {
               this.$router.push("/");
-            } else if (localStorage.getItem("UserInfo") == "super_admin") {
+            } else if (user == "super_admin") {
               this.$router.push("/attechments");
-            } else if (localStorage.getItem("UserInfo") == "admin") {
+            } else if (user == "admin") {
               this.$router.push("/user");
             }
           })
