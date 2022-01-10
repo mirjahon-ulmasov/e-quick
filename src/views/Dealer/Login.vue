@@ -23,16 +23,22 @@
         >
         {{ $t('auth.logReq') }} 
       </span>
-      <input
+        <input
         @keypress.enter="loginJWT"
         v-validate="'required|min:3'"
-        type="password"
+        :type="[showPassword1 ? 'text' : 'password']"
         name="password"
         autocomplete="off"
         :placeholder="$t('auth.parol')"
         v-model="password"
-        class="custom-input1"
+        class="custom-input1 ml-0 mr-0"
       />
+                    <feather-icon
+              @click="showPassword1 = !showPassword1"
+                  :icon="showPassword1 ? 'EyeIcon' : 'EyeOffIcon'"
+                  style="color: #ffffff !important; margin-left: 305px !important; margin-top: -53px;"
+                  svgClasses="h-7 w-7"
+                />
       <span v-if="errors.first('password') === 'The password field must be at least 3 characters'" class="text-danger text-sm flex justify-content-flex-end mt-2 ml-2"
         >
         {{ $t('auth.passReqM') }}
@@ -57,6 +63,7 @@ export default {
       password: "",
       checkbox_remember_me: false,
       progress: 0,
+      showPassword1: false
     };
   },
   computed: {
@@ -157,7 +164,7 @@ div.wrapper {
         background-position: 5%;
         background-size: 7%;
       }
-      input.custom-input1:nth-child(3) {
+      input.custom-input1:nth-child(4) {
         background-image: url("../../assets/dealer/img/icons/lock.svg");
         background-repeat: no-repeat;
         background-position: 5%;
@@ -195,6 +202,7 @@ div.wrapper {
     button.submit-btn {
       margin: 15px;
       width: 100%;
+      margin-top: 45px !important;
       border: none;
       outline: none;
       cursor: pointer;

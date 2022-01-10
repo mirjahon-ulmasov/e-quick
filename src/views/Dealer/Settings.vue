@@ -97,37 +97,60 @@
       <div class="col">
         <p class="title">{{ $t("profile.password") }}</p>
         <p class="sub-title">{{ $t("profile.curemail") }} - {{ info.email }}</p>
-        <input
-         v-if="password === ''"
+       <div class="flex" v-if="password === ''" >
+       <input
           class="custom-input"
           v-model="old_password"
-          :placeholder="$t('profile.old')"
+          :type="[showPassword1 ? 'text' : 'password']"
           name="oldpassword"
-          type="password"
+          :placeholder="$t('profile.new')"
         />
+              <feather-icon
+              @click="showPassword1 = !showPassword1"
+                  :icon="showPassword1 ? 'EyeIcon' : 'EyeOffIcon'"
+                  style="color: #135c81 !important; margin-left: -45px !important; margin-top: -8px;"
+                  svgClasses="h-7 w-7"
+                />
+       </div>
         <div 
         v-else
         style="display: flex; flex-direction: column"
          >
-          <input
+       <div class="flex" >
+                 <input
           class="custom-input"
           v-model="old_password"
-          :placeholder="$t('profile.old')"
           name="oldpassword"
-          type="password"
           v-validate="'min:3|required'"
+          :type="[showPassword1 ? 'text' : 'password']"
+          :placeholder="$t('profile.old')"
         />
+              <feather-icon
+              @click="showPassword1 = !showPassword1"
+                  :icon="showPassword1 ? 'EyeIcon' : 'EyeOffIcon'"
+                  style="color: #135c81 !important; margin-left: -45px !important; margin-top: -8px;"
+                  svgClasses="h-7 w-7"
+                />
+       </div>
         <span class="text-danger text-sm" v-show="errors.has('oldpassword')">{{
           errors.first("oldpassword")
         }}</span>
         </div>
-        <input
+       <div class="flex">
+                 <input
           class="custom-input"
           v-model="password"
-          type="password"
+          :type="[showPassword2 ? 'text' : 'password']"
           ref="password"
           :placeholder="$t('profile.new')"
         />
+              <feather-icon
+              @click="showPassword2 = !showPassword2"
+                  :icon="showPassword2 ? 'EyeIcon' : 'EyeOffIcon'"
+                  style="color: #135c81 !important; margin-left: -45px !important; margin-top: -8px;"
+                  svgClasses="h-7 w-7"
+                />
+       </div>
       </div>
       <div class="col">
         <p class="title">{{ $t("profile.notis") }}</p>
@@ -175,6 +198,8 @@ export default {
       surname: "",
       email: "",
       password: "",
+      showPassword1: false,
+      showPassword2: false,
       old_password: "",
       message: "",
       rating: 4,
@@ -348,9 +373,6 @@ export default {
     setTimeout(() => this.user(), 500);
     this.$store.dispatch("auth/DealerInfo");
   },
-  updated(){
-    console.log(this.quality1);
-  }
 };
 </script>
 
