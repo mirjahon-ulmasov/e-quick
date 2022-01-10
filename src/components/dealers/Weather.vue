@@ -153,7 +153,7 @@ export default {
         display: flex;
     flex-direction: column;
     .flex {
-          margin-top: -6px;
+          margin-top: -7px;
       justify-content: center;
       align-items: center;
     }

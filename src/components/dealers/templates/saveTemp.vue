@@ -63,8 +63,8 @@ export default {
         .dispatch("product/PostTemplates", payload)
         .then((response) => {
           this.$vs.notify({
-            title: "Created",
-            text: "Ok",
+            title: 'OK',
+            text: this.$t('created'),
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "success",

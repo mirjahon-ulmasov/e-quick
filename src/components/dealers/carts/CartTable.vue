@@ -193,8 +193,7 @@ export default {
       this.$store.dispatch("product/DeleteCartItem", id).then((response) => {
         this.$store.dispatch("product/GetCart");
               this.$vs.notify({
-                title: "OK",
-                text: "Deleted",
+                text: this.$t('delete'),
                 iconPack: "feather",
                 icon: "icon-alert-circle",
                 color: "success",

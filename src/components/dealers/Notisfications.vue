@@ -137,7 +137,7 @@ export default {
         .dispatch("addUser/NotisfySeenAll")
         .then((res) => {
           this.$vs.notify({
-            title: "Seen",
+            title: this.$t('seen'),
             text: "ok",
             iconPack: "feather",
             icon: "icon-check-circle",
@@ -161,8 +161,7 @@ export default {
         .dispatch("addUser/NotisfyDelete", id)
         .then((res) => {
           this.$vs.notify({
-            title: "Delete",
-            text: "ok",
+            text: this.$t('delete'),
             iconPack: "feather",
             icon: "icon-check-circle",
             color: "success",

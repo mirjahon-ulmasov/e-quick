@@ -25,6 +25,11 @@ export default {
     conver: 'Valyuta konvertori',
     whs: 'WHS qoldiqlari',
     notisSeen: `Barcha bildirishnomalarni ko'rish`,
+    delete: `O'chirildi`,
+    created: 'Yaratildi',
+    updated: `Yangilandi`,
+    success: 'Muvafaqiyatli',
+    seen: `Ko'rildi`,
     cart: {
       title: 'Buyurtma berish',
       category: 'Turini tanlang',
@@ -72,7 +77,9 @@ export default {
       status7: 'Zakaz qisman qabul qilindi',
       status8: 'Buyurtma amalga oshirildi',
       d: 'Yetkazib berish sanasi',
-      price: `Narxi (so'mda)`
+      price: `Narxi (so'mda)`,
+      export: 'Eksport qilmoq',
+      about: 'Ariza haqida ma’lumot'
     },
     templates:{
       title: 'Namunalar',
@@ -81,7 +88,9 @@ export default {
       quantity: 'Miqdori',
       price: `Narxi (so'mda)`,
       order: 'Buyurtma berish ',
-      addCart: 'Savatchaga qo’shish'
+      addCart: 'Savatchaga qo’shish',
+      about: 'Ma’lumot',
+      see: `Ko'rish`
     },
     profile: {
       title: 'Ko’rinishi',
@@ -138,6 +147,12 @@ export default {
     saveTemp: 'Сохранить заявку как шаблон',
     conver: 'Конвертер валют',
     whs: ' WHS остатки',
+    delete: `Удалено`,
+    created: 'Создано',
+    updated: `Обновлено`,
+    success: 'Успешно',
+    seen: `Просмотрено`,
+    notisSeen: `Просмотр всех уведомлений`,
     cart: {
       title: 'Создать заказ',
       category: 'Выберите категорию',
@@ -185,7 +200,9 @@ export default {
       status7: 'Заказ принят частично',
       status8: 'Заказ выполнен',
       d: 'Дата доставки',
-      price: `Сумма (в сумах)`
+      price: `Сумма (в сумах)`,
+      export: 'Экспортировать',
+      about: 'Данные о Заявке'
     },
     templates:{
       title: 'Шаблоны',
@@ -194,7 +211,9 @@ export default {
       quantity: 'Количество',
       price: `Цена (в сумах)`,
       order: 'Заказать',
-      addCart: 'Добавить в корзину'
+      addCart: 'Добавить в корзину',
+      about: 'Данные о',
+      see: 'Просмотреть'
     },
     profile: {
       title: 'Профиль',

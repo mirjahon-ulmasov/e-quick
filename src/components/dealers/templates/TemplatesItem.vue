@@ -19,7 +19,7 @@
           color: #000000;
         "
       >
-        Данные о {{ detail.title }}
+       {{ $t('templates.about') }} {{ detail.title }}
       </h2>
       <div class="flex" style="justify-content: center">
         <vs-table
@@ -152,8 +152,8 @@ export default {
         .then((response) => {
           this.isSidebarActiveLocal = false;
           this.$vs.notify({
-            title: "Success",
-            text: "Muvafayaqiyta",
+            title: "OK",
+            text: this.$t('success'),
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "success",

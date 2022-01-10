@@ -20,7 +20,7 @@
           color: #000000;
         "
       >
-        Данные о Заявке №{{ carts.order_number || '' }}
+        {{ $t('journal.about') }} №{{ carts.order_number || '' }}
       </h2>
       <div class="flex" style="justify-content: center">
         <vs-table

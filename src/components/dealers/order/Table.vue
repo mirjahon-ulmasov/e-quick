@@ -7,7 +7,7 @@
         src="@/assets/images/file-icons/xls.png"
         alt=""
       />
-      <h3 v-if="selected.length > 0" class="exp">Экспортировать</h3>
+      <h3 v-if="selected.length > 0" class="exp">{{ $t('journal.export') }}</h3>
     </div>
     <vs-table
       v-model="selected"
@@ -255,7 +255,6 @@ export default {
     float: right;
     cursor: pointer;
     .exp {
-      width: 75.57px;
       height: 13.39px;
       left: 1316.52px;
       top: 82.7px;

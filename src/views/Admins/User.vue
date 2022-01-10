@@ -484,8 +484,7 @@ export default {
       this.$store.dispatch('addUser/fetchDataListItems').then(
         response => {
           this.$vs.notify({
-            title: 'deleted',
-            text: 'Ok',
+            text: this.$t('delete'),
             iconPack: 'feather',
             icon: 'icon-alert-circle',
             color: 'success'

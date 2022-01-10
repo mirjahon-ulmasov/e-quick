@@ -93,7 +93,7 @@
         </div>
         <div class="card-footer">
           <button class="btn" @click="Open(temp.template_id)">
-            Просмотреть
+           {{ $t('templates.see') }}
           </button>
         </div>
       </div>
@@ -148,8 +148,7 @@ export default {
                this.$store.dispatch("product/GetTemplates");
              }, 10);
               this.$vs.notify({
-                title: "OK",
-                text: "Deleted",
+                text: this.$t('delete'),
                 iconPack: "feather",
                 icon: "icon-alert-circle",
                 color: "success",
