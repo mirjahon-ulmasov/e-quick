@@ -7,15 +7,15 @@
       :active.sync="isSidebarActiveLocal"
     >
     <h2 class="title" >
-        Сохранить заявку как шаблон
+        {{ $t('saveTemp') }}
     </h2>
     <input @keypress.enter="submitData()" v-model="NameWab" type="text">
        <div class="flex justify-center mt-16">
         <vs-button  @click="isSidebarActiveLocal = false" class="no">
-            Закрыть
+            {{ $t('cart.close') }}
         </vs-button>
         <vs-button :disabled="!NameWab"  @click="submitData()" class="ok">
-          Подтвердить
+          {{ $t('cart.submit') }}
         </vs-button>
     </div>
     </vs-popup>

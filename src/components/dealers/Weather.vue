@@ -21,7 +21,7 @@
     <div class="vx-col sm:w-full lg:w-3/5 pr-0">
       <div class="bg2 flex">
         <div>
-          <h3 class="text">Конвертер валют</h3>
+          <h3 class="text">{{ $t('conver') }}</h3>
           <img
             style="margin-top: -8px"
             src="@/assets/dealer/img/icons/dollar.svg"
@@ -153,7 +153,7 @@ export default {
         display: flex;
     flex-direction: column;
     .flex {
-          margin-top: -5px;
+          margin-top: -6px;
       justify-content: center;
       align-items: center;
     }
@@ -164,7 +164,6 @@ export default {
       font-size: 48.0435px;
       line-height: 29px;
       /* identical to box height, or 60% */
-
       text-align: center;
       letter-spacing: 0.02em;
 

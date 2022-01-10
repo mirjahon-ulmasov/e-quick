@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper" >
-      <SideBar  :style="active ? 'display: none !important;' : 'width: 16% !important' "  />
+      <SideBar  :style="active ? 'display: none !important; transition: 0.3s;' : 'width: 16% !important; transition: 0.3s;' "  />
        <div class="container1" :style="active ? 'width: 100% !important' : 'width: 84% !important' " >
               <transition :name="routerTransition" mode="out-in">
                 <router-view @setAppClasses="(classesStr) => $emit('setAppClasses', classesStr)" />

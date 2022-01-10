@@ -21,6 +21,10 @@ export default {
       fillCorrect: `Iltimos formani to'g'ri to'ldiring`
     },
     xato: 'Agar xato bo’lsa, qo’llab-quvvatlash xizmatiga murojaat qiling',
+    saveTemp: 'Arizani shablon sifatida saqlash',
+    conver: 'Valyuta konvertori',
+    whs: 'WHS qoldiqlari',
+    notisSeen: `Barcha bildirishnomalarni ko'rish`,
     cart: {
       title: 'Buyurtma berish',
       category: 'Turini tanlang',
@@ -47,7 +51,9 @@ export default {
       dtype2: 'To’g’ridan-to’g’ri yetkazib berish',
       submit: 'Tasdiqlash',
       successOffer: 'Buyurtma muvaffaqiyatli rasmiylashtirildi',
-      nullCart: 'Sizning savatchangiz bo’sh, iltimos ariza uchun zarur mahsulotlarni tanlang'
+      nullCart: 'Sizning savatchangiz bo’sh, iltimos ariza uchun zarur mahsulotlarni tanlang',
+      updatedP: 'Mahsulot yangilandi !',
+      addedP: 'Mahsulot savatga joylandi !'
     },
     journal: {
       title: 'Jurnal',
@@ -92,7 +98,16 @@ export default {
       notis: 'Bildirishnomalar',
       siteNotis: 'Saytdagi bildirishnomalarni qabul qilish',
       emailNotis: 'Pochta manzilidan xabar olish',
-      save: 'Sozlamalarni saqlash'
+      save: 'Sozlamalarni saqlash', 
+      logout: 'Profildan chiqish',
+      yes: 'Ha',
+      no: `Yo'q`, 
+      sure: 'Profildan chiqasizmi ?',
+      fish: 'F.I.SH',
+      email: 'Elektron pochta',
+      event: 'Voqealar haqida bildirishnoma',
+      review: 'Izoh qoldirmoq', 
+      thankYou: 'Takliflar uchun tashkkur'
     },
     lang: {
       uz: 'O’zbek tili',
@@ -105,6 +120,10 @@ export default {
       parol: 'Пароль',
       forget: 'Забыли пароль?',
       kirish: 'Войти',
+      logReq: 'Вы должны ввести поле имени пользователя',
+      pasReq: 'Вы должны ввести поле пароля',
+      logReqM: `Поле имени пользователя должно содержать не менее 3 символов.`,
+      passReqM: `Поле пароля должно содержать не менее 3 символов`,
       send: 'Отправлять',
       typeCode: 'Введите полученный код',
       sended: 'Код подтверждения был отправлен на вашу электронную почту',
@@ -116,6 +135,9 @@ export default {
       fillCorrect: `Пожалуйста, заполните форму правильно`
     },
     xato: 'Если нашли ошибку, обратитесь в службу поддержки',
+    saveTemp: 'Сохранить заявку как шаблон',
+    conver: 'Конвертер валют',
+    whs: ' WHS остатки',
     cart: {
       title: 'Создать заказ',
       category: 'Выберите категорию',
@@ -142,7 +164,9 @@ export default {
       dtype2: 'Прямая доставка',
       submit: 'Подтвердить',
       successOffer: 'Заказ оформлен успешно',
-      nullCart: 'Ваша корзина пуста, пожалуйста выберите необходимые товары для заявки'
+      nullCart: 'Ваша корзина пуста, пожалуйста выберите необходимые товары для заявки',
+      updatedP: 'Продукт обновлен !',
+      addedP: 'Продукт упакован в корзину !'
     },
     journal: {
       title: 'Журнал',
@@ -187,7 +211,16 @@ export default {
       notis: 'Уведомления',
       siteNotis: 'Получать уведомления на сайте',
       emailNotis: 'Получать сообщения на почту',
-      save: 'Сохранить настройки '
+      save: 'Сохранить настройки ',
+      logout: 'Выйти из профиля',
+      yes: 'Да',
+      no: `Нет`, 
+      sure: 'Выйти из профиля ?',
+      fish: 'ФИО',
+      email: 'Электронная почта',
+      event: 'Оповещание о событий',
+      review: 'Отправить отзыв',
+      thankYou: 'Для приложений и изменений'
     },
     lang: {
       uz: 'Узбекский',

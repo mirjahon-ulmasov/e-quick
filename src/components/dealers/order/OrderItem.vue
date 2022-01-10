@@ -76,8 +76,8 @@
                   </div>
                 </vs-td>
                 <vs-td style="background: white">
-                  <p class="prise">
-                    {{ tr.price }}
+                  <p class="prise" v-if="tr.price" >
+                    {{ Number(tr.price).toLocaleString("de-DE") }}
                   </p>
                 </vs-td>
               </vs-tr>
@@ -87,7 +87,7 @@
       </div>
       <div class="itogo mt-4">
         <h2 class="text">{{ $t('cart.total_price') }}</h2>
-        <h1 class="prise" v-if="carts" >{{ carts.total_price }} сум</h1>
+        <h1 class="prise" v-if="carts" >{{ Number(carts.total_price).toLocaleString("de-DE") }} сум</h1>
       </div>
       <!-- <div class="flex mt-4">
                   <vs-button @click="isSidebarActiveLocal = false" class="submit">

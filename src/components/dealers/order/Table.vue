@@ -57,7 +57,7 @@
             </vs-td>
             <vs-td>
               <!-- Draft -->
-              <vs-chip v-show="tr.status === 0" class="status">
+              <vs-chip v-show="tr.status === 0 || tr.status === 7" class="status">
                 <span style="font-size: 11px; color: #ffffff">
                   {{ $t("journal.status1") }}</span
                 >
@@ -113,7 +113,6 @@
                FAILED_DEALER_SAVDO = 11  -->
               <vs-chip
                 v-show="
-                  tr.status === 7 ||
                   tr.status === 8 ||
                   tr.status === 9 ||
                   tr.status === 10 ||
@@ -126,9 +125,9 @@
                 </span>
               </vs-chip>
             </vs-td>
-            <vs-td> {{ tr.total_price }} <span class="ml-1">Sum</span> </vs-td>
+            <vs-td> {{ tr.delivery_date }} </vs-td>
             <vs-td>
-              {{ tr.delivery_date.slice(0, 10) }}
+              {{ Number(tr.total_price).toLocaleString("de-DE")  }} <span class="ml-1">Sum</span>
             </vs-td>
             <!-- <vs-td>
                       <span style="color: #31B778"  class="material-icons">phone</span>  

@@ -149,7 +149,6 @@ export default {
           delivery_type: this.type
         }).then(response => {
           this.$vs.notify({
-            title: 'Ordered',
             text: this.$t('cart.successOffer'),
             iconPack: 'feather',
             icon: 'icon-alert-circle',
@@ -163,7 +162,6 @@ export default {
         })
           .catch(err => { 
             this.$vs.notify({
-              title: 'Error',
               text: err,
               iconPack: 'feather',
               icon: 'icon-alert-circle',
@@ -174,8 +172,7 @@ export default {
         this.Reset()
       } else {
         this.$vs.notify({
-          title: 'Error',
-          text: 'Formani toliq toldiring',
+          text: this.$t('auth.fillCorrect'),
           iconPack: 'feather',
           icon: 'icon-alert-circle',
           color: 'danger'

@@ -26,7 +26,6 @@
                   font-weight: bold;
                   font-size: 10px;
                   line-height: 12px;
-
                   color: #ffffff;
                 "
               >
@@ -177,16 +176,16 @@ export default {
           .then((response) => {
             if (response.statusText == "Created") {
               this.$vs.notify({
-                title: "Created",
-                text: "Cartga joylandi",
+                title: "Ok",
+                text: this.$t('cart.addedP'),
                 iconPack: "feather",
                 icon: "icon-alert-circle",
                 color: "success",
-              });
+              })
             } else {
               this.$vs.notify({
-                title: "Updated",
-                text: "Product yangilandi",
+                title: "Ok",
+                text: this.$t('cart.updatedP'),
                 iconPack: "feather",
                 icon: "icon-alert-circle",
                 color: "warning",

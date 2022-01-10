@@ -6,7 +6,7 @@
       style="z-index: 1011 !important"
       :active.sync="isSidebarActiveLocal"
     >
-      <h2 class="title mb-6">Уведомления</h2>
+      <h2 class="title mb-6"> {{ $t('profile.notis') }}</h2>
       <div class="scroll-area" :is="scrollbarTag" v-if="notisfy" :settings="settings">
         <div v-for="(notis, i) in notisfy" :key="i" :class="notis.status == `NOT_SEEN` ? 'notis' : 'seen'">
           <div class="flex">
@@ -35,7 +35,7 @@
                   />
                 </svg>
                 <span class="ok">
-                  {{ notis.created_at }}
+                  <span>{{ notis.created_at.slice(0,10) }}</span> <span class="ml-4" >{{ notis.created_at.slice(11,18) }}</span>
                 </span>
               </div>
               <p class="tex">
@@ -43,7 +43,7 @@
               </p>
               <p class="tex1">
                 {{ notis.message }}
-                <a href="#" @click="Seen(notis)"> Журнал </a>
+                <a href="#" @click="Seen(notis)"> {{ $t('journal.title') }}</a>
               </p>
             </div>
             <feather-icon
@@ -57,7 +57,7 @@
         </div>
       </div>
               <vs-button @click.prevent="SeenAll()" class="delete">
-          Удалить все уведомления
+          {{ $t('notisSeen') }}
         </vs-button>
     </vs-popup>
     <order :isPopUp="PopUp" @closeSidebar="toggleDataSidebar"></order>

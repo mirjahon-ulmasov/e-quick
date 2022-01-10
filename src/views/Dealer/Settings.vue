@@ -8,7 +8,7 @@
         >
           <div>
             <p class="title">{{ $t("profile.title") }}</p>
-            <p class="sub-title">ФИО, E-mail</p>
+            <p class="sub-title">{{ $t('profile.fish') }}, {{ $t('profile.email') }}</p>
           </div>
           <div
             v-if="image"
@@ -16,13 +16,6 @@
             :style="{ 'background-image': `url(${image})` }"
             class="user"
           >
-    <!-- <image-compressor
-    style="display: none"
-    :done="getFiles"
-    :scale="15"
-    ref="compressor"
-    :quality="100">
-  </image-compressor> -->
             <input
               type="file"
               id="updateImgInput"
@@ -98,7 +91,7 @@
           :star-size="30"
         ></star-rating>
         <vs-button class="save-btn mt-2 p-2" @click="SaveReview()"
-          >Отправить отзыв</vs-button
+          >{{ $t('profile.review') }}</vs-button
         >
       </div>
       <div class="col">
@@ -138,7 +131,7 @@
       </div>
       <div class="col">
         <p class="title">{{ $t("profile.notis") }}</p>
-        <p class="sub-title">Оповещание о событий</p>
+        <p class="sub-title"> {{ $t('profile.event') }}</p>
         <label class="checkbox-container">
           <input type="checkbox" v-model="sitenotf" checked="checked" />
           <span class="checkmark"></span>
@@ -163,14 +156,10 @@
 
 <script>
 import StarRating from "vue-star-rating";
-import ImageUploader from 'vue-image-upload-resize'
-import imageCompressor from 'vue-image-compressor'
 import Compressor from 'compressorjs';
 export default {
   components: {
     StarRating,
-    imageCompressor,
-     ImageUploader
   },
   computed: {
     info() {
@@ -223,7 +212,7 @@ export default {
     },
   })
    setTimeout(() => {
-    if(this.quality1.result.size < 1827393){
+    if(this.quality1.result.size < 1427393){
         const reader = new FileReader();
         console.log(this.quality1.result)
          reader.readAsDataURL(this.quality1.result);
@@ -260,7 +249,9 @@ export default {
         phone_number: this.info.phone_number,
       }
       if(this.img !== null){
-        this.$store.dispatch("auth/updateIMG", this.img )
+        this.$store.dispatch("auth/updateIMG", this.img ).then(
+          () => { this.img = null }
+        )
                     .catch((err) => {
               this.$vs.notify({
                 title: "Error",
@@ -319,8 +310,7 @@ export default {
           .then((response) => {
             this.message = "";
             this.$vs.notify({
-              title: "Thank you",
-              text: "ok",
+              text: this.$t('profile.thankYou'),
               iconPack: "feather",
               icon: "icon-check-circle",
               color: "success",
@@ -328,7 +318,6 @@ export default {
           })
           .catch((err) => {
             this.$vs.notify({
-              title: "Error",
               text: err.response.data.detail,
               iconPack: "feather",
               icon: "icon-alert-circle",
@@ -337,8 +326,7 @@ export default {
           });
       } else {
         this.$vs.notify({
-          title: "Error",
-          text: "Fill the form correctly",
+          text: this.$t('auth.fillCorrect'),
           iconPack: "feather",
           icon: "icon-alert-circle",
           color: "danger",

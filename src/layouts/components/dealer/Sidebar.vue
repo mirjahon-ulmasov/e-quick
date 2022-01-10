@@ -36,20 +36,20 @@
           <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer w-full">
             <div class="logout">
               <h2>
-                Выйти из профиля
+               {{ $t('profile.logout') }}
               </h2>
             </div>
           <vs-dropdown-menu >
             <vs-dropdown-item style="width: 200px;" >
               <h4 style="font-weight: 500; font-size: 12px; line-height: 29px; text-align: center" >
-              Profildan chiqasmi?
+              {{ $t('profile.sure') }}
               </h4>
               <div class="com flex mt-1 mb-1 justify-center">
                 <button class="ok" @click="LogOut()" >
-                  Ha
+                   {{ $t('profile.yes') }}
                 </button>
                 <button class="no ml-3" >
-                    Yo'q
+                     {{ $t('profile.no') }}
                 </button>
               </div>
             </vs-dropdown-item>
@@ -85,7 +85,7 @@
       class="route"
       :to="'/dealer/settings'"
     >
-      WHS остатки
+      {{ $t('whs') }}
     </router-link>
        </div>
     <div
@@ -221,6 +221,7 @@ div.side-bar-container {
   margin: 0px 20px;
   display: flex;
   flex-direction: column;
+  transition: 0.3s;
   .link{
     display: flex;
     flex-direction: column;
