@@ -7,9 +7,9 @@
             <img src="~@/assets/dealer/img/icons/icon-bar-chart-2.svg" alt="" />
           </div>
           <div class="col">
-            <p>1478 286</p>
+            <p>Нет данных</p>
             <p>Клиентов</p>
-            <p><span class="up">0.24%</span> Прошлый месяц</p>
+            <p><span class="up">0%</span> Прошлый месяц</p>
           </div>
         </div>
         <div class="card">
@@ -17,9 +17,9 @@
             <img src="~@/assets/dealer/img/icons/icon-file.svg" alt="" />
           </div>
           <div class="col">
-            <p>1478 286</p>
+            <p>Нет данных</p>
             <p>Клиентов</p>
-            <p><span class="down">0.24%</span> Прошлый месяц</p>
+            <p><span class="down">0%</span> Прошлый месяц</p>
           </div>
         </div>
         <div class="card">
@@ -27,9 +27,9 @@
             <img src="~@/assets/dealer/img/icons/Shape.svg" alt="" />
           </div>
           <div class="col">
-            <p>1478 286</p>
+            <p>Нет данных</p>
             <p>Клиентов</p>
-            <p><span class="up">0.24%</span> Прошлый месяц</p>
+            <p><span class="up">0%</span> Прошлый месяц</p>
           </div>
         </div>
         <div class="card">
@@ -40,14 +40,16 @@
             />
           </div>
           <div class="col">
-            <p>1478 286</p>
+            <p>Нет данных</p>
             <p>Клиентов</p>
-            <p><span class="down">0.24%</span> Прошлый месяц</p>
+            <p><span class="down">0%</span> Прошлый месяц</p>
           </div>
         </div>
       </div>
-      <h2 class="head mt-4">{{ $t('journal.lastJ') }}</h2>
+     <div class="scrol">
+        <h2 class="head mt-4">{{ $t('journal.lastJ') }}</h2>
       <Table />
+    </div>
     </div>
     <div class="container-footer">
       <div class="image">
@@ -176,9 +178,10 @@ export default {
 }
 .container-body {
   padding: 25px;
+  padding-bottom: 0;
   width: 100%;
   height: 80%;
-  overflow-y: scroll;
+  // overflow-y: scroll;
   .head {
     font-family: Montserrat;
     font-style: normal;
@@ -199,6 +202,18 @@ export default {
 
     // text-align: end;
     letter-spacing: 0.458111px;
+  }
+  .scrol{
+      height: 80%;
+  padding-right: 15px;
+    overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #234b79;
+  }
   }
   .export {
     padding-right: 25px;

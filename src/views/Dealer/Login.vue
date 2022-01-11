@@ -47,7 +47,7 @@
         >
         {{ $t('auth.pasReq') }} 
       </span>
-      <vs-button @click="loginJWT" class="submit-btn">{{ $t('auth.kirish') }}</vs-button>
+      <vs-button @click="loginJWT" class="submit-btn"><span class="text" >{{ $t('auth.kirish') }}</span></vs-button>
       <div class="row">
         <router-link :to="'/forget-password'">{{ $t('auth.forget') }}</router-link>
       </div>
@@ -119,13 +119,13 @@ div.wrapper {
   height: 100vh;
   margin: 0;
   padding: 0;
-  background-image: url("../../assets/dealer/img/svg/login/login-background.svg"),
-    linear-gradient(99.52deg, #3f4f61 -14.96%, #3a9fd1 156.83%);
+  background-image:  url("../../assets/dealer/img/svg/login/left.svg"), url("../../assets/dealer/img/svg/login/right.svg"), linear-gradient(99.52deg, #3f4f61 -14.96%, #3a9fd1 156.83%);
+  background-repeat: no-repeat,no-repeat,no-repeat;
+  background-size: contain,contain,contain;
+  background-position: left, right, center;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-repeat: no-repeat;
-  background-size: cover;
   div.container {
     width: 412px;
     display: flex;
@@ -212,11 +212,22 @@ div.wrapper {
       border-radius: 5.50326px;
       font-style: normal;
       font-weight: bold;
-      font-size: 19.013px;
+      font-size: 22.013px;
       line-height: 18px;
       text-align: center;
       text-transform: uppercase;
-      color: #3a9fd1;
+      .text{
+              background-image: linear-gradient(
+      99.52deg,
+      #3f4f61 -14.96%,
+      #3a9fd1 156.83%
+    );
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    display: table;
+      }
     }
     .row {
       width: 100%;

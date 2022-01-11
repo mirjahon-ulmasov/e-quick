@@ -224,7 +224,7 @@ line-height: 16px;
   }
 }
 .row {
-  height: 70%;
+  height: 100%;
   padding: 20px;
   padding: 0px 38px 0px 60px;
   display: flex;

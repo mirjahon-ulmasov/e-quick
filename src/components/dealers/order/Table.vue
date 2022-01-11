@@ -13,7 +13,6 @@
       v-model="selected"
       ref="table"
       multiple
-      maxHeight="60vh"
       pagination
       :max-items="itemsPerPage"
       :data="orders"
@@ -177,7 +176,7 @@ export default {
     page: 1,
     max: 100,
     active: 0,
-    itemsPerPage: 4,
+    itemsPerPage: 5,
     selected: [],
   }),
   methods: {
@@ -240,6 +239,7 @@ export default {
   background: #ea5455 !important;
 }
 .center {
+
   .vs-con-input {
     .vs-input-primary {
       .vs-input--input:focus {
@@ -296,6 +296,9 @@ export default {
       th.td-check {
         .con-td-check {
           box-shadow: none !important;
+          .vs-checkbox--input{
+            background-color: red !important;
+          }
         }
       }
       th {
@@ -338,6 +341,7 @@ export default {
           }
         }
         td.td-check {
+          background-color: white !important;
           padding: 20px !important;
         }
       }
