@@ -8,7 +8,7 @@
     >
       <h2 class="title mb-6"> {{ $t('profile.notis') }}</h2>
       <div class="scroll-area" :is="scrollbarTag" v-if="notisfy" :settings="settings">
-        <div v-for="(notis, i) in notisfy" :key="i" :class="notis.status == `NOT_SEEN` ? 'notis' : 'seen'">
+        <div v-for="(notis, i) in notisfy || []" :key="i" :class="notis.status == `NOT_SEEN` ? 'notis' : 'seen'">
           <div class="flex">
             <img
               src="https://vtrand.ru/content/uploads/photos/2020/11/vtrand_0f7db75d2ef81bcc0a6a526310e56b6e.jpg"
@@ -167,7 +167,13 @@ export default {
             color: "success",
           });
           this.$store.dispatch("addUser/NotisfyGet");
-          // this.$store.dispatch("addUser/NotisfyGet");
+          setTimeout(() => {
+            if (this.notisfy.headers === null) {
+              this.$store.state.addUser.notisfy = []
+              this.isSidebarActiveLocal = false
+              this.$store.state.addUser.not_seen = []
+            }
+          }, 1000);
         })
         .catch((err) => {
           this.$vs.notify({
