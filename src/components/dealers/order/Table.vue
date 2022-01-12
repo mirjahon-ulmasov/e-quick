@@ -4,7 +4,7 @@
       <img
         v-if="selected.length > 0"
         width="25px"
-        src="@/assets/images/file-icons/xls.png"
+        src="@/assets/dealer/img/icons/excel_icon.svg"
         alt=""
       />
       <h3 v-if="selected.length > 0" class="exp">{{ $t('journal.export') }}</h3>
@@ -36,12 +36,7 @@
                 style="display: flex; align-items: center"
               >
                 № {{ tr.order_number }}
-                <feather-icon
-                  icon="EyeIcon"
-                  style="color: #135c81 !important"
-                  svgClasses="h-6 w-5"
-                  class="ml-2"
-                />
+                <img src="@/assets/dealer/img/icons/eys.svg" class="ml-2" alt="" />
               </p>
             </vs-td>
             <vs-td>
@@ -51,7 +46,7 @@
             </vs-td>
             <vs-td>
               <p>
-                {{ tr.date_ordered.slice(0, 10) }}
+                {{ tr.date_ordered.slice(0, 10).split('-').join(".")  }}
               </p>
             </vs-td>
             <vs-td>
@@ -124,7 +119,7 @@
                 </span>
               </vs-chip>
             </vs-td>
-            <vs-td> {{ tr.delivery_date }} </vs-td>
+            <vs-td> {{ tr.delivery_date.split('-').join(".") }} </vs-td>
             <vs-td>
               {{ Number(tr.total_price).toLocaleString("de-DE")  }} <span class="ml-1">Sum</span>
             </vs-td>
@@ -287,8 +282,8 @@ export default {
   .vs-con-table {
     .vs-table {
       .vs-table--thead {
-        background: linear-gradient(90deg, #5e585c 0%, #000000 100%);
-        border-radius: 5.9434px;
+background: linear-gradient(81.75deg, #3C4A5A 99.96%, #3A9FD1 183.61%);
+border-radius: 8px;
         th {
           padding: 12px 15px !important;
         }

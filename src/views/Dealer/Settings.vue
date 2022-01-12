@@ -383,7 +383,14 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  overflow-y: scroll;
+   overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #234b79;
+  }
   .col {
     padding: 10px;
     width: 50%;
@@ -513,21 +520,24 @@ export default {
       }
     }
     .title {
-      font-family: "Montserrat" sans-serif;
-      font-style: normal;
-      font-weight: bold;
-      font-size: 20.1888px;
-      line-height: 23px;
-      color: #000022;
+font-family: Montserrat;
+font-style: normal;
+font-weight: bold;
+font-size: 23.414px;
+line-height: 29px;
+/* identical to box height */
+
+
+color: #000022;
     }
     .text {
-      font-family: Montserrat;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 17px;
-      line-height: 21px;
+font-family: Montserrat;
+font-style: normal;
+font-weight: normal;
+font-size: 17px;
+line-height: 21px;
 
-      color: #000022;
+color: #000022;
     }
     .sub-title {
       font-family: "Lato" sans-serif;
@@ -548,6 +558,7 @@ export default {
       outline: none;
       padding-left: 20px;
       font-style: normal;
+          font-family: Montserrat;
       font-weight: normal;
       font-size: 15px;
       line-height: 18px;
@@ -565,6 +576,7 @@ export default {
       border-radius: 5.7972px;
       border: none;
       outline: none;
+          font-family: Montserrat;
       padding: 10px;
       font-style: normal;
       font-weight: normal;

@@ -1,9 +1,9 @@
 <template>
   <div class="wrapper">
-    <div class="container">
+    <form autocomplete="off" class="container">
       <img
         style="margin: 40px 45px 80px 0px"
-        src="@/assets/dealer/img/svg/login/logo.png"
+        src="@/assets/dealer/img/svg/login/logo1.png"
         alt=""
       />
       <input
@@ -51,7 +51,7 @@
       <div class="row">
         <router-link :to="'/forget-password'">{{ $t('auth.forget') }}</router-link>
       </div>
-    </div>
+    </form>
   </div>
 </template>
 
@@ -126,7 +126,7 @@ div.wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  div.container {
+  form.container {
     width: 412px;
     display: flex;
     align-items: center;

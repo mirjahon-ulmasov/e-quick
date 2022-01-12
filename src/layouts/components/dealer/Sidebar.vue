@@ -3,13 +3,13 @@
   class="side-bar-container">
     <div class="lang" @click="langUp('uz')" v-if="$i18n.locale === 'ru'" >
       <img src="@/assets/dealer/img/icons/uz.svg" alt="" />
-    Перейти на  {{ $t('lang.uz') }}
+     {{ $t('lang.uz') }}
     </div>
     <div class="lang" style="width: 140px" @click="langUp('ru')" v-else >
           <img src="@/assets/dealer/img/icons/ru.svg" alt="" />
-          {{ $t('lang.ru') }}ga o'tish
+          {{ $t('lang.ru') }}
       </div>
-    <img class="logo" src="@/assets/dealer/img/svg/login/logo.png" alt="" />
+    <img class="logo" src="@/assets/dealer/img/svg/login/logo1.png" alt="" />
     <div class="block">
       <div class="col" style="margin-left: 0px">
              <feather-icon @click="toggleDataSidebar(true)" v-if="notisfy.length" :style="{ 'background-image': `url(${BaseUrl + info.profile_picture})` }" class="user" svgClasses="cursor-pointer text-danger w-6 h-6" :badge="notisfy.length">
@@ -83,7 +83,7 @@
     </router-link>
                  <router-link
       class="route"
-      :to="'/dealer/settings'"
+      :to="'/dealer/whs'"
     >
       {{ $t('whs') }}
     </router-link>
@@ -92,11 +92,7 @@
       class="flex"
       style="align-items: flex-end; margin-bottom: 5px; align-items: center;"
     >
-      <feather-icon
-        style="color: #cfcfcf; border-radius: 2px"
-        icon="InfoIcon"
-        class="cursor-pointer mt-1 sm:mr-2 mr-2"
-      />
+      <img src="@/assets/dealer/img/icons/info.svg" style="width: 14%; height: 22px;" class="cursor-pointer resize sm:mr-2 mr-2" alt="" />
       <span class="end">
        {{ $t('xato') }} - <a style="color: #cfcfcf !important;" href="tel:71 000 00 00">71 000 00 00</a>
       </span>
@@ -239,6 +235,14 @@ div.side-bar-container {
     align-items: center;
     color: #cfcfcf !important;
   }
+    @media (max-width: 1440px) {
+    .resize{
+      height: 19px !important;
+    }
+    .end{
+      font-size: 8px;
+    }
+  }
   .lang {
     display: flex;
     justify-content: space-around;
@@ -371,15 +375,19 @@ color: #FFFFFF;
 border-radius: 0px 0px 7.41868px 7.41868px;
   }
 .route {
-  margin: 14px 0px;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 20px;
-  line-height: 24px;
-  color: #ffffff;
-  mix-blend-mode: normal;
-  opacity: 0.5;
-  text-align: start;
+  margin: 13px 0px;
+font-family: Montserrat;
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 35px;
+/* identical to box height, or 175% */
+
+
+color: #FFFFFF;
+
+mix-blend-mode: normal;
+opacity: 0.5;
   &:hover {
     opacity: 1;
   }

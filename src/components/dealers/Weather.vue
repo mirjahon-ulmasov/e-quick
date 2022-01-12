@@ -95,44 +95,63 @@ export default {
       });
     },
     CurrentDates() {
-      const monthNames = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-      ];
       const today = new Date();
       this.date = String(today.getDate()).padStart(2, "0");
-      this.month = monthNames[today.getMonth()];
+      // this.month = monthNames[today.getMonth()];
       switch (new Date().getDay()) {
         case 0:
-          this.day = "Sunday";
+          this.day = this.$t('weeks.day7');
           break;
         case 1:
-          this.day = "Monday";
+          this.day = this.$t('weeks.day1');
           break;
         case 2:
-          this.day = "Tuesday";
+          this.day = this.$t('weeks.day2');
           break;
         case 3:
-          this.day = "Wednesday";
+          this.day = this.$t('weeks.day3');
           break;
         case 4:
-          this.day = "Thursday";
+          this.day = this.$t('weeks.day4');
           break;
         case 5:
-          this.day = "Friday";
+          this.day = this.$t('weeks.day5');
           break;
         case 6:
-          this.day = "Saturday";
+          this.day = this.$t('weeks.day6');
+      }
+      switch (new Date().getMonth()) {
+        case 0:
+          this.month = 
+          localStorage.getItem('lang') ? this.$t('month.day1') : this.$t('month.day3');
+          break;
+        case 1:
+          this.month = this.$t('month.day2');
+          break;
+        case 2:
+          this.month = this.$t('month.day3');
+          break;
+        case 3:
+          this.month = this.$t('month.day4');
+          break;
+        case 4:
+          this.month = this.$t('month.day5');
+          break;
+        case 5:
+          this.month = this.$t('month.day6');
+          break;
+        case 6:
+          this.month = this.$t('month.day7');
+                  case 7:
+          this.month = this.$t('month.day8');
+                  case 8:
+          this.month = this.$t('month.day9');
+                  case 9:
+          this.month = this.$t('month.day10');
+                  case 10:
+          this.month = this.$t('month.day11');
+                  case 11:
+         this.month = this.$t('month.day12');
       }
     },
   },
@@ -140,7 +159,11 @@ export default {
     this.Geolocation();
     setTimeout(() => this.Weathers(), 1000);
     this.CurrentDates();
+   console.log(new Date().getMonth());
   },
+  updated(){
+    this.CurrentDates()
+  }
 };
 </script>
 <style lang="scss">
@@ -148,7 +171,7 @@ export default {
   .bg1 {
     width: 100%;
     min-height: 85.61px;
-    background: linear-gradient(99.52deg, #3f4f61 -14.96%, #3a9fd1 156.83%);
+    background: linear-gradient(81.75deg, #3C4A5A 99.96%, #3A9FD1 183.61%) !important;
     border-radius: 7.68696px;
         display: flex;
     flex-direction: column;
@@ -232,7 +255,8 @@ export default {
       left: 847.08px;
       top: 805.29px;
 
-      background: linear-gradient(90deg, #434343 0%, #000000 100%);
+       background: linear-gradient(81.75deg, #3C4A5A 99.96%, #3A9FD1 183.61%);
+       border: none;
       border-radius: 1.86301px;
       font-family: Montserrat;
       font-style: normal;

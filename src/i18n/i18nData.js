@@ -32,9 +32,9 @@ export default {
     seen: `Ko'rildi`,
     cart: {
       title: 'Buyurtma berish',
-      category: 'Turini tanlang',
-      podcategory: 'Pastki turini tanlang ',
-      productS: 'Mahsulot tanlang',
+      category: 'Zavodni tanlang',
+      podcategory: 'Turni tanlang ',
+      productS: 'Pastki turni tanlang',
       cart: 'Savat №',
       p_name: 'Mahsulot nomi',
       quantity: 'Miqdori',
@@ -108,7 +108,7 @@ export default {
       notis: 'Bildirishnomalar',
       siteNotis: 'Saytdagi bildirishnomalarni qabul qilish',
       emailNotis: 'Pochta manzilidan xabar olish',
-      save: 'Sozlamalarni saqlash', 
+      save: `Saqlash`, 
       logout: 'Profildan chiqish',
       yes: 'Ha',
       no: `Yo'q`, 
@@ -121,7 +121,30 @@ export default {
     },
     lang: {
       uz: 'O’zbek tili',
-      ru: 'Rus tili'
+      ru: `Rus tili o'tish`
+    },
+    weeks: {
+      day1: 'Dushanba',
+      day2: 'Seshanba',
+      day3: 'Chorshanba',
+      day4: 'Payshanba',
+      day5: 'Juma',
+      day6: 'Shanba',
+      day7: 'Yakshanba',
+    },
+    month: {
+      day1: 'Yanvar',
+      day2: 'Fevral',
+      day3: 'Mart',
+      day4: 'Aprel',
+      day5: 'May',
+      day6: 'Iyun',
+      day7: 'Iyul',
+      day8: 'Avgust',
+      day9: 'Sentabr',
+      day10: 'Oktabr',
+      day11: 'Noyabr',
+      day12: 'Dekabr',
     }
   },
   ru: {
@@ -156,9 +179,9 @@ export default {
     notisSeen: `Просмотр всех уведомлений`,
     cart: {
       title: 'Создать заказ',
-      category: 'Выберите категорию',
-      podcategory: 'Выберите подкатегорию',
-      productS: 'Выберите товар',
+      category: 'Выберите завод',
+      podcategory: 'Выберите категорию',
+      productS: 'Выберите подкатегорию',
       cart: 'Корзинка №',
       p_name: 'Наименование товаров',
       quantity: 'Количество ',
@@ -232,20 +255,43 @@ export default {
       notis: 'Уведомления',
       siteNotis: 'Получать уведомления на сайте',
       emailNotis: 'Получать сообщения на почту',
-      save: 'Сохранить настройки ',
+      save: 'Сохранить ',
       logout: 'Выйти из профиля',
       yes: 'Да',
       no: `Нет`, 
       sure: 'Выйти из профиля ?',
       fish: 'ФИО',
       email: 'Электронная почта',
-      event: 'Оповещание о событий',
+      event: 'Оповещание о событиях',
       review: 'Отправить отзыв',
       thankYou: 'Для приложений и изменений'
     },
     lang: {
-      uz: 'Узбекский',
-      ru: 'Русский'
+      uz: 'На узбекском языке',
+      ru: 'На русском языке'
+    },
+    weeks: {
+      day1: 'Понедельник',
+      day2: 'Bторник',
+      day3: 'Среда',
+      day4: 'Четверг',
+      day5: 'Пятница',
+      day6: 'Суббота',
+      day7: 'Воскресенье',
+    },
+    month: {
+      day1: 'январь',
+      day2: 'февраль',
+      day3: 'март',
+      day4: 'Aпрель',
+      day5: 'май',
+      day6: 'июнь',
+      day7: 'июль',
+      day8: 'август',
+      day9: 'сентябрь',
+      day10: 'октябрь',
+      day11: 'ноябрь',
+      day12: 'декабрь',
     }
   }
 }

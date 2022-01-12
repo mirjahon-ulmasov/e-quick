@@ -7,9 +7,9 @@
             <img src="~@/assets/dealer/img/icons/icon-bar-chart-2.svg" alt="" />
           </div>
           <div class="col">
-            <p>Нет данных</p>
+            <p>0</p>
             <p>Клиентов</p>
-            <p><span class="up">0%</span> Прошлый месяц</p>
+            <p><span class="up">Нет данных</span> Прошлый месяц</p>
           </div>
         </div>
         <div class="card">
@@ -17,9 +17,9 @@
             <img src="~@/assets/dealer/img/icons/icon-file.svg" alt="" />
           </div>
           <div class="col">
-            <p>Нет данных</p>
+            <p>0</p>
             <p>Клиентов</p>
-            <p><span class="down">0%</span> Прошлый месяц</p>
+            <p><span class="down">Нет данных</span> Прошлый месяц</p>
           </div>
         </div>
         <div class="card">
@@ -27,9 +27,9 @@
             <img src="~@/assets/dealer/img/icons/Shape.svg" alt="" />
           </div>
           <div class="col">
-            <p>Нет данных</p>
+            <p>0</p>
             <p>Клиентов</p>
-            <p><span class="up">0%</span> Прошлый месяц</p>
+            <p><span class="up">Нет данных</span> Прошлый месяц</p>
           </div>
         </div>
         <div class="card">
@@ -40,14 +40,14 @@
             />
           </div>
           <div class="col">
-            <p>Нет данных</p>
+            <p>0</p>
             <p>Клиентов</p>
-            <p><span class="down">0%</span> Прошлый месяц</p>
+            <p><span class="down">Нет данных</span> Прошлый месяц</p>
           </div>
         </div>
       </div>
      <div class="scrol">
-        <h2 class="head mt-4">{{ $t('journal.lastJ') }}</h2>
+        <h2 class="head mt-4">{{ $t('journal.lastJ') }} :</h2>
       <Table />
     </div>
     </div>
@@ -158,6 +158,7 @@ export default {
           font-weight: normal;
           font-size: 12.1589px;
           line-height: 15px;
+          margin-left: 5px;
 
           /* Danger */
           color: #f26464;

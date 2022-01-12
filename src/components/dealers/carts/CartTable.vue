@@ -72,12 +72,13 @@
               <p>{{ indextr + 1 }}</p>
             </vs-td>
             <vs-td
+            
               style="
                 border-left: 1px solid #3a9fd1 !important;
                 border-right: 1px solid #3a9fd1 !important;
               "
             >
-              <p>{{ tr.product_name }}</p>
+              <p class="name_p" >{{ tr.product_name }}</p>
             </vs-td>
             <vs-td style="border-right: 1px solid #3a9fd1 !important">
               <div class="flex">
@@ -110,8 +111,8 @@
                   @click="Inc(tr)"
                   @mouseleave="IncEdit(tr)"
                   style="margin-left: -19px !important"
-                  svgClasses="h-3 w-4 hover:text-primary"
-                  class="ml-1"
+                  svgClasses="h-3 w-4 hover:text-primary bold"
+                  class="ml-1 bold"
                 />
                         <feather-icon
                         v-if="Id === tr.id"
@@ -293,6 +294,7 @@ export default {
     border: 0.872058px solid #000000;
     box-sizing: border-box;
     border-radius: 3.70732px;
+    font-weight: 700;
   }
   .add span {
     font-family: Lato;
@@ -300,6 +302,7 @@ export default {
     font-weight: 800;
     font-size: 10px;
     line-height: 16px;
+    font-weight: 700;
     /* identical to box height, or 158% */
 
     letter-spacing: -0.02em;
@@ -315,6 +318,14 @@ export default {
     line-height: 16px;
 
     color: #3a9fd1;
+  }
+  .name_p{
+        font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12.9465px;
+    line-height: 16px;
+    color: #000000;
   }
   .date {
     font-family: Montserrat;
@@ -393,23 +404,20 @@ export default {
   .offering {
     width: 99%;
     /* height: 35px; */
-    background: linear-gradient(90deg, #5e585c 0%, #000000 100%) !important;
+     background: linear-gradient(81.75deg, #3C4A5A 99.96%, #3A9FD1 183.61%) !important;
     border-radius: 5.9434px;
-  }
-  .offering {
-    cursor: pointer;
-    margin-top: 30px;
-    font-family: Lato;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 13.8679px;
-    /* line-height: 18px; */
-    /* identical to box height, or 133% */
+    font-family: Montserrat;
+font-style: normal;
+font-weight: 500;
+font-size: 13.8679px;
+line-height: 18px;
+/* identical to box height, or 133% */
 
-    text-align: center;
-    letter-spacing: -0.02em;
-
-    color: #ffffff;
+text-align: center;
+letter-spacing: -0.02em;
+margin-top: 30px;
+padding: 8px !important;
+color: #FFFFFF;
   }
   .offering:hover {
     box-shadow: none !important;
@@ -507,7 +515,7 @@ export default {
 
         .vs-table-text {
           text-transform: uppercase;
-          font-weight: 600;
+          font-weight: 400;
         }
       }
       th.td-check {

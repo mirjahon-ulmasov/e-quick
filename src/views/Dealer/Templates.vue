@@ -187,13 +187,14 @@ export default {
     border: none !important;
     background: #f2f2f2 !important;
     border-radius: 5.7972px !important;
-    color: rgba(58, 159, 209, 1);
     padding-left: 40px;
     &::placeholder {
       background-position: 10%;
-      font-family: Lato;
-      font-weight: bold;
-      // color: rgba(58, 159, 209, 1) !important;
+font-family: Montserrat;
+font-style: normal;
+font-weight: 500;
+font-size: 12.9333px;
+line-height: 16px;
       background-image: linear-gradient(
         99.52deg,
         #3f4f61 -14.96%,
@@ -203,13 +204,7 @@ export default {
       -webkit-text-fill-color: transparent;
       background-clip: text;
       color: transparent;
-      font-family: Lato;
-font-style: normal;
-font-weight: bold;
-font-size: 12.9333px;
-line-height: 16px;
-/* identical to box height */
-      // display: table;
+      display: table;
     }
     &:nth-child(1) {
       content: "";
@@ -253,10 +248,10 @@ line-height: 16px;
       height: 20%;
       display: flex;
       justify-content: space-between;
-      background: linear-gradient(215.31deg, #3f4f61 8.35%, #3a9fd1 137.05%);
+      background: linear-gradient(81.75deg, #3C4A5A 99.96%, #3A9FD1 183.61%);
       border-radius: 30.7021px;
       padding-right: 10px;
-      border-radius: 0px;
+      border-radius: 8px;
       align-items: center;
       p {
         padding: 0px 20px;
@@ -386,18 +381,21 @@ line-height: 16px;
       align-items: center;
       button.btn {
         border: none;
-        padding: 5px 20px;
+        padding: 6px 20px;
         cursor: pointer;
-        background: linear-gradient(90deg, #434343 0%, #000000 100%) !important;
+        background: linear-gradient(81.75deg, #3C4A5A 99.96%, #3A9FD1 183.61%);
         border-radius: 8.33218px;
-        font-family: "Lato" sans-serif;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 13.5167px;
-        line-height: 18px;
-        text-align: center;
-        letter-spacing: -0.02em;
-        color: #ffffff;
+font-family: Montserrat;
+font-style: normal;
+font-weight: 500;
+font-size: 12.6379px;
+line-height: 17px;
+/* or 133% */
+
+text-align: center;
+letter-spacing: -0.02em;
+
+color: #FFFFFF;
       }
     }
   }
