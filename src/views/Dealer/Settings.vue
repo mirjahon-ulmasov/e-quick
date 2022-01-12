@@ -83,13 +83,14 @@
           rows="10"
           :placeholder="$t('profile.message')"
         ></textarea>
-        <star-rating
-          v-model="rating"
-          :increment="0.5"
-          :show-rating="false"
-          :max-rating="5"
-          :star-size="30"
-        ></star-rating>
+    <svg style="position: absolute; width: 25px; height: 25px;" width="22px" height="22px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <defs>
+        <symbol id="icon-star-full" class="icon" viewBox="0 0 32 32">
+          <path d="M32 12.408l-11.056-1.607-4.944-10.018-4.944 10.018-11.056 1.607 8 7.798-1.889 11.011 9.889-5.199 9.889 5.199-1.889-11.011 8-7.798z"></path>
+        </symbol>
+      </defs>
+    </svg>
+  <rate class="RateCustom" :length="5" :value="3" v-model="rating" iconref="icon-star-full"></rate>
         <vs-button class="save-btn mt-2 p-2" @click="SaveReview()"
           >{{ $t('profile.review') }}</vs-button
         >
@@ -178,11 +179,11 @@
 </template>
 
 <script>
-import StarRating from "vue-star-rating";
+import Rate from '../../components/rate.vue'
 import Compressor from 'compressorjs';
 export default {
   components: {
-    StarRating,
+    Rate
   },
   computed: {
     info() {
@@ -375,7 +376,14 @@ export default {
   },
 };
 </script>
-
+<style scoped>
+.RateCustom .icon {
+  width: 25px;
+  height: 25px;
+}
+  .RateCustom.Rate .Rate__star.filled { color: blue; }
+  .RateCustom.Rate .Rate__star { padding: 0px; }
+</style>
 <style lang="scss" scoped>
 .container-body {
   padding: 20px 30px;
@@ -520,15 +528,12 @@ export default {
       }
     }
     .title {
-font-family: Montserrat;
-font-style: normal;
-font-weight: bold;
-font-size: 23.414px;
-line-height: 29px;
-/* identical to box height */
-
-
-color: #000022;
+      font-family: "Montserrat" sans-serif;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 20.1888px;
+      line-height: 23px;
+      color: #000022;
     }
     .text {
 font-family: Montserrat;

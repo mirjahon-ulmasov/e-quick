@@ -2,9 +2,11 @@
   <div class="wrapper">
     <form autocomplete="off" class="container">
       <img
-        style="margin: 40px 45px 80px 0px"
+        width="311px"
+        height="80px"
+        style="margin: 40px 40px 88px 0px"
         src="@/assets/dealer/img/svg/login/logo1.png"
-        alt=""
+        alt="img"
       />
       <input
         v-validate="'required|min:3'"
@@ -151,12 +153,16 @@ div.wrapper {
       font-size: 19.2614px;
       padding-left: 55px;
       &::placeholder {
-        font-style: normal;
-        font-weight: bold;
-        font-size: 19.2614px;
-        text-transform: uppercase;
-        line-height: 28px;
-        color: #ffffff;
+font-family: Montserrat;
+font-style: normal;
+font-weight: normal;
+font-size: 19.2614px;
+line-height: 28px;
+/* identical to box height, or 143% */
+
+text-transform: uppercase;
+
+color: #FFFFFF;
       }
       &:nth-child(2) {
         background-image: url("../../assets/dealer/img/icons/user.svg");
@@ -185,12 +191,16 @@ div.wrapper {
       padding-left: 55px;
       font-size: 19.2614px;
       &::placeholder {
-        font-style: normal;
-        font-weight: bold;
-        font-size: 19.2614px;
-        text-transform: uppercase;
-        line-height: 28px;
-        color: #ffffff;
+font-family: Montserrat;
+font-style: normal;
+font-weight: normal;
+font-size: 19.2614px;
+line-height: 28px;
+/* identical to box height, or 143% */
+
+text-transform: uppercase;
+
+color: #FFFFFF;
       }
       &:nth-child(3) {
         background-image: url("../../assets/dealer/img/icons/lock.svg");
