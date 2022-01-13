@@ -47,7 +47,7 @@
         </div>
       </div>
      <div class="scrol">
-        <h2 class="head mt-4">{{ $t('journal.lastJ') }} :</h2>
+        <h2 class="head">{{ $t('journal.lastJ') }} :</h2>
       <Table />
     </div>
     </div>
@@ -207,7 +207,9 @@ export default {
   }
   .scrol{
       height: 80%;
+      margin-top: 15px !important;
   padding-right: 15px;
+padding-bottom: 20px;
     overflow-y: scroll;
   &::-webkit-scrollbar {
     width: 10px;
@@ -251,6 +253,7 @@ export default {
     border-bottom-right-radius: 30px;
   border-bottom-left-radius: 30px;
   box-sizing: border-box;
+  z-index: 99999;
   // background-size: 100% 100%;
   .image{
           background-image: url("https://akfagroup.com/img/src/promo/engelberg-7600.jpg");
@@ -266,6 +269,7 @@ export default {
   background: cover cover;
     display: flex;
   align-items: center;
+  z-index: 99999;
     .contact {
     font-family: "Montserrat" sans-serif;
     font-style: normal;

@@ -4,7 +4,7 @@
       <img src="@/assets/dealer/img/icons/uz.svg" alt="" />
       {{ $t("lang.uz") }}
     </div>
-    <div class="lang" style="width: 140px" @click="langUp('ru')" v-else>
+    <div class="lang" style="width: 180px" @click="langUp('ru')" v-else>
       <img src="@/assets/dealer/img/icons/ru.svg" alt="" />
       {{ $t("lang.ru") }}
     </div>

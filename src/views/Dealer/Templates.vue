@@ -101,6 +101,7 @@
     </div>
     <div class="container-footer">
       <p class="contact">71 203 01 01</p>
+      <img src="~@/assets/dealer/img/svg/components/imzo.svg" alt="imzo">
     </div>
     <pop-up-ok :isPopUp="PopUp" @closeSidebar="toggleDataSidebar"></pop-up-ok>
   </div>
@@ -411,6 +412,8 @@ color: #FFFFFF;
   display: flex;
   align-items: center;
   padding: 40px;
+  display: flex;
+  justify-content: space-between;
   .contact {
     font-family: "Montserrat" sans-serif;
     font-style: normal;

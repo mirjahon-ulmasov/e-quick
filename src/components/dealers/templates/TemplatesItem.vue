@@ -85,7 +85,7 @@
       </div>
       <div class="itogo mt-4">
         <h2 class="text">{{ $t('cart.total_price') }}</h2>
-        <h1 class="prise">{{ detail.total_price }} сум</h1>
+        <h1 class="prise">{{ detail.total_price }} {{ $t('sum') }}</h1>
       </div>
       <div class="flex mt-4">
         <vs-button @click="Order()" class="submit"> {{ $t('templates.order') }} </vs-button>

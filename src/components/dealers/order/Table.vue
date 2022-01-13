@@ -121,7 +121,7 @@
             </vs-td>
             <vs-td> {{ tr.delivery_date.split('-').join(".") }} </vs-td>
             <vs-td>
-              {{ Number(tr.total_price).toLocaleString("de-DE")  }} <span class="ml-1">Sum</span>
+              {{ Number(tr.total_price).toLocaleString("de-DE")  }} <span class="ml-1">{{ $t('sum') }}</span>
             </vs-td>
             <!-- <vs-td>
                       <span style="color: #31B778"  class="material-icons">phone</span>  

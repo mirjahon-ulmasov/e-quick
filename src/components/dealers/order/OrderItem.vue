@@ -87,7 +87,7 @@
       </div>
       <div class="itogo mt-4">
         <h2 class="text">{{ $t('cart.total_price') }}</h2>
-        <h1 class="prise" v-if="carts" >{{ Number(carts.total_price).toLocaleString("de-DE") }} сум</h1>
+        <h1 class="prise" v-if="carts" >{{ Number(carts.total_price).toLocaleString("de-DE") }} {{ $t('sum') }}</h1>
       </div>
       <div         v-if="
                   carts.status === 8 ||

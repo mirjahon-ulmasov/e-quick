@@ -30,11 +30,12 @@ export default {
     updated: `Yangilandi`,
     success: 'Muvafaqiyatli',
     seen: `Ko'rildi`,
+    sum: `So'm`,
     cart: {
       title: 'Buyurtma berish',
       category: 'Zavodni tanlang',
-      podcategory: 'Turni tanlang ',
-      productS: 'Pastki turni tanlang',
+      podcategory: 'Turini tanlang ',
+      productS: 'Pastki turini tanlang',
       cart: 'Savat №',
       p_name: 'Mahsulot nomi',
       quantity: 'Miqdori',
@@ -79,7 +80,7 @@ export default {
       status8: 'Buyurtma amalga oshirildi',
       d: 'Yetkazib berish sanasi',
       price: `Narxi (so'mda)`,
-      export: 'Eksport qilmoq',
+      export: 'Eksport qilish',
       about: 'Ariza haqida ma’lumot'
     },
     templates:{
@@ -94,7 +95,7 @@ export default {
       see: `Ko'rish`
     },
     profile: {
-      title: 'Ko’rinishi',
+      title: 'Profil',
       fullname: 'FISh kiriting',
       username: 'Tizimga kirish belgilarini kiriting',
       email: 'Pochta manzilini kiriting',
@@ -120,8 +121,8 @@ export default {
       thankYou: 'Takliflar uchun tashkkur'
     },
     lang: {
-      uz: 'O’zbek tili',
-      ru: `Rus tili o'tish`
+      uz: 'O’zbek tili   ',
+      ru: `Перейти на русский язык`
     },
     weeks: {
       day1: 'Dushanba',
@@ -177,6 +178,7 @@ export default {
     success: 'Успешно',
     seen: `Просмотрено`,
     notisSeen: `Просмотр всех уведомлений`,
+    sum: `Сум`,
     cart: {
       title: 'Создать заказ',
       category: 'Выберите завод',
@@ -267,7 +269,7 @@ export default {
       thankYou: 'Для приложений и изменений'
     },
     lang: {
-      uz: 'На узбекском языке',
+      uz: `O'zbek tiliga o'tish`,
       ru: 'На русском языке'
     },
     weeks: {

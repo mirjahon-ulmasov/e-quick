@@ -84,7 +84,7 @@ export default {
         .dispatch("product/GetOrderExchange", item)
         .then((response) => {
           this.currencies =
-            `${Number(response.data.value).toLocaleString("de-DE")}  ` + "soum";
+            `${Number(response.data.value).toLocaleString("de-DE")}  ` + this.$t('sum');
         });
     },
     Weathers: async function () {
@@ -162,6 +162,9 @@ export default {
   },
   updated(){
     this.CurrentDates()
+    if(this.value){
+      this.Currency()
+    }
   }
 };
 </script>
