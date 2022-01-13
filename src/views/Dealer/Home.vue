@@ -311,18 +311,18 @@ export default {
   }
   @media (min-width: 1330px) and (max-width: 1400px) {
     .left-bg{
-      width: 42% !important;
+      width: 48% !important;
     }
     .right-bg{
-      width: 58% !important;
+      width: 53% !important;
     }
   }
     @media (min-width: 1200px) and (max-width: 1330px) {
     .left-bg{
-      width: 43% !important;
+      width: 47% !important;
     }
     .right-bg{
-      width: 57% !important;
+      width: 53% !important;
     }
   }
   .sle,
