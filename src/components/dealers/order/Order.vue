@@ -92,6 +92,7 @@ export default {
       date: null,
       type: null,
       ordertype: null,
+        date1: new Date('YYYY-MM-DD'),
       orders: [
         {
           text: 'ЗНП',
@@ -141,6 +142,7 @@ export default {
       this.$emit('closeSidebarOrder')
     },
     submitData () {
+      console.log(this.date);
       if (this.type !== null && this.ordertype !== null && this.date !== null) {
         this.$store.dispatch('product/Order', {
           user_id: parseInt(localStorage.getItem('Id')),
@@ -179,6 +181,9 @@ export default {
         })
       }
     }
+  },
+  mounted(){
+    console.log(this.date1);
   }
 }
 </script>

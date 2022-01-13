@@ -80,7 +80,7 @@ export default {
   div.card {
     margin: 10px;
     height: 118.9833984375px;
-    width: 234.49281311035156px;
+    width: 100%;
     border-radius: 8.811594009399414px;
     background: #ffffff;
     box-shadow: 0px 4.4058px 15.4203px rgba(0, 0, 0, 0.1);
@@ -138,11 +138,12 @@ export default {
           font-weight: normal;
           font-size: 12.1589px;
           line-height: 15px;
+          margin-left: 16px;
 
           /* Success */
           color: #4bde97;
           &::before {
-            left: -12%;
+            // left: -12%;
             content: "";
             display: block;
             position: absolute;
@@ -158,12 +159,12 @@ export default {
           font-weight: normal;
           font-size: 12.1589px;
           line-height: 15px;
-          margin-left: 5px;
+         margin-left: 16px;
 
           /* Danger */
           color: #f26464;
           &::before {
-            left: -12%;
+            // left: -12%;
             content: "";
             display: block;
             position: absolute;
