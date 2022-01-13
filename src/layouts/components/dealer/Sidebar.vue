@@ -375,7 +375,7 @@ color: #FFFFFF;
 border-radius: 0px 0px 7.41868px 7.41868px;
   }
 .route {
-  margin: 13px 0px;
+  margin: 12px 0px;
 font-family: Montserrat;
 font-style: normal;
 font-weight: 500;
