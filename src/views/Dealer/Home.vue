@@ -2,7 +2,7 @@
   <div style="width: 100%">
     <div class="row flex vx-row">
       <div
-        class="vx-col lg:w-3/5 flex"
+        class="vx-col lg:w-3/5 flex right-bg"
         style="padding: 20px; padding-left: 20px; padding-right: 40px"
       >
         <div class="vx-row">
@@ -308,6 +308,22 @@ export default {
     padding: 20px 0px 20px 20px;
     border-bottom-right-radius: 30px;
     border-top-right-radius: 30px;
+  }
+  @media (min-width: 1330px) and (max-width: 1400px) {
+    .left-bg{
+      width: 42% !important;
+    }
+    .right-bg{
+      width: 58% !important;
+    }
+  }
+    @media (min-width: 1200px) and (max-width: 1330px) {
+    .left-bg{
+      width: 43% !important;
+    }
+    .right-bg{
+      width: 57% !important;
+    }
   }
   .sle,
   .v-select {

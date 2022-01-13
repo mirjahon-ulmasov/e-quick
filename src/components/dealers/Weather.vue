@@ -2,7 +2,7 @@
   <div class="vx-row weather">
     <div class="vx-col sm:w-full lg:w-2/5 pl-0">
       <div class="bg1">
-        <div style="display: flex; justify-content: flex-end;padding: 5px">
+        <div style="display: flex; justify-content: flex-end;padding: 10px">
           <img src="@/assets/dealer/img/icons/oy.svg" alt="oy" />
         </div>
         <div class="flex">
@@ -19,16 +19,14 @@
       </div>
     </div>
     <div class="vx-col sm:w-full lg:w-3/5 pr-0">
-      <div class="bg2 flex">
-        <div>
-          <h3 class="text">{{ $t('conver') }}</h3>
+      <div class="bg2">
+        <h3 class="text">{{ $t('conver') }}</h3>
+        <div class="flex" style="justify-content: space-around;">
           <img
-            style="margin-top: -8px"
             src="@/assets/dealer/img/icons/dollar.svg"
             alt="som"
           />
-        </div>
-        <div class="">
+                  <div class="">
           <div class="flex">
             <input
               type="text"
@@ -47,6 +45,7 @@
             </select>
           </div>
           <input type="text" v-model="currencies" class="custom mt-2" />
+        </div>
         </div>
       </div>
     </div>
@@ -170,13 +169,13 @@ export default {
 .weather {
   .bg1 {
     width: 100%;
-    min-height: 85.61px;
+    height: 96.25px;
     background: linear-gradient(81.75deg, #3C4A5A 99.96%, #3A9FD1 183.61%) !important;
     border-radius: 7.68696px;
         display: flex;
     flex-direction: column;
     .flex {
-          margin-top: -7px;
+          margin-top: -8px;
       justify-content: center;
       align-items: center;
     }
@@ -219,7 +218,7 @@ export default {
   }
   .bg2 {
     width: 100%;
-    height: 78.25px;
+    height: 96.25px;
     padding: 7px;
     align-items: center;
     justify-content: space-around;
@@ -227,14 +226,16 @@ export default {
     box-shadow: 0px 3.72603px 13.0411px rgba(0, 0, 0, 0.1);
     border-radius: 7.45205px;
     .text {
-      font-family: Poppins;
-      font-style: normal;
-      font-weight: bold;
-      font-size: 13.9726px;
-      line-height: 33px;
-      /* identical to box height, or 233% */
+font-family: Montserrat;
+font-style: normal;
+font-weight: 500;
+font-size: 13.9726px;
+line-height: 29px;
+margin-left: 10px !important;
+/* identical to box height, or 233% */
 
-      color: #000000;
+
+color: #000000;
     }
     .custom {
       width: 100%;
