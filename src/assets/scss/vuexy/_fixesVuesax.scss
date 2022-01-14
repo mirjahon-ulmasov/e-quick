@@ -620,10 +620,9 @@
     }
 
   }
-
   .vs-con-tbody {
     width: 100%;
-    overflow-y:auto;
+   overflow: auto !important;
 
     // Justify checkboxe center
     .con-vs-checkbox {
@@ -692,6 +691,23 @@ background: rgba(255, 255, 255, 0.03) !important;
   }
   .vs-table--pagination {
     margin-top: 1rem;
+  }
+}
+.cart{
+  .produ.vs-con-table {
+    background: transparent;
+    table{
+      min-width: 300px !important;
+    }
+  
+  
+    .vs-con-tbody {
+      width: 100%;
+      overflow-y: scroll !important;
+      overflow-x: hidden !important;
+  
+      // Justify checkboxe center
+    }
   }
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="cart">
     <div class="flex" v-if="carts !== null" style="justify-content: space-between">
       <h2 class="zayhaed" >{{ $t('cart.cart') }} {{ carts.items.length || '' }}</h2>
       <svg
@@ -66,7 +66,7 @@
         <vs-th sort-key="total_price">{{ $t('cart.delete') }}</vs-th>
       </template>
       <template slot-scope="{ data }" class="scr">
-        <tbody style="over" >
+        <tbody style="overflow-y: scroll" >
           <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
             <vs-td>
               <p>{{ indextr + 1 }}</p>
@@ -423,21 +423,10 @@ color: #FFFFFF;
     box-shadow: none !important;
   }
   .vs-con-table {
-    .vs-con-tbody {
+          .vs-table--tbody {
       width: 100% !important;
       overflow-y: scroll !important;
       overflow-x: hidden !important;
-    }
-    .vs-con-tbody::-webkit-scrollbar {
-      width: 5px;
-    }
-    .vs-con-tbody::-webkit-scrollbar-track {
-      background: rgb(97, 48, 48) !important;
-    }
-    .vs-con-tbody::-webkit-scrollbar-thumb {
-      background-color: rgb(204, 41, 41) !important;
-      border-radius: 6px;
-      // border: 3px solid blue;
     }
     .product-name {
       max-width: 23rem;
