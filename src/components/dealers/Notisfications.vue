@@ -3,7 +3,7 @@
     <vs-popup
       background-color="rgb(45 39 39 / 70%)"
       background-color-popup="#FFFFFF"
-      style="z-index: 1011 !important"
+      style="z-index: 999991 !important"
       :active.sync="isSidebarActiveLocal"
     >
       <h2 class="title mb-6"> {{ $t('profile.notis') }}</h2>

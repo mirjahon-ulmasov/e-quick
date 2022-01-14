@@ -66,7 +66,7 @@
         <vs-th sort-key="total_price">{{ $t('cart.delete') }}</vs-th>
       </template>
       <template slot-scope="{ data }" class="scr">
-        <tbody>
+        <tbody style="over" >
           <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
             <vs-td>
               <p>{{ indextr + 1 }}</p>
@@ -425,7 +425,8 @@ color: #FFFFFF;
   .vs-con-table {
     .vs-con-tbody {
       width: 100% !important;
-      overflow: auto !important;
+      overflow-y: scroll !important;
+      overflow-x: hidden !important;
     }
     .vs-con-tbody::-webkit-scrollbar {
       width: 5px;

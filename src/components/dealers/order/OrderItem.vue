@@ -4,6 +4,7 @@
       class="ozgar"
       background-color="rgb(45 39 39 / 70%)"
       background-color-popup="#ffffff"
+      style="z-index: 9999999"
       :active.sync=" isSidebarActiveLocal"
     >
       <h2

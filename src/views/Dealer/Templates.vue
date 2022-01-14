@@ -272,7 +272,8 @@ line-height: 16px;
 
       .vs-con-table {
         .vs-con-tbody {
-          overflow: hidden !important;
+          overflow-y: hidden !important;
+          overflow-x: scroll !important;
         }
         .vs-con-tbody::-webkit-scrollbar {
           width: 5px;

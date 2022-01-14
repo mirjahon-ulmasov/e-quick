@@ -3,6 +3,7 @@
     <vs-popup
       class="ozgar"
       background-color="rgb(45 39 39 / 70%)"
+      style="z-index: 9999999"
       background-color-popup="#ffffff"
       :active.sync="isSidebarActiveLocal"
     >

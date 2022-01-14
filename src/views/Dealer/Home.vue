@@ -314,7 +314,7 @@ export default {
       width: 48% !important;
     }
     .right-bg{
-      width: 53% !important;
+      width: 52% !important;
     }
   }
     @media (min-width: 1200px) and (max-width: 1330px) {
