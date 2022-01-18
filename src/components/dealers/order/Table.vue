@@ -115,7 +115,7 @@
                 class="status"
               >
                 <span style="font-size: 11px; color: #ffffff">
-                  {{ $t("journal.status3") }}
+                  {{ $t('erorr') }}
                 </span>
               </vs-chip>
             </vs-td>

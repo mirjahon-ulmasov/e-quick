@@ -91,7 +91,7 @@
         <h1 class="prise" v-if="carts" >{{ Number(carts.total_price).toLocaleString("de-DE") }} {{ $t('sum') }}</h1>
       </div>
       <div         v-if="
-                  carts.status === 8 ||
+                  carts.status === 7 ||
                   carts.status === 9 ||
                   carts.status === 10 ||
                   carts.status === 11"
@@ -146,19 +146,29 @@ export default {
       }
       this.$store.dispatch('product/OrderResend', payload)
       .then(response => {
+        if (response.status === 201) {
           this.$vs.notify({
             text: this.$t('cart.successOffer'),
             iconPack: 'feather',
             icon: 'icon-alert-circle',
             color: 'success'
           })
+        }
+        else{
+            this.$vs.notify({
+              text: this.$t('erorr'),
+              iconPack: 'feather',
+              icon: 'icon-alert-circle',
+              color: 'danger'
+            })
+        }
           setTimeout(() => {
             this.$store.dispatch("addUser/NotisfyGet");
           }, 4000);
         })
           .catch(err => { 
             this.$vs.notify({
-              text: err,
+              text: this.$t('erorr'),
               iconPack: 'feather',
               icon: 'icon-alert-circle',
               color: 'danger'

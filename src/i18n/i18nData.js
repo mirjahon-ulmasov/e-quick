@@ -31,6 +31,7 @@ export default {
     success: 'Muvafaqiyatli',
     seen: `Ko'rildi`,
     sum: `So'm`,
+    erorr: 'Xatolik yuz berdi !',
     cart: {
       title: 'Buyurtma berish',
       category: 'Zavodni tanlang',
@@ -60,7 +61,7 @@ export default {
       successOffer: 'Buyurtma muvaffaqiyatli rasmiylashtirildi',
       nullCart: 'Sizning savatchangiz bo’sh, iltimos ariza uchun zarur mahsulotlarni tanlang',
       updatedP: 'Mahsulot yangilandi !',
-      addedP: 'Mahsulot savatga joylandi !'
+      addedP: 'Mahsulot savatga joylandi'
     },
     journal: {
       title: 'Jurnal',
@@ -179,6 +180,7 @@ export default {
     seen: `Просмотрено`,
     notisSeen: `Просмотр всех уведомлений`,
     sum: `Сум`,
+    erorr: 'Произошла ошибка',
     cart: {
       title: 'Создать заказ',
       category: 'Выберите завод',
