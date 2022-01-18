@@ -167,9 +167,6 @@ export default {
     this.$store.dispatch("product/GetTemplates");
     //  this.$store.dispatch('product/GetTemplatesItem')
   },
-  mounted() {
-    this.$store.dispatch("product/GetTemplates");
-  },
 };
 </script>
 

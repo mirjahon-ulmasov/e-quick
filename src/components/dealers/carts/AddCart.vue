@@ -224,9 +224,6 @@ export default {
       this.calcPrice = this.count * this.price;
     },
   },
-  created() {
-    this.$store.dispatch("product/GetProduct");
-  },
 };
 </script>
 <style scoped>
