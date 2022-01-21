@@ -235,7 +235,7 @@ color: rgba(58, 159, 209, 1);
   display: flex;
   margin-top: 12px;
   align-items: flex-end;
-  background: url("~@/assets/dealer/img/svg/components/product.svg");
+  background: url("~@/assets/images/pages/product.svg");
   /* background: url(.png); */
   border-radius: 9.47126px;
 }

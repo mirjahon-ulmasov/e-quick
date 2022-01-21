@@ -80,7 +80,7 @@ export default {
   name: "Home",
   computed: {
     category() {
-      return this.$store.state.category.categories;
+      return this.$store.state.product.categories;
     },
     products() {
       return this.$store.state.product.productes.results;
@@ -228,7 +228,7 @@ export default {
     this.observer = new IntersectionObserver(this.infiniteScroll);
   },
   created() {
-    this.$store.dispatch("category/GetItem");
+    this.$store.dispatch("product/GetCategory");
   },
 };
 </script>

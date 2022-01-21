@@ -1,21 +1,5 @@
 <template>
   <div class="layout--main" :class="[layoutTypeClass, navbarClasses, footerClasses, {'no-scroll': isAppPage}]">
-
-    <vx-tour :steps="steps" v-if="!disableThemeTour && (windowWidth >= 1200 && mainLayoutType === 'vertical' && verticalNavMenuWidth == 'default')" />
-
-    <!-- <the-customizer
-      v-if                    = "!disableCustomizer"
-      :footerType             = "footerType"
-      :hideScrollToTop        = "hideScrollToTop"
-      :navbarType             = "navbarType"
-      :navbarColor            = "navbarColor"
-      :routerTransition       = "routerTransition"
-      @toggleHideScrollToTop  = "toggleHideScrollToTop"
-      @updateFooter           = "updateFooter"
-      @updateNavbar           = "updateNavbar"
-      @updateNavbarColor      = "updateNavbarColor"
-      @updateRouterTransition = "updateRouterTransition" /> -->
-
     <v-nav-menu
       :navMenuItems = "navMenuItems"
       title         = "Vuexy"
@@ -24,86 +8,15 @@
     <div id="content-area" :class="[contentAreaClass, {'show-overlay': bodyOverlay}]">
       <div id="content-overlay" />
 
-    <!-- Navbar -->
-    <template v-if="mainLayoutType === 'horizontal' && windowWidth >= 1200">
-      <the-navbar-horizontal
-        :navbarType= "navbarType"
-        :class="[
-          {'text-white' : isNavbarDark  && !isThemeDark},
-          {'text-base'  : !isNavbarDark && isThemeDark}
-        ]" />
-
-      <div style="height: 62px" v-if="navbarType === 'static'"></div>
-
-      <h-nav-menu
-        :class="[
-          {'text-white' : isNavbarDark  && !isThemeDark},
-          {'text-base'  : !isNavbarDark && isThemeDark}
-        ]"
-        :navMenuItems="navMenuItems" />
-    </template>
-
-    <template v-else>
+    <template>
       <the-navbar-vertical
-        :navbarColor="navbarColor"
-        :class="[
-          {'text-white' : isNavbarDark  && !isThemeDark},
-          {'text-base'  : !isNavbarDark && isThemeDark}
-        ]" />
+        :navbarColor="navbarColor"/>
     </template>
     <!-- /Navbar -->
       <div class="content-wrapper">
         <div class="router-view">
           <div class="router-content">
-
-            <transition :name="routerTransition">
-
-              <div v-if="$route.meta.breadcrumb || $route.meta.pageTitle" class="router-header flex flex-wrap items-center mb-6">
-                <div
-                  class="content-area__heading"
-                  :class="{'pr-4 border-0 md:border-r border-solid border-grey-light' : $route.meta.breadcrumb}">
-                  <h2 class="mb-1">{{ routeTitle }}</h2>
-                </div>
-
-                <!-- BREADCRUMB -->
-                <vx-breadcrumb class="ml-4 md:block hidden" v-if="$route.meta.breadcrumb" :route="$route" :isRTL="$vs.rtl" />
-
-                <!-- DROPDOWN -->
-                <vs-dropdown vs-trigger-click class="ml-auto md:block hidden cursor-pointer">
-                  <vs-button radius icon="icon-settings" icon-pack="feather" />
-
-                  <vs-dropdown-menu class="w-32">
-                    <vs-dropdown-item>
-                      <div @click="$router.push('/pages/profile').catch(() => {})" class="flex items-center">
-                        <feather-icon icon="UserIcon" class="inline-block mr-2" svgClasses="w-4 h-4" />
-                        <span>Profile</span>
-                      </div>
-                    </vs-dropdown-item>
-                    <vs-dropdown-item>
-                      <div @click="$router.push('/apps/todo').catch(() => {})" class="flex items-center">
-                        <feather-icon icon="CheckSquareIcon" class="inline-block mr-2" svgClasses="w-4 h-4" />
-                        <span>Tasks</span>
-                      </div>
-                    </vs-dropdown-item>
-                    <vs-dropdown-item>
-                      <div @click="$router.push('/apps/email').catch(() => {})" class="flex items-center">
-                        <feather-icon icon="MailIcon" class="inline-block mr-2" svgClasses="w-4 h-4" />
-                        <span>Inbox</span>
-                      </div>
-                    </vs-dropdown-item>
-                  </vs-dropdown-menu>
-
-                </vs-dropdown>
-
-              </div>
-            </transition>
-
             <div class="content-area__content">
-
-              <back-to-top bottom="5%" :right="$vs.rtl ? 'calc(100% - 2.2rem - 38px)' : '30px'" visibleoffset="500" v-if="!hideScrollToTop">
-                <vs-button icon-pack="feather" icon="icon-arrow-up" class="shadow-lg btn-back-to-top" />
-              </back-to-top>
-
               <transition :name="routerTransition" mode="out-in">
                 <router-view @changeRouteTitle="changeRouteTitle" @setAppClasses="(classesStr) => $emit('setAppClasses', classesStr)" />
               </transition>
@@ -144,38 +57,6 @@ export default {
       navMenuItems,
       routerTransition  : themeConfig.routerTransition || 'none',
       routeTitle        : this.$route.meta.pageTitle,
-      steps: [
-        {
-          target  : '#btnVNavMenuMinToggler',
-          content : 'Toggle Collapse Sidebar.'
-        },
-        {
-          target  : '.vx-navbar__starred-pages',
-          content : 'Create your own bookmarks. You can also re-arrange them using drag & drop.'
-        },
-        {
-          target  : '.i18n-locale',
-          content : 'You can change language from here.'
-        },
-        {
-          target  : '.navbar-fuzzy-search',
-          content : 'Try fuzzy search to visit pages in flash.'
-        },
-        {
-          target  : '.customizer-btn',
-          content : 'Customize template based on your preference',
-          params  : {
-            placement: 'left'
-          }
-        },
-        {
-          target  : '.vs-button.buy-now',
-          content : 'Buy this awesomeness at affordable price!',
-          params  : {
-            placement: 'top'
-          }
-        }
-      ]
     }
   },
   watch: {
@@ -291,7 +172,7 @@ export default {
 </script>
 <style scoped>
 .layout--main{
-    background-image: url('~@/assets/images/bg1.svg') !important;
+    background-image: url('~@/assets/images/pages/bg1.svg') !important;
     background-color: #fff !important;
     background-repeat: no-repeat;
     background-size: cover !important;

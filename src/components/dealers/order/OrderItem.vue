@@ -4,7 +4,7 @@
       class="ozgar"
       background-color="rgb(45 39 39 / 70%)"
       background-color-popup="#ffffff"
-      style="z-index: 9999999"
+      style="z-index: 9999"
       :active.sync=" isSidebarActiveLocal"
     >
       <h2
@@ -140,6 +140,12 @@ export default {
   },
   methods: {
     OrderResend(){
+      this.$vs.loading({
+        type: "sound",
+        text: "Iltimos kuting !",
+        color: "rgb(62, 97, 121)",
+        background: 'rgba(255, 255, 255,.8)'
+      });
       const payload = {
         user_id: parseInt(localStorage.getItem('Id')),
         order_id: this.carts.id
@@ -147,6 +153,8 @@ export default {
       this.$store.dispatch('product/OrderResend', payload)
       .then(response => {
         if (response.status === 201) {
+          this.$vs.loading.close();
+           this.isSidebarActiveLocal = false
           this.$vs.notify({
             text: this.$t('cart.successOffer'),
             iconPack: 'feather',
@@ -155,6 +163,7 @@ export default {
           })
         }
         else{
+          this.$vs.loading.close();
             this.$vs.notify({
               text: this.$t('erorr'),
               iconPack: 'feather',
@@ -167,6 +176,7 @@ export default {
           }, 4000);
         })
           .catch(err => { 
+            this.$vs.loading.close();
             this.$vs.notify({
               text: this.$t('erorr'),
               iconPack: 'feather',

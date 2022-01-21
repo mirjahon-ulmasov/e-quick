@@ -1,13 +1,25 @@
 <template>
   <div class="relative">
 
-    <div class="vx-navbar-wrapper" :class="classObj">
+    <div class="vx-navbar-wrapper">
 
-      <vs-navbar class="vx-navbar navbar-custom navbar-skelton" :color="navbarColorLocal" :class="textColor">
+      <vs-navbar class="vx-navbar navbar-custom navbar-skelton">
 
         <!-- SM - OPEN SIDEBAR BUTTON -->
         <feather-icon class="sm:inline-flex xl:hidden cursor-pointer p-2" icon="MenuIcon" @click.stop="showSidebar" />
-        <profile-drop-down />
+          <div class="the-navbar__user-meta flex items-center" >
+    <vs-dropdown vs-trigger-click class="cursor-pointer">
+
+      <div class="con-img">
+        <img  key="onlineImg" src="https://i.imgur.com/jcDqb3U.jpg" alt="user-img" width="50" height="50" class="rounded-full shadow-md cursor-pointer block" />
+      </div>
+    </vs-dropdown>
+        <div class="text-right leading-tight hidden sm:block ml-3">
+      <p 
+      style="font-size: 26px; font-family: Gilroy;"
+      class=""> Good Evening Mikey </p>
+    </div>
+  </div>
         <vs-spacer />
         <select name="select" id="vs-select">
           <option value="1">Choose</option>
@@ -18,7 +30,7 @@
         <div class="not">
            <svg xmlns="http://www.w3.org/2000/svg" width="24px" style="color: white" height="24px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square h-6 w-6 stroke-current"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
        </div>
-        <notification-drop-down class="mr-4" />
+        <feather-icon icon="BellIcon" class="cursor-pointer mt-1 sm:mr-6 mr-2" />
         <feather-icon icon="UserIcon" class="cursor-pointer mt-1 sm:mr-6 mr-2" />
 
 
@@ -29,48 +41,9 @@
 
 
 <script>
-import Bookmarks            from './components/Bookmarks.vue'
-import I18n                 from './components/I18n.vue'
-import CartDropDown         from './components/CartDropDown.vue'
-import NotificationDropDown from './components/NotificationDropDown.vue'
-import ProfileDropDown      from './components/ProfileDropDown.vue'
 
 export default {
   name: 'the-navbar-vertical',
-  props: {
-    navbarColor: {
-      type: String,
-      default: 'transparent'
-    }
-  },
-  components: {
-    Bookmarks,
-    I18n,
-    CartDropDown,
-    NotificationDropDown,
-    ProfileDropDown
-  },
-  computed: {
-    navbarColorLocal () {
-      return this.$store.state.theme === 'dark' && this.navbarColor === '#fff' ? '#10163a' : this.navbarColor
-    },
-    verticalNavMenuWidth () {
-      return this.$store.state.verticalNavMenuWidth
-    },
-    textColor () {
-      return {'text-white': (this.navbarColor !== '#10163a' && this.$store.state.theme === 'dark') || (this.navbarColor !== '#fff' && this.$store.state.theme !== 'dark')}
-    },
-    windowWidth () {
-      return this.$store.state.windowWidth
-    },
-
-    // NAVBAR STYLE
-    classObj () {
-      if      (this.verticalNavMenuWidth === 'default') return 'navbar-default'
-      else if (this.verticalNavMenuWidth === 'reduced') return 'navbar-reduced'
-      else if (this.verticalNavMenuWidth)               return 'navbar-full'
-    }
-  },
   methods: {
     showSidebar () {
       this.$store.commit('TOGGLE_IS_VERTICAL_NAV_MENU_ACTIVE', true)

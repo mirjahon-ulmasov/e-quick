@@ -28,14 +28,6 @@ const router = new Router({
           }
         },
         {
-          path: '/dealer/main2',
-          name: 'dealer-main',
-          component: () => import('./views/Dealer/Home2.vue'),
-          meta: {
-            rule: 'dealer'
-          }
-        },
-        {
           path: '/dealer/templates',
           name: 'Main',
           component: () => import('./views/Dealer/Templates.vue'),

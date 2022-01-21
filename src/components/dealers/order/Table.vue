@@ -4,7 +4,7 @@
       <img
         v-if="selected.length > 0"
         width="25px"
-        src="@/assets/dealer/img/icons/excel_icon.svg"
+        src="@/assets/images/icons/excel_icon.svg"
         alt=""
       />
       <h3 v-if="selected.length > 0" class="exp">{{ $t('journal.export') }}</h3>
@@ -36,7 +36,7 @@
                 style="display: flex; align-items: center"
               >
                 № {{ tr.order_number }}
-                <img src="@/assets/dealer/img/icons/eys.svg" class="ml-2" alt="" />
+                <img src="@/assets/images/icons/eys.svg" class="ml-2" alt="" />
               </p>
             </vs-td>
             <vs-td>
@@ -51,7 +51,7 @@
             </vs-td>
             <vs-td>
               <!-- Draft -->
-              <vs-chip v-show="tr.status === 0 || tr.status === 7" class="status">
+              <vs-chip v-show="tr.status === 0 || tr.status === 7" class="status" style="background: #FF9F43 !important">
                 <span style="font-size: 11px; color: #ffffff">
                   {{ $t("journal.status1") }}</span
                 >

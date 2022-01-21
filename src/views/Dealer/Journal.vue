@@ -4,7 +4,7 @@
       <div class="container-header">
         <div class="card">
           <div class="icon">
-            <img src="~@/assets/dealer/img/icons/icon-bar-chart-2.svg" alt="" />
+            <img src="~@/assets/images/icons/icon-bar-chart-2.svg" alt="" />
           </div>
           <div class="col">
             <p>0</p>
@@ -14,7 +14,7 @@
         </div>
         <div class="card">
           <div class="icon">
-            <img src="~@/assets/dealer/img/icons/icon-file.svg" alt="" />
+            <img src="~@/assets/images/icons/icon-file.svg" alt="" />
           </div>
           <div class="col">
             <p>0</p>
@@ -24,7 +24,7 @@
         </div>
         <div class="card">
           <div class="icon">
-            <img src="~@/assets/dealer/img/icons/Shape.svg" alt="" />
+            <img src="~@/assets/images/icons/Shape.svg" alt="" />
           </div>
           <div class="col">
             <p>0</p>
@@ -35,7 +35,7 @@
         <div class="card">
           <div class="icon">
             <img
-              src="~@/assets/dealer/img/icons/carbon_request-quote.svg"
+              src="~@/assets/images/icons/carbon_request-quote.svg"
               alt=""
             />
           </div>
@@ -149,7 +149,7 @@ export default {
             position: absolute;
             width: 20px;
             height: 20px;
-            background: url("~@/assets/dealer/img/icons/icon-trending-up.svg");
+            background: url("~@/assets/images/icons/icon-trending-up.svg");
             background-repeat: no-repeat;
           }
         }
@@ -170,7 +170,7 @@ export default {
             position: absolute;
             width: 20px;
             height: 20px;
-            background: url("~@/assets/dealer/img/icons/icon-trending-down.svg");
+            background: url("~@/assets/images/icons/icon-trending-down.svg");
             background-repeat: no-repeat;
           }
         }
@@ -253,7 +253,7 @@ padding-bottom: 20px;
     border-bottom-right-radius: 30px;
   border-bottom-left-radius: 30px;
   box-sizing: border-box;
-  z-index: 99999;
+  z-index: 999;
   // background-size: 100% 100%;
   .image{
           background-image: url("https://akfagroup.com/img/src/promo/engelberg-7600.jpg");
@@ -269,7 +269,7 @@ padding-bottom: 20px;
   background: cover cover;
     display: flex;
   align-items: center;
-  z-index: 99999;
+  z-index: 999;
     .contact {
     font-family: "Montserrat" sans-serif;
     font-style: normal;
@@ -288,7 +288,7 @@ padding-bottom: 20px;
       position: absolute;
       width: 50px;
       height: 50px;
-      background: url("~@/assets/dealer/img/icons/engelberg-icon.svg");
+      background: url("~@/assets/images/icons/engelberg-icon.svg");
       background-repeat: no-repeat;
     }
   }

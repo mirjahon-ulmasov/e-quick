@@ -24,5 +24,9 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/scss/vuexy/components/featherIcon.scss"
+.feather-icon {
+    display: inline-flex;
+    align-items: center;
+}
+
 </style>

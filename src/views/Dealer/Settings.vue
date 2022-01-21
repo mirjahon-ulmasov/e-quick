@@ -25,7 +25,7 @@
               accept="image/*"
             />
             <div class="edit">
-              <img src="@/assets/dealer/img/icons/edit.svg" alt="img" />
+              <img src="@/assets/images/icons/edit.svg" alt="img" />
             </div>
           </div>
           <input
@@ -705,7 +705,7 @@ color: #000022;
   width: 100%;
   height: 20%;
   box-sizing: border-box;
-  background-image: url("~@/assets/images/bg2.jpg");
+  background-image: url("~@/assets/images/pages/bg2.jpg");
   background-repeat: no-repeat;
   background: cover cover;
   box-sizing: border-box;

@@ -17,11 +17,8 @@ if (localStorage.getItem('access')) {
       const base64 = base64Url.replace('-', '+').replace('_', '/')
       const dataJWT = JSON.parse(window.atob(base64))
       dataJWT.header = headerData
-  
       // TODO: add expiration at check ...
-  
-  
-      return dataJWT
+     return dataJWT
     } catch (err) {
       return false
     }

@@ -188,7 +188,7 @@
                 :percent="70"
               >
                        <div class="resize" >
-                  <img src="~@/assets/dealer/img/icons/DownIcon.svg" alt="icon">
+                  <img src="~@/assets/images/icons/DownIcon.svg" alt="icon">
                </div>  
               </vue-easy-pie-chart>
             </div>
@@ -209,7 +209,7 @@
                 :percent="70"
               >
                          <div class="resize" >
-                  <img src="~@/assets/dealer/img/icons/DownIcon.svg" alt="icon">
+                  <img src="~@/assets/images/icons/DownIcon.svg" alt="icon">
                </div>  
               </vue-easy-pie-chart>
             </div>
@@ -410,7 +410,7 @@
 </template>
 <script>
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
-import PopUpList from './components/AddAdmin.vue'
+import PopUpList from '@/components/admin/AddAdmin.vue'
 import VueEasyPieChart from 'vue-easy-pie-chart'
 import 'vue-easy-pie-chart/dist/vue-easy-pie-chart.css'
 export default {

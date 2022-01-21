@@ -3,7 +3,7 @@
     <div class="container">
       <img
         style="margin-bottom: 45px"
-        src="@/assets/dealer/img/svg/login/logo.png"
+        src="@/assets/images/login/logo.png"
         alt=""
       />
       <h2 class="text">{{ $t('auth.rePass') }}</h2>
@@ -267,7 +267,7 @@ div.wrapper {
   height: 100vh;
   margin: 0;
   padding: 0;
-  background-image: url("../../assets/dealer/img/svg/login/login-background.svg"),
+  background-image: url("../../assets/images/login/login-background.svg"),
     linear-gradient(99.52deg, #3f4f61 -14.96%, #3a9fd1 156.83%);
   display: flex;
   justify-content: center;
@@ -317,7 +317,7 @@ div.wrapper {
         color: #ffffff;
       }
       &:nth-child(3) {
-        background-image: url("../../assets/dealer/img/icons/email.svg");
+        background-image: url("../../assets/images/icons/email.svg");
         background-repeat: no-repeat;
         background-position: 5%;
         background-size: 7%;
@@ -345,7 +345,7 @@ div.wrapper {
         color: #ffffff;
       }
       &:nth-child(4) {
-        background-image: url("../../assets/dealer/img/icons/code.svg");
+        background-image: url("../../assets/images/icons/code.svg");
         background-repeat: no-repeat;
         background-position: 5%;
         background-size: 7%;
@@ -373,7 +373,7 @@ div.wrapper {
         color: #ffffff;
       }
       &:nth-child(6) {
-        background-image: url("../../assets/dealer/img/icons/lock.svg");
+        background-image: url("../../assets/images/icons/lock.svg");
         background-repeat: no-repeat;
         background-position: 5%;
         background-size: 7%;
@@ -401,7 +401,7 @@ div.wrapper {
         color: #ffffff;
       }
       &:nth-child(7) {
-        background-image: url("../../assets/dealer/img/icons/lock.svg");
+        background-image: url("../../assets/images/icons/lock.svg");
         background-repeat: no-repeat;
         background-position: 5%;
         background-size: 7%;

@@ -9,8 +9,8 @@
       <div class="close-side" :class="active ? 'close-side' : 'close-side-none'"
        @click="active=!active" 
       >
-      <img src="@/assets/dealer/img/icons/arrow.svg" v-if="!active"  style="color: #cfcfcf; border-radius: 2px; margin-right: 5px" class="cursor-pointer" alt="cvxzv">
-      <img src="@/assets/dealer/img/icons/arrow2.svg" v-else  style="color: #cfcfcf; border-radius: 2px" class="cursor-pointer" alt="cvxzv">
+      <img src="@/assets/images/icons/arrow.svg" v-if="!active"  style="color: #cfcfcf; border-radius: 2px; margin-right: 5px" class="cursor-pointer" alt="cvxzv">
+      <img src="@/assets/images/icons/arrow2.svg" v-else  style="color: #cfcfcf; border-radius: 2px" class="cursor-pointer" alt="cvxzv">
     </div>
     </div>
 </template>
@@ -37,6 +37,7 @@ export default {
 </script>
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;600;700;800;900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 .close-side{
 position: fixed;
 display: flex;

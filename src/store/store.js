@@ -9,8 +9,7 @@ import actions from './actions'
 Vue.use(Vuex)
 import dataList from './data-list/moduleDataList'
 import moduleAuth from './auth/moduleAuth.js'
-import category from './category/moduleDataList'
-import product from './product/moduleDataList'
+import product from './dealer/moduleDataList'
 import addUser from './admins/moduleDataList'
 export default new Vuex.Store({
   getters,
@@ -21,7 +20,6 @@ export default new Vuex.Store({
     addUser,
     dataList,
     auth: moduleAuth,
-    category,
     product
   },
   strict: process.env.NODE_ENV !== 'production'

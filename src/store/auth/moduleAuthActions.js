@@ -1,11 +1,13 @@
-import jwt from '../../http/requests/auth/jwt/index.js'
 import axios from '@/axios.js'
+
+// User Auth and Update Reset and Verify
+
 export default {
   
   loginJWT ({ commit, dispatch }, payload) {
 
     return new Promise((resolve, reject) => {
-      jwt.login(payload.userDetails.username, payload.userDetails.password)
+      axios.post('/api/v1/login', payload.userDetails )
         .then(response => {
           if (response) {
             //  User Info

@@ -1,0 +1,159 @@
+@import "../_variables.scss";
+
+.v-select {
+  position: relative;
+  margin-top: 12px !important;
+  background: #ffffff;
+  box-shadow: 0px 3.70934px 12.9827px rgba(0, 0, 0, 0.1);
+  border-radius: 7.41868px;
+  width: 100%;
+  border: none !important;
+  padding-right: 20px;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13.91px;
+  padding-left: 0px;
+  // width: 230px;
+  line-height: 17px;
+  height: 55px;
+  &::before{
+    left: 5%;
+    top: 36%;
+    content: "";
+    display: block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: url("~@/assets/images/icons/search.svg");
+    background-repeat: no-repeat;
+  }
+  &:not(.vs--single) {
+    .vs__selected {
+      font-family: Montserrat;
+font-style: normal;
+font-weight: normal;
+font-size: 13.91px;
+line-height: 17px;
+color: rgba(58, 159, 209, 1) !important;
+    }
+  }
+
+  .vs__dropdown-toggle {
+    padding: .59px 0 4px 0;
+    border: none !important;
+    height: 57px !important;
+    // width: 266px !important;
+    .vs__search {
+      color: rgba(58, 159, 209, 1);
+    }
+    .vs__deselect {
+      svg {
+        stroke: $content-color;
+        opacity: 0.5;
+        margin-top: 0 !important;
+      }
+    }
+
+    .vs__selected-options {
+      left: 13%;
+      .vs__selected {
+        // margin: 0px 4px 0;
+      }
+    }
+
+    .vs__actions {
+
+      .vs__clear {
+        color: $content-color;
+      }
+    }
+  }
+  .vs__dropdown-menu  {
+    margin-top: 10px;
+    min-height: 175px;
+    max-height: 300px !important;
+    overflow-y: scroll;
+    .vs__dropdown-menu::-webkit-scrollbar {
+      width: 3px !important;
+      background: linear-gradient(90deg, #5e585c 0%, #000000 100%) !important;
+      border-radius: 0px 0px 7.41868px 7.41868px !important;
+    }
+    .vs__dropdown-menu::-webkit-scrollbar-thumb {
+      background: linear-gradient(99.52deg, #3f4f61 -14.96%, #3a9fd1 156.83%) !important;
+      border-radius: 7.41868px;
+      height: 70px;
+    }
+    .vs__dropdown-option--highlight {
+      background: linear-gradient(99.52deg, #3F4F61 -14.96%, #3A9FD1 156.83%) !important;
+      color: $white !important;
+    }
+
+    .vs__dropdown-option {
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 13.91px;
+      line-height: 17px;
+      padding: 10px;
+      margin-top: 6px;
+      /* identical to box height */
+      
+      
+      color: #333333;
+    }
+  }
+
+
+  .vs__selected {
+    color: $content-color;
+  }
+}
+
+.theme-dark {
+  .v-select{
+      .vs__dropdown-toggle{
+          background: $content-dark-bg;
+
+          .vs__clear svg{
+              stroke: $grey;
+          }
+          .vs__deselect svg{
+              stroke: $grey;
+              opacity: 0.7;
+          }
+      }
+      &:not(.vs--single) {
+        .vs__selected{
+            // color: $white;
+            background: $dark-card-color;
+            border: none;
+        }
+      }
+      .vs__selected{
+        color: $white;
+      }
+      .vs__open-indicator{
+          fill: $grey;
+      }
+      .vs__dropdown-menu{
+          background: $content-dark-bg;
+          .vs__dropdown-option {
+            color: $theme-dark-text-color;
+          }
+      }
+  }
+}
+
+
+// Override vars
+
+//  Global Component Variables
+$vs-component-line-height: 1.8;
+
+//  Active State
+$vs-state-active-bg: $primary !default;
+$vs-state-active-color: $white !default;
+
+
+@import "~vue-select/src/scss/vue-select.scss"

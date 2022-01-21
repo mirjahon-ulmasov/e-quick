@@ -1,11 +1,5 @@
 
 const mutations = {
-
-
-  // /////////////////////////////////////////////
-  // COMPONENTS
-  // /////////////////////////////////////////////
-
   // Vertical NavMenu
 
   TOGGLE_IS_VERTICAL_NAV_MENU_ACTIVE (state, value) {

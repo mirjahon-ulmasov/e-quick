@@ -15,7 +15,7 @@
                   :percent="70"
                 >
               <div class="resize" >
-                  <img src="~@/assets/dealer/img/icons/DownIcon.svg" alt="icon">
+                  <img src="~@/assets/images/icons/DownIcon.svg" alt="icon">
                </div>  
                 </vue-easy-pie-chart>
               </div>
@@ -36,7 +36,7 @@
                   :percent="70"
                 >
                 <div class="resize" >
-                  <img src="~@/assets/dealer/img/icons/DownIcon.svg" alt="icon">
+                  <img src="~@/assets/images/icons/DownIcon.svg" alt="icon">
                </div>
                 </vue-easy-pie-chart>
               </div>
@@ -57,7 +57,7 @@
                   :percent="70"
                 >
                <div class="resize" >
-                  <img src="~@/assets/dealer/img/icons/DownIcon.svg" alt="icon">
+                  <img src="~@/assets/images/icons/DownIcon.svg" alt="icon">
                </div>
                 </vue-easy-pie-chart>
               </div>
@@ -342,87 +342,6 @@ color: #000000;"
               $ 2,000
             </span>
           </div>
-          <!-- <div class="itm w-full mt-6">
-            <div class="con-img flex">
-              <img
-                key="onlineImg"
-                src="https://i.imgur.com/jcDqb3U.jpg"
-                alt="user-img"
-                width="50"
-                height="50"
-                class="rounded-full shadow-md cursor-pointer block"
-              />
-              <div style="flex-direction: column" class="flex ml-5">
-                <h4
-                  style="
-                    font-family: Gilroy;
-                    font-weight: 300;
-                    font-size: 26px;
-                    color: #000000;
-                  "
-                >
-                  Good Evening Mikey!
-                </h4>
-                <p style="font-size: 15px; color: #1f396f; opacity: 0.5">
-                  Attachments
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="itm w-full mt-3">
-            <div class="con-img flex">
-              <img
-                key="onlineImg"
-                src="https://i.imgur.com/jcDqb3U.jpg"
-                alt="user-img"
-                width="50"
-                height="50"
-                class="rounded-full shadow-md cursor-pointer block"
-              />
-              <div style="flex-direction: column" class="flex ml-5">
-                <h4
-                  style="
-                    font-family: Gilroy;
-                    font-weight: 300;
-                    font-size: 26px;
-                    color: #000000;
-                  "
-                >
-                  Good Evening Mikey!
-                </h4>
-                <p style="font-size: 15px; color: #1f396f; opacity: 0.5">
-                  Attachments
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="itm w-full mt-3">
-            <div class="con-img flex">
-              <img
-                key="onlineImg"
-                src="https://i.imgur.com/jcDqb3U.jpg"
-                alt="user-img"
-                width="50"
-                height="50"
-                class="rounded-full shadow-md cursor-pointer block"
-              />
-              <div style="flex-direction: column" class="flex ml-5">
-                <h4
-                  style="
-                    font-family: Gilroy;
-                    font-weight: 300;
-                    font-size: 26px;
-                    color: #000000;
-                  "
-                >
-                  Good Evening Mikey!
-                </h4>
-                <p style="font-size: 15px; color: #1f396f; opacity: 0.5">
-                  Attachments
-                </p>
-              </div>
-            </div>
-          </div> -->
         </div>
       </div>
     </div>
@@ -430,7 +349,7 @@ color: #000000;"
   </div>
 </template>
 <script>
-import PopUpList from './components/AddUser.vue'
+import PopUpList from '@/components/admin/AddUser.vue'
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 import VueEasyPieChart from 'vue-easy-pie-chart'
 import 'vue-easy-pie-chart/dist/vue-easy-pie-chart.css'

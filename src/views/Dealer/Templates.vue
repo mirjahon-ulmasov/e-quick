@@ -101,7 +101,7 @@
     </div>
     <div class="container-footer">
       <p class="contact">71 203 01 01</p>
-      <img src="~@/assets/dealer/img/svg/components/imzo.svg" alt="imzo">
+      <img src="~@/assets/images/pages/imzo.svg" alt="imzo">
     </div>
     <pop-up-ok :isPopUp="PopUp" @closeSidebar="toggleDataSidebar"></pop-up-ok>
   </div>
@@ -208,7 +208,7 @@ line-height: 16px;
       content: "";
       display: block;
       position: relative;
-      background: url("~@/assets/dealer/img/icons/search.svg"), #f2f2f2 !important;
+      background: url("~@/assets/images/icons/search.svg"), #f2f2f2 !important;
       background-repeat: no-repeat !important;
       background-position: 1% !important;
       background-size: 7%;
@@ -223,7 +223,7 @@ line-height: 16px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  justify-content: start;
+  justify-content: flex-start;
   overflow-y: scroll;
   &::-webkit-scrollbar {
     width: 10px;
@@ -402,7 +402,7 @@ color: #FFFFFF;
 .container-footer {
   width: 100%;
   height: 20%;
-  background-image: url("~@/assets/dealer/img/svg/components/Footer1.png");
+  background-image: url("~@/assets/images/pages/Footer1.png");
   background-repeat: no-repeat;
   background: cover cover;
   box-sizing: border-box;

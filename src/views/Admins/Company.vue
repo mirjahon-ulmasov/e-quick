@@ -15,7 +15,7 @@
                   :percent="70"
                 >
                 <div class="resize" >
-                  <img src="~@/assets/dealer/img/icons/DownIcon.svg" alt="icon">
+                  <img src="~@/assets/images/icons/DownIcon.svg" alt="icon">
                </div>  
                 </vue-easy-pie-chart>
               </div>
@@ -36,7 +36,7 @@
                   :percent="70"
                 >
                 <div class="resize" >
-                  <img src="~@/assets/dealer/img/icons/DownIcon.svg" alt="icon">
+                  <img src="~@/assets/images/icons/DownIcon.svg" alt="icon">
                </div>  
                 </vue-easy-pie-chart>
               </div>
@@ -57,7 +57,7 @@
                   :percent="70"
                 >
                           <div class="resize" >
-                  <img src="~@/assets/dealer/img/icons/DownIcon.svg" alt="icon">
+                  <img src="~@/assets/images/icons/DownIcon.svg" alt="icon">
                </div>  
                 </vue-easy-pie-chart>
               </div>
@@ -443,7 +443,7 @@ color: #000000;"
   </div>
 </template>
 <script>
-import PopUpList from './components/AddCompany.vue'
+import PopUpList from '@/components/admin/AddCompany.vue'
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 import VueEasyPieChart from 'vue-easy-pie-chart'
 import 'vue-easy-pie-chart/dist/vue-easy-pie-chart.css'
