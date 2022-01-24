@@ -14,6 +14,22 @@ const router = new Router({
       path: '/',
       redirect:  '/dealer/main'
     },
+     //  Main layout
+     {
+      path: '',
+      component: () => import('./layouts/main/Main.vue'),
+      children: [
+        {
+          path: '/user',
+          name: 'user',
+          component: () => import('./views/Admins/User.vue'),
+          meta: {
+            rule: 'admin'
+          }
+        },
+      ]
+    },
+
     // Dealer Layout
     {
       path: '/dealer/',

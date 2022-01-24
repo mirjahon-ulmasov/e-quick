@@ -95,7 +95,7 @@ export default {
               this.$router.push("/");
             } else if (user == "super_admin") {
               this.$router.push("/attechments");
-            } else if (user == "admin") {
+            } else if (user === "admin") {
               this.$router.push("/user");
             }
           })
