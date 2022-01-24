@@ -53,53 +53,6 @@ const router = new Router({
         }
       ]
     },
-    //  Main layout Admins
-    {
-      path: '',
-      component: () => import('./layouts/main/Main.vue'),
-      children: [
-        {
-          path: '/attechments',
-          name: 'attechments',
-          component: () => import('./views/Admins/Attechments.vue'),
-          meta: {
-            rule: 'super_admin'
-          }
-        },
-        {
-          path: '/table',
-          name: 'table',
-          component: () => import('./views/Admins/Table.vue'),
-          meta: {
-            rule: 'admin'
-          }
-        },
-        {
-          path: '/table-2',
-          name: 'table2',
-          component: () => import('./views/Admins/Table2.vue'),
-          meta: {
-            rule: 'admin'
-          }
-        },
-        {
-          path: '/company',
-          name: 'company',
-          component: () => import('./views/Admins/Company.vue'),
-          meta: {
-            rule: 'admin'
-          }
-        },
-        {
-          path: '/user',
-          name: 'user',
-          component: () => import('./views/Admins/User.vue'),
-          meta: {
-            rule: 'admin'
-          }
-        }
-      ]
-    },
     // =============================================================================
     // FULL PAGE LAYOUTS
     // =============================================================================
