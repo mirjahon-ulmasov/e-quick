@@ -15,17 +15,15 @@
     </div>
 </template>
 <script>
-import themeConfig         from '@/../themeConfig.js'
 import SideBar from '../components/dealer/Sidebar.vue'
 export default {
   components:{
     SideBar,
-    themeConfig
   },
   data () {
     return {
       active: false,
-      routerTransition  : themeConfig.routerTransition || 'none'
+      routerTransition  : 'zoom-fade'
     }
   },
   methods: {
