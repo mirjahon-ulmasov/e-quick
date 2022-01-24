@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <NavBar :title="'Аналитика'" />
-  </div>
+  <NavBar :title="'Добавить админ'" />
 </template>
 
 <script>

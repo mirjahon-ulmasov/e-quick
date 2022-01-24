@@ -94,7 +94,7 @@ export default {
             if (user === "dealer") {
               this.$router.push("/");
             } else if (user == "super_admin") {
-              this.$router.push("/attechments");
+              this.$router.push("/analytics");
             } else if (user == "admin") {
               this.$router.push("/user");
             }
