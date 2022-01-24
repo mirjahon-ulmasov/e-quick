@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import FeatherIcon  from './components/FeatherIcon.vue'
+import NavBar from './layouts/Navbar.vue'
+import Table from './components/Table.vue'
+import MyButton from './components/Button.vue'
 
 Vue.component(FeatherIcon.name, FeatherIcon)
 
@@ -24,7 +27,9 @@ vSelect.props.components.default = () => ({
         svgClasses: 'w-5 h-5'
       }
     })
-  }
+  },
 })
-
+Vue.component('nav-bar', NavBar)
+Vue.component('mtable', Table)
+Vue.component('my-button', MyButton)
 Vue.component(vSelect)

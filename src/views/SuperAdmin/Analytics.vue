@@ -1,9 +1,12 @@
 <template>
-  <div></div>
+  <div>
+    <nav-bar :title="'Аналитика'" ></nav-bar>
+  </div>
 </template>
 
 <script>
-export default {};
+export default {
+};
 </script>
 
 <style lang="scss" scoped></style>

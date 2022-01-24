@@ -26,7 +26,7 @@ if (localStorage.getItem('access')) {
 
   //  User Info
   const userInfo = parseJwt(localStorage.getItem('access'))
-  initialRole = userInfo.user_type
+  initialRole = userInfo.user_type || userInfo
 }
 export default new AclCreate({
   initial  : initialRole,
@@ -35,8 +35,9 @@ export default new AclCreate({
   acceptLocalRules : true,
   globalRules: {
     dealer: new AclRule('dealer').generate(),
+    adminOrSuper: new AclRule('admin_or_super').or('admin').or('super_admin').generate(),
     super_admin: new AclRule('super_admin').generate(),
     admin  : new AclRule('admin').generate(),
-    editor : new AclRule('editor').or('admin').or('dealer').or('super_admin').generate()
+    editor : new AclRule('editor')
   }
 })

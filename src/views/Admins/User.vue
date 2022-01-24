@@ -1,14 +1,15 @@
 <template>
   <div>
-    <Table />
+    <nav-bar :title="'Пользователи'" ></nav-bar>
+    <mtable :header="header" :items="items" ></mtable>
+    <my-button></my-button>
   </div>
 </template>
 <script>
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
-import Table from '../../components/Table.vue'
 export default {
-  name: 'Company',
-  data () {
+  name: "Company",
+  data() {
     return {
       activePrompt: false,
       itemsPerPage: 4,
@@ -16,90 +17,97 @@ export default {
       PopUp: false,
       PopUpData: {},
       settings: {
-        maxScrollbarLength: 60
-      }
-    }
+        maxScrollbarLength: 60,
+      },
+      header: [
+        {title: 'Salom'},
+        {title: 'Salom'},
+        {title: 'Salom'}
+      ],
+      items: [
+        {title: 'Salom'},
+        {title: 'Salom'},
+        {title: 'Salom'}
+      ]
+    };
   },
-  components: { Table, VuePerfectScrollbar },
+  components: {  VuePerfectScrollbar },
   computed: {
-    scrollbarTag () { return this.$store.getters.scrollbarTag },
-    currentPage () {
+    scrollbarTag() {
+      return this.$store.getters.scrollbarTag;
+    },
+    currentPage() {
       if (this.isMounted) {
-        return this.$refs.table.currentx
+        return this.$refs.table.currentx;
       }
-      return 0
+      return 0;
     },
-    company () {
-      return this.$store.state.addUser.admins.reverse()
+    company() {
+      return this.$store.state.addUser.admins.reverse();
     },
-    details () {
-      return this.$store.state.addUser.details
+    details() {
+      return this.$store.state.addUser.details;
     },
-    queriedItems () {
+    queriedItems() {
       return this.$refs.table
         ? this.$refs.table.queriedResults.length
-        : this.products.length
-    }
+        : this.products.length;
+    },
   },
   methods: {
-    getUser (id) {
-      this.$store.dispatch('addUser/fetchUserById', id)
-      this.activeUser = this.company.find(x => x.id === id)
+    getUser(id) {
+      this.$store.dispatch("addUser/fetchUserById", id);
+      this.activeUser = this.company.find((x) => x.id === id);
     },
-    addNewData () {
-      this.PopUpData = {}
-      this.toggleDataSidebar(true)
+    addNewData() {
+      this.PopUpData = {};
+      this.toggleDataSidebar(true);
     },
-    deleteData (id) {
-      this.$store.dispatch('addUser/removeItem', id)
-      this.$store.dispatch('addUser/fetchDataListItems')
-      this.$store.dispatch('addUser/fetchDataListItems').then(
-        response => {
-          this.$vs.notify({
-            text: this.$t('delete'),
-            iconPack: 'feather',
-            icon: 'icon-alert-circle',
-            color: 'success'
-          })
-          this.activeUser = response.data[0]
-        }
-      )
+    deleteData(id) {
+      this.$store.dispatch("addUser/removeItem", id);
+      this.$store.dispatch("addUser/fetchDataListItems");
+      this.$store.dispatch("addUser/fetchDataListItems").then((response) => {
+        this.$vs.notify({
+          text: this.$t("delete"),
+          iconPack: "feather",
+          icon: "icon-alert-circle",
+          color: "success",
+        });
+        this.activeUser = response.data[0];
+      });
     },
-    editData (data) {
-      this.PopUpData = data
-      this.toggleDataSidebar(true)
+    editData(data) {
+      this.PopUpData = data;
+      this.toggleDataSidebar(true);
     },
-    toggleDataSidebar (val = false) {
-      this.PopUp = val
-      this.$store.dispatch('addUser/fetchDataListItems')
-      this.$store.dispatch('addUser/fetchDataListItems').then(
-        response => {
-          this.activeUser = response.data[0]
-        }
-      )
+    toggleDataSidebar(val = false) {
+      this.PopUp = val;
+      this.$store.dispatch("addUser/fetchDataListItems");
+      this.$store.dispatch("addUser/fetchDataListItems").then((response) => {
+        this.activeUser = response.data[0];
+      });
     },
-    scrollHandle (evt) {
-      return evt
-    }
+    scrollHandle(evt) {
+      return evt;
+    },
   },
-  mounted () {
-    this.$store.dispatch('addUser/fetchDataListItems')
-    this.getUser()
+  mounted() {
+    this.$store.dispatch("addUser/fetchDataListItems");
+    this.getUser();
   },
-  created () {
-    this.$store.dispatch('addUser/fetchUserById')
-    this.$store.dispatch('addUser/fetchDataListItems').then(
-      response => {
-        this.activeUser = response.data[0]
-      })
-  }
-}
+  created() {
+    this.$store.dispatch("addUser/fetchUserById");
+    this.$store.dispatch("addUser/fetchDataListItems").then((response) => {
+      this.activeUser = response.data[0];
+    });
+  },
+};
 </script>
 <style scoped>
-.scr{
-   overflow-y:scroll;
-  height:100px;
-  display:block;
+.scr {
+  overflow-y: scroll;
+  height: 100px;
+  display: block;
 }
 .heading {
   /* width: 149px; */
@@ -142,7 +150,7 @@ export default {
   /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
   border-radius: 5px;
 }
-.widget:hover{
+.widget:hover {
   border: none !important;
 }
 .widget-text {
@@ -178,12 +186,12 @@ export default {
   border-radius: 18px;
   padding: 14px;
 }
-.resize{
+.resize {
   padding-left: 2px;
-    padding-top: 3px;
+  padding-top: 3px;
 }
 </style>
-<style  lang="scss">
+<style lang="scss">
 #data-list-list-view {
   .vs-con-table {
     /*
