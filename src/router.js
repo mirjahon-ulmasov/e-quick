@@ -154,6 +154,7 @@ router.beforeEach((to, from, next) => {
   const authRequired = !publicPages.includes(to.path)
   const loggedIn = localStorage.getItem('access')
   if (authRequired && !loggedIn) {
+    // eslint-disable-next-line no-unused-expressions
     !publicPages
     return next('/login')
   }
