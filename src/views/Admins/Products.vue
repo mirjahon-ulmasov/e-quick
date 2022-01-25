@@ -1,14 +1,11 @@
 <template>
-    <div>
-        <nav-bar :title="'Товары'" ></nav-bar>
-        <h2>Products</h2>
-    </div>
+  <div>
+    <h2>Products</h2>
+  </div>
 </template>
 <script>
 export default {
-    name: ''
-}
+  name: "",
+};
 </script>
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

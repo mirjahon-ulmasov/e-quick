@@ -1,6 +1,5 @@
 <template>
     <div>
-        <nav-bar :title="'Категории'" ></nav-bar>
         <h2>Categories</h2>
     </div>
 </template>

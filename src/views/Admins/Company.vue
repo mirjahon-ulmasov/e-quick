@@ -1,6 +1,5 @@
 <template>
   <div>
-    <nav-bar :title="'Компании'" ></nav-bar>
    <h1>Hello fgsdfgsdge</h1>
   </div>
 </template>

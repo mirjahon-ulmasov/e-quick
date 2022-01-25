@@ -1,10 +1,6 @@
 <template>
   <div class="side-bar">
-    <img
-      src="../assets/new-images/icons/e-quick.svg"
-      alt="E-quick"
-      class="logo"
-    />
+    <img src="../assets/images/logo/e-quick.svg" alt="E-quick" class="logo" />
     <div
       class="nav-links"
       v-if="this.$store.state.userType === 'admin' || $acl.check('admin')"
@@ -42,9 +38,51 @@
         $acl.check('super_admin')
       "
     >
-      <router-link to="analytics" class="nav-link">Аналитика</router-link>
-      <router-link to="add-admin" class="nav-link">Добавить админ</router-link>
-      <router-link to="admin-list" class="nav-link">Список админов</router-link>
+      <router-link to="/analytics" class="nav-link">
+        <b></b>
+        <b></b>
+        <img
+          v-if="this.$route.meta.link === 'analytics'"
+          src="../assets/images/icons/graph-bold.svg"
+          alt="graph icon"
+        />
+        <img
+          v-else
+          src="../assets/images/icons/graph-light.svg"
+          alt="graph icon"
+        />
+        Аналитика</router-link
+      >
+      <router-link to="/add-admin" class="nav-link">
+        <b></b>
+        <b></b>
+        <img
+          v-if="this.$route.meta.link === 'add-admin'"
+          src="../assets/images/icons/add-user-bold.svg"
+          alt="add user icon"
+        />
+        <img
+          v-else
+          src="../assets/images/icons/add-user-light.svg"
+          alt="add user icon"
+        />
+        Добавить админ</router-link
+      >
+      <router-link to="/admins" class="nav-link">
+        <b></b>
+        <b></b>
+        <img
+          v-if="this.$route.meta.link === 'admin-list'"
+          src="../assets/images/icons/paper-bold.svg"
+          alt="paper icon"
+        />
+        <img
+          v-else
+          src="../assets/images/icons/paper-light.svg"
+          alt="paper icon"
+        />
+        Список админов</router-link
+      >
     </div>
   </div>
 </template>
@@ -68,25 +106,29 @@ export default {};
   .nav-links {
     .nav-link {
       position: relative;
-      display: block;
+      display: flex;
+      align-items: center;
       font-weight: 500;
       font-size: 16px;
-
       color: #60739f;
       line-height: 20px;
       margin: 30px 0px 30px 8px;
       padding: 20px;
       border-radius: 2rem 0 0 2rem;
+
+      img {
+        margin-right: 1rem;
+      }
     }
     .active {
-      background: #ffffff;
+      background: #fff;
       b:nth-child(1) {
         position: absolute;
         top: -30px;
         right: 0;
         height: 30px;
         width: 100%;
-        background: white;
+        background: #fff;
         &::before {
           content: "";
           position: absolute;
@@ -104,7 +146,7 @@ export default {};
         right: 0;
         height: 30px;
         width: 100%;
-        background: white;
+        background: #fff;
         &::before {
           content: "";
           position: absolute;

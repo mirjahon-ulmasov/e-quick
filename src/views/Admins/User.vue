@@ -1,6 +1,5 @@
 <template>
   <div>
-    <nav-bar :title="'Пользователи'" ></nav-bar>
     <mtable :header="header" :items="items" ></mtable>
     <my-button></my-button>
   </div>
@@ -46,7 +45,7 @@ export default {
       return this.$store.state.addUser.admins.reverse();
     },
     details() {
-      return this.$store.state.addUser.details;
+      return this.$store.state.addUser.detail;
     },
     queriedItems() {
       return this.$refs.table

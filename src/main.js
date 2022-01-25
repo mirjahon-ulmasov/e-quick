@@ -20,8 +20,7 @@ import i18n from "./i18n/i18n";
 
 // styles
 import "./assets/css/main.css";
-import "./assets/css/iconfont.css";
-import "./assets/css/font/stylesheet.css";
+import "./assets/scss/main.scss";
 
 // VeeValidate
 import VeeValidate from "vee-validate";

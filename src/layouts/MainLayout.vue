@@ -3,7 +3,8 @@
     <SideBar />
     <div class="main">
       <div class="main-content">
-        <router-view></router-view>
+        <nav-bar :title="$route.meta.title"></nav-bar>
+        <router-view> </router-view>
       </div>
     </div>
   </div>

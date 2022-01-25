@@ -66,7 +66,9 @@ const router = new Router({
           name: "Analytics",
           component: () => import("./views/SuperAdmin/Analytics.vue"),
           meta: {
-            rule: 'super_admin',
+            rule: "super_admin",
+            link: "analytics",
+            title: "Аналитика",
           },
         },
         {
@@ -74,7 +76,8 @@ const router = new Router({
           name: "Analytic",
           component: () => import("./views/SuperAdmin/Analytics.vue"),
           meta: {
-            rule: 'admin',
+            rule: "admin",
+            title: "Аналитика",
           },
         },
         {
@@ -83,50 +86,70 @@ const router = new Router({
           component: () => import("./views/SuperAdmin/AddAdmin.vue"),
           meta: {
             rule: "super_admin",
+            link: "add-admin",
+            title: "Добавить админ",
           },
         },
         {
-          path: "admin-list",
+          path: "admins",
           name: "AdminList",
           component: () => import("./views/SuperAdmin/AdminList.vue"),
           meta: {
             rule: "super_admin",
+            link: "admin-list",
+            title: "Список админов",
           },
-        }, 
+        },
+        {
+          path: "admins/:id",
+          name: "Admin",
+          component: () => import("./views/SuperAdmin/AdminDetail.vue"),
+          meta: {
+            rule: "super_admin",
+            link: "admin-list",
+            title: "Информация о пользователе",
+          },
+          props: true,
+        },
+
         // =============================================================================
         // ADMIN
         // =============================================================================
         {
-          path: '/users',
-          name: 'users',
-          component: () => import('./views/Admins/User.vue'),
+          path: "/users",
+          name: "users",
+          component: () => import("./views/Admins/User.vue"),
           meta: {
-            rule: 'admin'
-          }
+            rule: "admin",
+            title: "Пользователи",
+          },
         },
         {
-          path: '/companies',
-          name: 'companies',
-          component: () => import('./views/Admins/Company.vue'),
+          path: "/companies",
+          name: "companies",
+          component: () => import("./views/Admins/Company.vue"),
           meta: {
-            rule: 'admin'
-          }
+            rule: "admin",
+            title: "Компании",
+          },
         },
         {
-          path: '/products',
-          name: 'products',
-          component: () => import('./views/Admins/Products.vue'),
+          path: "/products",
+          name: "products",
+          component: () => import("./views/Admins/Products.vue"),
           meta: {
-            rule: 'admin'
-          }
+            rule: "admin",
+            title: "Товары",
+          },
         },
         {
-          path: '/categories',
-          name: 'categories',
-          component: () => import('./views/Admins/Categories.vue'),
+          path: "/categories",
+          name: "categories",
+          component: () => import("./views/Admins/Categories.vue"),
           meta: {
-            rule: 'admin'
-          }
+            rule: "admin",
+            title: "Категории",
+          },
         },
       ],
     },
