@@ -1,13 +1,11 @@
 <template>
   <div>
-    <NavBar :title="'Аналитика'" />
+    <nav-bar :title="'Аналитика'" ></nav-bar>
   </div>
 </template>
 
 <script>
-import NavBar from "../../layouts/Navbar.vue";
 export default {
-  components: { NavBar },
 };
 </script>
 

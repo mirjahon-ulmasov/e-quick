@@ -96,7 +96,7 @@ export default {
             } else if (user == "super_admin") {
               this.$router.push("/analytics");
             } else if (user == "admin") {
-              this.$router.push("/user");
+              this.$router.push("/analytic");
             }
           })
           .catch((error) => {

@@ -58,12 +58,23 @@ const router = new Router({
       path: "",
       component: () => import("./layouts/MainLayout.vue"),
       children: [
+        // =============================================================================
+        // SUPER ADMIN
+        // =============================================================================
         {
           path: "analytics",
           name: "Analytics",
           component: () => import("./views/SuperAdmin/Analytics.vue"),
           meta: {
-            rule: "super_admin",
+            rule: 'super_admin',
+          },
+        },
+        {
+          path: "analytic",
+          name: "Analytic",
+          component: () => import("./views/SuperAdmin/Analytics.vue"),
+          meta: {
+            rule: 'admin',
           },
         },
         {
@@ -81,14 +92,41 @@ const router = new Router({
           meta: {
             rule: "super_admin",
           },
+        }, 
+        // =============================================================================
+        // ADMIN
+        // =============================================================================
+        {
+          path: '/users',
+          name: 'users',
+          component: () => import('./views/Admins/User.vue'),
+          meta: {
+            rule: 'admin'
+          }
         },
         {
-          path: "user",
-          name: "user",
-          component: () => import("./views/Admins/User.vue"),
+          path: '/companies',
+          name: 'companies',
+          component: () => import('./views/Admins/Company.vue'),
           meta: {
-            rule: "admin",
-          },
+            rule: 'admin'
+          }
+        },
+        {
+          path: '/products',
+          name: 'products',
+          component: () => import('./views/Admins/Products.vue'),
+          meta: {
+            rule: 'admin'
+          }
+        },
+        {
+          path: '/categories',
+          name: 'categories',
+          component: () => import('./views/Admins/Categories.vue'),
+          meta: {
+            rule: 'admin'
+          }
         },
       ],
     },
@@ -103,14 +141,6 @@ const router = new Router({
         // =============================================================================
         // PAGES
         // =============================================================================
-        {
-          path: "/v/login",
-          name: "login",
-          component: () => import("@/views/Admins/Login.vue"),
-          meta: {
-            rule: "editor",
-          },
-        },
         {
           path: "/forget-password",
           name: "forget",

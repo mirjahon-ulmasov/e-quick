@@ -1,10 +1,12 @@
 <template>
-  <div>User Admin</div>
+  <div>
+    <nav-bar :title="'Пользователи'" ></nav-bar>
+    <mtable :header="header" :items="items" ></mtable>
+    <my-button></my-button>
+  </div>
 </template>
 <script>
-import PopUpList from "@/components/admin/AddUser.vue";
-import VuePerfectScrollbar from "vue-perfect-scrollbar";
-
+import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 export default {
   name: "Company",
   data() {
@@ -17,9 +19,19 @@ export default {
       settings: {
         maxScrollbarLength: 60,
       },
+      header: [
+        {title: 'Salom'},
+        {title: 'Salom'},
+        {title: 'Salom'}
+      ],
+      items: [
+        {title: 'Salom'},
+        {title: 'Salom'},
+        {title: 'Salom'}
+      ]
     };
   },
-  components: { VuePerfectScrollbar, PopUpList },
+  components: {  VuePerfectScrollbar },
   computed: {
     scrollbarTag() {
       return this.$store.getters.scrollbarTag;
