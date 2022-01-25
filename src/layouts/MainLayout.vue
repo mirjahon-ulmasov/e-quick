@@ -21,8 +21,9 @@ export default {
   display: flex;
 
   .main {
+    width: 85%;
     background: #e2eafc;
-    width: calc(100% - 240px);
+    min-width: calc(100% - 270px);
     padding: 20px 20px 20px 0;
 
     .main-content {

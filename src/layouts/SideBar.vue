@@ -19,8 +19,8 @@ export default {};
 
 <style lang="scss" scoped>
 .side-bar {
-  min-width: 240px;
-  max-width: 340px;
+  min-width: 270px;
+  width: 15%;
   height: 100vh;
   font-family: Montserrat;
   background: #e2eafc;
@@ -35,14 +35,15 @@ export default {};
       font-weight: 500;
       font-size: 16px;
       margin-left: 8px;
-      color: #60739F;
+      color: #60739f;
       line-height: 20px;
       margin-bottom: 2px;
       padding: 15px;
-      border-radius: 2rem;
+      border-radius: 2rem 0 0 2rem;
     }
     .active {
-      background: #fff;
+      background: #FFF;
+
     }
   }
 }
