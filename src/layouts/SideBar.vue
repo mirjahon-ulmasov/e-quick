@@ -88,13 +88,7 @@
 </template>
 
 <script>
-export default {
-<<<<<<< HEAD
-  mounted() {},
-=======
-
->>>>>>> 0b7fbe057aded8fb9fe0b32f708f167cfe98d71b
-};
+export default {};
 </script>
 
 <style lang="scss" scoped>

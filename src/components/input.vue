@@ -1,12 +1,8 @@
 <template>
   <div>
     <textarea
-<<<<<<< HEAD
       @input="updateValue($event.target.value)"
       :value="value"
-=======
-    @input="updateValue($event.target.value)" :value="value"
->>>>>>> 0b7fbe057aded8fb9fe0b32f708f167cfe98d71b
       class="custom-input"
       v-if="type === 'textarea'"
       :style="btnStyles"
@@ -17,20 +13,27 @@
       :style="`width: ${width}px; display: flex; align-items: center`"
     >
       <input
-<<<<<<< HEAD
         @input="updateValue($event.target.value)"
         :value="value"
-=======
-      @input="updateValue($event.target.value)" :value="value"
->>>>>>> 0b7fbe057aded8fb9fe0b32f708f167cfe98d71b
         :type="toggle ? 'text' : type"
         class="custom-input password"
         :style="btnStyles"
       />
       <i class="eye-close"></i>
-      <img :src="toggle ? show : close" class="toggle" @click="func()" alt=""  />
+      <img :src="toggle ? show : close" class="toggle" @click="func()" alt="" />
     </div>
-<<<<<<< HEAD
+    <v-select
+      :options="options"
+      id="select-state"
+      v-else-if="type === `select`"
+      :style="btnStyles"
+    >
+      <template #open-indicator="{ attributes }">
+        <span v-bind="attributes">
+          <img src="../assets/images/icons/select-icon.svg" alt="" />
+        </span>
+      </template>
+    </v-select>
     <input
       @input="updateValue($event.target.value)"
       :value="value"
@@ -39,41 +42,17 @@
       v-else
       :style="btnStyles"
     />
-=======
-              <v-select :options="options" id="select-state" v-else-if="type === `select`" :style="btnStyles" >
-    <template #open-indicator="{ attributes }">
-      <span v-bind="attributes">
-        <img src="../assets/images/icons/select-icon.svg" alt="">
-      </span>
-    </template>
-              </v-select>
-    <input @input="updateValue($event.target.value)" :value="value" :type="type" class="custom-input" v-else :style="btnStyles" />
->>>>>>> 0b7fbe057aded8fb9fe0b32f708f167cfe98d71b
   </div>
 </template>
 <script>
-import 'vue-select/dist/vue-select.css';
+import "vue-select/dist/vue-select.css";
 import VSelect from "vue-select";
 export default {
   name: "",
-<<<<<<< HEAD
-  data() {
-    return {
-      toggle: false,
-      show: require("../assets/images/icons/eye-show.svg"),
-      close: require("../assets/images/icons/eye-close.svg"),
-    };
-  },
   props: {
     value: {
       type: String,
     },
-=======
-    props: {
-      value: {
-        type: String
-      },
->>>>>>> 0b7fbe057aded8fb9fe0b32f708f167cfe98d71b
     type: {
       type: String,
       default: "text",
@@ -87,24 +66,20 @@ export default {
       default: 46,
     },
   },
-  components: {VSelect},
+  components: { VSelect },
   data() {
     return {
       toggle: false,
-      val: 'd',
+      val: "d",
       show: require("../assets/images/icons/eye-show.svg"),
       close: require("../assets/images/icons/eye-close.svg"),
-    options: [
-      'foo',
-      'bar',
-      'baz'
-    ],
+      options: ["foo", "bar", "baz"],
     };
   },
   methods: {
-      updateValue: function (value) {
-        this.$emit('input', value)
-      },
+    updateValue: function (value) {
+      this.$emit("input", value);
+    },
     func() {
       this.toggle = !this.toggle;
     },
@@ -155,8 +130,8 @@ select {
   background-position-x: 95%;
   background-position-y: center;
   padding: 25px;
-border: 0.886581px solid #E3EBFC;
-box-sizing: border-box;
-border-radius: 8.86582px;
+  border: 0.886581px solid #e3ebfc;
+  box-sizing: border-box;
+  border-radius: 8.86582px;
 }
 </style>
