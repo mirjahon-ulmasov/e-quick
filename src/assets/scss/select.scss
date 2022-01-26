@@ -1,0 +1,178 @@
+$spacer: 2.2rem;
+$spacer-sm: ($spacer / 2);
+$spacer-lg: ($spacer * 2);
+
+
+$primary: #7367F0;
+$success: #28C76F;
+$danger: #EA5455;
+$warning: #FF9F43;
+$dark: #1E1E1E;
+$grey: #b8c2cc;
+$grey-light: #dae1e7;
+$white: #fff;
+$black: #22292f;
+
+
+
+$font-family-sans-serif:  "Montserrat", Helvetica, Arial, sans-serif !default;
+$font-family-serif:       Georgia, "Times New Roman", Times, serif !default;
+$font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace !default;
+$font-family-base:        $font-family-sans-serif !default;
+
+$font-size-base:          14px !default;
+$font-size-large:         ceil(($font-size-base * 1.25)) !default;
+$font-size-small:         ceil(($font-size-base * 0.85)) !default;
+
+$h1-font-size:                $font-size-base * 2;
+$h2-font-size:                $font-size-base * 1.74;
+$h3-font-size:                $font-size-base * 1.51;
+$h4-font-size:                $font-size-base * 1.32;
+$h5-font-size:                $font-size-base * 1.14;
+$h6-font-size:                $font-size-base;
+
+
+$line-height-base:        1.625rem !default;
+
+$headings-font-family:    inherit !default;
+$headings-font-weight:    500 !default;
+$headings-line-height:    1.2 !default;
+$headings-color:          #2c2c2c;
+$headings-margin-bottom:      ($spacer / 2) !default;
+
+$font-weight-light:           300;
+$font-weight-normal:          400;
+$font-weight-bold:            700;
+
+$font-weight-base:            $font-weight-normal;
+$line-height-base:            1.45;
+
+$content-color: #626262;
+$theme-background: #f8f8f8;
+
+
+$reduced-sidebar-width: 80px;
+
+
+
+$sidebar-dark-bg: #10163a;
+$content-dark-bg: #262c49;
+$dark-card-color: #10163a;
+$table-dark-stripe: #212744;
+$table-light-stripe: #262c49;
+$grid-dark-color: #343661;
+
+$theme-light-dark-bg: #262c49;
+$theme-dark-bg: #10163a;
+$theme-dark-secondary-bg: #171e49;
+$theme-dark-text-color: #c2c6dc;
+$theme-dark-heading-color: #ebeefd;
+$theme-dark-border-color: #414561;
+$theme-dark-shadow-color: #0C112E;
+
+.v-select {
+    background: #F6F8FE;
+    border: 0.886581px solid #E3EBFC;
+    box-sizing: border-box;
+    border-radius: 8.86582px;
+    vs--open{
+        border: 3px solid #7099F5;
+        :focus{
+            border: 3px solid #7099F5;
+        }
+    }
+  &:not(.vs--single) {
+    .vs__selected {
+      font-family: Montserrat;
+font-style: normal;
+font-weight: normal;
+font-size: 13.91px;
+line-height: 17px;
+color: rgba(58, 159, 209, 1) !important;
+    }
+  }
+
+  .vs__dropdown-toggle {
+    padding: .59px 0 4px 0;
+    border: none !important;
+    height: 100% !important;
+    align-items: center;
+    padding: 10px 20px;
+    .vs__search {
+      color: #4679EC;;
+    }
+    .vs__deselect {
+      svg {
+        stroke: $content-color;
+        opacity: 0.5;
+        margin-top: 0 !important;
+      }
+    }
+
+    .vs__selected-options {
+      .vs__selected {
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        /* identical to box height */
+        
+        
+        /* Text */
+        
+        color: #60739F;
+        // margin: 0px 4px 0;
+      }
+    }
+
+    .vs__actions {
+
+      .vs__clear {
+        display: none;
+      }
+    }
+  }
+  .vs__dropdown-menu  {
+    background: #F6F8FE;
+    border: 0.886581px solid #E3EBFC;
+    box-sizing: border-box;
+    /* Main Sahdow */
+    
+    box-shadow: 0px 3.82748px 8px rgba(70, 121, 236, 0.1);
+    border-radius: 8.86582px;
+    margin-top: 10px;
+    min-height: 175px;
+    max-height: 300px !important;
+    overflow-y: scroll;
+    padding: 10px 0px;
+    .vs__dropdown-option--highlight {
+      background: transparent;
+    }
+    .vs__dropdown-option {
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        padding: 8px 26px;
+            color: #60739F;
+    }
+  }
+
+
+  .vs__selected {
+    color: $content-color;
+  }
+}
+// Override vars
+
+//  Global Component Variables
+$vs-component-line-height: 1.8;
+
+//  Active State
+$vs-state-active-bg: $primary !default;
+$vs-state-active-color: $white !default;
+
+
+@import "~vue-select/src/scss/vue-select.scss"
