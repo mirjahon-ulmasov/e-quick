@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button :style="btnStyles">
+    <button :style="btnStyles" :type="type">
       {{ title }}
     </button>
   </div>
@@ -11,6 +11,10 @@ export default {
     return {};
   },
   props: {
+    type: {
+      type: String,
+      default: "submit",
+    },
     bgColor: {
       type: String,
       default: "#4679EC",

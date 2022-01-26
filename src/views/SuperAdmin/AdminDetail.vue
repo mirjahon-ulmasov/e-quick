@@ -1,16 +1,20 @@
 <template>
   <div>
-    <div v-if="$route.path === `/admins/${id}`" class="user-profile">
+    <div v-if="$route.path === `/admins/${id}` && user" class="user-profile">
       <div class="user-header">
         <div class="user-header__first">
           <img src="../../assets/images/icons/user.svg" alt="user icon" />
           <div class="user-name">
-            <h4>Наргиза Ахмедова</h4>
-            <h4>Seller <span>&bull;</span>@Sam_Maxudov</h4>
+            <h4>{{ user.full_name }}</h4>
+            <h4>{{ user.role }} <span>&bull;</span>@{{ user.username }}</h4>
           </div>
         </div>
         <div class="user-header__second">
-          <img src="../../assets/images/icons/trash.svg" alt="trash icon" />
+          <img
+            src="../../assets/images/icons/trash.svg"
+            alt="trash icon"
+            @click="deleteHandler"
+          />
           <img
             @click="$router.push(`/admins/${id}/edit`)"
             src="../../assets/images/icons/pencil.svg"
@@ -21,15 +25,15 @@
       <div class="user-details">
         <div class="user-detail">
           <p>Роль</p>
-          <h4>Seller</h4>
+          <h4>{{ user.role }}</h4>
         </div>
         <div class="user-detail">
           <p>Телефон номера</p>
-          <h4>+998(99)607-74-40</h4>
+          <h4>{{ user.phone_number }}</h4>
         </div>
         <div class="user-detail">
           <p>Имя пользователя</p>
-          <h4>@Sam_maxudov</h4>
+          <h4>@{{ user.username }}</h4>
         </div>
       </div>
     </div>
@@ -40,6 +44,16 @@
 <script>
 export default {
   props: ["id"],
+  methods: {
+    deleteHandler() {
+      this.$store
+        .dispatch("addUser/removeItem", this.id)
+        .then(() => {
+          this.$router.push("/admins");
+        })
+        .catch((err) => console.log(err));
+    },
+  },
   computed: {
     user() {
       return this.$store.state.addUser.detail;

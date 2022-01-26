@@ -121,6 +121,7 @@ const router = new Router({
                 link: "admin-list",
                 title: "Изменить данные",
               },
+              props: true,
             },
           ],
         },

@@ -34,7 +34,7 @@ export default {
       axios
         .put(`/api/v1/users/${item.id}`, item)
         .then((response) => {
-          commit("UPDATE_User", response.data);
+          // commit("UPDATE_User", response.data);
           resolve(response);
         })
         .catch((error) => {
