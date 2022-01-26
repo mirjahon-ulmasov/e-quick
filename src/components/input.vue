@@ -1,6 +1,8 @@
 <template>
   <div>
     <textarea
+      @input="updateValue($event.target.value)"
+      :value="value"
       class="custom-input"
       v-if="type === 'textarea'"
       :style="btnStyles"
@@ -11,6 +13,8 @@
       :style="`width: ${width}px; display: flex; align-items: center`"
     >
       <input
+        @input="updateValue($event.target.value)"
+        :value="value"
         :type="toggle ? 'text' : type"
         class="custom-input password"
         :style="btnStyles"
@@ -18,7 +22,14 @@
       <i class="eye-close"></i>
       <img :src="toggle ? show : close" class="toggle" @click="func()" alt="" />
     </div>
-    <input :type="type" class="custom-input" v-else :style="btnStyles" />
+    <input
+      @input="updateValue($event.target.value)"
+      :value="value"
+      :type="type"
+      class="custom-input"
+      v-else
+      :style="btnStyles"
+    />
   </div>
 </template>
 <script>
@@ -32,6 +43,9 @@ export default {
     };
   },
   props: {
+    value: {
+      type: String,
+    },
     type: {
       type: String,
       default: "text",
@@ -49,6 +63,9 @@ export default {
   methods: {
     func() {
       this.toggle = !this.toggle;
+    },
+    updateValue: function (value) {
+      this.$emit("input", value);
     },
   },
   computed: {

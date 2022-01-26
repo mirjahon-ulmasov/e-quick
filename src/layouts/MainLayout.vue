@@ -34,11 +34,28 @@ export default {
       border-radius: 53px;
       padding: 34px;
       width: 100%;
-      height: 94vh;
+      height: calc(100vh - 40px);
 
       .scroll {
         overflow-y: scroll;
-        height: 85%;
+        height: 87%;
+
+        &::-webkit-scrollbar {
+          width: 8px;
+        }
+        &::-webkit-scrollbar-track {
+          background: linear-gradient(0deg, #f1f5fe, #f1f5fe), #f1f5fe;
+          border-radius: 30px;
+        }
+        &::-webkit-scrollbar-thumb {
+          background: linear-gradient(0deg, #d1defa, #d1defa), #f1f5fe;
+          border-radius: 30px;
+          border: 1px solid transparent;
+          background-clip: content-box;
+        }
+        &::-webkit-scrollbar-thumb:hover {
+          background-color: green;
+        }
       }
     }
   }
