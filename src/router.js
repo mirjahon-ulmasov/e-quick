@@ -83,7 +83,7 @@ const router = new Router({
         {
           path: "add-admin",
           name: "AddAdmin",
-          component: () => import("./views/SuperAdmin/AddAdmin.vue"),
+          component: () => import("./views/SuperAdmin/AdminForm.vue"),
           meta: {
             rule: "super_admin",
             link: "add-admin",
@@ -110,6 +110,19 @@ const router = new Router({
             title: "Информация о пользователе",
           },
           props: true,
+
+          children: [
+            {
+              path: "edit",
+              name: "AdminEdit",
+              component: () => import("./views/SuperAdmin/AdminForm.vue"),
+              meta: {
+                rule: "super_admin",
+                link: "admin-list",
+                title: "Изменить данные",
+              },
+            },
+          ],
         },
 
         // =============================================================================

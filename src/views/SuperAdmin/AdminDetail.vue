@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="user-profile">
+    <div v-if="$route.path === `/admins/${id}`" class="user-profile">
       <div class="user-header">
         <div class="user-header__first">
           <img src="../../assets/images/icons/user.svg" alt="user icon" />
@@ -11,7 +11,11 @@
         </div>
         <div class="user-header__second">
           <img src="../../assets/images/icons/trash.svg" alt="trash icon" />
-          <img src="../../assets/images/icons/pencil.svg" alt="pencil icon" />
+          <img
+            @click="$router.push(`/admins/${id}/edit`)"
+            src="../../assets/images/icons/pencil.svg"
+            alt="pencil icon"
+          />
         </div>
       </div>
       <div class="user-details">
@@ -29,6 +33,7 @@
         </div>
       </div>
     </div>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -98,6 +103,12 @@ export default {
         padding: 15px;
         border-radius: 10px;
         margin: 10px;
+        cursor: pointer;
+        transition: 0.2s linear;
+      }
+
+      img:hover {
+        transform: scale(1.1);
       }
 
       img:first-child {

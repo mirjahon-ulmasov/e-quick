@@ -23,9 +23,7 @@
 </template>
 
 <script>
-import NavBar from "../../layouts/Navbar.vue";
 export default {
-  components: { NavBar },
   data() {
     return {
       headers: [

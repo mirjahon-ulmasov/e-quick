@@ -3,15 +3,13 @@
   border-collapse: collapse;
   thead {
     height: 56px;
-
     background: #edf2fd;
     -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
+    -webkit-border-radius: 30px;
     border-radius: 3px;
     position: relative;
     width: 100%;
     tr {
-      border-radius: 6px;
       th {
         font-family: Montserrat;
         font-style: normal;
@@ -22,8 +20,13 @@
         align-items: center;
         letter-spacing: 0.03em;
 
-        /* Main */
+        &:first-child{
+          border-radius: 6px 0 0 6px;
+        }
 
+        &:last-child{
+          border-radius: 0 6px 6px 0;
+        }
         color: #4679ec;
       }
     }
