@@ -1,61 +1,60 @@
 <template>
-    <div>
-        <button :style="btnStyles">
-        {{ title }}
-        </button>
-    </div>
+  <div>
+    <button :style="btnStyles">
+      {{ title }}
+    </button>
+  </div>
 </template>
 <script>
 export default {
-    data(){
-        return{
-        }
-    },
-    props: {
+  data() {
+    return {};
+  },
+  props: {
     bgColor: {
       type: String,
-      default: "#4679EC"
+      default: "#4679EC",
     },
     color: {
       type: String,
-      default: '#FFFFFF'
+      default: "#FFFFFF",
     },
     title: {
-        type: String,
-        default: 'Save'
+      type: String,
+      default: "Save",
     },
-        width: {
-        type: Number,
-        default: 165
+    width: {
+      type: Number,
+      default: 165,
     },
-        height: {
-        type: Number,
-        default: 46
-    }
+    height: {
+      type: Number,
+      default: 46,
+    },
   },
-     computed: {
+  computed: {
     btnStyles() {
       return {
         "background-color": this.bgColor,
         color: this.color,
         height: `${this.height}px`,
-        width: `${this.width}px`
+        width: `${this.width}px`,
       };
-    }
-  }
-}
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
-button{
-/* Main */
-cursor: pointer;
-border-radius: 10px;
-border: none;
-font-family: Montserrat;
-font-style: normal;
-font-weight: 500;
-font-size: 14px;
-line-height: 17px;
-padding: 15px;
+button {
+  /* Main */
+  cursor: pointer;
+  border-radius: 10px;
+  border: none;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  padding: 15px;
 }
 </style>

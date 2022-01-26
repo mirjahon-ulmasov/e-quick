@@ -4,7 +4,9 @@
     <div class="main">
       <div class="main-content">
         <nav-bar :title="$route.meta.title"></nav-bar>
-        <router-view> </router-view>
+        <div class="scroll">
+          <router-view> </router-view>
+        </div>
       </div>
     </div>
   </div>
@@ -32,7 +34,12 @@ export default {
       border-radius: 53px;
       padding: 34px;
       width: 100%;
-      height: 100%;
+      height: 94vh;
+
+      .scroll {
+        overflow-y: scroll;
+        height: 85%;
+      }
     }
   }
 }
