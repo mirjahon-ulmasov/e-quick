@@ -37,7 +37,7 @@
             alt="pencil icon"
           />
           <div :class="'dropdown'" >
-            <div class="item" @click="upload()" >
+            <div class="item" @click="upload()">
               <img
                 src="../../assets/images/icons/photo.svg"
                 style="margin-right: 12px"
@@ -79,16 +79,16 @@
         <div class="user-details">
           <h3 class="head">Уведомления</h3>
           <div class="user-detail">
-            <p>Роль</p>
-            <h4>{{ info.role }}</h4>
+              <div class="form-group">
+      <input v-model="emailnotf" type="checkbox" id="news">
+      <label for="news">Получать обновления</label>
+    </div>
           </div>
           <div class="user-detail">
-            <p>Телефон номера</p>
-            <h4>{{ info.phone_number }}</h4>
-          </div>
-          <div class="user-detail">
-            <p>Имя пользователя</p>
-            <h4>@{{ info.username }}</h4>
+    <div class="form-group">
+      <input v-model="sitenotf"  type="checkbox" id="email">
+      <label for="email">Получать сообщения на почту</label>
+    </div>
           </div>
         </div>
       </div>
@@ -194,7 +194,13 @@ export default {
   },
   created() {
     this.$store.dispatch("auth/DealerInfo");
+    setTimeout(() => {
+        this.sitenotf = this.info.site_notifications === 'active' ? true : false
+        this.emailnotf = this.info.email_notifications === 'active' ? true : false
+    }, 1000);
   },
+  mounted(){
+  }
 };
 </script>
 
@@ -344,6 +350,64 @@ color: #9FABC6;
     }
     .user-detail {
       margin: 1.5rem 0;
+      .form-group {
+  display: block;
+  margin-bottom: 15px;
+}
+
+.form-group input {
+  padding: 0;
+  height: initial;
+  width: initial;
+  margin-bottom: 0;
+  display: none;
+  cursor: pointer;
+}
+
+.form-group label {
+  position: relative;
+  cursor: pointer;
+  font-family: Montserrat;
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 20px;
+/* identical to box height */
+
+
+/* Main txt */
+
+color: #394560;
+}
+
+.form-group label:before {
+  content:'';
+  -webkit-appearance: none;
+//   padding: 10px;
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+  margin-right: 10px;
+  width: 28px;
+height: 28px;
+border: 1px solid #DAE5FB;
+box-sizing: border-box;
+border-radius: 4.94118px;
+}
+
+.form-group input:checked + label:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 2px;
+  left: 10px;
+  width: 6px;
+  height: 14px;
+  border: solid #4679EC;
+  border-width: 0 3px 3px 0;
+  border-radius: 2px;
+  transform: rotate(45deg);
+}
 
       p {
         font-weight: 500;
