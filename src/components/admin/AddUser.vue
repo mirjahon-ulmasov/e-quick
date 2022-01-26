@@ -190,20 +190,6 @@ export default {
       // this.active = false
       this.phone = ''
     },
-    Reset () {
-      this.dataId = null
-      this.fullname = ''
-      this.username = ''
-      this.position = ''
-      this.email = ''
-      // this.active = false
-      this.password = ''
-      this.confirm = ''
-      this.savdo_id = null
-      this.phone = ''
-      this.selected = null
-      this.$emit('closeSidebar')
-    },
     submitData () {
       if (this.active === false) {
         this.active = -1
