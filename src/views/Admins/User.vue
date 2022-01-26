@@ -1,8 +1,8 @@
 <template>
   <div>
     <mtable :header="header" :items="items" ></mtable>
-    <my-button></my-button>
-    <my-input :type="'password'" :height="50" :width="475" ></my-input>
+    <my-button @click.native="Use()"></my-button>
+    <my-input :type="'select'" v-model="activeUser" :height="48" :width="375" ></my-input>
   </div>
 </template>
 <script>
@@ -13,7 +13,7 @@ export default {
     return {
       activePrompt: false,
       itemsPerPage: 4,
-      activeUser: null,
+      activeUser: 'f',
       PopUp: false,
       PopUpData: {},
       settings: {
@@ -32,75 +32,15 @@ export default {
     };
   },
   components: {  VuePerfectScrollbar },
-  computed: {
-    scrollbarTag() {
-      return this.$store.getters.scrollbarTag;
-    },
-    currentPage() {
-      if (this.isMounted) {
-        return this.$refs.table.currentx;
-      }
-      return 0;
-    },
-    company() {
-      return this.$store.state.addUser.admins.reverse();
-    },
-    details() {
-      return this.$store.state.addUser.detail;
-    },
-    queriedItems() {
-      return this.$refs.table
-        ? this.$refs.table.queriedResults.length
-        : this.products.length;
-    },
+  methods:{
+   Use(){
+     console.log('dddd');
+     console.log(this.activeUser);
+   }
   },
-  methods: {
-    getUser(id) {
-      this.$store.dispatch("addUser/fetchUserById", id);
-      this.activeUser = this.company.find((x) => x.id === id);
-    },
-    addNewData() {
-      this.PopUpData = {};
-      this.toggleDataSidebar(true);
-    },
-    deleteData(id) {
-      this.$store.dispatch("addUser/removeItem", id);
-      this.$store.dispatch("addUser/fetchDataListItems");
-      this.$store.dispatch("addUser/fetchDataListItems").then((response) => {
-        this.$vs.notify({
-          text: this.$t("delete"),
-          iconPack: "feather",
-          icon: "icon-alert-circle",
-          color: "success",
-        });
-        this.activeUser = response.data[0];
-      });
-    },
-    editData(data) {
-      this.PopUpData = data;
-      this.toggleDataSidebar(true);
-    },
-    toggleDataSidebar(val = false) {
-      this.PopUp = val;
-      this.$store.dispatch("addUser/fetchDataListItems");
-      this.$store.dispatch("addUser/fetchDataListItems").then((response) => {
-        this.activeUser = response.data[0];
-      });
-    },
-    scrollHandle(evt) {
-      return evt;
-    },
-  },
-  mounted() {
-    this.$store.dispatch("addUser/fetchDataListItems");
-    this.getUser();
-  },
-  created() {
-    this.$store.dispatch("addUser/fetchUserById");
-    this.$store.dispatch("addUser/fetchDataListItems").then((response) => {
-      this.activeUser = response.data[0];
-    });
-  },
+  updated(){
+    console.log(this.activeUser);
+  }
 };
 </script>
 <style scoped>
