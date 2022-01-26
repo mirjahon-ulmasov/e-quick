@@ -1,52 +1,76 @@
 <template>
   <div class="nav-bar">
     <h3>{{ title }}</h3>
-<div>
-      <div @click="active = !active" class="profile">
-      <img src="../assets/images/logo/profile.png" alt="Profile" />
-      <div class="profile-content">
-        <h4>Nargiza Akhmedova</h4>
-        <p>Superadmin</p>
+    <div class="parent">
+      <div  class="profile">
+        <img :src="baseUrl + info.profile_picture" width="50px" height="50px" alt="Profile" />
+        <div class="profile-content">
+          <h4>{{ info.full_name }}</h4>
+          <p>{{ info.role }}</p>
+        </div>
+      </div>
+      <div :class="'dropdown'">
+        <div class="item">
+          <img
+            src="../assets/images/icons/globus.svg"
+            style="margin-right: 12px"
+            alt="c"
+          />
+          <span> Сменить язык </span>
+        </div>
+        <router-link class="item" :to="'settings'" >
+          <img
+            src="../assets/images/icons/settings.svg"
+            style="margin-right: 12px"
+            alt="c"
+          />
+          <span> Настройки </span>
+        </router-link>
+        <div @click="LogOut()" class="item">
+          <img
+            src="../assets/images/icons/logout.svg"
+            style="margin-right: 12px"
+            alt="c"
+          />
+          <span> Выйти с аккаунта </span>
+        </div>
       </div>
     </div>
-    <div :style="active ? 'display: none;' : 'display: block;'" class="dropdown">
-      <div class="item">
-        <img src="" alt="">
-        <span>
-          Сменить язык
-        </span>
-      </div>
-      <div class="item">
-        <img src="" alt="">
-        <span>
-          Настройки
-        </span>
-      </div>
-            <div class="item">
-        <img src="" alt="">
-        <span>
-          Выйти с аккаунта
-        </span>
-      </div>
-    </div>
-</div>
   </div>
 </template>
 
 <script>
 export default {
   props: ["title"],
-  data(){
-    return{
+  data() {
+    return {
       active: false,
-    }
+      baseUrl: process.env.VUE_APP_IMG ,
+    };
+  },
+    computed: {
+    info() {
+      return this.$store.state.auth.info;
+    },
+  },
+  methods: {
+    LogOut() {
+      localStorage.removeItem("access");
+      localStorage.removeItem("UserInfo");
+      this.$acl.change("editor");
+      this.$router.push("/login");
+      window.location.reload();
+    },
+  },
+  created(){
+     this.$store.dispatch("auth/DealerInfo");
   }
 };
 </script>
 
 <style lang="scss" scoped>
 .nav-bar {
-    cursor: pointer;
+  cursor: pointer;
   display: flex;
   justify-content: space-between;
   margin-bottom: 2rem;
@@ -58,81 +82,101 @@ export default {
     font-size: 24px;
     color: #394560;
   }
- .dropdown{
-    // display: none;
-    position: fixed;
-    z-index: 999;
-    margin-top: 6px;
-            -webkit-transform: translateY(20px);
-            -ms-transform: translateY(20px);
-            transform: translateY(20px);
-            -webkit-transition: all 0.3s ease-in;
-            -o-transition: all 0.3s ease-in;
-            transition: all 0.3s ease-in;
-  width: 183px;
-height: 135px;
-  background: #F6F8FE;
-box-shadow: 0px -2px 8px rgba(70, 121, 236, 0.1), 2px 4px 9px rgba(70, 121, 236, 0.09);
-border-radius: 8px;
-    right: 171px;
- &:before {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 0;
-    margin-left: 0.5em;
-    right: 45px;
-    box-sizing: border-box;
-    border: 14px solid black;
-    border-color: transparent transparent #F6F8FE #F6F8FE;
-    transform-origin: 0 0;
-    transform: rotate(135deg);
-    box-shadow: -3px 3px 3px -3px rgba(214, 214, 214, 0.78);
-  }
-.item{
-  padding: 15px;
-  font-family: Raleway;
-font-style: normal;
-font-weight: 500;
-font-size: 14px;
-line-height: 16px;
-/* identical to box height */
-
-display: flex;
-align-items: center;
-
-/* Main */
-
-color: #4679EC;
-}
-}
-  .profile {
-    display: flex;
-    align-items: center;
-    &:hover {
-        .dropdown {
-                  display: block;
-                    -webkit-transform: scaleY(1);
-                    -ms-transform: scaleY(1);
-                    transform: scaleY(1);
-                    opacity: 1;
-                    visibility: visible;
-                }
-            }
-
-    .profile-content {
-      margin-left: 12px;
-      font-size: 16px;
-
-      h4 {
-        font-weight: 600;
-        color: #60739f;
-        margin-bottom: 3px;
+  .parent {
+    width: 240px;
+    height: 50px;
+    .dropdown {
+      position: fixed;
+      z-index: 999;
+      margin-top: 20px;
+      display: block;
+      visibility: hidden;
+      opacity: 0;
+      -webkit-transform: translateY(20px);
+      -ms-transform: translateY(20px);
+      transform: translateY(20px);
+      -webkit-transition: all 0.3s ease-in;
+      -o-transition: all 0.3s ease-in;
+      transition: all 0.3s ease-in;
+      width: 194px;
+      height: 165px;
+      background: #f6f8fe;
+      box-shadow: 0px -2px 8px rgba(70, 121, 236, 0.1),
+        2px 4px 9px rgba(70, 121, 236, 0.09);
+      border-radius: 8px;
+      right: 171px;
+      &:before {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        margin-left: 0.5em;
+        right: 45px;
+        box-sizing: border-box;
+        border: 14px solid black;
+        border-color: transparent transparent #f6f8fe #f6f8fe;
+        transform-origin: 0 0;
+        transform: rotate(135deg);
+        box-shadow: -3px 3px 3px -3px rgba(214, 214, 214, 0.78);
       }
-      p {
-        color: #60739fb3;
+      .item {
+        padding: 15px 10px 15px 15px;
+        font-family: Raleway;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 16px;
+        /* identical to box height */
+
+        display: flex;
+        align-items: center;
+
+        /* Main */
+
+        color: #4679ec;
+      }
+    }
+    &:hover {
+      .dropdown {
+        -webkit-transform: scaleY(1);
+        -ms-transform: scaleY(1);
+        transform: scaleY(1);
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+    .profile {
+      display: flex;
+      align-items: center;
+      :hover .dropdown {
+        -webkit-transform: translateY(20px);
+        -ms-transform: translateY(20px);
+        transform: translateY(20px);
+        -webkit-transition: all 0.3s ease-in;
+        -o-transition: all 0.3s ease-in;
+        transition: all 0.3s ease-in;
+        display: block;
+      }
+
+      .profile-content {
+        margin-left: 12px;
+        font-size: 16px;
+
+        h4 {
+          font-weight: 600;
+          color: #60739f;
+          margin-bottom: 3px;
+        }
+        p {
+          color: #60739fb3;
+        }
       }
     }
   }
+}
+</style>
+<style scoped>
+.profile:hover .dropdown {
+  display: block;
 }
 </style>

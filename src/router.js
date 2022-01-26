@@ -77,6 +77,7 @@ const router = new Router({
           component: () => import("./views/SuperAdmin/Analytics.vue"),
           meta: {
             rule: "admin",
+            link: "analytic",
             title: "Аналитика",
           },
         },
@@ -135,6 +136,7 @@ const router = new Router({
           component: () => import("./views/Admins/User.vue"),
           meta: {
             rule: "admin",
+            link: "users",
             title: "Пользователи",
           },
         },
@@ -144,6 +146,7 @@ const router = new Router({
           component: () => import("./views/Admins/Company.vue"),
           meta: {
             rule: "admin",
+            link: "companies",
             title: "Компании",
           },
         },
@@ -153,6 +156,7 @@ const router = new Router({
           component: () => import("./views/Admins/Products.vue"),
           meta: {
             rule: "admin",
+            link: "products",
             title: "Товары",
           },
         },
@@ -162,7 +166,18 @@ const router = new Router({
           component: () => import("./views/Admins/Categories.vue"),
           meta: {
             rule: "admin",
+            link: "categories",
             title: "Категории",
+          },
+        },
+        {
+          path: "/settings",
+          name: "settings",
+          component: () => import("./views/Admins/Settings.vue"),
+          meta: {
+            rule: "admin",
+            link: "settings",
+            title: "Настройки",
           },
         },
       ],
