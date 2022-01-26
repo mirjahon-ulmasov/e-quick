@@ -3,7 +3,8 @@
     <SideBar />
     <div class="main">
       <div class="main-content">
-        <router-view></router-view>
+        <nav-bar :title="$route.meta.title"></nav-bar>
+        <router-view> </router-view>
       </div>
     </div>
   </div>
@@ -21,8 +22,9 @@ export default {
   display: flex;
 
   .main {
+    width: 85%;
     background: #e2eafc;
-    width: calc(100% - 240px);
+    min-width: calc(100% - 270px);
     padding: 20px 20px 20px 0;
 
     .main-content {

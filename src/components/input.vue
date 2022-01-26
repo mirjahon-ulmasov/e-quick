@@ -1,7 +1,7 @@
 <template>
     <div>
-        <textarea class="custom-input" :style="btnStyles"></textarea>
-      <input :type="type" class="custom-input" :style="btnStyles">
+        <textarea class="custom-input" v-if="type === 'textarea'" :style="btnStyles" style="resize: none; " ></textarea>
+      <input :type="type" class="custom-input" v-else :style="btnStyles">
     </div>
 </template>
 <script>
@@ -26,7 +26,7 @@ export default {
       return {
         color: this.color,
         height: `${this.height}px`,
-        width: `${this.width}px`
+        width: `${this.width}px`,
       };
     }
   }

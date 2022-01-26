@@ -1,5 +1,5 @@
 <template>
-  <NavBar :title="'Добавить админ'" />
+<div></div>
 </template>
 
 <script>

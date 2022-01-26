@@ -2,7 +2,7 @@
   <div class="nav-bar">
     <h3>{{ title }}</h3>
     <div class="profile">
-      <img src="../assets/new-images/icons/profile.png" alt="Profile" />
+      <img src="../assets/images/logo/profile.png" alt="Profile" />
       <div class="profile-content">
         <h4>Nargiza Akhmedova</h4>
         <p>Superadmin</p>
@@ -21,6 +21,7 @@ export default {
 .nav-bar {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 2rem;
   align-items: center;
   font-family: Montserrat;
 
