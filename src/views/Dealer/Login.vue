@@ -5,7 +5,7 @@
         width="311px"
         height="80px"
         style="margin: 40px 40px 88px 0px"
-        src="@/assets/images/login/logo1.png"
+        src="@/assets/images--old/login/logo1.png"
         alt="img"
       />
       <input
@@ -121,7 +121,7 @@ div.wrapper {
   height: 100vh;
   margin: 0;
   padding: 0;
-  background-image:  url("../../assets/images/login/left.svg"), url("../../assets/images/login/right.svg"), linear-gradient(99.52deg, #3f4f61 -14.96%, #3a9fd1 156.83%);
+  background-image:  url("../../assets/images--old/login/left.svg"), url("../../assets/images--old/login/right.svg"), linear-gradient(99.52deg, #3f4f61 -14.96%, #3a9fd1 156.83%);
   background-repeat: no-repeat,no-repeat,no-repeat;
   background-size: contain,contain,contain;
   background-position: left, right, center;
@@ -165,13 +165,13 @@ text-transform: uppercase;
 color: #FFFFFF;
       }
       &:nth-child(2) {
-        background-image: url("../../assets/images/icons/user.svg");
+        background-image: url("../../assets/images--old/icons/user.svg");
         background-repeat: no-repeat;
         background-position: 5%;
         background-size: 7%;
       }
       input.custom-input1:nth-child(4) {
-        background-image: url("../../assets/images/icons/lock.svg");
+        background-image: url("../../assets/images--old/icons/lock.svg");
         background-repeat: no-repeat;
         background-position: 5%;
         background-size: 7%;
@@ -203,7 +203,7 @@ text-transform: uppercase;
 color: #FFFFFF;
       }
       &:nth-child(3) {
-        background-image: url("../../assets/images/icons/lock.svg");
+        background-image: url("../../assets/images--old/icons/lock.svg");
         background-repeat: no-repeat;
         background-position: 5%;
         background-size: 7%;

@@ -2,6 +2,7 @@
   <div>
     <mtable :header="header" :items="items" ></mtable>
     <my-button></my-button>
+    <my-input :type="'text'" :height="48" :width="375" ></my-input>
   </div>
 </template>
 <script>

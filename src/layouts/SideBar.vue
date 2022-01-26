@@ -88,7 +88,11 @@
 </template>
 
 <script>
-export default {};
+export default {
+  mounted(){
+    console.log(this.$router, 'dddd');
+  }
+};
 </script>
 
 <style lang="scss" scoped>

@@ -3,6 +3,7 @@ import FeatherIcon  from './components/FeatherIcon.vue'
 import NavBar from './layouts/Navbar.vue'
 import Table from './components/Table.vue'
 import MyButton from './components/Button.vue'
+import MyInput from './components/input.vue'
 
 Vue.component(FeatherIcon.name, FeatherIcon)
 
@@ -31,5 +32,6 @@ vSelect.props.components.default = () => ({
 })
 Vue.component('nav-bar', NavBar)
 Vue.component('mtable', Table)
+Vue.component('my-input', MyInput )
 Vue.component('my-button', MyButton)
 Vue.component(vSelect)

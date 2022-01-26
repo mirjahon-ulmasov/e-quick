@@ -48,6 +48,7 @@ export default {
 <style lang="scss" scoped>
 button{
 /* Main */
+cursor: pointer;
 border-radius: 10px;
 border: none;
 font-family: Montserrat;

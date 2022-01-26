@@ -12,47 +12,47 @@ const router = new Router({
   routes: [
     {
       path: "/",
-      redirect: "/dealer/main",
+      redirect: "/login",
     },
     // Dealer Layout
-    {
-      path: "/dealer/",
-      component: () => import("./layouts/dealer-page/Dealer.vue"),
-      children: [
-        {
-          path: "main",
-          name: "Home",
-          component: () => import("./views/Dealer/Home.vue"),
-          meta: {
-            rule: "dealer",
-          },
-        },
-        {
-          path: "templates",
-          name: "Templates",
-          component: () => import("./views/Dealer/Templates.vue"),
-          meta: {
-            rule: "dealer",
-          },
-        },
-        {
-          path: "journal",
-          name: "Journal",
-          component: () => import("./views/Dealer/Journal.vue"),
-          meta: {
-            rule: "dealer",
-          },
-        },
-        {
-          path: "settings",
-          name: "Settings",
-          component: () => import("./views/Dealer/Settings.vue"),
-          meta: {
-            rule: "dealer",
-          },
-        },
-      ],
-    },
+    // {
+    //   path: "/dealer/",
+    //   component: () => import("./layouts/dealer-page/Dealer.vue"),
+    //   children: [
+    //     {
+    //       path: "main",
+    //       name: "Home",
+    //       component: () => import("./views/Dealer/Home.vue"),
+    //       meta: {
+    //         rule: "dealer",
+    //       },
+    //     },
+    //     {
+    //       path: "templates",
+    //       name: "Templates",
+    //       component: () => import("./views/Dealer/Templates.vue"),
+    //       meta: {
+    //         rule: "dealer",
+    //       },
+    //     },
+    //     {
+    //       path: "journal",
+    //       name: "Journal",
+    //       component: () => import("./views/Dealer/Journal.vue"),
+    //       meta: {
+    //         rule: "dealer",
+    //       },
+    //     },
+    //     {
+    //       path: "settings",
+    //       name: "Settings",
+    //       component: () => import("./views/Dealer/Settings.vue"),
+    //       meta: {
+    //         rule: "dealer",
+    //       },
+    //     },
+    //   ],
+    // },
     //  Main layout Admins
     {
       path: "",
