@@ -163,6 +163,25 @@ const router = new Router({
           },
         },
         {
+          path: "/add-user",
+          name: "addusers",
+          component: () => import("./views/Admins/AddUser.vue"),
+          meta: {
+            rule: "admin",
+            title: "Добавить пользователя",
+          },
+        },
+        {
+          path: "/user/:id",
+          name: "addusers",
+          component: () => import("./views/Admins/UserDetail.vue"),
+          meta: {
+            rule: "admin",
+            title: "Пользователи",
+          },
+          props: true,
+        },
+        {
           path: "/companies",
           name: "companies",
           component: () => import("./views/Admins/Company.vue"),
@@ -201,6 +220,18 @@ const router = new Router({
             link: "settings",
             title: "Настройки",
           },
+        },
+        {
+          path: "edit-user",
+          name: "AD_Edit",
+          component: () => import("./views/SuperAdmin/AdminForm.vue"),
+          meta: {
+            rule: "admin",
+            link: "",
+            title: "Изменить данные",
+            id: `${localStorage.getItem("Id")}`,
+          },
+          props: true,
         },
       ],
     },

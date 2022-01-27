@@ -20,7 +20,7 @@
         />
         Аналитика</router-link
       >
-      <router-link to="users" class="nav-link">
+      <router-link to="/users" class="nav-link">
         <b></b>
         <b></b>
         <img
@@ -35,7 +35,7 @@
         />
         Пользователи</router-link
       >
-      <router-link to="companies" class="nav-link">
+      <router-link to="/companies" class="nav-link">
         <b></b>
         <b></b>
                 <img
@@ -50,7 +50,7 @@
         />
         Компании</router-link
       >
-      <router-link to="products" class="nav-link">
+      <router-link to="/products" class="nav-link">
         <b></b>
         <b></b>
         <img
@@ -65,7 +65,7 @@
         />
         Товары</router-link
       >
-      <router-link to="categories" class="nav-link">
+      <router-link to="/categories" class="nav-link">
         <b></b>
         <b></b>
         <img

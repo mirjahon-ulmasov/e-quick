@@ -42,7 +42,23 @@
               />
               <span> Сменить фото </span>
             </div>
-            <router-link class="item" to="/edit">
+            <router-link         
+             v-if="
+            this.$store.state.userType === 'super_admin' ||
+            $acl.check('super_admin')
+          "  class="item" to="/edit">
+              <img
+                src="../../assets/images/icons/edit.svg"
+                style="margin-right: 12px"
+                alt="c"
+              />
+              <span> Изменить данные </span>
+            </router-link>
+                        <router-link         
+             v-if="
+            this.$store.state.userType === 'admin' ||
+            $acl.check('admin')
+          "  class="item" to="/edit-user">
               <img
                 src="../../assets/images/icons/edit.svg"
                 style="margin-right: 12px"

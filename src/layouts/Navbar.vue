@@ -27,7 +27,7 @@
         <router-link
           v-if="this.$store.state.userType === 'admin' || $acl.check('admin')"
           class="item"
-          :to="'settings'"
+          :to="'/settings'"
         >
           <img
             src="../assets/images/icons/settings.svg"
@@ -42,7 +42,7 @@
             $acl.check('super_admin')
           "
           class="item"
-          :to="'setting'"
+          :to="'/setting'"
         >
           <img
             src="../assets/images/icons/settings.svg"

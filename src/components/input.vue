@@ -42,6 +42,14 @@
       v-else
       :style="btnStyles"
     />
+    <!-- Validation TEXT -->
+        <!-- <span class="error-text" v-show="errors.has('savdo_id')">
+      <feather-icon
+        :icon="'InfoIcon'"
+        style="color: #db2379 !important; margin-right: 5px"
+        svgClasses="h-6 w-6"
+      />
+      {{ errors.first("savdo_id") }}</span> -->
   </div>
 </template>
 <script>

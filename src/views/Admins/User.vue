@@ -1,52 +1,75 @@
 <template>
   <div>
-    <mtable :header="header" :items="items"></mtable>
-    <my-button @click.native="Use()"></my-button>
-    <my-input
-      :type="'textarea'"
-      v-model="activeUser"
-      :error="errors.has('savdo_id')"
-      :height="48"
-      :width="375"
-      name="savdo_id"
-      v-validate="'required|numeric'"
-    ></my-input>
-    <span class="error-text" v-show="errors.has('savdo_id')">
-      <feather-icon
-        :icon="'InfoIcon'"
-        style="color: #db2379 !important; margin-right: 5px"
-        svgClasses="h-6 w-6"
-      />
-      {{ errors.first("savdo_id") }}</span
-    >
+        <my-button
+          title="Добавить пользователя"
+          bgColor="#4679EC"
+          color="#FFFFFF"
+          :width="263"
+          style="margin-bottom: 40px"
+          @click.native="addAdmin()"
+        ></my-button>
+    <table id="table">
+      <thead>
+        <tr>
+          <th v-for="(header, i) in headers" :key="i">{{ header.title }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          v-for="(admin, i) in adminList"
+          :key="i"
+          @click="$router.push(`/user/${admin.id}`)"
+        >
+          <td>{{ admin.full_name }}</td>
+          <td>{{ admin.phone_number }}</td>
+          <td>{{ admin.role }}</td>
+          <td>{{ admin.username }}</td>
+          <td>
+            <span v-show="admin.active === 1" class="active" >
+              Активен
+            </span>
+            <span v-show="admin.active === 0" class="inactive" >
+              Неактивен
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
+
 <script>
-import VuePerfectScrollbar from "vue-perfect-scrollbar";
 export default {
-  name: "Company",
   data() {
     return {
-      activePrompt: false,
-      itemsPerPage: 4,
-      activeUser: "f",
-      PopUp: false,
-      PopUpData: {},
-      settings: {
-        maxScrollbarLength: 60,
-      },
-      header: [{ title: "Salom" }, { title: "Salom" }, { title: "Salom" }],
-      items: [{ title: "Salom" }, { title: "Salom" }, { title: "Salom" }],
+      headers: [
+        { title: "Ф.И.О." },
+        { title: "Телефон номера" },
+        { title: "Роль" },
+        { title: "Имя пользователя" },
+        { title: "Статус" },
+      ],
     };
   },
-  components: { VuePerfectScrollbar },
-  methods: {
-    Use() {
-      console.log("dddd");
-      console.log(this.activeUser);
+  computed: {
+    adminList() {
+      return this.$store.state.addUser.admins;
     },
   },
+  methods: {
+    addAdmin(){
+      this.$router.push('add-user')
+    }
+  },
+  created() {
+    this.$store.dispatch("addUser/fetchDataListItems");
+  },
+  mounted() {},
 };
 </script>
-<style scoped>
+
+<style lang="scss" scoped>
+#table {
+  width: 100%;
+}
 </style>

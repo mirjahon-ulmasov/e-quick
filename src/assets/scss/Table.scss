@@ -1,6 +1,7 @@
 #table {
   min-width: 400px;
   border-collapse: collapse;
+  background: #F5F8FF;
   thead {
     height: 56px;
     background: #E6EDFF;
@@ -25,6 +26,7 @@
 
         &:last-child{
           border-radius: 0 8px 8px 0;
+          padding-left: 38px;
         }
       }
     }
@@ -62,6 +64,7 @@ font-style: normal;
 font-weight: 500;
 font-size: 14px;
 line-height: 100.9%;
+padding: 10px 15px;
 color: #198061;
         }
         .inactive{
