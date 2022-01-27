@@ -18,7 +18,15 @@
           />
           <span> Сменить язык </span>
         </div>
-        <router-link class="item" :to="'settings'" >
+        <router-link v-if="this.$store.state.userType === 'admin' || $acl.check('admin')" class="item" :to="'settings'" >
+          <img
+            src="../assets/images/icons/settings.svg"
+            style="margin-right: 12px"
+            alt="c"
+          />
+          <span> Настройки </span>
+        </router-link>
+        <router-link v-if="this.$store.state.userType === 'super_admin' || $acl.check('super_admin')"  class="item" :to="'setting'" >
           <img
             src="../assets/images/icons/settings.svg"
             style="margin-right: 12px"

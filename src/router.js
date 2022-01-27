@@ -92,7 +92,7 @@ const router = new Router({
           },
         },
         {
-          path: "setting",
+          path: "/setting",
           name: "SuperAdminSettings",
           component: () => import("./views/Admins/Settings.vue"),
           meta: {
