@@ -46,7 +46,7 @@
       </div>
       <div class="actions">
         <my-button
-          @click.native="closeHandler"
+          @click.native="handlerTwo()"
           type="button"
           title="Отменить"
           bgColor="#EDF1FD"
@@ -60,6 +60,16 @@
         ></my-button>
       </div>
     </form>
+    <v-notification
+      :isShow="notification.show"
+      :is_success="notification.is_success"
+      :header="notification.header"
+      :content="notification.content"
+      :btnFirst="notification.btnFirst"
+      :btnSecond="notification.btnSecond"
+      @handlerOne="handlerOne"
+      @handlerTwo="handlerTwo"
+    ></v-notification>
   </div>
 </template>
 
@@ -68,6 +78,14 @@ export default {
   props: ["id"],
   data() {
     return {
+      notification: {
+        show: false,
+        is_success: true,
+        header: "",
+        content: "",
+        btnFirst: "",
+        btnSecond: "",
+      },
       editID: null,
       user: {
         full_name: "",
@@ -86,7 +104,8 @@ export default {
   created() {
     if (this.$route.meta.id) {
       this.editID = this.$route.meta.id;
-    } else if (this.id) {
+    }
+    if (this.id) {
       this.editID = this.id;
     }
     if (this.editID) {
@@ -104,9 +123,16 @@ export default {
     }
   },
   methods: {
-    closeHandler() {
+    handlerOne() {
+      this.$router.push(this.$route.path);
+    },
+    handlerTwo() {
       this.reset();
-      this.$router.push("/admins");
+      if (this.id || !this.$route.meta.id) {
+        this.$router.push("/admins");
+      } else {
+        this.$router.push("/setting");
+      }
     },
     submitHandler() {
       if (this.password === this.confirm) {
@@ -117,7 +143,28 @@ export default {
               password: this.password,
               old_password: this.old_password,
             })
-            .then((res) => this.closeHandler())
+            .then((res) => {
+              if (this.id) {
+                this.notification = {
+                  show: true,
+                  is_success: true,
+                  header: "Пользователь был изменён успешно",
+                  content:
+                    "Теперь вы можете увидеть изменения в списке админов",
+                  btnFirst: "Вернуться",
+                  btnSecond: "Список админов",
+                };
+              } else {
+                this.notification = {
+                  show: true,
+                  is_success: true,
+                  header: "Данные были изменены успешно",
+                  content: "Теперь вы можете увидеть изменения в настройках",
+                  btnFirst: "Вернуться",
+                  btnSecond: "Настройки",
+                };
+              }
+            })
             .catch((err) => console.log(err));
         } else if (this.password) {
           this.$store
@@ -125,7 +172,16 @@ export default {
               ...this.user,
               password: this.password,
             })
-            .then((res) => this.closeHandler())
+            .then((res) => {
+              this.notification = {
+                show: true,
+                is_success: true,
+                header: "Пользователь был добавлен успешно",
+                content: "Теперь вы можете увидеть изменения в списке админов",
+                btnFirst: "Вернуться",
+                btnSecond: "Список админов",
+              };
+            })
             .catch((err) => console.log(err));
         }
       }

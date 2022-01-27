@@ -93,7 +93,7 @@ const router = new Router({
         },
         {
           path: "setting",
-          name: "SuperAdminSettings",
+          name: "SA_Settings",
           component: () => import("./views/Admins/Settings.vue"),
           meta: {
             rule: "super_admin",
@@ -103,7 +103,7 @@ const router = new Router({
         },
         {
           path: "edit",
-          name: "AdminEdit",
+          name: "SA_Edit",
           component: () => import("./views/SuperAdmin/AdminForm.vue"),
           meta: {
             rule: "super_admin",

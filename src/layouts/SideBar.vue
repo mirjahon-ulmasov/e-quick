@@ -1,6 +1,6 @@
 <template>
   <div class="side-bar">
-    <img src="../assets/images/logo/e-quick.svg" alt="E-quick" class="logo" />
+    <img src="../assets/images/logo/e-quick.png" width="140px" alt="E-quick" class="logo" />
     <div
       class="nav-links"
       v-if="this.$store.state.userType === 'admin' || $acl.check('admin')"

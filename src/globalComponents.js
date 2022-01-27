@@ -4,8 +4,7 @@ import NavBar from "./layouts/Navbar.vue";
 import Table from "./components/Table.vue";
 import MyButton from "./components/Button.vue";
 import MyInput from "./components/input.vue";
-
-Vue.component(FeatherIcon.name, FeatherIcon);
+import Notification from "./components/Notification.vue";
 
 // v-select component
 import "vue-select/dist/vue-select.css";
@@ -32,8 +31,12 @@ vSelect.props.components.default = () => ({
       }),
   },
 });
+
+Vue.component(FeatherIcon.name, FeatherIcon);
+
 Vue.component("nav-bar", NavBar);
 Vue.component("mtable", Table);
 Vue.component("my-input", MyInput);
 Vue.component("my-button", MyButton);
 Vue.component("v-select", vSelect);
+Vue.component("v-notification", Notification);

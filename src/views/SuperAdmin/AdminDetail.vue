@@ -36,6 +36,16 @@
           <h4>@{{ user.username }}</h4>
         </div>
       </div>
+      <v-notification
+        :isShow="notification.show"
+        :is_success="notification.is_success"
+        :header="notification.header"
+        :content="notification.content"
+        :btnFirst="notification.btnFirst"
+        :btnSecond="notification.btnSecond"
+        @handlerTwo="handlerTwo"
+        @handlerOne="handlerOne"
+      ></v-notification>
     </div>
     <router-view></router-view>
   </div>
@@ -44,14 +54,54 @@
 <script>
 export default {
   props: ["id"],
+  data() {
+    return {
+      notification: {
+        show: false,
+        is_success: true,
+        header: "",
+        content: "",
+        btnFirst: "",
+        btnSecond: "",
+      },
+      isDeleted: true,
+    };
+  },
   methods: {
     deleteHandler() {
-      this.$store
-        .dispatch("addUser/removeItem", this.id)
-        .then(() => {
-          this.$router.push("/admins");
-        })
-        .catch((err) => console.log(err));
+      this.notification = {
+        show: true,
+        is_success: false,
+        header: "Вы действительно хотите удалить этого пользователя?",
+        content: "Все данные включая персональные инфо будут удалены",
+        btnFirst: "Отмена",
+        btnSecond: "Удалить",
+      };
+    },
+    handlerTwo() {
+      if (this.isDeleted) {
+        this.$store
+          .dispatch("addUser/removeItem", this.id)
+          .then(() => {
+            this.notification = {
+              show: true,
+              is_success: true,
+              header: "Пользователь был удален успешно",
+              content: "",
+              btnFirst: "Вернуться",
+              btnSecond: "Список админов",
+            };
+            this.isDeleted = false;
+          })
+          .catch((err) => console.log(err));
+      } else {
+        this.$router.push("/admins");
+      }
+    },
+    handlerOne() {
+      if (!this.isDeleted) {
+        this.$router.push("/admins");
+      }
     },
   },
   computed: {
