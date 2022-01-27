@@ -46,6 +46,7 @@ export default {
         &::-webkit-scrollbar-track {
           background: none;
           border-radius: 30px;
+          background: none;
         }
         &::-webkit-scrollbar-thumb {
           background: linear-gradient(0deg, #d1defa, #d1defa), #f1f5fe;

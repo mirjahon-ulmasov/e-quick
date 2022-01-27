@@ -8,26 +8,76 @@
       <router-link to="analytic" class="nav-link">
         <b></b>
         <b></b>
-        Аналитика
-      </router-link>
+        <img
+          v-if="this.$route.meta.link === 'analytic'"
+          src="../assets/images/icons/graph-bold.svg"
+          alt="graph icon"
+        />
+        <img
+          v-else
+          src="../assets/images/icons/graph-light.svg"
+          alt="graph icon"
+        />
+        Аналитика</router-link
+      >
       <router-link to="users" class="nav-link">
         <b></b>
         <b></b>
+        <img
+          v-if="this.$route.meta.link === 'users'"
+          src="../assets/images/icons/users-bold.svg"
+          alt="paper icon"
+        />
+        <img
+          v-else
+          src="../assets/images/icons/users-light.svg"
+          alt="paper icon"
+        />
         Пользователи</router-link
       >
       <router-link to="companies" class="nav-link">
         <b></b>
         <b></b>
+                <img
+          v-if="this.$route.meta.link === 'companies'"
+          src="../assets/images/icons/company-bold.svg"
+          alt="paper icon"
+        />
+        <img
+          v-else
+          src="../assets/images/icons/company-light.svg"
+          alt="paper icon"
+        />
         Компании</router-link
       >
       <router-link to="products" class="nav-link">
         <b></b>
         <b></b>
+        <img
+          v-if="this.$route.meta.link === 'products'"
+          src="../assets/images/icons/products-bold.svg"
+          alt="paper icon"
+        />
+        <img
+          v-else
+          src="../assets/images/icons/products-light.svg"
+          alt="paper icon"
+        />
         Товары</router-link
       >
       <router-link to="categories" class="nav-link">
         <b></b>
         <b></b>
+        <img
+          v-if="this.$route.meta.link === 'categories'"
+          src="../assets/images/icons/paper-bold.svg"
+          alt="paper icon"
+        />
+        <img
+          v-else
+          src="../assets/images/icons/paper-light.svg"
+          alt="paper icon"
+        />
         Категории</router-link
       >
     </div>
