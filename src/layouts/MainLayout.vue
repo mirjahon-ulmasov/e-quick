@@ -49,7 +49,7 @@ export default {
           background: none;
         }
         &::-webkit-scrollbar-thumb {
-          background: linear-gradient(0deg, #d1defa, #d1defa), #f1f5fe;
+          background: linear-gradient(0deg, #d1defa, #d1defa), #f5f8fd;
           border-radius: 30px;
           border: 1px solid transparent;
           background-clip: content-box;

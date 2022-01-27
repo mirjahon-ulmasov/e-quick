@@ -1,9 +1,20 @@
 <template>
   <div>
     <form @submit.prevent="submitHandler">
-      <div class="form-input">
+      <div v-if="!$route.meta.id" class="form-input">
         <h4>Выберите роль</h4>
-        <my-input type="input" :width="375" v-model="user.role" />
+        <v-select
+          v-model="user.role"
+          style="width: 375px"
+          :options="['admin']"
+          id="select-state"
+        >
+          <template #open-indicator="{ attributes }">
+            <span v-bind="attributes">
+              <img src="../../assets/images/icons/select-icon.svg" alt="" />
+            </span>
+          </template>
+        </v-select>
       </div>
       <div class="form-input">
         <h4>Ф.И.О.</h4>
@@ -21,7 +32,7 @@
         <h4>Имя пользователя</h4>
         <my-input type="input" :width="375" v-model="user.username" />
       </div>
-      <div v-if="id" class="form-input">
+      <div v-if="editID" class="form-input">
         <h4>Старый пароль</h4>
         <my-input type="password" :width="375" v-model="old_password" />
       </div>
@@ -57,10 +68,11 @@ export default {
   props: ["id"],
   data() {
     return {
+      editID: null,
       user: {
-        role: "",
         full_name: "",
         phone_number: "",
+        role: "",
         email: "",
         username: "",
       },
@@ -72,12 +84,16 @@ export default {
     };
   },
   created() {
-    if (this.id) {
+    if (this.$route.meta.id) {
+      this.editID = this.$route.meta.id;
+    } else if (this.id) {
+      this.editID = this.id;
+    }
+    if (this.editID) {
       this.$store
-        .dispatch("addUser/fetchUserById", this.id)
+        .dispatch("addUser/fetchUserById", this.editID)
         .then((res) => res.data)
         .then((user) => {
-          console.log(user);
           this.user = {
             ...user,
           };
@@ -94,7 +110,7 @@ export default {
     },
     submitHandler() {
       if (this.password === this.confirm) {
-        if (this.id) {
+        if (this.editID) {
           this.$store
             .dispatch("addUser/updateItem", {
               ...this.user,

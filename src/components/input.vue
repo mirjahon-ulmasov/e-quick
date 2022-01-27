@@ -22,7 +22,7 @@
       <i class="eye-close"></i>
       <img :src="toggle ? show : close" class="toggle" @click="func()" alt="" />
     </div>
-    <v-select
+    <!-- <v-select
       :options="options"
       id="select-state"
       v-else-if="type === `select`"
@@ -33,7 +33,7 @@
           <img src="../assets/images/icons/select-icon.svg" alt="" />
         </span>
       </template>
-    </v-select>
+    </v-select> -->
     <input
       @input="updateValue($event.target.value)"
       :value="value"
@@ -45,8 +45,7 @@
   </div>
 </template>
 <script>
-import "vue-select/dist/vue-select.css";
-import VSelect from "vue-select";
+
 export default {
   name: "",
   props: {
@@ -66,7 +65,6 @@ export default {
       default: 46,
     },
   },
-  components: { VSelect },
   data() {
     return {
       toggle: false,
