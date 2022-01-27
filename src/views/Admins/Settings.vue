@@ -76,16 +76,16 @@
         <div class="user-details">
           <h3 class="head">Уведомления</h3>
           <div class="user-detail">
-            <div class="form-group">
-              <input v-model="emailnotf" type="checkbox" id="news" />
-              <label for="news">Получать обновления</label>
-            </div>
+              <div class="form-group">
+      <input v-model="emailnotf" disabled type="checkbox" id="news">
+      <label for="news">Получать обновления</label>
+    </div>
           </div>
           <div class="user-detail">
-            <div class="form-group">
-              <input v-model="sitenotf" type="checkbox" id="email" />
-              <label for="email">Получать сообщения на почту</label>
-            </div>
+    <div class="form-group">
+      <input v-model="sitenotf" disabled  type="checkbox" id="email">
+      <label for="email">Получать сообщения на почту</label>
+    </div>
           </div>
         </div>
       </div>
@@ -140,14 +140,14 @@ export default {
         return;
       }
       this.quality1 = new Compressor(file, {
-        quality: 0.6,
+        quality: 0.5,
         success(result) {
           console.log(result);
         },
         error(err) {
           this.$vs.notify({
             title: "Error",
-            text: "Image size must be pover 2 MB",
+            text: "Image size must be pover 1 MB",
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "danger",
@@ -155,9 +155,9 @@ export default {
         },
       });
       setTimeout(() => {
-        if (this.quality1.result.size < 1427393) {
+        if (this.quality1.result.size < 1000000) {
           const reader = new FileReader();
-          console.log(this.quality1.result);
+          console.log(this.quality1);
           reader.readAsDataURL(this.quality1.result);
           reader.onload = (event) => {
             this.image = event.target.result;
@@ -221,10 +221,12 @@ export default {
 
       img {
         background: #edf2fb;
-        border-radius: 14px;
-        padding: 28px 35px;
+        padding:  4px;
+        background: #FFFFFF;
+       box-shadow: 0px 3.82748px 8px rgba(70, 121, 236, 0.1);
+       border-radius: 50%;
+        border: 4.42857px solid #FFFFFF;
       }
-
       .user-name {
         margin-left: 1rem;
 

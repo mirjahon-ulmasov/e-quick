@@ -3,7 +3,7 @@
     <textarea
       @input="updateValue($event.target.value)"
       :value="value"
-      class="custom-input"
+      :class="error ? 'error' : 'custom-input'"
       v-if="type === 'textarea'"
       :style="btnStyles"
       style="resize: none"
@@ -14,9 +14,9 @@
     >
       <input
         @input="updateValue($event.target.value)"
+        :class="error ? 'error ' : 'custom-input'"
         :value="value"
         :type="toggle ? 'text' : type"
-        class="custom-input password"
         :style="btnStyles"
       />
       <i class="eye-close"></i>
@@ -38,7 +38,7 @@
       @input="updateValue($event.target.value)"
       :value="value"
       :type="type"
-      class="custom-input"
+      :class="error ? 'error' : 'custom-input'"
       v-else
       :style="btnStyles"
     />
@@ -49,6 +49,10 @@
 export default {
   name: "",
   props: {
+    error: {
+    type: Boolean,
+    default: false,
+    },
     value: {
       type: String,
     },
@@ -109,6 +113,15 @@ export default {
   font-size: 16px;
   line-height: 20px;
   color: #60739f;
+  &:focus{
+    background: #FFFFFF;
+/* Main */
+
+border: 0.886581px solid #4679EC;
+box-sizing: border-box;
+box-shadow: 0px 0px 3px 1px rgba(70, 120, 236, 0.548);
+border-radius: 8.86582px;
+  }
 }
 
 .toggle {
@@ -116,20 +129,12 @@ export default {
   cursor: pointer;
   margin-left: -40px;
 }
-.eye-close {
-  background-image: url("../assets/images/icons/eye-close.svg");
-}
-select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background: transparent;
-  background-image: url("../assets/images/icons/select-icon.svg");
-  background-repeat: no-repeat;
-  background-position-x: 95%;
-  background-position-y: center;
-  padding: 25px;
-  border: 0.886581px solid #e3ebfc;
-  box-sizing: border-box;
-  border-radius: 8.86582px;
+.error{
+  background: #FEFBFC;
+padding: 14px 25px;
+border: 0.886581px solid #DB2379;
+box-shadow: 0px 0px 2px 1px #dd659d;
+box-sizing: border-box;
+border-radius: 8.86582px;
 }
 </style>
