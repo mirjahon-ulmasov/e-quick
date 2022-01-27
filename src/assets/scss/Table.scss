@@ -14,11 +14,10 @@
         font-family: Montserrat;
         font-style: normal;
         font-weight: 600;
-        font-size: 14px;
-        line-height: 17px;
-        padding: 20px 30px;
-        align-items: center;
-        letter-spacing: 0.03em;
+        font-size: 16px;
+        line-height: 100.9%;
+        padding: 27px;
+        color: #60739F;
 
         &:first-child{
           border-radius: 8px 0 0 8px;
@@ -27,28 +26,58 @@
         &:last-child{
           border-radius: 0 8px 8px 0;
         }
-        color: #4679ec;
       }
     }
   }
   tbody {
     width: 100%;
-    background: #fafbfe;
-    border-radius: 6px;
-    padding-top: 20px;
+    background: #F5F8FF;
+    border-radius: 8px;
     tr {
+      border-bottom: 1px solid #E5EDFF;
       cursor: pointer;
+      &:last-child{
+        border: none !important;
+      }
+      &:hover{
+        -moz-transition: cursor 500ms ease-in-out;
+        -o-transition: cursor 500ms ease-in-out;
+        -webkit-transition: cursor 500ms ease-in-out;
+        transition: cursor 500ms ease-in-out;
+      }
       td {
-        border: none;
-        padding: 20px 30px;
+        padding: 30px !important;
         font-family: Montserrat;
         font-style: normal;
-        font-weight: 600;
+        font-weight: 500;
         font-size: 14px;
-        line-height: 17px;
-        /* identical to box height */
+        line-height: 100.9%;
+        color: #394560;
+        padding: 10px 15px;
+        .active{
+background: #E1F9F2;
+border-radius: 6px;
+font-family: Montserrat;
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 100.9%;
+color: #198061;
+        }
+        .inactive{
+background: #F9DCEA;
+border-radius: 6px;
+padding: 10px 15px;
+font-family: Montserrat;
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 100.9%;
+/* or 14px */
 
-        color: #464e5f;
+
+color: #841549;
+        }
       }
     }
   }

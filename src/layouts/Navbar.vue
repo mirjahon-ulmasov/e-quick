@@ -2,8 +2,14 @@
   <div class="nav-bar">
     <h3>{{ title }}</h3>
     <div class="parent">
-      <div  class="profile">
-        <img :src="baseUrl + info.profile_picture" width="50px" height="50px" alt="Profile" />
+      <div class="profile">
+        <img
+          :src="baseUrl + info.profile_picture"
+          width="60px"
+          height="60px"
+          style="border-radius: 50%"
+          alt="Profile"
+        />
         <div class="profile-content">
           <h4>{{ info.full_name }}</h4>
           <p>{{ info.role }}</p>
@@ -18,7 +24,11 @@
           />
           <span> Сменить язык </span>
         </div>
-        <router-link v-if="this.$store.state.userType === 'admin' || $acl.check('admin')" class="item" :to="'settings'" >
+        <router-link
+          v-if="this.$store.state.userType === 'admin' || $acl.check('admin')"
+          class="item"
+          :to="'settings'"
+        >
           <img
             src="../assets/images/icons/settings.svg"
             style="margin-right: 12px"
@@ -26,7 +36,14 @@
           />
           <span> Настройки </span>
         </router-link>
-        <router-link v-if="this.$store.state.userType === 'super_admin' || $acl.check('super_admin')"  class="item" :to="'setting'" >
+        <router-link
+          v-if="
+            this.$store.state.userType === 'super_admin' ||
+            $acl.check('super_admin')
+          "
+          class="item"
+          :to="'setting'"
+        >
           <img
             src="../assets/images/icons/settings.svg"
             style="margin-right: 12px"
@@ -53,10 +70,10 @@ export default {
   data() {
     return {
       active: false,
-      baseUrl: process.env.VUE_APP_IMG ,
+      baseUrl: process.env.VUE_APP_IMG,
     };
   },
-    computed: {
+  computed: {
     info() {
       return this.$store.state.auth.info;
     },
@@ -70,9 +87,9 @@ export default {
       window.location.reload();
     },
   },
-  created(){
-     this.$store.dispatch("auth/DealerInfo");
-  }
+  created() {
+    this.$store.dispatch("auth/DealerInfo");
+  },
 };
 </script>
 
@@ -156,6 +173,14 @@ export default {
     .profile {
       display: flex;
       align-items: center;
+      img {
+        background: #edf2fb;
+        padding: 3px;
+        background: #ffffff;
+        box-shadow: 0px 3.82748px 8px rgba(70, 121, 236, 0.1);
+        border-radius: 50%;
+        border: 1.42857px solid #ffffff;
+      }
       :hover .dropdown {
         -webkit-transform: translateY(20px);
         -ms-transform: translateY(20px);

@@ -3,7 +3,7 @@
     <textarea
       @input="updateValue($event.target.value)"
       :value="value"
-      class="custom-input"
+      :class="error ? 'error' : 'custom-input'"
       v-if="type === 'textarea'"
       :style="btnStyles"
       style="resize: none"
@@ -14,15 +14,15 @@
     >
       <input
         @input="updateValue($event.target.value)"
+        :class="error ? 'error ' : 'custom-input'"
         :value="value"
         :type="toggle ? 'text' : type"
-        class="custom-input password"
         :style="btnStyles"
       />
       <i class="eye-close"></i>
       <img :src="toggle ? show : close" class="toggle" @click="func()" alt="" />
     </div>
-    <v-select
+    <!-- <v-select
       :options="options"
       id="select-state"
       v-else-if="type === `select`"
@@ -33,23 +33,26 @@
           <img src="../assets/images/icons/select-icon.svg" alt="" />
         </span>
       </template>
-    </v-select>
+    </v-select> -->
     <input
       @input="updateValue($event.target.value)"
       :value="value"
       :type="type"
-      class="custom-input"
+      :class="error ? 'error' : 'custom-input'"
       v-else
       :style="btnStyles"
     />
   </div>
 </template>
 <script>
-import "vue-select/dist/vue-select.css";
-import VSelect from "vue-select";
+
 export default {
   name: "",
   props: {
+    error: {
+    type: Boolean,
+    default: false,
+    },
     value: {
       type: String,
     },
@@ -66,7 +69,6 @@ export default {
       default: 46,
     },
   },
-  components: { VSelect },
   data() {
     return {
       toggle: false,
@@ -117,8 +119,6 @@ export default {
 
 border: 0.886581px solid #4679EC;
 box-sizing: border-box;
-/* Main Sahdow */
-
 box-shadow: 0px 0px 3px 1px rgba(70, 120, 236, 0.548);
 border-radius: 8.86582px;
   }
@@ -129,20 +129,12 @@ border-radius: 8.86582px;
   cursor: pointer;
   margin-left: -40px;
 }
-.eye-close {
-  background-image: url("../assets/images/icons/eye-close.svg");
-}
-select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background: transparent;
-  background-image: url("../assets/images/icons/select-icon.svg");
-  background-repeat: no-repeat;
-  background-position-x: 95%;
-  background-position-y: center;
-  padding: 25px;
-  border: 0.886581px solid #e3ebfc;
-  box-sizing: border-box;
-  border-radius: 8.86582px;
+.error{
+  background: #FEFBFC;
+padding: 14px 25px;
+border: 0.886581px solid #DB2379;
+box-shadow: 0px 0px 2px 1px #dd659d;
+box-sizing: border-box;
+border-radius: 8.86582px;
 }
 </style>

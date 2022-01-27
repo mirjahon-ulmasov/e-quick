@@ -1,9 +1,20 @@
 <template>
   <div>
     <form @submit.prevent="submitHandler">
-      <div class="form-input">
+      <div v-if="!$route.meta.id" class="form-input">
         <h4>Выберите роль</h4>
-        <my-input type="input" :width="375" v-model="user.role" />
+        <v-select
+          v-model="user.role"
+          style="width: 375px"
+          :options="['admin']"
+          id="select-state"
+        >
+          <template #open-indicator="{ attributes }">
+            <span v-bind="attributes">
+              <img src="../../assets/images/icons/select-icon.svg" alt="" />
+            </span>
+          </template>
+        </v-select>
       </div>
       <div class="form-input">
         <h4>Ф.И.О.</h4>
@@ -21,7 +32,7 @@
         <h4>Имя пользователя</h4>
         <my-input type="input" :width="375" v-model="user.username" />
       </div>
-      <div v-if="id" class="form-input">
+      <div v-if="editID" class="form-input">
         <h4>Старый пароль</h4>
         <my-input type="password" :width="375" v-model="old_password" />
       </div>
@@ -33,6 +44,17 @@
         <h4>{{ confirm_title }}</h4>
         <my-input type="password" :width="375" v-model="confirm" />
       </div>
+      <h4 class="notify" v-if="$route.meta.id" >
+        Уведомления
+      </h4>
+    <div class="form-group" v-if="$route.meta.id">
+      <input v-model="user.site_notifications" type="checkbox" id="news">
+      <label for="news">Получать обновления</label>
+    </div>
+      <div class="form-group" v-if="$route.meta.id" >
+      <input v-model="user.email_notifications"  type="checkbox" id="email">
+      <label for="email">Получать сообщения на почту</label>
+    </div>
       <div class="actions">
         <my-button
           @click.native="closeHandler"
@@ -57,12 +79,15 @@ export default {
   props: ["id"],
   data() {
     return {
+      editID: null,
       user: {
-        role: "",
         full_name: "",
         phone_number: "",
+        role: "",
         email: "",
         username: "",
+        email_notifications: false,
+        site_notifications: true,
       },
       password: "",
       confirm: "",
@@ -72,12 +97,16 @@ export default {
     };
   },
   created() {
-    if (this.id) {
+    if (this.$route.meta.id) {
+      this.editID = this.$route.meta.id;
+    } else if (this.id) {
+      this.editID = this.id;
+    }
+    if (this.editID) {
       this.$store
-        .dispatch("addUser/fetchUserById", this.id)
+        .dispatch("addUser/fetchUserById", this.editID)
         .then((res) => res.data)
         .then((user) => {
-          console.log(user);
           this.user = {
             ...user,
           };
@@ -94,12 +123,14 @@ export default {
     },
     submitHandler() {
       if (this.password === this.confirm) {
-        if (this.id) {
+        if (this.editID) {
           this.$store
             .dispatch("addUser/updateItem", {
               ...this.user,
               password: this.password,
               old_password: this.old_password,
+              email_notifications: this.user.email_notifications === true ? 'active' : 'inactive',
+              site_notifications: this.user.site_notifications === true ? 'active' : 'inactive'
             })
             .then((res) => this.closeHandler())
             .catch((err) => console.log(err));
@@ -126,6 +157,12 @@ export default {
       this.user = null;
     },
   },
+  destroyed(){
+    if(this.$route.meta.link === 'add-admin'){
+         this.user = null
+    console.log(this.user, 'dddd');
+    }
+  }
 };
 </script>
 
@@ -141,9 +178,75 @@ form {
       color: #394560;
     }
   }
+  .notify{
+    font-family: Montserrat;
+font-style: normal;
+font-weight: 600;
+font-size: 20px;
+line-height: 24px;
+color: #394560;
+margin: 54px 0px 30px 5px;
+  }
+        .form-group {
+        display: block;
+        margin-left: 5px;
+        margin-bottom: 15px;
+      }
 
+      .form-group input {
+        padding: 0;
+        height: initial;
+        width: initial;
+        margin-bottom: 0;
+        display: none;
+        cursor: pointer;
+      }
+
+      .form-group label {
+        position: relative;
+        cursor: pointer;
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        /* identical to box height */
+
+        /* Main txt */
+
+        color: #394560;
+      }
+
+      .form-group label:before {
+        content: "";
+        -webkit-appearance: none;
+        //   padding: 10px;
+        display: inline-block;
+        vertical-align: middle;
+        cursor: pointer;
+        margin-right: 10px;
+        width: 28px;
+        height: 28px;
+        border: 1px solid #dae5fb;
+        box-sizing: border-box;
+        border-radius: 4.94118px;
+      }
+
+      .form-group input:checked + label:after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 2px;
+        left: 10px;
+        width: 6px;
+        height: 14px;
+        border: solid #4679ec;
+        border-width: 0 3px 3px 0;
+        border-radius: 2px;
+        transform: rotate(45deg);
+      }
   .actions {
-    margin-top: 2rem;
+    margin-top: 3rem;
     width: 375px;
     display: flex;
     justify-content: space-between;

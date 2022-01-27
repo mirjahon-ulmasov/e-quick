@@ -28,15 +28,12 @@
           />
           <div class="user-name">
             <h4>{{ info.full_name }}</h4>
-            <h4 >{{ info.role }}</h4>
+            <h4>{{ info.role }}</h4>
           </div>
         </div>
         <div class="user-header__second">
-          <img
-            src="../../assets/images/icons/pencil.svg"
-            alt="pencil icon"
-          />
-          <div :class="'dropdown'" >
+          <img src="../../assets/images/icons/pencil.svg" alt="pencil icon" />
+          <div :class="'dropdown'">
             <div class="item" @click="upload()">
               <img
                 src="../../assets/images/icons/photo.svg"
@@ -45,7 +42,7 @@
               />
               <span> Сменить фото </span>
             </div>
-            <router-link class="item" :to="'settings'">
+            <router-link class="item" to="/edit">
               <img
                 src="../../assets/images/icons/edit.svg"
                 style="margin-right: 12px"
@@ -93,16 +90,17 @@
         </div>
       </div>
     </div>
-    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import Rate from "../../components/rate.vue";
 import Compressor from "compressorjs";
+import Button from "../../components/Button.vue";
 export default {
   components: {
     Rate,
+    Button,
   },
   computed: {
     info() {
@@ -166,20 +164,20 @@ export default {
           };
           this.img = new FormData();
           this.img.append("image", this.quality1.result);
-        this.$store
-          .dispatch("auth/updateIMG", this.img)
-          .then(() => {
-            this.img = null;
-          })
-          .catch((err) => {
-            this.$vs.notify({
-              title: "Error",
-              text: err,
-              iconPack: "feather",
-              icon: "icon-alert-circle",
-              color: "danger",
+          this.$store
+            .dispatch("auth/updateIMG", this.img)
+            .then(() => {
+              this.img = null;
+            })
+            .catch((err) => {
+              this.$vs.notify({
+                title: "Error",
+                text: err,
+                iconPack: "feather",
+                icon: "icon-alert-circle",
+                color: "danger",
+              });
             });
-          });
         } else {
           this.$vs.notify({
             title: "Error",
@@ -195,12 +193,12 @@ export default {
   created() {
     this.$store.dispatch("auth/DealerInfo");
     setTimeout(() => {
-        this.sitenotf = this.info.site_notifications === 'active' ? true : false
-        this.emailnotf = this.info.email_notifications === 'active' ? true : false
+      this.sitenotf = this.info.site_notifications === "active" ? true : false;
+      this.emailnotf =
+        this.info.email_notifications === "active" ? true : false;
     }, 1000);
   },
-  mounted(){
-  }
+  mounted() {},
 };
 </script>
 
@@ -223,10 +221,12 @@ export default {
 
       img {
         background: #edf2fb;
-        border-radius: 14px;
-        padding: 28px 35px;
+        padding:  4px;
+        background: #FFFFFF;
+       box-shadow: 0px 3.82748px 8px rgba(70, 121, 236, 0.1);
+       border-radius: 50%;
+        border: 4.42857px solid #FFFFFF;
       }
-
       .user-name {
         margin-left: 1rem;
 
@@ -238,12 +238,12 @@ export default {
         }
 
         h4:nth-child(2) {
-font-family: Montserrat;
-font-style: normal;
-font-weight: 500;
-font-size: 17px;
-line-height: 20px;
-color: #9FABC6;
+          font-family: Montserrat;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 17px;
+          line-height: 20px;
+          color: #9fabc6;
 
           span {
             margin: 0 0.3rem;
@@ -289,7 +289,7 @@ color: #9FABC6;
           box-shadow: -3px 3px 3px -3px rgba(214, 214, 214, 0.78);
         }
         .item {
-            cursor: pointer;
+          cursor: pointer;
           padding: 15px 10px 15px 15px;
           font-family: Raleway;
           font-style: normal;
@@ -301,11 +301,11 @@ color: #9FABC6;
 
           /* Main */
           color: #4679ec;
-          img{
-              background: none;
-              padding: 0px;
-              margin: 0;
-              border-radius: 0;
+          img {
+            background: none;
+            padding: 0px;
+            margin: 0;
+            border-radius: 0;
           }
         }
       }
@@ -351,63 +351,62 @@ color: #9FABC6;
     .user-detail {
       margin: 1.5rem 0;
       .form-group {
-  display: block;
-  margin-bottom: 15px;
-}
+        display: block;
+        margin-bottom: 15px;
+      }
 
-.form-group input {
-  padding: 0;
-  height: initial;
-  width: initial;
-  margin-bottom: 0;
-  display: none;
-  cursor: pointer;
-}
+      .form-group input {
+        padding: 0;
+        height: initial;
+        width: initial;
+        margin-bottom: 0;
+        display: none;
+        cursor: pointer;
+      }
 
-.form-group label {
-  position: relative;
-  cursor: pointer;
-  font-family: Montserrat;
-font-style: normal;
-font-weight: 500;
-font-size: 16px;
-line-height: 20px;
-/* identical to box height */
+      .form-group label {
+        position: relative;
+        cursor: pointer;
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        /* identical to box height */
 
+        /* Main txt */
 
-/* Main txt */
+        color: #394560;
+      }
 
-color: #394560;
-}
+      .form-group label:before {
+        content: "";
+        -webkit-appearance: none;
+        //   padding: 10px;
+        display: inline-block;
+        vertical-align: middle;
+        cursor: pointer;
+        margin-right: 10px;
+        width: 28px;
+        height: 28px;
+        border: 1px solid #dae5fb;
+        box-sizing: border-box;
+        border-radius: 4.94118px;
+      }
 
-.form-group label:before {
-  content:'';
-  -webkit-appearance: none;
-//   padding: 10px;
-  display: inline-block;
-  vertical-align: middle;
-  cursor: pointer;
-  margin-right: 10px;
-  width: 28px;
-height: 28px;
-border: 1px solid #DAE5FB;
-box-sizing: border-box;
-border-radius: 4.94118px;
-}
-
-.form-group input:checked + label:after {
-  content: '';
-  display: block;
-  position: absolute;
-  top: 2px;
-  left: 10px;
-  width: 6px;
-  height: 14px;
-  border: solid #4679EC;
-  border-width: 0 3px 3px 0;
-  border-radius: 2px;
-  transform: rotate(45deg);
-}
+      .form-group input:checked + label:after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 2px;
+        left: 10px;
+        width: 6px;
+        height: 14px;
+        border: solid #4679ec;
+        border-width: 0 3px 3px 0;
+        border-radius: 2px;
+        transform: rotate(45deg);
+      }
 
       p {
         font-weight: 500;

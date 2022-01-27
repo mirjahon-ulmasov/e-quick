@@ -44,12 +44,12 @@ export default {
           width: 8px;
         }
         &::-webkit-scrollbar-track {
-          background: linear-gradient(0deg, #f1f5fe, #f1f5fe), #f1f5fe;
+          background: none;
           border-radius: 30px;
           background: none;
         }
         &::-webkit-scrollbar-thumb {
-          background: linear-gradient(0deg, #d1defa, #d1defa), #f1f5fe;
+          background: linear-gradient(0deg, #d1defa, #d1defa), #f5f8fd;
           border-radius: 30px;
           border: 1px solid transparent;
           background-clip: content-box;
