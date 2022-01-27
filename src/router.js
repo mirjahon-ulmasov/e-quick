@@ -72,16 +72,6 @@ const router = new Router({
           },
         },
         {
-          path: "analytic",
-          name: "Analytic",
-          component: () => import("./views/SuperAdmin/Analytics.vue"),
-          meta: {
-            rule: "admin",
-            link: "analytic",
-            title: "Аналитика",
-          },
-        },
-        {
           path: "add-admin",
           name: "AddAdmin",
           component: () => import("./views/SuperAdmin/AdminForm.vue"),
@@ -124,12 +114,32 @@ const router = new Router({
               },
               props: true,
             },
+            {
+              path: "/setting",
+              name: "settings",
+              component: () => import("./views/Admins/Settings.vue"),
+              meta: {
+                rule: "super_admin",
+                link: "settings",
+                title: "Настройки",
+              },
+            },
           ],
         },
 
         // =============================================================================
         // ADMIN
         // =============================================================================
+        {
+          path: "analytic",
+          name: "Analytic",
+          component: () => import("./views/SuperAdmin/Analytics.vue"),
+          meta: {
+            rule: "admin",
+            link: "analytic",
+            title: "Аналитика",
+          },
+        },
         {
           path: "/users",
           name: "users",
