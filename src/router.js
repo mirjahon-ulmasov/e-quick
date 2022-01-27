@@ -92,6 +92,16 @@ const router = new Router({
           },
         },
         {
+          path: "setting",
+          name: "SuperAdminSettings",
+          component: () => import("./views/Admins/Settings.vue"),
+          meta: {
+            rule: "super_admin",
+            link: "",
+            title: "Настройки",
+          },
+        },
+        {
           path: "admins/:id",
           name: "Admin",
           component: () => import("./views/SuperAdmin/AdminDetail.vue"),
@@ -113,16 +123,6 @@ const router = new Router({
                 title: "Изменить данные",
               },
               props: true,
-            },
-            {
-              path: "/setting",
-              name: "settings",
-              component: () => import("./views/Admins/Settings.vue"),
-              meta: {
-                rule: "super_admin",
-                link: "settings",
-                title: "Настройки",
-              },
             },
           ],
         },
