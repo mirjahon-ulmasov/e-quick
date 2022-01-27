@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="$route.path === '/settings'" class="user-profile">
+    <div class="user-profile">
       <div class="user-header">
         <div class="user-header__first">
           <img
@@ -80,13 +80,13 @@
           <h3 class="head">Уведомления</h3>
           <div class="user-detail">
               <div class="form-group">
-      <input v-model="emailnotf" type="checkbox" id="news">
+      <input v-model="emailnotf" disabled type="checkbox" id="news">
       <label for="news">Получать обновления</label>
     </div>
           </div>
           <div class="user-detail">
     <div class="form-group">
-      <input v-model="sitenotf"  type="checkbox" id="email">
+      <input v-model="sitenotf" disabled  type="checkbox" id="email">
       <label for="email">Получать сообщения на почту</label>
     </div>
           </div>
@@ -142,14 +142,14 @@ export default {
         return;
       }
       this.quality1 = new Compressor(file, {
-        quality: 0.6,
+        quality: 0.5,
         success(result) {
           console.log(result);
         },
         error(err) {
           this.$vs.notify({
             title: "Error",
-            text: "Image size must be pover 2 MB",
+            text: "Image size must be pover 1 MB",
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "danger",
@@ -157,9 +157,9 @@ export default {
         },
       });
       setTimeout(() => {
-        if (this.quality1.result.size < 1427393) {
+        if (this.quality1.result.size < 1000000) {
           const reader = new FileReader();
-          console.log(this.quality1.result);
+          console.log(this.quality1);
           reader.readAsDataURL(this.quality1.result);
           reader.onload = (event) => {
             this.image = event.target.result;

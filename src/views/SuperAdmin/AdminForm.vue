@@ -132,7 +132,7 @@ export default {
 <style lang="scss" scoped>
 form {
   .form-input {
-    margin: 25px 0;
+    margin: 25px 5px;
 
     h4 {
       margin-bottom: 12px;

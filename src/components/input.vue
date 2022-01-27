@@ -111,6 +111,17 @@ export default {
   font-size: 16px;
   line-height: 20px;
   color: #60739f;
+  &:focus{
+    background: #FFFFFF;
+/* Main */
+
+border: 0.886581px solid #4679EC;
+box-sizing: border-box;
+/* Main Sahdow */
+
+box-shadow: 0px 0px 3px 1px rgba(70, 120, 236, 0.548);
+border-radius: 8.86582px;
+  }
 }
 
 .toggle {
