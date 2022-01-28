@@ -22,4 +22,13 @@ export default {
   SET_notseen(state, notisfy) {
     state.not_seen = notisfy.filter((x) => x.status !== "SEEN");
   },
+  SET_COMPANIES(state, companies){
+    state.parent_companies = companies
+  },
+  SET_COMPANIES_dealer(state, dealer_company){
+   state.dealer_company = dealer_company
+  },
+  SET_Products(state, products){
+    state.products = products
+  }
 };

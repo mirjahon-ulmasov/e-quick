@@ -58,7 +58,7 @@
              v-if="
             this.$store.state.userType === 'admin' ||
             $acl.check('admin')
-          "  class="item" to="/edit-user">
+          "  class="item" to="/editing">
               <img
                 src="../../assets/images/icons/edit.svg"
                 style="margin-right: 12px"
@@ -163,7 +163,7 @@ export default {
         error(err) {
           this.$vs.notify({
             title: "Error",
-            text: "Image size must be pover 1 MB",
+            text: "Image size must be over 1 MB",
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "danger",

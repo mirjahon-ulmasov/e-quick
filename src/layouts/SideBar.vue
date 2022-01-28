@@ -5,7 +5,7 @@
       class="nav-links"
       v-if="this.$store.state.userType === 'admin' || $acl.check('admin')"
     >
-      <router-link to="analytic" class="nav-link">
+      <router-link to="/analytic" class="nav-link">
         <b></b>
         <b></b>
         <img

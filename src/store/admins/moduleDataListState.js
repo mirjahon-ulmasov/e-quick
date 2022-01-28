@@ -4,4 +4,8 @@ export default {
   roles: [],
   notisfy: [],
   not_seen: [],
+  companies: [], 
+  products: [],
+  dealer_company: [],
+  parent_companies: []
 }

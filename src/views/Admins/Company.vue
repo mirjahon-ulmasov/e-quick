@@ -1,88 +1,64 @@
 <template>
   <div>
-   <h1>Hello fgsdfgsdge</h1>
+        <my-button
+          title="Добавить компанию"
+          bgColor="#4679EC"
+          color="#FFFFFF"
+          :width="239"
+          style="margin-bottom: 40px"
+          @click.native="addAdmin()"
+        ></my-button>
+    <table id="table">
+      <thead>
+        <tr>
+          <th v-for="(header, i) in headers" :key="i">{{ header.title }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          v-for="(admin, i) in companyList"
+          :key="i"
+          @click="$router.push(`/user/${admin.id}`)"
+        >
+          <td>{{ admin.name }}</td>
+          <td v-if="admin.parent_id === 0" > - </td>
+          <td style="padding-left: 40px !important" >{{ admin.options}}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
+
 <script>
-import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 export default {
-  name: 'Company',
-  data () {
+  data() {
     return {
-      activePrompt: false,
-      itemsPerPage: 5,
-      activeUser: null,
-      PopUp: false,
-      PopUpData: {},
-      settings: {
-        maxScrollbarLength: 60
-      }
-    }
+      headers: [
+        { title: "Название" },
+        { title: "Главная компания" },
+        { title: "Характеристика" },
+      ],
+    };
   },
-  components: {  VuePerfectScrollbar },
   computed: {
-    scrollbarTag () { return this.$store.getters.scrollbarTag },
-    currentPage () {
-      if (this.isMounted) {
-        return this.$refs.table.currentx
-      }
-      return 0
+    companyList() {
+      return this.$store.state.addUser.companies;
     },
-    company () {
-      return this.$store.state.dataList.products
-    },
-    queriedItems () {
-      return this.$refs.table
-        ? this.$refs.table.queriedResults.length
-        : this.products.length
-    }
   },
   methods: {
-    getUser (id) {
-      this.activeUser = this.company.find(x => x.id === id)
-    },
-    addNewData () {
-      this.PopUpData = {}
-      this.toggleDataSidebar(true)
-    },
-    deleteData (id) {
-      this.$store.dispatch('dataList/removeItem', id)
-      this.$store.dispatch('dataList/fetchDataListItems').then(
-        response => {
-          this.activeUser = response.data[0]
-        }
-      )
-    },
-    editData (data) {
-      // this.sidebarData = JSON.parse(JSON.stringify(this.blankData))
-      this.PopUpData = data
-      this.toggleDataSidebar(true)
-    },
-    toggleDataSidebar (val = false) {
-      this.PopUp = val
-      this.$store.dispatch('dataList/fetchDataListItems')
-      this.$store.dispatch('dataList/fetchDataListItems').then(
-        response => {
-          this.activeUser = response.data[0]
-        }
-      )
-    },
-    scrollHandle (evt) {
-      return evt
+    addAdmin(){
+      this.$router.push('add-user')
     }
   },
-  mounted () {
-    this.$store.dispatch('dataList/fetchDataListItems')
-    this.getUser()
+  created() {
+    this.$store.dispatch("addUser/fetchCompany");
   },
-  created () {
-    this.$store.dispatch('dataList/fetchDataListItems').then(
-      response => {
-        this.activeUser = response.data[0]
-      })
-  }
-}
+  mounted() {},
+};
 </script>
-<style scoped>
 
+<style lang="scss" scoped>
+#table {
+  width: 100%;
+}
 </style>

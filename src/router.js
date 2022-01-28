@@ -168,18 +168,34 @@ const router = new Router({
           component: () => import("./views/Admins/AddUser.vue"),
           meta: {
             rule: "admin",
+            link: "users",
             title: "Добавить пользователя",
           },
         },
         {
           path: "/user/:id",
-          name: "addusers",
+          name: "usersd",
           component: () => import("./views/Admins/UserDetail.vue"),
           meta: {
             rule: "admin",
+            link: "users",
             title: "Пользователи",
           },
           props: true,
+
+          children: [
+            {
+              path: "editing",
+              name: "AD_Edit",
+              component: () => import("./views/Admins/Edit.vue"),
+              meta: {
+                rule: "admin",
+                link: "",
+                title: "Изменить данные",
+              },
+              props: true,
+            },
+          ]
         },
         {
           path: "/companies",
@@ -222,9 +238,9 @@ const router = new Router({
           },
         },
         {
-          path: "edit-user",
+          path: "editing",
           name: "AD_Edit",
-          component: () => import("./views/SuperAdmin/AdminForm.vue"),
+          component: () => import("./views/Admins/Edit.vue"),
           meta: {
             rule: "admin",
             link: "",

@@ -38,6 +38,7 @@ export default {
 
       .scroll {
         overflow-y: scroll;
+        // overflow-x: hidden !important;
         height: 87%;
 
         &::-webkit-scrollbar {

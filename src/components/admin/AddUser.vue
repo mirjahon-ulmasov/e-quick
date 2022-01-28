@@ -145,7 +145,7 @@ export default {
     }
   },
   computed: {
-    roles () {
+    roles (s) {
       return this.$store.state.addUser.roles
     },
     companies () {

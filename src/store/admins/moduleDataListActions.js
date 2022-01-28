@@ -16,6 +16,8 @@ export default {
         });
     });
   },
+   // FETCH USERs USER
+
   fetchDataListItems({ commit }) {
     return new Promise((resolve, reject) => {
       axios
@@ -29,6 +31,8 @@ export default {
         });
     });
   },
+    // UPDATE USER
+
   updateItem({ commit }, item) {
     return new Promise((resolve, reject) => {
       axios
@@ -42,6 +46,9 @@ export default {
         });
     });
   },
+
+  // REMOVE USER
+
   removeItem({ commit }, itemId) {
     return new Promise((resolve, reject) => {
       axios
@@ -54,6 +61,8 @@ export default {
         });
     });
   },
+  // FETCH ALL ROLES
+
   fetchRoles({ commit }) {
     return new Promise((resolve, reject) => {
       axios
@@ -67,6 +76,8 @@ export default {
         });
     });
   },
+  // FETCH USER BY ID
+
   fetchUserById({ commit }, id) {
     if (id >= 0) {
       return new Promise((resolve, reject) => {
@@ -82,6 +93,77 @@ export default {
       });
     }
   },
+  // FETCH ALL COMPANIES
+
+  fetchCompany({ commit }, id) {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`/api/v1/companies`)
+          .then((response) => {
+            commit("SET_COMPANIES", response.data);
+            resolve(response);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+  },
+  // FETCH ALL DEALER COMPANIES BY DEALER ID
+
+  fetchCompanyDealerID({ commit }, id) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(`/api/v1/company_group/dealer/${id}`)
+        .then((response) => {
+          commit("SET_COMPANIES_dealer", response.data);
+          resolve(response);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+},
+  // FETCH ALL PRODUCTS LIST
+
+  fetchProducts({ commit }, id) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(`/api/v1/products/`)
+        .then((response) => {
+          commit("SET_Products", response.data);
+          resolve(response);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+},
+
+// GET COMPANY PARENTS
+
+fetchDataCompanies ({ commit }) {
+  return new Promise((resolve, reject) => {
+    axios.get('/api/v1/companies_parents')
+      .then((response) => {
+        commit('SET_Companies', response.data)
+        resolve(response)
+      })
+      .catch((error) => { reject(error) })
+  })
+},
+
+// ADDING COMPANY FOR USER
+
+AddUserCompanies ({ commit }, payload) {
+  return new Promise((resolve, reject) => {
+    axios.post('/api/v1/company_group/dealer', (payload))
+      .then((response) => {
+        resolve(response)
+      })
+      .catch((error) => { reject(error) })
+  })
+},
+
   NotisfyGet({ commit }) {
     return new Promise((resolve, reject) => {
       axios

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="user-profile">
+    <div class="user-profile" v-if="$route.path === `/user/${id}` && user" >
       <div class="user-header">
         <div class="user-header__first">
           <img src="../../assets/images/icons/user.svg" alt="user icon" />
@@ -16,7 +16,7 @@
             @click="deleteHandler"
           />
           <img
-            @click="$router.push(`/admins/${id}/edit`)"
+            @click="$router.push(`/user/${id}/editing`)"
             src="../../assets/images/icons/pencil.svg"
             alt="pencil icon"
           />
@@ -51,7 +51,7 @@
         <div class="user-detail">
           <p>Завод</p>
           <div class="factory">
-            <span class="item"> AKFA </span>
+            <span class="item" v-for="(item, i) in dealer_company" :key="i" > AKFA </span>
             <span class="item"> IMZO </span>
             <span class="item"> BENKAM </span>
             <span class="item"> AKFA </span>
@@ -69,7 +69,7 @@
         @handlerOne="handlerOne"
       ></v-notification>
     </div>
-    <!-- <router-view></router-view> -->
+    <router-view></router-view>
   </div>
 </template>
 
@@ -111,7 +111,7 @@ export default {
               header: "Пользователь был удален успешно",
               content: "",
               btnFirst: "Вернуться",
-              btnSecond: "Список Пользователи",
+              btnSecond: "Пользователи",
             };
             this.isDeleted = false;
           })
@@ -130,9 +130,13 @@ export default {
     user() {
       return this.$store.state.addUser.detail;
     },
+    dealer_company() {
+      return this.$store.state.addUser.dealer_company;
+    },
   },
   created() {
     this.$store.dispatch("addUser/fetchUserById", this.id);
+    this.$store.dispatch("addUser/fetchCompanyDealerID", this.id);
   },
 };
 </script>
