@@ -22,18 +22,54 @@
           />
         </div>
       </div>
-      <div class="user-details">
-        <div class="user-detail">
-          <p>Роль</p>
-          <h4>{{ user.role }}</h4>
+      <div style="display: flex; justify-content: space-between">
+        <div class="user-details">
+          <div class="user-detail">
+            <p>Роль</p>
+            <h4>{{ user.role }}</h4>
+          </div>
+          <div class="user-detail">
+            <p>Статус</p>
+            <h4 v-if="user.active === 1" style="color: #58dfb6">Активен</h4>
+            <h4 v-if="user.active === 0" style="color: #841549">Неактивен</h4>
+          </div>
+          <div class="user-detail">
+            <p>Телефон номера</p>
+            <h4>{{ user.phone_number }}</h4>
+          </div>
+          <div class="user-detail">
+            <p>Имя пользователя</p>
+            <h4>@{{ user.username }}</h4>
+          </div>
+          <div class="user-detail">
+            <p>Email</p>
+            <h4>@{{ user.email }}</h4>
+          </div>
         </div>
-        <div class="user-detail">
-          <p>Телефон номера</p>
-          <h4>{{ user.phone_number }}</h4>
-        </div>
-        <div class="user-detail">
-          <p>Имя пользователя</p>
-          <h4>@{{ user.username }}</h4>
+        <div class="user-details">
+          <h3 class="head">Уведомления</h3>
+          <div class="user-detail">
+            <div class="form-group">
+              <input
+                v-model="site_notifications"
+                disabled
+                type="checkbox"
+                id="news"
+              />
+              <label for="news">Получать обновления</label>
+            </div>
+          </div>
+          <div class="user-detail">
+            <div class="form-group">
+              <input
+                v-model="email_notifications"
+                disabled
+                type="checkbox"
+                id="email"
+              />
+              <label for="email">Получать сообщения на почту</label>
+            </div>
+          </div>
         </div>
       </div>
       <v-notification
@@ -65,6 +101,8 @@ export default {
         btnSecond: "",
       },
       isDeleted: true,
+      site_notifications: false,
+      email_notifications: false,
     };
   },
   methods: {
@@ -99,6 +137,7 @@ export default {
       }
     },
     handlerOne() {
+      this.notification.show = false;
       if (!this.isDeleted) {
         this.$router.push("/admins");
       }
@@ -110,16 +149,23 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("addUser/fetchUserById", this.id);
+    this.$store
+      .dispatch("addUser/fetchUserById", this.id)
+      .then((res) => res.data)
+      .then((user) => {
+        this.email_notifications = user.email_notifications === "active";
+        this.site_notifications = user.site_notifications === "active";
+      });
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .user-profile {
-  width: 100%;
-  padding: 35px;
+  width: 98%;
+  padding: 35px 30px;
   background: #fff;
+  margin: 5px;
   border-radius: 14px;
   box-shadow: 0px 3.82748px 8px rgba(70, 121, 236, 0.1);
 
@@ -185,7 +231,7 @@ export default {
     }
   }
   .user-details {
-    margin-top: 3.5rem;
+    margin-top: 3rem;
     .user-detail {
       margin: 1.5rem 0;
 

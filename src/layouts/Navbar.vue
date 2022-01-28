@@ -98,7 +98,7 @@ export default {
   cursor: pointer;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   align-items: center;
   font-family: Montserrat;
 

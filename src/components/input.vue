@@ -43,8 +43,7 @@
       :style="btnStyles"
     />
     <!-- Validation TEXT -->
-    
-        <!-- <span class="error-text" v-show="errors.has('savdo_id')">
+    <!-- <span class="error-text" v-show="errors.has('savdo_id')">
       <feather-icon
         :icon="'InfoIcon'"
         style="color: #db2379 !important; margin-right: 5px"
@@ -54,13 +53,12 @@
   </div>
 </template>
 <script>
-
 export default {
   name: "",
   props: {
     error: {
-    type: Boolean,
-    default: false,
+      type: Boolean,
+      default: false,
     },
     value: {
       type: String,
@@ -122,14 +120,14 @@ export default {
   font-size: 16px;
   line-height: 20px;
   color: #60739f;
-  &:focus{
-    background: #FFFFFF;
-/* Main */
+  &:focus {
+    background: #ffffff;
+    /* Main */
 
-border: 0.886581px solid #4679EC;
-box-sizing: border-box;
-box-shadow: 0px 0px 3px 1px rgba(70, 120, 236, 0.548);
-border-radius: 8.86582px;
+    border: 0.886581px solid #4679ec;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 3px 1px rgba(70, 120, 236, 0.548);
+    border-radius: 8.86582px;
   }
 }
 
@@ -138,12 +136,18 @@ border-radius: 8.86582px;
   cursor: pointer;
   margin-left: -40px;
 }
-.error{
-  background: #FEFBFC;
-padding: 14px 25px;
-border: 0.886581px solid #DB2379;
-box-shadow: 0px 0px 2px 1px #dd659d;
-box-sizing: border-box;
-border-radius: 8.86582px;
+.error {
+  background: #fefbfc;
+  padding: 14px 25px;
+  border: 0.886581px solid #db2379;
+  box-shadow: 0px 0px 2px 1px #dd659d;
+  box-sizing: border-box;
+  border-radius: 8.86582px;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: #60739f;
 }
 </style>

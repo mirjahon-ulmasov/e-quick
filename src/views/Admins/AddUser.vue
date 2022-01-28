@@ -7,7 +7,6 @@
         :currentstep="currentstep"
       >
       </step-navigation>
-
       <div v-if="currentstep == 1">
         <div class="form-input">
           <h4>Выберите роль</h4>
@@ -41,7 +40,7 @@
       <div v-if="currentstep == 2">
         <div class="form-input">
           <h4>Savdo ID</h4>
-          <my-input type="number" :width="375" v-model="user.savdo_id" />
+          <my-input type="text" :width="375" v-model="user.savdo_id" />
         </div>
         <div class="form-input">
           <h4>Имя пользователя</h4>
@@ -73,6 +72,48 @@
             </template>
           </v-select>
         </div>
+        <div class="sel">
+                  <div class="selected">
+          <span>
+             AKFA
+          </span>
+        <feather-icon
+        :icon="'XIcon'"
+        style="color: #4679EC !important; margin-left: 20px"
+        svgClasses="h-6 w-6"
+      />
+        </div>
+        <div class="selected">
+          <span>
+             AKFA
+          </span>
+        <feather-icon
+        :icon="'XIcon'"
+        style="color: #4679EC !important; margin-left: 20px"
+        svgClasses="h-6 w-6"
+      />
+        </div>
+                <div class="selected">
+          <span>
+             AKFA
+          </span>
+        <feather-icon
+        :icon="'XIcon'"
+        style="color: #4679EC !important; margin-left: 20px"
+        svgClasses="h-6 w-6"
+      />
+        </div>
+                <div class="selected">
+          <span>
+             AKFA
+          </span>
+        <feather-icon
+        :icon="'XIcon'"
+        style="color: #4679EC !important; margin-left: 20px"
+        svgClasses="h-6 w-6"
+      />
+        </div>
+        </div>
       </div>
 
       <step-controls
@@ -87,7 +128,6 @@
     </div>
   </div>
 </template>
-
 <script>
 export default {
   data() {
@@ -136,7 +176,7 @@ export default {
     },
   },
   methods: {
-    stepChanged: function (step) {
+    stepChanged (step) {
       if (step === 0) {
         console.log(step);
         this.currentstep = 1;
@@ -293,5 +333,25 @@ export default {
   width: 375px;
   display: flex;
   justify-content: space-between;
+}
+.sel{
+      display: flex;
+    flex-wrap: wrap;
+    width: 420px;
+
+  .selected{
+  text-align: center;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+  align-items: center;
+  // width: 106px;
+height: 45px;
+
+background: #EDF1FD;
+border-radius: 10px;
+}
 }
 </style>

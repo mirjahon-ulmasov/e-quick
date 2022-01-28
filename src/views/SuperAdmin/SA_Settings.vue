@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="user-profile">
+    <div v-if="$route.path === '/setting'" class="user-profile">
       <div class="user-header">
         <div class="user-header__first">
           <img
@@ -44,10 +44,11 @@
             </div>
             <router-link
               v-if="
-                this.$store.state.userType === 'admin' || $acl.check('admin')
+                this.$store.state.userType === 'super_admin' ||
+                $acl.check('super_admin')
               "
               class="item"
-              to="/editing"
+              to="/setting/edit"
             >
               <img
                 src="../../assets/images/icons/edit.svg"
@@ -83,19 +84,30 @@
           <h3 class="head">Уведомления</h3>
           <div class="user-detail">
             <div class="form-group">
-              <input v-model="emailnotf" disabled type="checkbox" id="news" />
+              <input
+                v-model="site_notifications"
+                disabled
+                type="checkbox"
+                id="news"
+              />
               <label for="news">Получать обновления</label>
             </div>
           </div>
           <div class="user-detail">
             <div class="form-group">
-              <input v-model="sitenotf" disabled type="checkbox" id="email" />
+              <input
+                v-model="email_notifications"
+                disabled
+                type="checkbox"
+                id="email"
+              />
               <label for="email">Получать сообщения на почту</label>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -116,8 +128,8 @@ export default {
   data() {
     return {
       swich: true,
-      sitenotf: true,
-      emailnotf: false,
+      site_notifications: false,
+      email_notifications: false,
       name: "",
       surname: "",
       email: "",
@@ -153,7 +165,7 @@ export default {
         error(err) {
           this.$vs.notify({
             title: "Error",
-            text: "Image size must be over 1 MB",
+            text: "Image size must be pover 1 MB",
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "danger",
@@ -197,12 +209,13 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("auth/DealerInfo");
-    setTimeout(() => {
-      this.sitenotf = this.info.site_notifications === "active" ? true : false;
-      this.emailnotf =
-        this.info.email_notifications === "active" ? true : false;
-    }, 1000);
+    this.$store
+      .dispatch("addUser/fetchUserById", this.$route.meta.id)
+      .then((res) => res.data)
+      .then((user) => {
+        this.email_notifications = user.email_notifications === "active";
+        this.site_notifications = user.site_notifications === "active";
+      });
   },
   mounted() {},
 };

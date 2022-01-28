@@ -94,25 +94,29 @@ const router = new Router({
         {
           path: "setting",
           name: "SA_Settings",
-          component: () => import("./views/Admins/Settings.vue"),
+          component: () => import("./views/SuperAdmin/SA_Settings.vue"),
           meta: {
             rule: "super_admin",
-            link: "",
             title: "Настройки",
-          },
-        },
-        {
-          path: "edit",
-          name: "SA_Edit",
-          component: () => import("./views/SuperAdmin/AdminForm.vue"),
-          meta: {
-            rule: "super_admin",
-            link: "",
-            title: "Изменить данные",
             id: `${localStorage.getItem("Id")}`,
+            link: "",
           },
-          props: true,
+          children: [
+            {
+              path: "edit",
+              name: "SA_Edit",
+              component: () => import("./views/SuperAdmin/AdminForm.vue"),
+              meta: {
+                rule: "super_admin",
+                title: "Изменить данные",
+                id: `${localStorage.getItem("Id")}`,
+                link: "",
+              },
+              props: true,
+            },
+          ],
         },
+
         {
           path: "admins/:id",
           name: "Admin",
@@ -174,7 +178,7 @@ const router = new Router({
         },
         {
           path: "/user/:id",
-          name: "usersd",
+          name: "usersdetails",
           component: () => import("./views/Admins/UserDetail.vue"),
           meta: {
             rule: "admin",
