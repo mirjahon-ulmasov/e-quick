@@ -1,6 +1,24 @@
 <template>
   <div>
     <form @submit.prevent="submitHandler">
+      <div class="form-input" v-if="id">
+        <h4>Статус</h4>
+        <div class="segment-control">
+          <div class="rad" :class="{ active: user.active === 1 }">
+            <input v-model="user.active" :value="1" id="active" type="radio" />
+            <label for="active">Активен</label>
+          </div>
+          <div class="rad" :class="{ inactive: user.active === 0 }">
+            <input
+              v-model="user.active"
+              :value="0"
+              id="inactive"
+              type="radio"
+            />
+            <label for="inactive">Неактивен</label>
+          </div>
+        </div>
+      </div>
       <div v-if="!$route.meta.id" class="form-input">
         <h4>Выберите роль</h4>
         <v-select
@@ -18,43 +36,153 @@
       </div>
       <div class="form-input">
         <h4>Ф.И.О.</h4>
-        <my-input type="input" :width="375" v-model="user.full_name" />
+        <my-input
+          type="input"
+          :width="375"
+          v-model="user.full_name"
+          :error="errors.has('full_name')"
+          name="full_name"
+          v-validate="'required|min:5'"
+        />
+        <span class="error-text" v-show="errors.has('full_name')">
+          <feather-icon
+            :icon="'InfoIcon'"
+            style="color: #db2379 !important; margin-right: 5px"
+            svgClasses="h-6 w-6"
+          />
+          {{ errors.first("full_name") }}
+        </span>
       </div>
       <div class="form-input">
         <h4>Телефон номера</h4>
-        <my-input type="input" :width="375" v-model="user.phone_number" />
+        <my-input
+          type="text"
+          :width="375"
+          v-model="user.phone_number"
+          :error="errors.has('phone')"
+          name="phone"
+          v-validate="'required|length:9'"
+        />
+        <span class="error-text" v-show="errors.has('phone')">
+          <feather-icon
+            :icon="'InfoIcon'"
+            style="color: #db2379 !important; margin-right: 5px"
+            svgClasses="h-6 w-6"
+          />
+          {{ errors.first("phone") }}
+        </span>
       </div>
       <div class="form-input">
         <h4>Email</h4>
-        <my-input type="email" :width="375" v-model="user.email" />
+        <my-input
+          type="email"
+          :width="375"
+          v-model="user.email"
+          :error="errors.has('email')"
+          name="email"
+          v-validate="'email'"
+        />
+        <span class="error-text" v-show="errors.has('email')">
+          <feather-icon
+            :icon="'InfoIcon'"
+            style="color: #db2379 !important; margin-right: 5px"
+            svgClasses="h-6 w-6"
+          />
+          {{ errors.first("email") }}
+        </span>
       </div>
       <div class="form-input">
         <h4>Имя пользователя</h4>
-        <my-input type="input" :width="375" v-model="user.username" />
+        <my-input
+          type="input"
+          :width="375"
+          v-model="user.username"
+          :error="errors.has('username')"
+          name="username"
+          v-validate="'required|min:4'"
+        />
+        <span class="error-text" v-show="errors.has('username')">
+          <feather-icon
+            :icon="'InfoIcon'"
+            style="color: #db2379 !important; margin-right: 5px"
+            svgClasses="h-6 w-6"
+          />
+          {{ errors.first("username") }}
+        </span>
       </div>
       <div v-if="editID" class="form-input">
         <h4>Старый пароль</h4>
-        <my-input type="password" :width="375" v-model="old_password" />
+        <my-input
+          type="password"
+          :width="375"
+          v-model="old_password"
+          :error="errors.has('old_password')"
+          name="old_password"
+          v-validate="'required|min:5'"
+        />
+        <span class="error-text" v-show="errors.has('old_password')">
+          <feather-icon
+            :icon="'InfoIcon'"
+            style="color: #db2379 !important; margin-right: 5px"
+            svgClasses="h-6 w-6"
+          />
+          {{ errors.first("old_password") }}
+        </span>
       </div>
       <div class="form-input">
         <h4>{{ pass_title }}</h4>
-        <my-input type="password" :width="375" v-model="password" />
+        <my-input
+          type="password"
+          :width="375"
+          v-model="password"
+          :error="errors.has('password')"
+          name="password"
+          v-validate="'required|min:5'"
+        />
+        <span class="error-text" v-show="errors.has('password')">
+          <feather-icon
+            :icon="'InfoIcon'"
+            style="color: #db2379 !important; margin-right: 5px"
+            svgClasses="h-6 w-6"
+          />
+          {{ errors.first("password") }}
+        </span>
       </div>
       <div class="form-input">
         <h4>{{ confirm_title }}</h4>
-        <my-input type="password" :width="375" v-model="confirm" />
+        <my-input
+          type="password"
+          :width="375"
+          v-model="confirm"
+          :error="errors.has('confirm')"
+          name="confirm"
+          v-validate="'required|min:5'"
+        />
+        <span class="error-text" v-show="errors.has('confirm')">
+          <feather-icon
+            :icon="'InfoIcon'"
+            style="color: #db2379 !important; margin-right: 5px"
+            svgClasses="h-6 w-6"
+          />
+          {{ errors.first("confirm") }}
+        </span>
       </div>
-      <h4 class="notify" v-if="$route.meta.id" >
-        Уведомления
-      </h4>
-    <div class="form-group" v-if="$route.meta.id">
-      <input v-model="user.site_notifications" type="checkbox" id="news">
-      <label for="news">Получать обновления</label>
-    </div>
-      <div class="form-group" v-if="$route.meta.id" >
-      <input v-model="user.email_notifications"  type="checkbox" id="email">
-      <label for="email">Получать сообщения на почту</label>
-    </div>
+      <!-- <div v-if="$route.meta.id"> -->
+      <div>
+        <h4 class="notify">Уведомления</h4>
+        <div class="form-group">
+          <input v-model="user.site_notifications" type="checkbox" id="news" />
+          <label for="news">Получать обновления</label>
+        </div>
+        <div class="form-group">
+          <input
+            v-model="user.email_notifications"
+            type="checkbox"
+            id="email"
+          />
+          <label for="email">Получать сообщения на почту</label>
+        </div>
+      </div>
       <div class="actions">
         <my-button
           @click.native="handlerTwo()"
@@ -99,13 +227,14 @@ export default {
       },
       editID: null,
       user: {
+        active: 0,
         full_name: "",
         phone_number: "",
         role: "",
         email: "",
         username: "",
         email_notifications: false,
-        site_notifications: true,
+        site_notifications: false,
       },
       password: "",
       confirm: "",
@@ -126,8 +255,11 @@ export default {
         .dispatch("addUser/fetchUserById", this.editID)
         .then((res) => res.data)
         .then((user) => {
+          console.log(user);
           this.user = {
             ...user,
+            site_notifications: user.site_notifications === "active",
+            email_notifications: user.email_notifications === "active",
           };
           this.pass_title = "Новый пароль";
           this.confirm_title = "Потвердите новый пароль";
@@ -137,7 +269,10 @@ export default {
   },
   methods: {
     handlerOne() {
-      this.$router.push(this.$route.path);
+      if (!this.editID) {
+        this.reset();
+      }
+      this.notification.show = false;
     },
     handlerTwo() {
       this.reset();
@@ -149,14 +284,46 @@ export default {
     },
     submitHandler() {
       if (this.password === this.confirm) {
-        if (this.editID) {
+        if (this.$route.path === "/add-admin" && this.password) {
+          this.$validator.validateAll().then((isValid) => {
+            if (isValid) {
+              this.$store
+                .dispatch("addUser/addItem", {
+                  ...this.user,
+                  password: this.password,
+                  email_notifications: this.user.email_notifications
+                    ? "active"
+                    : "inactive",
+                  site_notifications: this.user.site_notifications
+                    ? "active"
+                    : "inactive",
+                })
+                .then((res) => {
+                  this.notification = {
+                    show: true,
+                    is_success: true,
+                    header: "Пользователь был добавлен успешно",
+                    content:
+                      "Теперь вы можете увидеть изменения в списке админов",
+                    btnFirst: "Вернуться",
+                    btnSecond: "Список админов",
+                  };
+                })
+                .catch((err) => console.log(err));
+            }
+          });
+        } else if (this.editID) {
           this.$store
             .dispatch("addUser/updateItem", {
               ...this.user,
               password: this.password,
               old_password: this.old_password,
-              email_notifications: this.user.email_notifications === true ? 'active' : 'inactive',
-              site_notifications: this.user.site_notifications === true ? 'active' : 'inactive'
+              email_notifications: this.user.email_notifications
+                ? "active"
+                : "inactive",
+              site_notifications: this.user.site_notifications
+                ? "active"
+                : "inactive",
             })
             .then((res) => {
               if (this.id) {
@@ -181,131 +348,41 @@ export default {
               }
             })
             .catch((err) => console.log(err));
-        } else if (this.password) {
-          this.$store
-            .dispatch("addUser/addItem", {
-              ...this.user,
-              password: this.password,
-            })
-            .then((res) => {
-              this.notification = {
-                show: true,
-                is_success: true,
-                header: "Пользователь был добавлен успешно",
-                content: "Теперь вы можете увидеть изменения в списке админов",
-                btnFirst: "Вернуться",
-                btnSecond: "Список админов",
-              };
-            })
-            .catch((err) => console.log(err));
         }
       }
     },
     reset() {
-      this.role = "";
-      this.fullname = "";
-      this.phone = "";
-      this.email = "";
-      this.username = "";
+      this.$validator.reset();
+      this.notification = {
+        show: false,
+        is_success: true,
+        header: "",
+        content: "",
+        btnFirst: "",
+        btnSecond: "",
+      };
+      this.editID = null;
+      this.user = {
+        full_name: "",
+        phone_number: "",
+        role: "",
+        email: "",
+        username: "",
+        email_notifications: false,
+        site_notifications: true,
+      };
       this.password = "";
       this.confirm = "";
       this.old_password = "";
-      this.user = null;
+      this.pass_title = "Пароль";
+      this.confirm_title = "Потвердите пароль";
     },
   },
-  destroyed(){
-    if(this.$route.meta.link === 'add-admin'){
-         this.user = null
-    console.log(this.user, 'dddd');
-    }
-  }
+
+  destroyed() {
+    this.reset();
+  },
 };
 </script>
 
-<style lang="scss" scoped>
-form {
-  .form-input {
-    margin: 25px 5px;
-
-    h4 {
-      margin-bottom: 12px;
-      font-weight: 500;
-      font-size: 16px;
-      color: #394560;
-    }
-  }
-  .notify{
-    font-family: Montserrat;
-font-style: normal;
-font-weight: 600;
-font-size: 20px;
-line-height: 24px;
-color: #394560;
-margin: 54px 0px 30px 5px;
-  }
-        .form-group {
-        display: block;
-        margin-left: 5px;
-        margin-bottom: 15px;
-      }
-
-      .form-group input {
-        padding: 0;
-        height: initial;
-        width: initial;
-        margin-bottom: 0;
-        display: none;
-        cursor: pointer;
-      }
-
-      .form-group label {
-        position: relative;
-        cursor: pointer;
-        font-family: Montserrat;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 20px;
-        /* identical to box height */
-
-        /* Main txt */
-
-        color: #394560;
-      }
-
-      .form-group label:before {
-        content: "";
-        -webkit-appearance: none;
-        //   padding: 10px;
-        display: inline-block;
-        vertical-align: middle;
-        cursor: pointer;
-        margin-right: 10px;
-        width: 28px;
-        height: 28px;
-        border: 1px solid #dae5fb;
-        box-sizing: border-box;
-        border-radius: 4.94118px;
-      }
-
-      .form-group input:checked + label:after {
-        content: "";
-        display: block;
-        position: absolute;
-        top: 2px;
-        left: 10px;
-        width: 6px;
-        height: 14px;
-        border: solid #4679ec;
-        border-width: 0 3px 3px 0;
-        border-radius: 2px;
-        transform: rotate(45deg);
-      }
-  .actions {
-    margin-top: 3rem;
-    width: 375px;
-    display: flex;
-    justify-content: space-between;
-  }
-}
-</style>
+<style lang="scss" scoped></style>

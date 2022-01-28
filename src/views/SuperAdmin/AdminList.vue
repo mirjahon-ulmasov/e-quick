@@ -16,6 +16,12 @@
           <td>{{ admin.phone_number }}</td>
           <td>{{ admin.username }}</td>
           <td>{{ admin.role }}</td>
+          <td>
+            <span v-show="admin.active === 1" class="active"> Активен </span>
+            <span v-show="admin.active === 0" class="inactive">
+              Неактивен
+            </span>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -31,6 +37,7 @@ export default {
         { title: "Телефон номера" },
         { title: "Имя пользователя" },
         { title: "Роль" },
+        { title: "Статус" },
       ],
     };
   },

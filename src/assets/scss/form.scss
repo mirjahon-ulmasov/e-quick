@@ -1,0 +1,122 @@
+form {
+  .form-input {
+    margin: 25px 5px;
+
+    .segment-control {
+      width: 375px;
+      height: 50px;
+      padding: 6px;
+      border: 1px solid #e3ebfc;
+      border-radius: 8.86582px;
+      display: flex;
+      justify-content: space-between;
+
+      .rad {
+        width: 170px;
+        display: flex;
+        padding: 8px 48px;
+        justify-content: center;
+        border-radius: 5.98435px;
+        text-align: center;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 20px;
+        color: #afb9cf;
+        transition: 0.2s linear;
+        input {
+          visibility: hidden;
+        }
+      }
+
+      .active {
+        background: #ddf8f0;
+        color: #3fdaab;
+      }
+
+      .inactive {
+        background: #fbe9f2;
+        color: #db2379;
+      }
+    }
+
+    h4 {
+      margin-bottom: 12px;
+      font-weight: 500;
+      font-size: 16px;
+      color: #394560;
+    }
+  }
+  .notify {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    color: #394560;
+    margin: 54px 0px 30px 5px;
+  }
+  .form-group {
+    display: block;
+    margin-left: 5px;
+    margin-bottom: 15px;
+  }
+
+  .form-group input {
+    padding: 0;
+    height: initial;
+    width: initial;
+    margin-bottom: 0;
+    display: none;
+    cursor: pointer;
+  }
+
+  .form-group label {
+    position: relative;
+    cursor: pointer;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    /* identical to box height */
+
+    /* Main txt */
+
+    color: #394560;
+  }
+
+  .form-group label:before {
+    content: "";
+    -webkit-appearance: none;
+    //   padding: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-right: 10px;
+    width: 28px;
+    height: 28px;
+    border: 1px solid #dae5fb;
+    box-sizing: border-box;
+    border-radius: 4.94118px;
+  }
+
+  .form-group input:checked + label:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 2px;
+    left: 10px;
+    width: 6px;
+    height: 14px;
+    border: solid #4679ec;
+    border-width: 0 3px 3px 0;
+    border-radius: 2px;
+    transform: rotate(45deg);
+  }
+  .actions {
+    margin-top: 3rem;
+    width: 375px;
+    display: flex;
+    justify-content: space-between;
+  }
+}

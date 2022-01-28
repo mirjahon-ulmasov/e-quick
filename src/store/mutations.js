@@ -28,7 +28,6 @@ const mutations = {
       }
     }
     const userInfo = parseJwt(payload)
-    console.log(userInfo);
     localStorage.setItem('Id', userInfo.id)
    state.userType = userInfo.user_type
   }

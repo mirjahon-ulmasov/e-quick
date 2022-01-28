@@ -1,10 +1,11 @@
 #table {
   min-width: 400px;
   border-collapse: collapse;
-  background: #F5F8FF;
+  background: #f5f8ff;
+  border-radius: 8px;
   thead {
     height: 56px;
-    background: #E6EDFF;
+    background: #e6edff;
     -moz-border-radius: 3px;
     -webkit-border-radius: 30px;
     border-radius: 3px;
@@ -18,13 +19,13 @@
         font-size: 16px;
         line-height: 100.9%;
         padding: 27px;
-        color: #60739F;
+        color: #60739f;
 
-        &:first-child{
+        &:first-child {
           border-radius: 8px 0 0 8px;
         }
 
-        &:last-child{
+        &:last-child {
           border-radius: 0 8px 8px 0;
           padding-left: 38px;
         }
@@ -33,15 +34,15 @@
   }
   tbody {
     width: 100%;
-    background: #F5F8FF;
+    background: #f5f8ff;
     border-radius: 8px;
     tr {
-      border-bottom: 1px solid #E5EDFF;
+      border-bottom: 1px solid #e5edff;
       cursor: pointer;
-      &:last-child{
+      &:last-child {
         border: none !important;
       }
-      &:hover{
+      &:hover {
         -moz-transition: cursor 500ms ease-in-out;
         -o-transition: cursor 500ms ease-in-out;
         -webkit-transition: cursor 500ms ease-in-out;
@@ -56,30 +57,29 @@
         line-height: 100.9%;
         color: #394560;
         padding: 10px 15px;
-        .active{
-background: #E1F9F2;
-border-radius: 6px;
-font-family: Montserrat;
-font-style: normal;
-font-weight: 500;
-font-size: 14px;
-line-height: 100.9%;
-padding: 10px 15px;
-color: #198061;
+        .active {
+          background: #e1f9f2;
+          border-radius: 6px;
+          font-family: Montserrat;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 100.9%;
+          padding: 10px 15px;
+          color: #198061;
         }
-        .inactive{
-background: #F9DCEA;
-border-radius: 6px;
-padding: 10px 15px;
-font-family: Montserrat;
-font-style: normal;
-font-weight: 500;
-font-size: 14px;
-line-height: 100.9%;
-/* or 14px */
+        .inactive {
+          background: #f9dcea;
+          border-radius: 6px;
+          padding: 10px 15px;
+          font-family: Montserrat;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 100.9%;
+          /* or 14px */
 
-
-color: #841549;
+          color: #841549;
         }
       }
     }

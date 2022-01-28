@@ -46,6 +46,7 @@ export default {
     return {
       errImg: require("../assets/images/icons/error.svg"),
       successImg: require("../assets/images/icons/success.svg"),
+
     };
   },
   props: {
@@ -76,7 +77,7 @@ export default {
   },
   methods: {
     firstHandler() {
-      this.isShow = !this.isShow;
+    //   this.isShow = !this.isShow;
       this.$emit("handlerOne");
     },
     secondHandler() {

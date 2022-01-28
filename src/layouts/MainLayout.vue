@@ -42,20 +42,17 @@ export default {
 
         &::-webkit-scrollbar {
           width: 8px;
+          height: 8px;
         }
         &::-webkit-scrollbar-track {
-          background: none;
           border-radius: 30px;
           background: none;
         }
         &::-webkit-scrollbar-thumb {
-          background: linear-gradient(0deg, #d1defa, #d1defa), #f5f8fd;
+          background: #f5f8fd;
           border-radius: 30px;
           border: 1px solid transparent;
           background-clip: content-box;
-        }
-        &::-webkit-scrollbar-thumb:hover {
-          background-color: green;
         }
       }
     }
