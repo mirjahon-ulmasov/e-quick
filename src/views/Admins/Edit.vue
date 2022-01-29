@@ -1,6 +1,24 @@
 <template>
   <div>
     <form @submit.prevent="submitHandler">
+      <div class="form-input" v-if="!$route.meta.id">
+        <h4>Статус</h4>
+        <div class="segment-control">
+          <div class="rad" :class="{ active: user.active === 1 }">
+            <input v-model="user.active" :value="1" id="active" type="radio" />
+            <label for="active">Активен</label>
+          </div>
+          <div class="rad" :class="{ inactive: user.active === 0 }">
+            <input
+              v-model="user.active"
+              :value="0"
+              id="inactive"
+              type="radio"
+            />
+            <label for="inactive">Неактивен</label>
+          </div>
+        </div>
+      </div>
       <div v-if="!$route.meta.id" class="form-input">
         <h4>Выберите роль</h4>
         <v-select
@@ -116,6 +134,7 @@ export default {
       },
       editID: null,
       user: {
+        active: 0,
         full_name: "",
         phone_number: "",
         role: "",

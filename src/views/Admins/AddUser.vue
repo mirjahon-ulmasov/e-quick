@@ -26,7 +26,22 @@
         </div>
         <div class="form-input">
           <h4>Ф.И.О.</h4>
-          <my-input type="input" :width="375" v-model="user.full_name" />
+          <my-input
+            type="input"
+            :width="375"
+            v-model="user.full_name"
+            :error="errors.has('full_name')"
+            name="full_name"
+            v-validate="'required|min:5'"
+          />
+          <span class="error-text" v-show="errors.has('full_name')">
+          <feather-icon
+            :icon="'InfoIcon'"
+            style="color: #db2379 !important; margin-right: 5px"
+            svgClasses="h-6 w-6"
+          />
+          {{ errors.first("full_name") }}
+        </span>
         </div>
         <div class="form-input">
           <h4>Телефон номера</h4>
@@ -73,46 +88,38 @@
           </v-select>
         </div>
         <div class="sel">
-                  <div class="selected">
-          <span>
-             AKFA
-          </span>
-        <feather-icon
-        :icon="'XIcon'"
-        style="color: #4679EC !important; margin-left: 20px"
-        svgClasses="h-6 w-6"
-      />
-        </div>
-        <div class="selected">
-          <span>
-             AKFA
-          </span>
-        <feather-icon
-        :icon="'XIcon'"
-        style="color: #4679EC !important; margin-left: 20px"
-        svgClasses="h-6 w-6"
-      />
-        </div>
-                <div class="selected">
-          <span>
-             AKFA
-          </span>
-        <feather-icon
-        :icon="'XIcon'"
-        style="color: #4679EC !important; margin-left: 20px"
-        svgClasses="h-6 w-6"
-      />
-        </div>
-                <div class="selected">
-          <span>
-             AKFA
-          </span>
-        <feather-icon
-        :icon="'XIcon'"
-        style="color: #4679EC !important; margin-left: 20px"
-        svgClasses="h-6 w-6"
-      />
-        </div>
+          <div class="selected">
+            <span> AKFA </span>
+            <feather-icon
+              :icon="'XIcon'"
+              style="color: #4679ec !important; margin-left: 20px"
+              svgClasses="h-6 w-6"
+            />
+          </div>
+          <div class="selected">
+            <span> AKFA </span>
+            <feather-icon
+              :icon="'XIcon'"
+              style="color: #4679ec !important; margin-left: 20px"
+              svgClasses="h-6 w-6"
+            />
+          </div>
+          <div class="selected">
+            <span> AKFA </span>
+            <feather-icon
+              :icon="'XIcon'"
+              style="color: #4679ec !important; margin-left: 20px"
+              svgClasses="h-6 w-6"
+            />
+          </div>
+          <div class="selected">
+            <span> AKFA </span>
+            <feather-icon
+              :icon="'XIcon'"
+              style="color: #4679ec !important; margin-left: 20px"
+              svgClasses="h-6 w-6"
+            />
+          </div>
         </div>
       </div>
 
@@ -137,8 +144,6 @@ export default {
       step: 1,
       active: 1,
       firststep: true,
-      nextStep: "",
-      lastStep: "",
       laststep: false,
       steps: [
         {
@@ -146,9 +151,6 @@ export default {
         },
         {
           id: 2,
-        },
-        {
-          id: 3,
         },
       ],
       user: {
@@ -161,7 +163,7 @@ export default {
         site_notifications: true,
         password: "",
         confirm: "",
-        savdo_id: null
+        savdo_id: null,
       },
       pass_title: "Пароль",
       confirm_title: "Потвердите пароль",
@@ -171,23 +173,61 @@ export default {
     roles() {
       return this.$store.state.addUser.roles;
     },
-    companies () {
-      return this.$store.state.addUser.parent_companies
+    companies() {
+      return this.$store.state.addUser.parent_companies;
     },
   },
   methods: {
-    stepChanged (step) {
+    Steps(){
+      if (this.user.role.role === "dealer") {
+          this.steps = [
+            {
+              id: 1,
+            },
+            {
+              id: 2,
+            },
+            {
+              id: 3,
+            },
+          ];
+        } 
+        else {
+          this.steps = [
+            {
+              id: 1,
+            },
+            {
+              id: 2,
+            },
+          ];
+        }
+    },
+    Submit(){
+     console.log('what');
+    },
+    stepChanged(step) {
+      this.Steps()
       if (step === 0) {
-        console.log(step);
         this.currentstep = 1;
-      } else {
-        this.currentstep = step;
+      } 
+      else {
+        if (this.currentstep >= this.steps.length) {
+          this.currentstep = this.steps.length
+          this.Submit()
+        }
+        else{
+          this.currentstep = step
+        }
       }
     },
+    Submit(){
+      console.log('ok');
+    }
   },
   created() {
     this.$store.dispatch("addUser/fetchRoles");
-    this.$store.dispatch('addUser/fetchDataCompanies')
+    this.$store.dispatch("addUser/fetchDataCompanies");
   },
 };
 </script>
@@ -334,24 +374,24 @@ export default {
   display: flex;
   justify-content: space-between;
 }
-.sel{
-      display: flex;
-    flex-wrap: wrap;
-    width: 420px;
-
-  .selected{
-  text-align: center;
-  margin-right: 15px;
-  margin-bottom: 15px;
+.sel {
   display: flex;
-  justify-content: space-between;
-  padding: 16px;
-  align-items: center;
-  // width: 106px;
-height: 45px;
+  flex-wrap: wrap;
+  width: 420px;
 
-background: #EDF1FD;
-border-radius: 10px;
-}
+  .selected {
+    text-align: center;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    padding: 16px;
+    align-items: center;
+    // width: 106px;
+    height: 45px;
+
+    background: #edf1fd;
+    border-radius: 10px;
+  }
 }
 </style>

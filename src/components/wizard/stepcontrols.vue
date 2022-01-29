@@ -23,6 +23,7 @@
       >
       <my-button 
         type="submit"
+        @click.native="Submit()"
           title="Добавить"
           bgColor="#4679EC"
           color="#FFFFFF"
@@ -56,6 +57,9 @@ export default {
     lastStep: function () {
       this.$emit("step-change", this.currentstep - 1);
     },
+   Submit(){
+     this.$emit("step-change", );
+   }
   },
 };
 </script>

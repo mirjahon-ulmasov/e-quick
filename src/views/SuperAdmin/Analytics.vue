@@ -21,7 +21,7 @@ export default {
 .card-container {
   display: flex;
   .card {
-    width: 209px;
+    width: 30%;
     height: 203px;
     margin: 20px;
     padding: 18px;
