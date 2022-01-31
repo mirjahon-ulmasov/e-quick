@@ -13,7 +13,7 @@
       <my-button
         @click.native="nextStep()"
         style="margin-left: 35px"
-                type="button"
+          type="submit"
           title="Следующее"
           bgColor="#4679EC"
           color="#FFFFFF"

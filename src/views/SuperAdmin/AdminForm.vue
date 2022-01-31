@@ -233,7 +233,7 @@ export default {
         active: 1,
         full_name: "",
         phone_number: "",
-        role: "",
+        role: "admin",
         email: "",
         username: "",
         email_notifications: false,

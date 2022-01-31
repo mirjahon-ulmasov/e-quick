@@ -6,7 +6,7 @@
           src="../assets/images/icons/close.svg"
           alt="Close"
           class="close_btn"
-          @click="isShow = !isShow"
+          @click="firstHandler()"
         />
         <div class="notif__content">
           <img

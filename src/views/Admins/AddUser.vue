@@ -60,7 +60,7 @@
             :width="375"
             :error="errors.has('tel')"
             name="tel"
-            v-validate="'required|min:9|max:9'"
+            v-validate="'required|min:9|max:9|numeric'"
             v-model="user.phone_number"
           />
           <span class="error-text" v-show="errors.has('tel')">
@@ -92,7 +92,7 @@
           </span>
         </div>
       </div>
-      <div v-show="currentstep === 2" data-vv-scope="step-2" >
+      <div v-show="currentstep === 2" >
         <div class="form-input">
           <h4>Savdo ID</h4>
           <my-input
@@ -172,22 +172,25 @@
           </span>
         </div>
       </div>
-      <div v-show="currentstep === 3" data-vv-scope="step-3" >
+      <div v-show="currentstep === 1" >
         <div class="form-input">
           <h4>Выберите завод</h4>
           <v-select
-            v-model="user.selected"
+            :multiple="true"
+            v-model="companies_d"
             style="width: 375px"
             :options="companies"
             label="name"
             id="select-state"
           >
-            <template #open-indicator="{ attributes }">
+            <template  #open-indicator="{ attributes }">
               <span v-bind="attributes">
                 <img src="../../assets/images/icons/select-icon.svg" alt="" />
               </span>
             </template>
+
           </v-select>
+          <!-- <img src="../../assets/images/icons/select-icon.svg" alt="" /> -->
         </div>
         <div class="sel">
           <div class="selected">
@@ -298,8 +301,8 @@ export default {
   },
   methods: {
     Steps() {
-
-        this.steps = [
+      if (this.user.role === 'dealer' || this.user.role.role === 'dealer' ) {
+       this.steps = [
           {
             id: 1,
           },
@@ -310,6 +313,17 @@ export default {
             id: 3,
           },
         ];
+      }
+      else{
+              this.steps = [
+          {
+            id: 1,
+          },
+          {
+            id: 2,
+          }
+        ];
+      }
     },
     stepChanged(step) {
       this.Steps();
@@ -319,27 +333,13 @@ export default {
         if (step === true) {
           this.currentstep = this.steps.length;
           this.Submit();
-        } else {
-          if (step === 2) {
-            this.$validator.validateAll('step-1').then(result => {
-          if (result) {
-            console.log(result);
-            this.currentstep = step;
-          }
-            })
-          }
-       else if (step === 3) {
-            this.$validator.validateAll('step-2').then(result => {
-          if (result) {
-            console.log(result);
-            this.currentstep = step;
-          }
-            })
+        } 
+          else if(step === 2 || step === 3){
+            this.Validate(step)
           }
           else{
             this.currentstep = step;
           }
-        }
       }
     },
     Submit() {
@@ -382,6 +382,35 @@ export default {
     handlerTwo() {
       this.$router.push("/users");
     },
+    Validate(step){
+      if (step === 2) {
+      this.$validator.validate('email')
+      this.$validator.validate('role')
+      this.$validator.validate('full_name')
+      this.$validator.validate('tel').then(
+        () => {
+          if (this.errors.items.length === 0) {
+            this.currentstep = step;
+          }
+        }
+      )
+      }
+     else if (step === 3) {
+      this.$validator.validate('savdo')
+      this.$validator.validate('user_name')
+      this.$validator.validate('password')
+      this.$validator.validate('confirm').then(
+        () => {
+          if (this.errors.items.length === 0) {
+            this.currentstep = step
+          }
+        }
+      )
+      }
+    }
+  },
+  updated(){
+  //  console.log(this.companies_d);
   },
   created() {
     this.$store.dispatch("addUser/fetchRoles");
