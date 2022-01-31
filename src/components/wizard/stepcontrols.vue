@@ -31,7 +31,6 @@
     </div>
   </div>
 </template>
-
 <script>
 export default {
   props: ["step", "stepcount", "currentstep"],
@@ -58,7 +57,7 @@ export default {
       this.$emit("step-change", this.currentstep - 1);
     },
    Submit(){
-     this.$emit("step-change", );
+     this.$emit("step-change", true );
    }
   },
 };

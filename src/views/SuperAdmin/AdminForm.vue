@@ -279,7 +279,7 @@ export default {
       if (this.id || !this.$route.meta.id) {
         this.$router.push("/admins");
       } else {
-        this.$router.push("/settings");
+        this.$router.push("/setting");
       }
     },
     submitHandler() {

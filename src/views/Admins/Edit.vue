@@ -209,9 +209,9 @@ export default {
                   is_success: true,
                   header: "Пользователь был изменён успешно",
                   content:
-                    "Теперь вы можете увидеть изменения в списке админов",
+                    "Теперь вы можете его увидеть в списке пользователей",
                   btnFirst: "Вернуться",
-                  btnSecond: "Список админов",
+                  btnSecond: "Пользователи",
                 };
               } else {
                 this.notification = {
@@ -236,9 +236,9 @@ export default {
                 show: true,
                 is_success: true,
                 header: "Пользователь был добавлен успешно",
-                content: "Теперь вы можете увидеть изменения в списке админов",
+                content: "Теперь вы можете увидеть изменения в списке пользователей",
                 btnFirst: "Вернуться",
-                btnSecond: "Список админов",
+                btnSecond: "Пользователи",
               };
             })
             .catch((err) => console.log(err));

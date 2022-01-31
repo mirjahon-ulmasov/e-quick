@@ -51,10 +51,7 @@
         <div class="user-detail">
           <p>Завод</p>
           <div class="factory">
-            <span class="item" v-for="(item, i) in dealer_company" :key="i" > AKFA </span>
-            <span class="item"> IMZO </span>
-            <span class="item"> BENKAM </span>
-            <span class="item"> AKFA </span>
+            <span class="item" v-for="(item, i) in dealer_company" :key="i" >{{ item.name }} </span>
           </div>
         </div>
       </div>

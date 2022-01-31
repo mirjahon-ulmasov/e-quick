@@ -113,7 +113,7 @@ export default {
   fetchCompanyDealerID({ commit }, id) {
     return new Promise((resolve, reject) => {
       axios
-        .get(`/api/v1/company_group/dealer/${id}`)
+        .get(`/api/v1/company_group/dealer_company/${id}`)
         .then((response) => {
           commit("SET_COMPANIES_dealer", response.data);
           resolve(response);
