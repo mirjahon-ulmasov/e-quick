@@ -75,6 +75,9 @@ export default {
       type: Number,
       default: 46,
     },
+    padding: {
+      type: String,
+    },
   },
   data() {
     return {
@@ -102,6 +105,7 @@ export default {
         color: this.color,
         height: `${this.height}px`,
         width: `${this.width}px`,
+        padding: this.padding,
       };
     },
   },
@@ -111,6 +115,7 @@ export default {
 .custom-input {
   background: #f6f8fe;
   border: 0.886581px solid #e3ebfc;
+  letter-spacing: 0.4px;
   box-sizing: border-box;
   border-radius: 8.86582px;
   padding: 14px 25px;
@@ -141,6 +146,7 @@ export default {
   padding: 14px 25px;
   border: 0.886581px solid #db2379;
   box-shadow: 0px 0px 2px 1px #dd659d;
+  letter-spacing: 0.4px;
   box-sizing: border-box;
   border-radius: 8.86582px;
   font-family: Montserrat;

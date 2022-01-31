@@ -55,13 +55,15 @@
       </div>
       <div class="form-input">
         <h4>Телефон номера</h4>
+        <span class="phone-code">+998</span>
         <my-input
+          padding="14px 70px"
           type="text"
           :width="375"
           v-model="user.phone_number"
           :error="errors.has('phone')"
           name="phone"
-          v-validate="'required|length:9'"
+          v-validate="'required|numeric|length:9'"
         />
         <span class="error-text" v-show="errors.has('phone')">
           <feather-icon
@@ -118,7 +120,7 @@
           v-model="old_password"
           :error="errors.has('old_password')"
           name="old_password"
-          v-validate="'required|min:5'"
+          v-validate="'min:5'"
         />
         <span class="error-text" v-show="errors.has('old_password')">
           <feather-icon
@@ -133,11 +135,12 @@
         <h4>{{ pass_title }}</h4>
         <my-input
           type="password"
-          :width="375"
-          v-model="password"
-          :error="errors.has('password')"
           name="password"
-          v-validate="'required|min:5'"
+          v-model="password"
+          ref="password"
+          :width="375"
+          :error="errors.has('password')"
+          v-validate="'min:5'"
         />
         <span class="error-text" v-show="errors.has('password')">
           <feather-icon
@@ -156,7 +159,8 @@
           v-model="confirm"
           :error="errors.has('confirm')"
           name="confirm"
-          v-validate="'required|min:5'"
+          data-vv-as="password"
+          v-validate="'min:5|confirmed:password'"
         />
         <span class="error-text" v-show="errors.has('confirm')">
           <feather-icon
@@ -167,7 +171,6 @@
           {{ errors.first("confirm") }}
         </span>
       </div>
-      <!-- <div v-if="$route.meta.id"> -->
       <div>
         <h4 class="notify">Уведомления</h4>
         <div class="form-group">
@@ -227,7 +230,7 @@ export default {
       },
       editID: null,
       user: {
-        active: 0,
+        active: 1,
         full_name: "",
         phone_number: "",
         role: "",
@@ -255,7 +258,6 @@ export default {
         .dispatch("addUser/fetchUserById", this.editID)
         .then((res) => res.data)
         .then((user) => {
-          console.log(user);
           this.user = {
             ...user,
             site_notifications: user.site_notifications === "active",
@@ -279,77 +281,93 @@ export default {
       if (this.id || !this.$route.meta.id) {
         this.$router.push("/admins");
       } else {
-        this.$router.push("/settings");
+        this.$router.push("/setting");
       }
     },
     submitHandler() {
-      if (this.password === this.confirm) {
-        if (this.$route.path === "/add-admin" && this.password) {
-          this.$validator.validateAll().then((isValid) => {
-            if (isValid) {
-              this.$store
-                .dispatch("addUser/addItem", {
-                  ...this.user,
-                  password: this.password,
-                  email_notifications: this.user.email_notifications
-                    ? "active"
-                    : "inactive",
-                  site_notifications: this.user.site_notifications
-                    ? "active"
-                    : "inactive",
-                })
-                .then((res) => {
-                  this.notification = {
-                    show: true,
-                    is_success: true,
-                    header: "Пользователь был добавлен успешно",
-                    content:
-                      "Теперь вы можете увидеть изменения в списке админов",
-                    btnFirst: "Вернуться",
-                    btnSecond: "Список админов",
-                  };
-                })
-                .catch((err) => console.log(err));
-            }
-          });
-        } else if (this.editID) {
-          this.$store
-            .dispatch("addUser/updateItem", {
-              ...this.user,
-              password: this.password,
-              old_password: this.old_password,
-              email_notifications: this.user.email_notifications
-                ? "active"
-                : "inactive",
-              site_notifications: this.user.site_notifications
-                ? "active"
-                : "inactive",
-            })
-            .then((res) => {
-              if (this.id) {
+      this.$validator.validateAll().then((isValid) => {
+        if (isValid) {
+          if (this.$route.path === "/add-admin" && this.password) {
+            this.$store
+              .dispatch("addUser/addItem", {
+                ...this.user,
+                password: this.password,
+                email_notifications: this.user.email_notifications
+                  ? "active"
+                  : "inactive",
+                site_notifications: this.user.site_notifications
+                  ? "active"
+                  : "inactive",
+              })
+              .then((res) => {
                 this.notification = {
                   show: true,
                   is_success: true,
-                  header: "Пользователь был изменён успешно",
+                  header: "Пользователь был добавлен успешно",
                   content:
                     "Теперь вы можете увидеть изменения в списке админов",
                   btnFirst: "Вернуться",
                   btnSecond: "Список админов",
                 };
-              } else {
+              })
+              .catch((err) => {
                 this.notification = {
                   show: true,
-                  is_success: true,
-                  header: "Данные были изменены успешно",
-                  content: "Теперь вы можете увидеть изменения в настройках",
+                  is_success: false,
+                  header: "Error",
+                  content: `${err.response.data.detail}`,
                   btnFirst: "Вернуться",
-                  btnSecond: "Настройки",
+                  btnSecond: "Список админов",
                 };
-              }
-            })
-            .catch((err) => console.log(err));
+              });
+          } else if (this.editID) {
+            this.$store
+              .dispatch("addUser/updateItem", {
+                ...this.user,
+                password: this.password,
+                old_password: this.old_password,
+                email_notifications: this.user.email_notifications
+                  ? "active"
+                  : "inactive",
+                site_notifications: this.user.site_notifications
+                  ? "active"
+                  : "inactive",
+              })
+              .then((res) => {
+                if (this.id) {
+                  this.notification = {
+                    show: true,
+                    is_success: true,
+                    header: "Пользователь был изменён успешно",
+                    content:
+                      "Теперь вы можете увидеть изменения в списке админов",
+                    btnFirst: "Вернуться",
+                    btnSecond: "Список админов",
+                  };
+                } else {
+                  this.notification = {
+                    show: true,
+                    is_success: true,
+                    header: "Данные были изменены успешно",
+                    content: "Теперь вы можете увидеть изменения в настройках",
+                    btnFirst: "Вернуться",
+                    btnSecond: "Настройки",
+                  };
+                }
+              })
+              .catch((err) => {
+                this.notification = {
+                  show: true,
+                  is_success: false,
+                  header: "Error",
+                  content: `${err.response.data.detail}`,
+                  btnFirst: "Вернуться",
+                  btnSecond: this.id ? "Список админов" : "Настройки",
+                };
+              });
+          }
         }
-      }
+      });
     },
     reset() {
       this.$validator.reset();
