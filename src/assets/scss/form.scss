@@ -1,5 +1,6 @@
 form {
   .form-input {
+    position: relative;
     margin: 25px 5px;
 
     .segment-control {
@@ -44,6 +45,19 @@ form {
       font-weight: 500;
       font-size: 16px;
       color: #394560;
+    }
+
+    .phone-code {
+      position: absolute;
+      top: 2.7rem;
+      left: 1.5rem;
+      z-index: 10;
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 17px;
+      letter-spacing: 0.4px;
+      color: #60739f;
     }
   }
   .notify {

@@ -43,7 +43,7 @@
           </div>
           <div class="user-detail">
             <p>Email</p>
-            <h4>@{{ user.email }}</h4>
+            <h4>{{ user.email }}</h4>
           </div>
         </div>
         <div class="user-details">
