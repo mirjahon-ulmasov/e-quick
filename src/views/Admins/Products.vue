@@ -1,13 +1,5 @@
 <template>
   <div>
-        <!-- <my-button
-          title="Добавить товар"
-          bgColor="#4679EC"
-          color="#FFFFFF"
-          :width="203"
-          style="margin-bottom: 40px"
-          @click.native="addAdmin()"
-        ></my-button> -->
     <table id="table">
       <thead>
         <tr>
@@ -18,12 +10,13 @@
         <tr
           v-for="(admin, i) in productList"
           :key="i"
-          @click="$router.push(`/user/${admin.id}`)"
+          @click="$router.push(`/product/${admin.id}`)"
         >
+        <td>{{ i + 1 }}</td>
           <td>{{ admin.name }}</td>
-          <td>{{ admin.company_id }}</td>
-          <td>{{ admin.phone_number }}</td>
-          <td style="padding-left: 40px !important" >{{ admin.price }}</td>
+          <td>{{ admin.company_name }}</td>
+          <td>{{ admin.category_name }}</td>
+          <td style="padding-left: 40px !important" >{{ Number(admin.price).toLocaleString("de-DE") }} {{ $t('sum') }}</td>
         </tr>
       </tbody>
     </table>
@@ -35,25 +28,22 @@ export default {
   data() {
     return {
       headers: [
+        { title: "№" },
         { title: "Название" },
         { title: "Завод" },
         { title: "Категория" },
         { title: "Цена" },
       ],
+      id: 1,
     };
   },
   computed: {
     productList() {
-      return this.$store.state.addUser.products.results;
+      return this.$store.state.addUser.products;
     },
   },
-  methods: {
-    addAdmin(){
-      this.$router.push('add-user')
-    }
-  },
   created() {
-    this.$store.dispatch("addUser/fetchProducts");
+    this.$store.dispatch("addUser/fetchProducts", this.id );
   },
   mounted() {},
 };
