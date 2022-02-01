@@ -7,7 +7,7 @@
         :currentstep="currentstep"
       >
       </step-navigation>
-      <div v-show="currentstep === 1" data-vv-scope="step-1" >
+      <div v-show="currentstep === 1" data-vv-scope="step-1">
         <div class="form-input">
           <h4>Выберите роль</h4>
           <v-select
@@ -92,7 +92,7 @@
           </span>
         </div>
       </div>
-      <div v-show="currentstep === 2" >
+      <div v-show="currentstep === 2">
         <div class="form-input">
           <h4>Savdo ID</h4>
           <my-input
@@ -112,25 +112,25 @@
             {{ errors.first("savdo") }}
           </span>
         </div>
-      <div class="form-input">
-        <h4>Имя пользователя</h4>
-        <my-input
-          type="input"
-          :width="375"
-          v-model="user.username"
-          :error="errors.has('user_name')"
-          name="user_name"
-          v-validate="'required|min:4'"
-        />
-        <span class="error-text" v-show="errors.has('user_name')">
-          <feather-icon
-            :icon="'InfoIcon'"
-            style="color: #db2379 !important; margin-right: 5px"
-            svgClasses="h-6 w-6"
+        <div class="form-input">
+          <h4>Имя пользователя</h4>
+          <my-input
+            type="input"
+            :width="375"
+            v-model="user.username"
+            :error="errors.has('user_name')"
+            name="user_name"
+            v-validate="'required|min:4'"
           />
-          {{ errors.first("user_name") }}
-        </span>
-      </div>
+          <span class="error-text" v-show="errors.has('user_name')">
+            <feather-icon
+              :icon="'InfoIcon'"
+              style="color: #db2379 !important; margin-right: 5px"
+              svgClasses="h-6 w-6"
+            />
+            {{ errors.first("user_name") }}
+          </span>
+        </div>
         <div class="form-input">
           <h4>{{ pass_title }}</h4>
           <my-input
@@ -172,56 +172,75 @@
           </span>
         </div>
       </div>
-      <div v-show="currentstep === 1" >
+      <div v-show="currentstep === 3">
         <div class="form-input">
           <h4>Выберите завод</h4>
-          <v-select
-            :multiple="true"
-            v-model="companies_d"
-            style="width: 375px"
-            :options="companies"
-            label="name"
-            id="select-state"
-          >
-            <template  #open-indicator="{ attributes }">
-              <span v-bind="attributes">
-                <img src="../../assets/images/icons/select-icon.svg" alt="" />
-              </span>
-            </template>
-
-          </v-select>
-          <!-- <img src="../../assets/images/icons/select-icon.svg" alt="" /> -->
+          <div style="display: flex; align-items: center">
+            <my-input
+              @click.native="(drop = !drop), (companies_d = [])"
+              type="search"
+              v-model="search"
+              :width="375"
+            >
+            </my-input>
+            <button
+              class="plus"
+              @click="real_companies = companies_d"
+              v-if="companies_d.length !== 0"
+              style="
+                border-radius: 50%;
+                background: #4679ec;
+                height: 23px;
+                width: 23px;
+                border: none;
+                color: white;
+                font-size: 20px;
+                margin-left: -35px;
+              "
+            >
+              +
+            </button>
+            <img
+              style="margin-left: -35px"
+              v-else
+              src="../../assets/images/icons/select-icon.svg"
+              alt=""
+            />
+          </div>
+          <div class="drop" v-show="drop">
+            <div class="item form-group" v-for="(item, i) in filter" :key="i">
+              <input
+                :value="item"
+                v-model="companies_d"
+                type="checkbox"
+                :id="i"
+              />
+              <label :for="i">{{ item.name }}</label>
+            </div>
+            <div v-show="filter.length === 0" style="text-align: center">
+              <span> Результаты не найдены </span>
+            </div>
+          </div>
         </div>
-        <div class="sel">
-          <div class="selected">
-            <span> AKFA </span>
+          <span class="error-text" v-show="have">
             <feather-icon
-              :icon="'XIcon'"
-              style="color: #4679ec !important; margin-left: 20px"
+              :icon="'InfoIcon'"
+              style="color: #db2379 !important; margin-right: 5px"
               svgClasses="h-6 w-6"
             />
-          </div>
-          <div class="selected">
-            <span> AKFA </span>
+            Field required
+          </span>
+        <div class="sel" v-show="real_companies">
+          <div class="selected" v-for="(item, i) in real_companies" :key="i">
+            <span> {{ item.name }} </span>
             <feather-icon
+              @click="remove(item)"
               :icon="'XIcon'"
-              style="color: #4679ec !important; margin-left: 20px"
-              svgClasses="h-6 w-6"
-            />
-          </div>
-          <div class="selected">
-            <span> AKFA </span>
-            <feather-icon
-              :icon="'XIcon'"
-              style="color: #4679ec !important; margin-left: 20px"
-              svgClasses="h-6 w-6"
-            />
-          </div>
-          <div class="selected">
-            <span> AKFA </span>
-            <feather-icon
-              :icon="'XIcon'"
-              style="color: #4679ec !important; margin-left: 20px"
+              style="
+                color: #4679ec !important;
+                margin-left: 20px;
+                cursor: pointer;
+              "
               svgClasses="h-6 w-6"
             />
           </div>
@@ -238,6 +257,16 @@
       >
       </step-controls>
     </div>
+    <!-- <v-notification
+      header="Ошибка"
+      :is_success="false"
+      :isShow="notificationError.show"
+      :content="notificationError.content"
+      :btnFirst="notificationError.btnFirst"
+      :btnSecond="notificationError.btnSecond"
+      @handlerOne="handlerOneError"
+      @handlerTwo="handlerTwoError"
+    ></v-notification> -->
     <v-notification
       :isShow="notification.show"
       :is_success="notification.is_success"
@@ -271,14 +300,15 @@ export default {
       user: {
         full_name: null,
         phone_number: null,
-        role: 'dealer',
+        role: "dealer",
         email: null,
         username: null,
         password: null,
         confirm: null,
         savdo_id: null,
       },
-      companies_d: null,
+      companies_d: [],
+      real_companies: null,
       notification: {
         show: false,
         is_success: true,
@@ -287,6 +317,9 @@ export default {
         btnFirst: "",
         btnSecond: "",
       },
+      drop: false,
+      have: false,
+      search: "",
       pass_title: "Пароль",
       confirm_title: "Потвердите пароль",
     };
@@ -295,14 +328,26 @@ export default {
     roles() {
       return this.$store.state.addUser.roles;
     },
+    filter() {
+      if (this.search) {
+        return this.companies.filter((item) => {
+          return this.search
+            .toLowerCase()
+            .split(" ")
+            .every((v) => item.name.toLowerCase().includes(v));
+        });
+      } else {
+        return this.companies;
+      }
+    },
     companies() {
       return this.$store.state.addUser.parent_companies;
     },
   },
   methods: {
     Steps() {
-      if (this.user.role === 'dealer' || this.user.role.role === 'dealer' ) {
-       this.steps = [
+      if (this.user.role === "dealer" || this.user.role.role === "dealer") {
+        this.steps = [
           {
             id: 1,
           },
@@ -313,19 +358,22 @@ export default {
             id: 3,
           },
         ];
-      }
-      else{
-              this.steps = [
+      } else {
+        this.steps = [
           {
             id: 1,
           },
           {
             id: 2,
-          }
+          },
         ];
       }
     },
+    remove(index) {
+      this.real_companies.splice(index, 1);
+    },
     stepChanged(step) {
+      !this.valid()
       this.Steps();
       if (step === 0) {
         this.currentstep = 1;
@@ -333,48 +381,84 @@ export default {
         if (step === true) {
           this.currentstep = this.steps.length;
           this.Submit();
-        } 
-          else if(step === 2 || step === 3){
-            this.Validate(step)
-          }
-          else{
-            this.currentstep = step;
-          }
+        } else if (step === 2 || step === 3) {
+          this.Validate(step);
+        } else {
+          this.currentstep = step;
+        }
       }
+    },
+    valid(){
+      console.log('ddd');
+    if (this.user.role.role === "dealer" || this.user.role === "dealer" ) {
+      console.log('del');
+      if (this.real_companies !== null) {
+        this.have = false
+      }
+      else{
+        console.log('err');
+        this.have = true
+      }
+    }
+    else{
+      this.have = true
+    }
     },
     Submit() {
       const payload = {
         ...this.user,
-        role: this.user.role.role,
+        role: this.user.role.role ||  this.user.role,
       };
-      this.$store.dispatch("addUser/addItem", payload).then(() => {
-        this.user = {};
-        if (this.companies_d) {
-          this.$store
-            .dispatch("addUser/AddUserCompanies", payload)
-            .then(() => {
-              this.companies_d = [];
-              this.notification = {
-                show: true,
-                is_success: true,
-                header: "Пользователь был добавлен успешно",
-                content: "Теперь вы можете его увидеть в списке пользователей",
-                btnFirst: "Вернуться",
-                btnSecond: "Пользователи",
-              };
-            })
-            .catch((err) => {});
-        } else {
-          this.notification = {
+      this.$store
+        .dispatch("addUser/addItem", payload)
+        .then(() => {
+          if (this.user.role.role === "dealer" || this.user.role === "dealer" && this.have === true ) {
+              const payload = this.real_companies.map(x => x.id)
+            this.$store
+              .dispatch("addUser/AddUserCompanies", payload)
+              .then(() => {
+                this.companies_d = [];
+                this.notification = {
+                  show: true,
+                  is_success: true,
+                  header: "Пользователь был добавлен успешно",
+                  content:
+                    "Теперь вы можете его увидеть в списке пользователей",
+                  btnFirst: "Вернуться",
+                  btnSecond: "Пользователи",
+                };
+              })
+              .catch((err) => {
+                this.notificationError = {
+                  show: true,
+                  is_success: false,
+                  header: "Error",
+                  content: `${err.response.data.detail}`,
+                  btnFirst: "Вернуться",
+                  btnSecond: "Список админов",
+                };
+              });
+          } else {
+            this.notification = {
+              show: true,
+              is_success: true,
+              header: "Пользователь был добавлен успешно",
+              content: "Теперь вы можете его увидеть в списке пользователей",
+              btnFirst: "Вернуться",
+              btnSecond: "Пользователи",
+            };
+          }
+        })
+        .catch((err) => {
+          this.notificationError = {
             show: true,
-            is_success: true,
-            header: "Пользователь был добавлен успешно",
-            content: "Теперь вы можете его увидеть в списке пользователей",
+            is_success: false,
+            header: "Error",
+            content: `${err.response.data.detail}`,
             btnFirst: "Вернуться",
-            btnSecond: "Пользователи",
+            btnSecond: "Список админов",
           };
-        }
-      });
+        });
     },
     handlerOne() {
       this.notification.show = false;
@@ -382,35 +466,27 @@ export default {
     handlerTwo() {
       this.$router.push("/users");
     },
-    Validate(step){
+    Validate(step) {
       if (step === 2) {
-      this.$validator.validate('email')
-      this.$validator.validate('role')
-      this.$validator.validate('full_name')
-      this.$validator.validate('tel').then(
-        () => {
+        this.$validator.validate("email");
+        this.$validator.validate("role");
+        this.$validator.validate("full_name");
+        this.$validator.validate("tel").then(() => {
           if (this.errors.items.length === 0) {
             this.currentstep = step;
           }
-        }
-      )
-      }
-     else if (step === 3) {
-      this.$validator.validate('savdo')
-      this.$validator.validate('user_name')
-      this.$validator.validate('password')
-      this.$validator.validate('confirm').then(
-        () => {
+        });
+      } else if (step === 3) {
+        this.$validator.validate("savdo");
+        this.$validator.validate("user_name");
+        this.$validator.validate("password");
+        this.$validator.validate("confirm").then(() => {
           if (this.errors.items.length === 0) {
-            this.currentstep = step
+            this.currentstep = step;
           }
-        }
-      )
+        });
       }
-    }
-  },
-  updated(){
-  //  console.log(this.companies_d);
+    },
   },
   created() {
     this.$store.dispatch("addUser/fetchRoles");
@@ -480,6 +556,34 @@ export default {
 }
 .form-input {
   margin: 25px 5px;
+  .drop {
+    width: 375px;
+    padding: 20px;
+    margin-top: 10px;
+    background: #f6f8fe;
+    border: 0.886581px solid #e3ebfc;
+    box-sizing: border-box;
+    /* Main Sahdow */
+    height: 180px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    box-shadow: 0px 3.82748px 8px rgba(70, 121, 236, 0.1);
+    border-radius: 8.86582px;
+    &::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    &::-webkit-scrollbar-track {
+      border-radius: 30px;
+      background: none;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #9fb4da;
+      border-radius: 30px;
+      border: 1px solid transparent;
+      background-clip: content-box;
+    }
+  }
 
   h4 {
     margin-bottom: 12px;
@@ -520,11 +624,7 @@ export default {
   font-weight: 500;
   font-size: 16px;
   line-height: 20px;
-  /* identical to box height */
-
-  /* Main txt */
-
-  color: #394560;
+  color: #60739f;
 }
 
 .form-group label:before {
@@ -535,8 +635,8 @@ export default {
   vertical-align: middle;
   cursor: pointer;
   margin-right: 10px;
-  width: 28px;
-  height: 28px;
+  width: 22px;
+  height: 22px;
   border: 1px solid #dae5fb;
   box-sizing: border-box;
   border-radius: 4.94118px;
@@ -547,9 +647,9 @@ export default {
   display: block;
   position: absolute;
   top: 2px;
-  left: 10px;
+  left: 7px;
   width: 6px;
-  height: 14px;
+  height: 12px;
   border: solid #4679ec;
   border-width: 0 3px 3px 0;
   border-radius: 2px;

@@ -8,18 +8,45 @@
       </thead>
       <tbody>
         <tr
-          v-for="(admin, i) in productList"
+          v-for="(admin, i) in productList.items"
           :key="i"
           @click="$router.push(`/product/${admin.id}`)"
         >
-        <td>{{ i + 1 }}</td>
+          <td>{{ i + 1 }}</td>
           <td>{{ admin.name }}</td>
           <td>{{ admin.company_name }}</td>
           <td>{{ admin.category_name }}</td>
-          <td style="padding-left: 40px !important" >{{ Number(admin.price).toLocaleString("de-DE") }} {{ $t('sum') }}</td>
+          <td style="padding-left: 40px !important">
+            {{ Number(admin.price).toLocaleString("de-DE") }} {{ $t("sum") }}
+          </td>
         </tr>
       </tbody>
     </table>
+    <nav>
+      <ul class="pagination">
+        <li class="page">
+          <button type="button" class="page-link" @click="changeM(page)">
+            <img src="../../assets/images/icons/arrow-right.svg" alt="search" />
+          </button>
+        </li>
+        <li class="page-center">
+          <button
+            type="button"
+            v-for="(pageNumber, i) in pages.slice(page -1, page + 5)"
+            :key="i"
+            :class="{ 'active': page === pageNumber }"
+            @click="ChangeA(page = pageNumber)"
+          >
+            {{ pageNumber }}
+          </button>
+        </li>
+        <li class="page">
+          <button type="button" @click="change(page)" class="page-link">
+            <img src="../../assets/images/icons/arrow-left.svg" alt="search" />
+          </button>
+        </li>
+      </ul>
+    </nav>
   </div>
 </template>
 
@@ -35,15 +62,66 @@ export default {
         { title: "Цена" },
       ],
       id: 1,
+      page: 1,
+      perPage: 20,
+      pages: [],
     };
   },
   computed: {
     productList() {
       return this.$store.state.addUser.products;
     },
+    product() {
+      return this.paginate(this.$store.state.addUser.products);
+    },
+  },
+    watch: {
+    productList() {
+      this.setPages();
+    },
+  },
+  methods: {
+    setPages() {
+      let numberOfPages = Math.ceil(
+        this.productList.total_products / this.perPage
+      );
+      for (let index = 1; index <= numberOfPages; index++) {
+        this.pages.push(index );
+      }
+    },
+    change(loq) {
+      console.log(loq);
+      if (loq === this.pages.length) {
+        this.page = this.pages.length;
+        this.$store.dispatch("addUser/fetchProducts", this.page);
+      } else {
+        this.page++;
+        this.$store.dispatch("addUser/fetchProducts", this.page);
+      }
+    },
+    changeM(loq) {
+      console.log(loq);
+      if (loq === 1) {
+        this.page = 1;
+        this.$store.dispatch("addUser/fetchProducts", loq);
+      } else {
+        this.page--;
+        this.$store.dispatch("addUser/fetchProducts", this.page);
+      }
+    },
+    ChangeA(val){
+      this.$store.dispatch("addUser/fetchProducts", val);
+    },
+    paginate(posts) {
+      let page = this.page;
+      let perPage = this.perPage;
+      let from = page * perPage - perPage;
+      let to = page * perPage;
+      return posts.slice(from, to);
+    },
   },
   created() {
-    this.$store.dispatch("addUser/fetchProducts", this.id );
+    this.$store.dispatch("addUser/fetchProducts", this.id);
   },
   mounted() {},
 };
