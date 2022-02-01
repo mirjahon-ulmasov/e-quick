@@ -1,13 +1,13 @@
 <template>
   <div>
-        <my-button
+        <!-- <my-button
           title="Добавить категорию"
           bgColor="#4679EC"
           color="#FFFFFF"
           :width="240"
           style="margin-bottom: 40px"
           @click.native="addAdmin()"
-        ></my-button>
+        ></my-button> -->
     <table id="table">
       <thead>
         <tr>

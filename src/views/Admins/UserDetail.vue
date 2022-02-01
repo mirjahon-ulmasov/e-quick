@@ -6,7 +6,7 @@
           <img src="../../assets/images/icons/user.svg" alt="user icon" />
           <div class="user-name">
             <h4>{{ user.full_name }}</h4>
-            <h4>{{ user.role }} <span>&bull;</span>@{{ user.username }}</h4>
+            <h4>{{ user.role }} <span>&bull;</span>{{ user.username }}</h4>
           </div>
         </div>
         <div class="user-header__second">
@@ -48,13 +48,10 @@
           <p>Savdo ID</p>
           <h4>{{ user.savdo_id }}</h4>
         </div>
-        <div class="user-detail">
+        <div class="user-detail" v-show="user.role === 'dealer'" >
           <p>Завод</p>
           <div class="factory">
-            <span class="item" v-for="(item, i) in dealer_company" :key="i" > AKFA </span>
-            <span class="item"> IMZO </span>
-            <span class="item"> BENKAM </span>
-            <span class="item"> AKFA </span>
+            <span class="item" v-for="(item, i) in dealer_company" :key="i" >{{ item.name }} </span>
           </div>
         </div>
       </div>
@@ -218,9 +215,11 @@ export default {
         display: flex;
         align-items: center;
         margin-top: 12px;
+            flex-wrap: wrap;
         .item {
           padding: 14px 40px;
           margin-right: 15px;
+          margin-bottom: 20px;
           height: 45px;
           background: #edf1fd;
           border-radius: 10px;

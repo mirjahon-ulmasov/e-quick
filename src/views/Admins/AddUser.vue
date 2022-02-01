@@ -7,7 +7,7 @@
         :currentstep="currentstep"
       >
       </step-navigation>
-      <div v-if="currentstep == 1">
+      <div v-show="currentstep === 1" data-vv-scope="step-1" >
         <div class="form-input">
           <h4>Выберите роль</h4>
           <v-select
@@ -16,6 +16,8 @@
             :options="roles"
             label="role"
             id="select-state"
+            name="role"
+            v-validate="'required'"
           >
             <template #open-indicator="{ attributes }">
               <span v-bind="attributes">
@@ -23,6 +25,14 @@
               </span>
             </template>
           </v-select>
+          <span class="error-text" v-show="errors.has('role')">
+            <feather-icon
+              :icon="'InfoIcon'"
+              style="color: #db2379 !important; margin-right: 5px"
+              svgClasses="h-6 w-6"
+            />
+            {{ errors.first("role") }}
+          </span>
         </div>
         <div class="form-input">
           <h4>Ф.И.О.</h4>
@@ -35,57 +45,152 @@
             v-validate="'required|min:5'"
           />
           <span class="error-text" v-show="errors.has('full_name')">
+            <feather-icon
+              :icon="'InfoIcon'"
+              style="color: #db2379 !important; margin-right: 5px"
+              svgClasses="h-6 w-6"
+            />
+            {{ errors.first("full_name") }}
+          </span>
+        </div>
+        <div class="form-input">
+          <h4>Телефон номера</h4>
+          <my-input
+            type="input"
+            :width="375"
+            :error="errors.has('tel')"
+            name="tel"
+            v-validate="'required|min:9|max:9|numeric'"
+            v-model="user.phone_number"
+          />
+          <span class="error-text" v-show="errors.has('tel')">
+            <feather-icon
+              :icon="'InfoIcon'"
+              style="color: #db2379 !important; margin-right: 5px"
+              svgClasses="h-6 w-6"
+            />
+            {{ errors.first("tel") }}
+          </span>
+        </div>
+        <div class="form-input">
+          <h4>Email</h4>
+          <my-input
+            type="email"
+            :width="375"
+            :error="errors.has('email')"
+            v-model="user.email"
+            name="email"
+            v-validate="'required|email'"
+          />
+          <span class="error-text" v-show="errors.has('email')">
+            <feather-icon
+              :icon="'InfoIcon'"
+              style="color: #db2379 !important; margin-right: 5px"
+              svgClasses="h-6 w-6"
+            />
+            {{ errors.first("email") }}
+          </span>
+        </div>
+      </div>
+      <div v-show="currentstep === 2" >
+        <div class="form-input">
+          <h4>Savdo ID</h4>
+          <my-input
+            type="text"
+            :width="375"
+            v-model="user.savdo_id"
+            name="savdo"
+            :error="errors.has('savdo')"
+            v-validate="'required|numeric'"
+          />
+          <span class="error-text" v-show="errors.has('savdo')">
+            <feather-icon
+              :icon="'InfoIcon'"
+              style="color: #db2379 !important; margin-right: 5px"
+              svgClasses="h-6 w-6"
+            />
+            {{ errors.first("savdo") }}
+          </span>
+        </div>
+      <div class="form-input">
+        <h4>Имя пользователя</h4>
+        <my-input
+          type="input"
+          :width="375"
+          v-model="user.username"
+          :error="errors.has('user_name')"
+          name="user_name"
+          v-validate="'required|min:4'"
+        />
+        <span class="error-text" v-show="errors.has('user_name')">
           <feather-icon
             :icon="'InfoIcon'"
             style="color: #db2379 !important; margin-right: 5px"
             svgClasses="h-6 w-6"
           />
-          {{ errors.first("full_name") }}
+          {{ errors.first("user_name") }}
         </span>
-        </div>
-        <div class="form-input">
-          <h4>Телефон номера</h4>
-          <my-input type="input" :width="375" v-model="user.phone_number" />
-        </div>
-        <div class="form-input">
-          <h4>Email</h4>
-          <my-input type="email" :width="375" v-model="user.email" />
-        </div>
       </div>
-      <div v-if="currentstep == 2">
-        <div class="form-input">
-          <h4>Savdo ID</h4>
-          <my-input type="text" :width="375" v-model="user.savdo_id" />
-        </div>
-        <div class="form-input">
-          <h4>Имя пользователя</h4>
-          <my-input type="input" :width="375" v-model="user.username" />
-        </div>
         <div class="form-input">
           <h4>{{ pass_title }}</h4>
-          <my-input type="password" :width="375" v-model="user.password" />
+          <my-input
+            type="password"
+            :width="375"
+            v-model="user.password"
+            :error="errors.has('password')"
+            name="password"
+            ref="password"
+            v-validate="'required|min:5'"
+          />
+          <span class="error-text" v-show="errors.has('password')">
+            <feather-icon
+              :icon="'InfoIcon'"
+              style="color: #db2379 !important; margin-right: 5px"
+              svgClasses="h-6 w-6"
+            />
+            {{ errors.first("password") }}
+          </span>
         </div>
         <div class="form-input">
           <h4>{{ confirm_title }}</h4>
-          <my-input type="password" :width="375" v-model="user.confirm" />
+          <my-input
+            type="password"
+            :width="375"
+            v-model="user.confirm"
+            :error="errors.has('confirm')"
+            name="confirm"
+            data-vv-as="password"
+            v-validate="'required|min:5|confirmed:password'"
+          />
+          <span class="error-text" v-show="errors.has('confirm')">
+            <feather-icon
+              :icon="'InfoIcon'"
+              style="color: #db2379 !important; margin-right: 5px"
+              svgClasses="h-6 w-6"
+            />
+            {{ errors.first("confirm") }}
+          </span>
         </div>
       </div>
-      <div v-if="currentstep == 3">
+      <div v-show="currentstep === 1" >
         <div class="form-input">
           <h4>Выберите завод</h4>
           <v-select
-            v-model="user.selected"
+            :multiple="true"
+            v-model="companies_d"
             style="width: 375px"
             :options="companies"
             label="name"
             id="select-state"
           >
-            <template #open-indicator="{ attributes }">
+            <template  #open-indicator="{ attributes }">
               <span v-bind="attributes">
                 <img src="../../assets/images/icons/select-icon.svg" alt="" />
               </span>
             </template>
+
           </v-select>
+          <!-- <img src="../../assets/images/icons/select-icon.svg" alt="" /> -->
         </div>
         <div class="sel">
           <div class="selected">
@@ -133,6 +238,16 @@
       >
       </step-controls>
     </div>
+    <v-notification
+      :isShow="notification.show"
+      :is_success="notification.is_success"
+      :header="notification.header"
+      :content="notification.content"
+      :btnFirst="notification.btnFirst"
+      :btnSecond="notification.btnSecond"
+      @handlerOne="handlerOne"
+      @handlerTwo="handlerTwo"
+    ></v-notification>
   </div>
 </template>
 <script>
@@ -154,16 +269,23 @@ export default {
         },
       ],
       user: {
-        full_name: "",
-        phone_number: "",
-        role: "",
-        email: "",
-        username: "",
-        email_notifications: false,
-        site_notifications: true,
-        password: "",
-        confirm: "",
+        full_name: null,
+        phone_number: null,
+        role: 'dealer',
+        email: null,
+        username: null,
+        password: null,
+        confirm: null,
         savdo_id: null,
+      },
+      companies_d: null,
+      notification: {
+        show: false,
+        is_success: true,
+        header: "",
+        content: "",
+        btnFirst: "",
+        btnSecond: "",
       },
       pass_title: "Пароль",
       confirm_title: "Потвердите пароль",
@@ -178,52 +300,117 @@ export default {
     },
   },
   methods: {
-    Steps(){
-      if (this.user.role.role === "dealer") {
-          this.steps = [
-            {
-              id: 1,
-            },
-            {
-              id: 2,
-            },
-            {
-              id: 3,
-            },
-          ];
-        } 
-        else {
-          this.steps = [
-            {
-              id: 1,
-            },
-            {
-              id: 2,
-            },
-          ];
-        }
-    },
-    Submit(){
-     console.log('what');
-    },
-    stepChanged(step) {
-      this.Steps()
-      if (step === 0) {
-        this.currentstep = 1;
-      } 
-      else {
-        if (this.currentstep >= this.steps.length) {
-          this.currentstep = this.steps.length
-          this.Submit()
-        }
-        else{
-          this.currentstep = step
-        }
+    Steps() {
+      if (this.user.role === 'dealer' || this.user.role.role === 'dealer' ) {
+       this.steps = [
+          {
+            id: 1,
+          },
+          {
+            id: 2,
+          },
+          {
+            id: 3,
+          },
+        ];
+      }
+      else{
+              this.steps = [
+          {
+            id: 1,
+          },
+          {
+            id: 2,
+          }
+        ];
       }
     },
-    Submit(){
-      console.log('ok');
+    stepChanged(step) {
+      this.Steps();
+      if (step === 0) {
+        this.currentstep = 1;
+      } else {
+        if (step === true) {
+          this.currentstep = this.steps.length;
+          this.Submit();
+        } 
+          else if(step === 2 || step === 3){
+            this.Validate(step)
+          }
+          else{
+            this.currentstep = step;
+          }
+      }
+    },
+    Submit() {
+      const payload = {
+        ...this.user,
+        role: this.user.role.role,
+      };
+      this.$store.dispatch("addUser/addItem", payload).then(() => {
+        this.user = {};
+        if (this.companies_d) {
+          this.$store
+            .dispatch("addUser/AddUserCompanies", payload)
+            .then(() => {
+              this.companies_d = [];
+              this.notification = {
+                show: true,
+                is_success: true,
+                header: "Пользователь был добавлен успешно",
+                content: "Теперь вы можете его увидеть в списке пользователей",
+                btnFirst: "Вернуться",
+                btnSecond: "Пользователи",
+              };
+            })
+            .catch((err) => {});
+        } else {
+          this.notification = {
+            show: true,
+            is_success: true,
+            header: "Пользователь был добавлен успешно",
+            content: "Теперь вы можете его увидеть в списке пользователей",
+            btnFirst: "Вернуться",
+            btnSecond: "Пользователи",
+          };
+        }
+      });
+    },
+    handlerOne() {
+      this.notification.show = false;
+    },
+    handlerTwo() {
+      this.$router.push("/users");
+    },
+    Validate(step){
+      if (step === 2) {
+      this.$validator.validate('email')
+      this.$validator.validate('role')
+      this.$validator.validate('full_name')
+      this.$validator.validate('tel').then(
+        () => {
+          if (this.errors.items.length === 0) {
+            this.currentstep = step;
+          }
+        }
+      )
+      }
+     else if (step === 3) {
+      this.$validator.validate('savdo')
+      this.$validator.validate('user_name')
+      this.$validator.validate('password')
+      this.$validator.validate('confirm').then(
+        () => {
+          if (this.errors.items.length === 0) {
+            this.currentstep = step
+          }
+        }
+      )
+      }
     }
+  },
+  updated(){
+  //  console.log(this.companies_d);
   },
   created() {
     this.$store.dispatch("addUser/fetchRoles");
