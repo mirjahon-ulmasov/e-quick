@@ -41,6 +41,8 @@ export default {};
   }
 
   p {
+    width: 50%;
+    display: inline-block;
     font-weight: 500;
     font-size: 18px;
     margin-top: 12px;
@@ -53,7 +55,7 @@ export default {};
     justify-content: center;
 
     & * {
-      margin: 1rem;
+      margin: 0 1rem;
     }
   }
 }
