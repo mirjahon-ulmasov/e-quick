@@ -108,6 +108,22 @@ export default {
           });
       });
   },
+    // FETCH COMPANIES BY ID
+
+    fetchCompanyID({ commit }, id) {
+      return new Promise((resolve, reject) => {
+        axios
+          .get(`/api/v1/companies/${id}`)
+          .then((response) => {
+            commit("SET_COMPANIES_ID", response.data);
+            resolve(response);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+  },
+
   // FETCH ALL DEALER COMPANIES BY DEALER ID
 
   fetchCompanyDealerID({ commit }, id) {
@@ -128,7 +144,7 @@ export default {
   fetchProducts({ commit }, id) {
     return new Promise((resolve, reject) => {
       axios
-        .get(`/api/v1/products/`)
+        .get(`/api/v1/products/page/${id}`)
         .then((response) => {
           commit("SET_Products", response.data);
           resolve(response);
@@ -138,6 +154,23 @@ export default {
         });
     });
 },
+
+  // FETCH PRODUCTS BY ID
+
+  fetchProductID({ commit }, id) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(`/api/v1/products/${id}`)
+        .then((response) => {
+          commit("SET_ProductsID", response.data)
+          resolve(response);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+},
+
 
 // GET COMPANY PARENTS
 

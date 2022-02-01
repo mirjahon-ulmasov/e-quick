@@ -212,6 +212,16 @@ const router = new Router({
           },
         },
         {
+          path: "/company/:id",
+          name: "companied",
+          component: () => import("./views/Admins/CompanyDetail.vue"),
+          meta: {
+            rule: "admin",
+            title: "Компании",
+          },
+          props: true,
+        },
+        {
           path: "/products",
           name: "products",
           component: () => import("./views/Admins/Products.vue"),
@@ -220,6 +230,16 @@ const router = new Router({
             link: "products",
             title: "Товары",
           },
+        },
+        {
+          path: "/product/:id",
+          name: "companies",
+          component: () => import("./views/Admins/ProductDetail.vue"),
+          meta: {
+            rule: "admin",
+            title: "Товары",
+          },
+          props: true,
         },
         {
           path: "/categories",

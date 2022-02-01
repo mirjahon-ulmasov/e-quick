@@ -5,7 +5,9 @@ export default {
   notisfy: [],
   not_seen: [],
   companies: [], 
+  company_id: [],
   products: [],
+  product_detail: [],
   dealer_company: [],
   parent_companies: []
 }
