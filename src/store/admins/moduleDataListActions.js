@@ -16,7 +16,7 @@ export default {
         });
     });
   },
-   // FETCH USERs USER
+  // FETCH USERs USER
 
   fetchDataListItems({ commit }) {
     return new Promise((resolve, reject) => {
@@ -31,14 +31,14 @@ export default {
         });
     });
   },
-    // UPDATE USER
+  // UPDATE USER
 
   updateItem({ commit }, item) {
     return new Promise((resolve, reject) => {
       axios
         .put(`/api/v1/users/${item.id}`, item)
         .then((response) => {
-          // commit("UPDATE_User", response.data);
+          commit("SET_UserById", response.data);
           resolve(response);
         })
         .catch((error) => {
@@ -96,32 +96,32 @@ export default {
   // FETCH ALL COMPANIES
 
   fetchCompany({ commit }, id) {
-      return new Promise((resolve, reject) => {
-        axios
-          .get(`/api/v1/companies`)
-          .then((response) => {
-            commit("SET_COMPANIES", response.data);
-            resolve(response);
-          })
-          .catch((error) => {
-            reject(error);
-          });
-      });
+    return new Promise((resolve, reject) => {
+      axios
+        .get(`/api/v1/companies`)
+        .then((response) => {
+          commit("SET_COMPANIES", response.data);
+          resolve(response);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
   },
-    // FETCH COMPANIES BY ID
+  // FETCH COMPANIES BY ID
 
-    fetchCompanyID({ commit }, id) {
-      return new Promise((resolve, reject) => {
-        axios
-          .get(`/api/v1/companies/${id}`)
-          .then((response) => {
-            commit("SET_COMPANIES_ID", response.data);
-            resolve(response);
-          })
-          .catch((error) => {
-            reject(error);
-          });
-      });
+  fetchCompanyID({ commit }, id) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(`/api/v1/companies/${id}`)
+        .then((response) => {
+          commit("SET_COMPANIES_ID", response.data);
+          resolve(response);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
   },
 
   // FETCH ALL DEALER COMPANIES BY DEALER ID
@@ -138,7 +138,7 @@ export default {
           reject(error);
         });
     });
-},
+  },
   // FETCH ALL PRODUCTS LIST
 
   fetchProducts({ commit }, id) {
@@ -153,7 +153,7 @@ export default {
           reject(error);
         });
     });
-},
+  },
 
   // FETCH PRODUCTS BY ID
 
@@ -162,40 +162,45 @@ export default {
       axios
         .get(`/api/v1/products/${id}`)
         .then((response) => {
-          commit("SET_ProductsID", response.data)
+          commit("SET_ProductsID", response.data);
           resolve(response);
         })
         .catch((error) => {
           reject(error);
         });
     });
-},
+  },
 
+  // GET COMPANY PARENTS
 
-// GET COMPANY PARENTS
+  fetchDataCompanies({ commit }) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get("/api/v1/companies_parents")
+        .then((response) => {
+          commit("SET_COMPANIES1", response.data);
+          resolve(response);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  },
 
-fetchDataCompanies ({ commit }) {
-  return new Promise((resolve, reject) => {
-    axios.get('/api/v1/companies_parents')
-      .then((response) => {
-        commit('SET_COMPANIES1', response.data)
-        resolve(response)
-      })
-      .catch((error) => { reject(error) })
-  })
-},
+  // ADDING COMPANY FOR USER
 
-// ADDING COMPANY FOR USER
-
-AddUserCompanies ({ commit }, payload) {
-  return new Promise((resolve, reject) => {
-    axios.post('/api/v1/company_group/dealer', (payload))
-      .then((response) => {
-        resolve(response)
-      })
-      .catch((error) => { reject(error) })
-  })
-},
+  AddUserCompanies({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      axios
+        .post("/api/v1/company_group/dealer", payload)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  },
 
   NotisfyGet({ commit }) {
     return new Promise((resolve, reject) => {

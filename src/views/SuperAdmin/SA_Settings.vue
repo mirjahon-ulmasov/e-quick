@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="$route.path === '/setting'" class="user-profile">
+    <div v-if="$route.path === '/setting' && user" class="user-profile">
       <div class="user-header">
         <div class="user-header__first">
           <img
@@ -27,8 +27,8 @@
             accept="image/*"
           />
           <div class="user-name">
-            <h4>{{ info.full_name }}</h4>
-            <h4>{{ info.role }}</h4>
+            <h4>{{ user.full_name }}</h4>
+            <h4>{{ user.role }}</h4>
           </div>
         </div>
         <div class="user-header__second">
@@ -42,14 +42,7 @@
               />
               <span> Сменить фото </span>
             </div>
-            <router-link
-              v-if="
-                this.$store.state.userType === 'super_admin' ||
-                $acl.check('super_admin')
-              "
-              class="item"
-              to="/setting/edit"
-            >
+            <router-link class="item" to="/setting/edit">
               <img
                 src="../../assets/images/icons/edit.svg"
                 style="margin-right: 12px"
@@ -65,19 +58,24 @@
           <h3 class="head">Персональные данные</h3>
           <div class="user-detail">
             <p>Имя</p>
-            <h4>{{ info.full_name }}</h4>
+            <h4>{{ user.full_name }}</h4>
           </div>
           <div class="user-detail">
             <p>Имя пользователя</p>
-            <h4>{{ info.username }}</h4>
+            <h4>{{ user.username }}</h4>
           </div>
           <div class="user-detail">
             <p>Телефон номера</p>
-            <h4>{{ info.phone_number }}</h4>
+            <h4>
+              +998 {{ user.phone_number.substring(0, 2) }}
+              {{ user.phone_number.substring(2, 5) }}-{{
+                user.phone_number.substring(5, 7)
+              }}-{{ user.phone_number.substring(7) }}
+            </h4>
           </div>
           <div class="user-detail">
             <p>Email</p>
-            <h4>{{ info.email }}</h4>
+            <h4>{{ user.email }}</h4>
           </div>
         </div>
         <div class="user-details">
@@ -112,41 +110,35 @@
 </template>
 
 <script>
-import Rate from "../../components/rate.vue";
 import Compressor from "compressorjs";
-import Button from "../../components/Button.vue";
 export default {
-  components: {
-    Rate,
-    Button,
-  },
-  computed: {
-    info() {
-      return this.$store.state.auth.info;
-    },
-  },
+  name: "SA_Settings",
   data() {
     return {
-      swich: true,
       site_notifications: false,
       email_notifications: false,
-      name: "",
-      surname: "",
-      email: "",
-      password: "",
-      showPassword1: false,
-      showPassword2: false,
-      old_password: "",
-      message: "",
-      rating: 4,
-      scale: null,
       quality1: null,
       image: null,
       img: null,
       baseUrl: process.env.VUE_APP_IMG,
     };
   },
-  name: "Settings",
+  created() {
+    this.$store
+      .dispatch("addUser/fetchUserById", this.$route.meta.id)
+      .then(() => {
+        this.email_notifications = this.user.email_notifications === "active";
+        this.site_notifications = this.user.site_notifications === "active";
+      });
+  },
+  computed: {
+    user() {
+      return this.$store.state.addUser.detail;
+    },
+    info() {
+      return this.$store.state.auth.info;
+    },
+  },
   methods: {
     upload() {
       let compressor = this.$refs.updateImgInput;
@@ -175,7 +167,6 @@ export default {
       setTimeout(() => {
         if (this.quality1.result.size < 1000000) {
           const reader = new FileReader();
-          console.log(this.quality1);
           reader.readAsDataURL(this.quality1.result);
           reader.onload = (event) => {
             this.image = event.target.result;
@@ -208,16 +199,6 @@ export default {
       }, 1000);
     },
   },
-  created() {
-    this.$store
-      .dispatch("addUser/fetchUserById", this.$route.meta.id)
-      .then((res) => res.data)
-      .then((user) => {
-        this.email_notifications = user.email_notifications === "active";
-        this.site_notifications = user.site_notifications === "active";
-      });
-  },
-  mounted() {},
 };
 </script>
 

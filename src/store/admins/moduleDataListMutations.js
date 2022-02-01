@@ -8,16 +8,11 @@ export default {
   SET_Roles(state, roles) {
     state.roles = roles;
   },
-  UPDATE_User(state, admins) {
-    const productIndex = state.admins.findIndex((p) => p.id === admins.id);
-    Object.assign(state.admins[productIndex], admins);
-  },
   SET_UserById(state, detail) {
     state.detail = detail;
   },
   SET_Notisfy(state, notisfy) {
     state.notisfy = notisfy;
-    // state.not_seen = notisfy.filter(x => x.status !== 'SEEN')
   },
   SET_notseen(state, notisfy) {
     state.not_seen = notisfy.filter((x) => x.status !== "SEEN");

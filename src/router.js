@@ -213,7 +213,7 @@ const router = new Router({
         },
         {
           path: "/company/:id",
-          name: "companied",
+          name: "companiesDetail",
           component: () => import("./views/Admins/CompanyDetail.vue"),
           meta: {
             rule: "admin",
@@ -233,7 +233,7 @@ const router = new Router({
         },
         {
           path: "/product/:id",
-          name: "companies",
+          name: "product",
           component: () => import("./views/Admins/ProductDetail.vue"),
           meta: {
             rule: "admin",

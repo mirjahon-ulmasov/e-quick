@@ -14,7 +14,12 @@
         >
           <td>{{ i + 1 }}</td>
           <td>{{ admin.full_name }}</td>
-          <td>{{ admin.phone_number }}</td>
+          <td>
+            {{ admin.phone_number.substring(0, 2) }}
+            {{ admin.phone_number.substring(2,5) }}
+            {{ admin.phone_number.substring(5,7) }}
+            {{ admin.phone_number.substring(7) }}
+          </td>
           <td>{{ admin.username }}</td>
           <td>{{ admin.role }}</td>
           <td>

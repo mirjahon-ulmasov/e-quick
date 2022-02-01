@@ -36,7 +36,13 @@
           </div>
           <div class="user-detail">
             <p>Телефон номера</p>
-            <h4>{{ user.phone_number }}</h4>
+            <h4>
+              +998 {{ user.phone_number.substring(0, 2) }} {{
+                user.phone_number.substring(2, 5)
+              }}-{{ user.phone_number.substring(5, 7) }}-{{
+                user.phone_number.substring(7)
+              }}
+            </h4>
           </div>
           <div class="user-detail">
             <p>Имя пользователя</p>
