@@ -30,7 +30,7 @@ if (localStorage.getItem('access')) {
 }
 export default new AclCreate({
   initial  : initialRole,
-  notfound : '/login',
+  notfound : '/404',
   router,
   acceptLocalRules : true,
   globalRules: {

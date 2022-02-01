@@ -12,6 +12,7 @@
           :key="i"
           @click="$router.push(`/admins/${admin.id}`)"
         >
+          <td>{{ i + 1 }}</td>
           <td>{{ admin.full_name }}</td>
           <td>{{ admin.phone_number }}</td>
           <td>{{ admin.username }}</td>
@@ -33,6 +34,7 @@ export default {
   data() {
     return {
       headers: [
+        { title: "№" },
         { title: "Ф.И.О." },
         { title: "Телефон номера" },
         { title: "Имя пользователя" },

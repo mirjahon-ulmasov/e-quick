@@ -156,22 +156,17 @@
         width: initial;
         margin-bottom: 0;
         display: none;
-        cursor: pointer;
       }
 
       .form-group label {
         position: relative;
-        cursor: pointer;
         font-family: Montserrat;
         font-style: normal;
         font-weight: 500;
         font-size: 16px;
         line-height: 20px;
-        /* identical to box height */
-
-        /* Main txt */
-
         color: #394560;
+        opacity: 0.5;
       }
 
       .form-group label:before {
@@ -180,7 +175,6 @@
         //   padding: 10px;
         display: inline-block;
         vertical-align: middle;
-        cursor: pointer;
         margin-right: 10px;
         width: 28px;
         height: 28px;

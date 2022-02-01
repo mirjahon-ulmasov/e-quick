@@ -116,7 +116,7 @@
           src="../assets/images/icons/add-user-light.svg"
           alt="add user icon"
         />
-        Добавить админ</router-link
+        Добавить админа</router-link
       >
       <router-link to="/admins" class="nav-link">
         <b></b>

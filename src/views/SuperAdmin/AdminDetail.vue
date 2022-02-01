@@ -6,7 +6,7 @@
           <img src="../../assets/images/icons/user.svg" alt="user icon" />
           <div class="user-name">
             <h4>{{ user.full_name }}</h4>
-            <h4>{{ user.role }} <span>&bull;</span>@{{ user.username }}</h4>
+            <h4>{{ user.role }} <span>&bull;</span>{{ user.username }}</h4>
           </div>
         </div>
         <div class="user-header__second">
@@ -24,6 +24,7 @@
       </div>
       <div style="display: flex; justify-content: space-between">
         <div class="user-details">
+          <h3 class="head">Персональные данные</h3>
           <div class="user-detail">
             <p>Роль</p>
             <h4>{{ user.role }}</h4>
@@ -39,7 +40,7 @@
           </div>
           <div class="user-detail">
             <p>Имя пользователя</p>
-            <h4>@{{ user.username }}</h4>
+            <h4>{{ user.username }}</h4>
           </div>
           <div class="user-detail">
             <p>Email</p>
@@ -116,6 +117,18 @@ export default {
         btnSecond: "Удалить",
       };
     },
+    handlerOne() {
+      this.notification = {
+        show: false,
+        header: "",
+        content: "",
+        btnFirst: "",
+        btnSecond: "",
+      };
+      if (!this.isDeleted) {
+        this.$router.push("/admins");
+      }
+    },
     handlerTwo() {
       if (this.isDeleted) {
         this.$store
@@ -126,20 +139,11 @@ export default {
               is_success: true,
               header: "Пользователь был удален успешно",
               content: "",
-              btnFirst: "Вернуться",
-              btnSecond: "Список админов",
+              btnFirst: "Список админов",
             };
             this.isDeleted = false;
           })
           .catch((err) => console.log(err));
-      } else {
-        this.$router.push("/admins");
-      }
-    },
-    handlerOne() {
-      this.notification.show = false;
-      if (!this.isDeleted) {
-        this.$router.push("/admins");
       }
     },
   },
@@ -232,24 +236,6 @@ export default {
   }
   .user-details {
     margin-top: 3rem;
-    .user-detail {
-      margin: 1.5rem 0;
-
-      p {
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 20px;
-        color: #394560;
-      }
-
-      h4 {
-        font-weight: 600;
-        font-size: 18px;
-        line-height: 22px;
-        color: #394560;
-        margin-top: 10px;
-      }
-    }
   }
 }
 </style>

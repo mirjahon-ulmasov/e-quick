@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="isShow" class="background">
+    <div v-if="isShow && (headerTrans || contentTrans)" class="background">
       <div class="notification">
         <img
           src="../assets/images/icons/close.svg"
@@ -14,8 +14,8 @@
             :src="is_success ? successImg : errImg"
             alt="Error"
           />
-          <h3>{{ header }}</h3>
-          <p>{{ content }}</p>
+          <h3>{{ headerTrans }}</h3>
+          <p>{{ contentTrans }}</p>
         </div>
         <div class="notif__actions">
           <my-button
@@ -24,15 +24,16 @@
             :title="btnFirst"
             bgColor="#EDF1FD"
             color="#4679EC"
-            @click.native="firstHandler"
+            @click.native="firstHandler()"
           ></my-button>
           <my-button
+            v-if="btnSecond"
             type="button"
             :width="230"
             color="#FFF"
             :title="btnSecond"
             :bgColor="is_success ? '#4679EC' : '#DB2379'"
-            @click.native="secondHandler"
+            @click.native="secondHandler()"
           ></my-button>
         </div>
       </div>
@@ -41,12 +42,15 @@
 </template>
 
 <script>
+import translate from "translate";
+
 export default {
   data() {
     return {
       errImg: require("../assets/images/icons/error.svg"),
       successImg: require("../assets/images/icons/success.svg"),
-
+      headerTrans: "",
+      contentTrans: "",
     };
   },
   props: {
@@ -77,12 +81,16 @@ export default {
   },
   methods: {
     firstHandler() {
-    //   this.isShow = !this.isShow;
       this.$emit("handlerOne");
     },
     secondHandler() {
       this.$emit("handlerTwo");
     },
+  },
+
+  async updated() {
+    this.headerTrans = this.header ? await translate(this.header, "ru") : "";
+    this.contentTrans = this.content ? await translate(this.content, "ru") : "";
   },
 };
 </script>

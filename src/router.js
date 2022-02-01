@@ -78,7 +78,7 @@ const router = new Router({
           meta: {
             rule: "super_admin",
             link: "add-admin",
-            title: "Добавить админ",
+            title: "Добавить админа",
           },
         },
         {
@@ -190,7 +190,7 @@ const router = new Router({
           children: [
             {
               path: "editing",
-              name: "AD_Edit",
+              name: "UserEdit",
               component: () => import("./views/Admins/Edit.vue"),
               meta: {
                 rule: "admin",
@@ -282,11 +282,19 @@ const router = new Router({
             rule: "editor",
           },
         },
+        {
+          path: "/404",
+          name: "404",
+          component: () => import("./views/PageNotFound.vue"),
+          meta: {
+            rule: "editor",
+          },
+        },
       ],
     },
     {
-      path: "*",
-      redirect: "/dealer/main",
+      path: "/*",
+      redirect: "/404",
     },
   ],
 });
@@ -298,7 +306,7 @@ router.afterEach(() => {
   }
 });
 router.beforeEach((to, from, next) => {
-  const publicPages = ["/login", "/forget-password"];
+  const publicPages = ["/login", "/forget-password", "/404"];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem("access");
   if (authRequired && !loggedIn) {

@@ -12,6 +12,7 @@
     "compressorjs": "^1.1.1",
     "material-icons": "^0.3.1",
     "regenerator-runtime": "^0.13.9",
+    "translate": "^1.4.1",
     "vee-validate": "^2.2.8",
     "vue": "^2.6.10",
     "vue-acl": "4.0.7",
