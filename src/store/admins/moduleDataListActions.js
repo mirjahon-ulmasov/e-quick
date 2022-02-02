@@ -171,6 +171,25 @@ export default {
     });
   },
 
+  
+  // FETCH SEARCH PRODUCTS 
+
+  fetchProductSearch({ commit }, obj) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(`/api/v1/products/search/${obj.page}/`,
+        { params: { name: obj.name } }
+        )
+        .then((response) => {
+          commit("SET_ProductsID", response.data);
+          resolve(response);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  },
+
   // GET COMPANY PARENTS
 
   fetchDataCompanies({ commit }) {
@@ -201,7 +220,22 @@ export default {
         });
     });
   },
+  
+    // COMPANY DEALER DEALER
 
+    DeleteDealerCompany({ commit }, payload) {
+      console.log(payload)
+      return new Promise((resolve, reject) => {
+        axios
+          .delete("/api/v1/dealer_company/delete", payload.dealer_id, payload.company_id)
+          .then((response) => {
+            resolve(response);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
   NotisfyGet({ commit }) {
     return new Promise((resolve, reject) => {
       axios

@@ -137,7 +137,7 @@ export default {
   },
   created() {
     this.$store.dispatch("addUser/fetchUserById", this.id);
-    this.$store.dispatch("addUser/fetchCompanyDealerID", this.id);
+    this.$store.dispatch("addUser/fetchCompanyDealerID", this.id)
   },
 };
 </script>

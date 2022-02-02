@@ -1,5 +1,11 @@
 <template>
   <div>
+    <div class="field">
+      <input type="search" v-model="search" @keypress.enter="Search(search)" placeholder="Поиск по названием" />
+      <button class="search-icon">
+        <img src="../../assets/images/icons/filter.svg" alt="search" />
+      </button>
+    </div>
     <table id="table">
       <thead>
         <tr>
@@ -32,10 +38,10 @@
         <li class="page-center">
           <button
             type="button"
-            v-for="(pageNumber, i) in pages.slice(page -1, page + 5)"
+            v-for="(pageNumber, i) in pages.slice(page - 1, page + 5)"
             :key="i"
-            :class="{ 'active': page === pageNumber }"
-            @click="ChangeA(page = pageNumber)"
+            :class="{ active: page === pageNumber }"
+            @click="ChangeA((page = pageNumber))"
           >
             {{ pageNumber }}
           </button>
@@ -61,6 +67,7 @@ export default {
         { title: "Категория" },
         { title: "Цена" },
       ],
+      search: "",
       id: 1,
       page: 1,
       perPage: 20,
@@ -75,7 +82,7 @@ export default {
       return this.paginate(this.$store.state.addUser.products);
     },
   },
-    watch: {
+  watch: {
     productList() {
       this.setPages();
     },
@@ -86,7 +93,7 @@ export default {
         this.productList.total_products / this.perPage
       );
       for (let index = 1; index <= numberOfPages; index++) {
-        this.pages.push(index );
+        this.pages.push(index);
       }
     },
     change(loq) {
@@ -109,7 +116,7 @@ export default {
         this.$store.dispatch("addUser/fetchProducts", this.page);
       }
     },
-    ChangeA(val){
+    ChangeA(val) {
       this.$store.dispatch("addUser/fetchProducts", val);
     },
     paginate(posts) {
@@ -119,6 +126,13 @@ export default {
       let to = page * perPage;
       return posts.slice(from, to);
     },
+    Search(search){
+      const obj = {
+        page: this.page,
+        name: search
+      }
+      this.$store.dispatch("addUser/fetchProductSearch", obj);
+    }
   },
   created() {
     this.$store.dispatch("addUser/fetchProducts", this.id);
@@ -130,5 +144,45 @@ export default {
 <style lang="scss" scoped>
 #table {
   width: 100%;
+}
+.field {
+  height: 50px;
+  margin: 30px 0px 50px 0px;
+  display: flex;
+  input {
+    height: 100%;
+    width: 92%;
+    padding: 14px 20px;
+    background: #f6f8fe;
+    border: 0.886581px solid #e3ebfc;
+    box-sizing: border-box;
+    border-radius: 8.86582px;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #8f9dbc;
+    &::placeholder {
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 20px;
+      color: #8f9dbc;
+    }
+  }
+  .search-icon {
+    background: #f6f8fe;
+    border: 0.886581px solid #e3ebfc;
+    box-sizing: border-box;
+    border-radius: 8.86582px;
+    width: 6%;
+    margin-left: 22px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 </style>

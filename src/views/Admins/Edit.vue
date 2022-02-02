@@ -199,6 +199,7 @@
             </my-input>
             <button
               class="plus"
+              type="button"
               @click="real_companies = companies_d"
               v-if="companies_d.length !== 0"
               style="
@@ -236,19 +237,34 @@
             </div>
           </div>
         </div>
-        <span class="error-text" v-show="!have">
+        <!-- <span class="error-text" v-show="!have">
           <feather-icon
             :icon="'InfoIcon'"
             style="color: #db2379 !important; margin-right: 5px"
             svgClasses="h-6 w-6"
           />
           Field required
-        </span>
+        </span> -->
         <div class="sel" v-show="real_companies">
           <div class="selected" v-for="(item, i) in real_companies" :key="i">
             <span> {{ item.name }} </span>
             <feather-icon
               @click="remove(item)"
+              :icon="'XIcon'"
+              style="
+                color: #4679ec !important;
+                margin-left: 20px;
+                cursor: pointer;
+              "
+              svgClasses="h-6 w-6"
+            />
+          </div>
+        </div>
+        <div class="sel" v-show="old_companies">
+          <div class="selected" v-for="(item, i) in old_companies" :key="i">
+            <span> {{ item.name }} </span>
+            <feather-icon
+              @click="removeBack(item)"
               :icon="'XIcon'"
               style="
                 color: #4679ec !important;
@@ -328,12 +344,12 @@ export default {
       old_password: "",
       companies_d: [],
       real_companies: null,
-      search: '',
+      search: "",
       drop: false,
     };
   },
-  computed:{
-        filter() {
+  computed: {
+    filter() {
       if (this.search) {
         return this.companies.filter((item) => {
           return this.search
@@ -346,28 +362,19 @@ export default {
       }
     },
     companies() {
-      return this.$store.state.addUser.parent_companies;
+      return this.$store.state.addUser.parent_companies.filter(
+        (ar) =>
+          !this.old_companies.find(
+            (rm) => rm.id === ar.id && ar.name === rm.name
+          )
+      );
+    },
+    old_companies() {
+      return this.$store.state.addUser.dealer_company;
     },
     have() {
       return this.real_companies !== null;
     },
-  },
-  created() {
-    if (this.$route.meta.id) this.editID = this.$route.meta.id;
-    if (this.id) this.editID = this.id;
-
-    this.$store
-      .dispatch("addUser/fetchUserById", this.editID)
-      .then((res) => res.data)
-      .then((user) => {
-        this.user = {
-          ...user,
-          site_notifications: user.site_notifications === "active",
-          email_notifications: user.email_notifications === "active",
-        };
-      })
-      .catch((err) => console.log(err));
-      this.$store.dispatch("addUser/fetchDataCompanies");
   },
   methods: {
     handlerOne() {
@@ -383,6 +390,42 @@ export default {
         show: false,
         content: "",
       };
+    },
+    remove(index) {
+      this.real_companies.splice(index, 1);
+    },
+    removeBack(index) {
+      this.$store.dispatch("addUser/DeleteDealerCompany", {
+        dealer_id: parseInt(this.id),
+        company_id: index.id,
+      });
+    },
+    companyAdd() {
+      const id = this.real_companies.map((x) => x.id);
+      const payload = {
+        dealer_id: parseInt(this.id),
+        company_list: id,
+      };
+        console.log("kirdiku");
+        this.$store
+          .dispatch("addUser/AddUserCompanies", payload)
+          .then(() => {
+            this.companies_d = [];
+            this.notification = {
+              show: true,
+              is_success: true,
+              header: "Пользователь был добавлен успешно",
+              content: "Теперь вы можете его увидеть в списке пользователей",
+              btnFirst: "Вернуться",
+              btnSecond: "Пользователи",
+            };
+          })
+          .catch((err) => {
+            this.notificationError = {
+              show: true,
+              content: `${err.response.data.detail}`,
+            };
+          });
     },
     submitHandler() {
       this.$validator.validateAll().then((isValid) => {
@@ -401,13 +444,18 @@ export default {
             })
             .then((res) => {
               if (this.id) {
+                if (this.user.role === 'dealer' && this.real_companies !== null ) {
+                  this.companyAdd()
+                }
+               else{
                 this.notification = {
                   show: true,
                   header: "Пользователь был изменён успешно",
                   content:
-                    "Теперь вы можете увидеть изменения в списке админов",
+                    "Теперь вы можете увидеть изменения в списке Пользователи",
                   btnSecond: "Пользователи",
                 };
+               }
               } else {
                 this.notification = {
                   show: true,
@@ -453,7 +501,24 @@ export default {
       this.old_password = "";
     },
   },
+  created() {
+    if (this.$route.meta.id) this.editID = this.$route.meta.id;
+    if (this.id) this.editID = this.id;
 
+    this.$store
+      .dispatch("addUser/fetchUserById", this.editID)
+      .then((res) => res.data)
+      .then((user) => {
+        this.user = {
+          ...user,
+          site_notifications: user.site_notifications === "active",
+          email_notifications: user.email_notifications === "active",
+        };
+      })
+      .catch((err) => console.log(err));
+    this.$store.dispatch("addUser/fetchDataCompanies");
+    this.$store.dispatch("addUser/fetchCompanyDealerID", this.id);
+  },
   destroyed() {
     this.reset();
   },
