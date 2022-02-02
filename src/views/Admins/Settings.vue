@@ -72,7 +72,12 @@
           </div>
           <div class="user-detail">
             <p>Телефон номера</p>
-            <h4>{{ info.phone_number }}</h4>
+            <h4>
+              +998 {{ info.phone_number.substring(0, 2) }}
+              {{ info.phone_number.substring(2, 5) }}-{{
+                info.phone_number.substring(5, 7)
+              }}-{{ info.phone_number.substring(7) }}
+            </h4>
           </div>
           <div class="user-detail">
             <p>Email</p>
