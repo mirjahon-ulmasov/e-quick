@@ -8,6 +8,7 @@ import Notification from "./components/Notification.vue";
 import StepControls from './components/wizard/stepcontrols.vue'
 import StepNav from './components/wizard/stepnav.vue'
 import Step from './components/wizard/step.vue'
+import Sidebar from './components/sidebar.vue'
 // v-select component
 import "vue-select/dist/vue-select.css";
 import vSelect from "vue-select";
@@ -45,3 +46,4 @@ Vue.component("v-notification", Notification);
 Vue.component('step-navigation-step', Step);
 Vue.component('step-navigation', StepNav);
 Vue.component('step-controls', StepControls);
+Vue.component('sidebar', Sidebar);

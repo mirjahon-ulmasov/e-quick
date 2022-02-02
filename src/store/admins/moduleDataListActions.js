@@ -181,7 +181,7 @@ export default {
         { params: { name: obj.name } }
         )
         .then((response) => {
-          commit("SET_ProductsID", response.data);
+          commit("SET_Products", response.data);
           resolve(response);
         })
         .catch((error) => {
@@ -189,7 +189,19 @@ export default {
         });
     });
   },
-
+    // Get product by category id
+    GetProduct ({ commit }, obj) {
+        return new Promise((resolve, reject) => {
+          axios.get('api/v1/subcategory/' + `${obj.id}/products`,
+          { params: { page: obj.page  } }
+          )
+            .then((response) => {
+              commit("SET_Products", response.data);
+              resolve(response)
+            })
+            .catch((error) => { reject(error) })
+        })
+    },
   // GET COMPANY PARENTS
 
   fetchDataCompanies({ commit }) {

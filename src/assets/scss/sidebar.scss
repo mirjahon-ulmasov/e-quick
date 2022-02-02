@@ -1,0 +1,44 @@
+.overlay {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.45);
+    .sidebar {
+      position: fixed;
+      transition: 0.3s;
+      width: 430px;
+      height: 100%;
+      top: 0;
+      padding: 20px;
+      right: 0;
+      background: #ffffff;
+      box-shadow: 0px -4px 14px rgba(255, 255, 255, 0.1),
+        -2px 4px 9px rgba(70, 121, 236, 0.1);
+      border-radius: 0px;
+      .actions {
+        margin-top: 10px;
+        .icon {
+          float: right;
+          color: #4679ec;
+          background: #edf1fd;
+          cursor: pointer;
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+        }
+      }
+    }
+  }
+    .show {
+      &-enter, &-leave-to {
+        opacity: 0;
+        transform: translateX(20px);
+      }
+      &-enter-active, &-leave-active {
+        transition: all 500ms;
+      }
+    }

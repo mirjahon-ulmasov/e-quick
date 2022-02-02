@@ -1,9 +1,18 @@
 <template>
   <div>
     <div class="field">
-      <input type="search" v-model="search" @keypress.enter="Search(search)" placeholder="Поиск по названием" />
+      <input
+        type="search"
+        v-model="search"
+        @keyup.enter="Search(search)"
+        placeholder="Поиск по названием"
+      />
       <button class="search-icon">
-        <img src="../../assets/images/icons/filter.svg" alt="search" />
+        <img
+          src="../../assets/images/icons/filter.svg"
+          @click="open = true"
+          alt="search"
+        />
       </button>
     </div>
     <table id="table">
@@ -14,7 +23,7 @@
       </thead>
       <tbody>
         <tr
-          v-for="(admin, i) in productList.items"
+          v-for="(admin, i) in productList.items || productList.results"
           :key="i"
           @click="$router.push(`/product/${admin.id}`)"
         >
@@ -28,7 +37,10 @@
         </tr>
       </tbody>
     </table>
-    <nav>
+    <span v-if="productList.total_products === 0" class="not">
+      Результаты не найдены
+    </span>
+    <nav v-if="productList.total_products !== 0">
       <ul class="pagination">
         <li class="page">
           <button type="button" class="page-link" @click="changeM(page)">
@@ -53,6 +65,70 @@
         </li>
       </ul>
     </nav>
+    <transition name="show">
+      <div class="overlay" v-show="open">
+        <div class="sidebar">
+          <div class="actions">
+            <feather-icon
+              :icon="'XIcon'"
+              @click="Hide()"
+              class="icon"
+              svgClasses="h-6 w-9"
+            />
+          </div>
+          <div class="body">
+            <h2 class="filter">Фильтры</h2>
+            <form @submit.prevent="FilterProduct()">
+              <div class="form-input">
+                <h4>Выберите завод</h4>
+                <v-select
+                  :options="company"
+                  label="name"
+                  @input="getCat()"
+                  v-model="activeCategory"
+                  id="select-state"
+                >
+                  <template #open-indicator="{ attributes }">
+                    <span v-bind="attributes">
+                      <img
+                        src="../../assets/images/icons/select-icon.svg"
+                        alt=""
+                      />
+                    </span>
+                  </template>
+                </v-select>
+              </div>
+              <div class="form-input">
+                <h4>Выберите категорию</h4>
+                <v-select
+                  :options="category"
+                  v-model="activePod"
+                  label="name"
+                  id="select-state"
+                >
+                  <template #open-indicator="{ attributes }">
+                    <span v-bind="attributes">
+                      <img
+                        src="../../assets/images/icons/select-icon.svg"
+                        alt=""
+                      />
+                    </span>
+                  </template>
+                </v-select>
+              </div>
+              <div class="actions">
+                <my-button
+                  style="margin-left: 9px"
+                  type="submit"
+                  :width="375"
+                  title="Применить"
+                ></my-button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -67,7 +143,11 @@ export default {
         { title: "Категория" },
         { title: "Цена" },
       ],
-      search: "",
+      open: false,
+      activeCategory: null,
+      activePod: null,
+      podCategory: [],
+      search: null,
       id: 1,
       page: 1,
       perPage: 20,
@@ -77,6 +157,12 @@ export default {
   computed: {
     productList() {
       return this.$store.state.addUser.products;
+    },
+    company() {
+      return this.$store.state.addUser.parent_companies;
+    },
+    category() {
+      return this.$store.state.addUser.company_id.categories;
     },
     product() {
       return this.paginate(this.$store.state.addUser.products);
@@ -102,8 +188,17 @@ export default {
         this.page = this.pages.length;
         this.$store.dispatch("addUser/fetchProducts", this.page);
       } else {
-        this.page++;
-        this.$store.dispatch("addUser/fetchProducts", this.page);
+        if (this.search === null) {
+          this.page++;
+          this.$store.dispatch("addUser/fetchProducts", this.page);
+        } else {
+          this.page++;
+          const obj = {
+            page: this.page,
+            name: this.search,
+          };
+          this.$store.dispatch("addUser/fetchProductSearch", obj);
+        }
       }
     },
     changeM(loq) {
@@ -112,12 +207,30 @@ export default {
         this.page = 1;
         this.$store.dispatch("addUser/fetchProducts", loq);
       } else {
-        this.page--;
-        this.$store.dispatch("addUser/fetchProducts", this.page);
+        if (this.search === null) {
+          this.page--;
+          this.$store.dispatch("addUser/fetchProducts", this.page);
+        } else {
+          this.page--;
+          const obj = {
+            page: this.page,
+            name: this.search,
+          };
+          this.$store.dispatch("addUser/fetchProductSearch", obj);
+        }
       }
     },
     ChangeA(val) {
-      this.$store.dispatch("addUser/fetchProducts", val);
+      if (this.search) {
+        console.log(this.search);
+        const obj = {
+          page: this.page,
+          name: this.search,
+        };
+        this.$store.dispatch("addUser/fetchProductSearch", obj);
+      } else {
+        this.$store.dispatch("addUser/fetchProducts", this.page);
+      }
     },
     paginate(posts) {
       let page = this.page;
@@ -126,18 +239,34 @@ export default {
       let to = page * perPage;
       return posts.slice(from, to);
     },
-    Search(search){
+    Search(search) {
       const obj = {
         page: this.page,
-        name: search
-      }
-      this.$store.dispatch("addUser/fetchProductSearch", obj);
-    }
+        name: search,
+      };
+      this.$store.dispatch("addUser/fetchProductSearch", obj)
+        this.setPages()
+    },
+    Hide() {
+      this.open = false;
+    },
+    getCat() {
+      console.log(this.activeCategory);
+      this.$store.dispatch("addUser/fetchCompanyID", this.activeCategory.id);
+    },
+    FilterProduct() {
+      const obj = {
+        id: this.activePod.id,
+        page: this.page,
+      };
+      this.$store.dispatch("addUser/GetProduct", obj);
+      this.open = false;
+    },
   },
   created() {
     this.$store.dispatch("addUser/fetchProducts", this.id);
+    this.$store.dispatch("addUser/fetchDataCompanies");
   },
-  mounted() {},
 };
 </script>
 
@@ -177,6 +306,7 @@ export default {
     border: 0.886581px solid #e3ebfc;
     box-sizing: border-box;
     border-radius: 8.86582px;
+    cursor: pointer;
     width: 6%;
     margin-left: 22px;
 
@@ -184,5 +314,31 @@ export default {
     align-items: center;
     justify-content: center;
   }
+}
+.filter {
+  margin-top: 80px;
+  text-align: center;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+
+  /* Main txt */
+
+  color: #394560;
+}
+.not {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 17px;
+  text-align: center;
+  color: #4679ec;
+  margin-left: 10px;
+  display: flex;
+  justify-content: center;
 }
 </style>
