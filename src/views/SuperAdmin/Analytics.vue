@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="card-container">
+    <div v-if="userCount" class="card-container">
       <div v-for="i in [1, 2, 3, 4]" :key="i" class="card">
         <img src="../../assets/images/icons/profile.svg" alt="Profile" />
         <h4>Общее количество админов</h4>
-        <h3>25</h3>
-        <h4>23% <span></span></h4>
+        <h3>{{ userCount }}</h3>
+        <h4>23% <span /></h4>
       </div>
     </div>
   </div>
@@ -13,7 +13,18 @@
 
 <script>
 export default {
-  methods: {},
+  data() {
+    return {
+      userCount: 0,
+    };
+  },
+  created() {
+    this.$store
+      .dispatch("addUser/postUserCounts", { role: "admin" })
+      .then((count) => {
+        this.userCount = count;
+      });
+  },
 };
 </script>
 

@@ -1,5 +1,11 @@
 <template>
   <div>
+    <div class="field">
+      <input type="search" v-model="search" placeholder="Поиск по названием" />
+      <div class="search-icon">
+        <img src="../../assets/images/icons/search.svg" alt="search" />
+      </div>
+    </div>
     <table id="table">
       <thead>
         <tr>
@@ -8,7 +14,7 @@
       </thead>
       <tbody>
         <tr
-          v-for="(admin, i) in adminList"
+          v-for="(admin, i) in resultUsers"
           :key="i"
           @click="$router.push(`/admins/${admin.id}`)"
         >
@@ -16,9 +22,9 @@
           <td>{{ admin.full_name }}</td>
           <td>
             {{ admin.phone_number.substring(0, 2) }}
-            {{ admin.phone_number.substring(2,5) }}
-            {{ admin.phone_number.substring(5,7) }}
-            {{ admin.phone_number.substring(7) }}
+            {{ admin.phone_number.substring(2, 5) }}-{{
+              admin.phone_number.substring(5, 7)
+            }}-{{ admin.phone_number.substring(7) }}
           </td>
           <td>{{ admin.username }}</td>
           <td>{{ admin.role }}</td>
@@ -31,6 +37,34 @@
         </tr>
       </tbody>
     </table>
+    <div v-show="resultUsers.length === 0" class="not">
+      <span> Результаты не найдены </span>
+    </div>
+    <nav>
+      <ul class="pagination">
+        <li class="page">
+          <button type="button" class="page-link" @click="changeM(page)">
+            <img src="../../assets/images/icons/arrow-right.svg" alt="search" />
+          </button>
+        </li>
+        <li class="page-center">
+          <button
+            type="button"
+            v-for="(pageNumber, i) in pages"
+            :key="i"
+            :class="{ active: page === pageNumber }"
+            @click="page = pageNumber"
+          >
+            {{ pageNumber }}
+          </button>
+        </li>
+        <li class="page">
+          <button type="button" @click="change(page)" class="page-link">
+            <img src="../../assets/images/icons/arrow-left.svg" alt="search" />
+          </button>
+        </li>
+      </ul>
+    </nav>
   </div>
 </template>
 
@@ -46,11 +80,66 @@ export default {
         { title: "Роль" },
         { title: "Статус" },
       ],
+      search: "",
+      page: 1,
+      perPage: 3,
+      pages: [],
     };
   },
   computed: {
+    resultUsers() {
+      if (this.search) {
+        return this.adminList.filter((item) => {
+          return this.search
+            .toLowerCase()
+            .split(" ")
+            .every((v) => item.full_name.toLowerCase().includes(v));
+        });
+      } else {
+        return this.adminList;
+      }
+    },
     adminList() {
+      return this.paginate(this.$store.state.addUser.admins);
+    },
+    adminList1() {
       return this.$store.state.addUser.admins;
+    },
+  },
+  watch: {
+    adminList1() {
+      this.setPages();
+    },
+  },
+  methods: {
+    setPages() {
+      let numberOfPages = Math.ceil(this.adminList1.length / this.perPage);
+      for (let index = 1; index <= numberOfPages; index++) {
+        this.pages.push(index);
+      }
+    },
+    change(loq) {
+      console.log(loq);
+      if (loq === this.pages.length) {
+        this.page = this.pages.length;
+      } else {
+        this.page++;
+      }
+    },
+    changeM(loq) {
+      console.log(loq);
+      if (loq === 1) {
+        this.page = 1;
+      } else {
+        this.page--;
+      }
+    },
+    paginate(posts) {
+      let page = this.page;
+      let perPage = this.perPage;
+      let from = page * perPage - perPage;
+      let to = page * perPage;
+      return posts.slice(from, to);
     },
   },
   created() {

@@ -1,6 +1,6 @@
 <template>
   <div class="error-page">
-    <img src="../assets/images/icons/404.png" alt="404" />
+    <img src="../../assets/images/icons/404.png" alt="404" />
     <h3>Страница которую вы ищете не сущуствует.</h3>
     <p>
       Пожалуйста попробуйте перейти на главную страницу либо вернуться обратно.

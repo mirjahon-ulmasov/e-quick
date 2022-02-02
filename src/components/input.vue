@@ -14,7 +14,8 @@
     >
       <input
         @input="updateValue($event.target.value)"
-        :class="error ? 'error ' : 'custom-input'"
+        class="custom-input"
+        :class="{ error: error, password: isPassword }"
         :value="value"
         :type="toggle ? 'text' : type"
         :style="btnStyles"
@@ -38,18 +39,11 @@
       @input="updateValue($event.target.value)"
       :value="value"
       :type="type"
-      :class="error ? 'error' : 'custom-input'"
+      class="custom-input"
+      :class="{ error: error, login: isLogin }"
       v-else
       :style="btnStyles"
     />
-    <!-- Validation TEXT -->
-    <!-- <span class="error-text" v-show="errors.has('savdo_id')">
-      <feather-icon
-        :icon="'InfoIcon'"
-        style="color: #db2379 !important; margin-right: 5px"
-        svgClasses="h-6 w-6"
-      />
-      {{ errors.first("savdo_id") }}</span> -->
   </div>
 </template>
 <script>
@@ -57,6 +51,14 @@ export default {
   name: "",
   props: {
     error: {
+      type: Boolean,
+      default: false,
+    },
+    isLogin: {
+      type: Boolean,
+      default: false,
+    },
+    isPassword: {
       type: Boolean,
       default: false,
     },
@@ -112,48 +114,15 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.custom-input {
-  background: #f6f8fe;
-  border: 0.886581px solid #e3ebfc;
-  letter-spacing: 0.4px;
-  box-sizing: border-box;
-  border-radius: 8.86582px;
-  padding: 14px 25px;
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 20px;
-  color: #60739f;
-  &:focus {
-    background: #ffffff;
-    /* Main */
-
-    border: 0.886581px solid #4679ec;
-    box-sizing: border-box;
-    box-shadow: 0px 0px 3px 1px rgba(70, 120, 236, 0.548);
-    border-radius: 8.86582px;
-  }
+input.password {
+  background-image: url("../assets/images/icons/login-password.svg");
+  background-repeat: no-repeat;
+  background-position: 5%;
 }
 
-.toggle {
-  float: right;
-  cursor: pointer;
-  margin-left: -40px;
-}
-.error {
-  background: #fefbfc;
-  padding: 14px 25px;
-  border: 0.886581px solid #db2379;
-  box-shadow: 0px 0px 2px 1px #dd659d;
-  letter-spacing: 0.4px;
-  box-sizing: border-box;
-  border-radius: 8.86582px;
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 20px;
-  color: #60739f;
+input.login {
+  background-image: url("../assets/images/icons/login-user.svg");
+  background-repeat: no-repeat;
+  background-position: 5%;
 }
 </style>

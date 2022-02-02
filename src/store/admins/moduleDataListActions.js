@@ -299,4 +299,17 @@ export default {
         });
     });
   },
+
+  // GET TOTAL number of USERS
+  postUserCounts({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      axios
+        .post("/api/v1/users/count", payload)
+        .then((res) => res.data)
+        .then(({ count }) => {
+          resolve(count);
+        })
+        .catch((err) => reject(err));
+    });
+  },
 };
