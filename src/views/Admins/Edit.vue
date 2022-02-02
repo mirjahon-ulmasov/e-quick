@@ -399,6 +399,9 @@ export default {
         dealer_id: parseInt(this.id),
         company_id: index.id,
       });
+      setTimeout(() => {
+        this.$store.dispatch("addUser/fetchCompanyDealerID", this.id);
+      }, 500);
     },
     companyAdd() {
       const id = this.real_companies.map((x) => x.id);

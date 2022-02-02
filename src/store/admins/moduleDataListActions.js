@@ -177,7 +177,7 @@ export default {
   fetchProductSearch({ commit }, obj) {
     return new Promise((resolve, reject) => {
       axios
-        .get(`/api/v1/products/search/${obj.page}/`,
+        .get(`/api/v1/products/search/${obj.page}`,
         { params: { name: obj.name } }
         )
         .then((response) => {
@@ -221,13 +221,17 @@ export default {
     });
   },
   
-    // COMPANY DEALER DEALER
+    // COMPANY DEALER DELETE
 
     DeleteDealerCompany({ commit }, payload) {
       console.log(payload)
       return new Promise((resolve, reject) => {
         axios
-          .delete("/api/v1/dealer_company/delete", payload.dealer_id, payload.company_id)
+          .delete("/api/v1/dealer_company/delete",
+          { data: 
+            payload 
+          }
+          )
           .then((response) => {
             resolve(response);
           })

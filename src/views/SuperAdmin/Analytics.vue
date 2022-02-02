@@ -19,6 +19,7 @@ export default {
     };
   },
   created() {
+    console.log(this.$acl.get[0]);
     this.$store
       .dispatch("addUser/postUserCounts", { role: "admin" })
       .then((count) => {

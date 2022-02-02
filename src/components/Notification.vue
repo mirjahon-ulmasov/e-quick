@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="isShow && (headerTrans || contentTrans)" class="background">
+    <div v-if="isShow && (headerTrans || contentTrans)" @click="firstHandler()" class="background">
       <div class="notification">
         <img
           src="../assets/images/icons/close.svg"
