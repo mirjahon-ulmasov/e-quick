@@ -289,7 +289,8 @@ const router = new Router({
         {
           path: "/forget-password",
           name: "ForgetPassword",
-          component: () => import("@/views/Dealer/ForgetPass.vue"),
+          // component: () => import("./views/Auth/ForgotPassword.vue"),
+          component: () => import("./views/Dealer/ForgetPass.vue"),
           meta: {
             rule: "editor",
           },
