@@ -13,7 +13,7 @@
           <img
             src="../../assets/images/icons/trash.svg"
             alt="trash icon"
-            @click="deleteHandler"
+            @click="deleteHandler()"
           />
           <img
             @click="$router.push(`/user/${id}/editing`)"
@@ -97,6 +97,18 @@ export default {
         btnSecond: "Удалить",
       };
     },
+    handlerOne() {
+      this.notification = {
+        show: false,
+        header: "",
+        content: "",
+        btnFirst: "",
+        btnSecond: "",
+      };
+      if (!this.isDeleted) {
+        this.$router.push("/users");
+      }
+    },
     handlerTwo() {
       if (this.isDeleted) {
         this.$store
@@ -107,19 +119,11 @@ export default {
               is_success: true,
               header: "Пользователь был удален успешно",
               content: "",
-              btnFirst: "Вернуться",
-              btnSecond: "Пользователи",
+              btnFirst: "Пользователи",
             };
             this.isDeleted = false;
           })
           .catch((err) => console.log(err));
-      } else {
-        this.$router.push("/users");
-      }
-    },
-    handlerOne() {
-      if (!this.isDeleted) {
-        this.$router.push("/users");
       }
     },
   },

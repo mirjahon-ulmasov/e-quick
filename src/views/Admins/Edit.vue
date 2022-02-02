@@ -1,7 +1,7 @@
 <template>
   <div>
     <form @submit.prevent="submitHandler">
-      <div class="form-input" v-if="!$route.meta.id">
+      <div class="form-input" v-if="id">
         <h4>Статус</h4>
         <div class="segment-control">
           <div class="rad" :class="{ active: user.active === 1 }">
@@ -24,8 +24,7 @@
         <v-select
           v-model="user.role"
           style="width: 375px"
-          :options="roles"
-          label="role"
+          :options="['admin']"
           id="select-state"
         >
           <template #open-indicator="{ attributes }">
@@ -37,58 +36,229 @@
       </div>
       <div class="form-input">
         <h4>Ф.И.О.</h4>
-        <my-input type="input" :width="375" v-model="user.full_name" />
+        <my-input
+          type="input"
+          :width="375"
+          v-model="user.full_name"
+          :error="errors.has('full_name')"
+          name="full_name"
+          v-validate="'required|min:5'"
+        />
+        <span class="error-text" v-show="errors.has('full_name')">
+          <feather-icon
+            :icon="'InfoIcon'"
+            style="color: #db2379 !important; margin-right: 5px"
+            svgClasses="h-6 w-6"
+          />
+          {{ errors.first("full_name") }}
+        </span>
       </div>
       <div class="form-input">
         <h4>Телефон номера</h4>
-        <my-input type="input" :width="375" v-model="user.phone_number" />
+        <span class="phone-code">+998</span>
+        <my-input
+          padding="14px 70px"
+          type="tel"
+          :width="375"
+          v-model="user.phone_number"
+          :error="errors.has('phone')"
+          name="phone"
+          v-validate="'required|numeric|length:9'"
+        />
+        <span class="error-text" v-show="errors.has('phone')">
+          <feather-icon
+            :icon="'InfoIcon'"
+            style="color: #db2379 !important; margin-right: 5px"
+            svgClasses="h-6 w-6"
+          />
+          {{ errors.first("phone") }}
+        </span>
       </div>
       <div class="form-input">
         <h4>Email</h4>
-        <my-input type="email" :width="375" v-model="user.email" />
+        <my-input
+          type="email"
+          :width="375"
+          v-model="user.email"
+          :error="errors.has('email')"
+          name="email"
+          v-validate="'required|email'"
+        />
+        <span class="error-text" v-show="errors.has('email')">
+          <feather-icon
+            :icon="'InfoIcon'"
+            style="color: #db2379 !important; margin-right: 5px"
+            svgClasses="h-6 w-6"
+          />
+          {{ errors.first("email") }}
+        </span>
       </div>
       <div class="form-input">
         <h4>Имя пользователя</h4>
-        <my-input type="input" :width="375" v-model="user.username" />
+        <my-input
+          type="input"
+          :width="375"
+          v-model="user.username"
+          :error="errors.has('username')"
+          name="username"
+          v-validate="'required|min:4'"
+        />
+        <span class="error-text" v-show="errors.has('username')">
+          <feather-icon
+            :icon="'InfoIcon'"
+            style="color: #db2379 !important; margin-right: 5px"
+            svgClasses="h-6 w-6"
+          />
+          {{ errors.first("username") }}
+        </span>
       </div>
-      <div v-if="editID" class="form-input">
+      <div class="form-input">
         <h4>Старый пароль</h4>
-        <my-input type="password" :width="375" v-model="old_password" />
+        <my-input
+          type="password"
+          :width="375"
+          v-model="old_password"
+          :error="errors.has('old_password')"
+          name="old_password"
+          v-validate="'min:5'"
+        />
+        <span class="error-text" v-show="errors.has('old_password')">
+          <feather-icon
+            :icon="'InfoIcon'"
+            style="color: #db2379 !important; margin-right: 5px"
+            svgClasses="h-6 w-6"
+          />
+          {{ errors.first("old_password") }}
+        </span>
       </div>
       <div class="form-input">
-        <h4>{{ pass_title }}</h4>
-        <my-input type="password" :width="375" v-model="password" />
+        <h4>Новый пароль</h4>
+        <my-input
+          type="password"
+          name="password"
+          v-model="password"
+          ref="password"
+          :width="375"
+          :error="errors.has('password')"
+          v-validate="'min:5'"
+        />
+        <span class="error-text" v-show="errors.has('password')">
+          <feather-icon
+            :icon="'InfoIcon'"
+            style="color: #db2379 !important; margin-right: 5px"
+            svgClasses="h-6 w-6"
+          />
+          {{ errors.first("password") }}
+        </span>
       </div>
       <div class="form-input">
-        <h4>{{ confirm_title }}</h4>
-        <my-input type="password" :width="375" v-model="confirm" />
+        <h4>Потвердите новый пароль</h4>
+        <my-input
+          type="password"
+          :width="375"
+          v-model="confirm"
+          :error="errors.has('confirm')"
+          name="confirm"
+          data-vv-as="password"
+          v-validate="'min:5|confirmed:password'"
+        />
+        <span class="error-text" v-show="errors.has('confirm')">
+          <feather-icon
+            :icon="'InfoIcon'"
+            style="color: #db2379 !important; margin-right: 5px"
+            svgClasses="h-6 w-6"
+          />
+          {{ errors.first("confirm") }}
+        </span>
       </div>
-      <h4 class="notify" v-if="$route.meta.id" >
-        Уведомления
-      </h4>
-    <div class="form-group" v-if="$route.meta.id">
-      <input v-model="user.site_notifications" type="checkbox" id="news">
-      <label for="news">Получать обновления</label>
-    </div>
-      <div class="form-group" v-if="$route.meta.id" >
-      <input v-model="user.email_notifications"  type="checkbox" id="email">
-      <label for="email">Получать сообщения на почту</label>
-    </div>
-      <div v-if="!$route.meta.id && user.role === 'dealer'" class="form-input">
-        <h4>Компании</h4>
-        <v-select
-          v-model="user.role"
-          style="width: 375px"
-          :options="roles"
-          label="role"
-          id="select-state"
-        >
-          <template #open-indicator="{ attributes }">
-            <span v-bind="attributes">
-              <img src="../../assets/images/icons/select-icon.svg" alt="" />
-            </span>
-          </template>
-        </v-select>
+      <div>
+        <h4 class="notify">Уведомления</h4>
+        <div class="form-group">
+          <input v-model="user.site_notifications" type="checkbox" id="news" />
+          <label for="news">Получать обновления</label>
+        </div>
+        <div class="form-group">
+          <input
+            v-model="user.email_notifications"
+            type="checkbox"
+            id="email"
+          />
+          <label for="email">Получать сообщения на почту</label>
+        </div>
+      </div>
+      <div v-if="user.role === 'dealer'">
+        <div class="form-input">
+          <h4>Выберите завод</h4>
+          <div style="display: flex; align-items: center">
+            <my-input
+              @click.native="(drop = !drop), (companies_d = [])"
+              type="search"
+              v-model="search"
+              :width="375"
+            >
+            </my-input>
+            <button
+              class="plus"
+              @click="real_companies = companies_d"
+              v-if="companies_d.length !== 0"
+              style="
+                border-radius: 50%;
+                background: #4679ec;
+                height: 23px;
+                width: 23px;
+                border: none;
+                color: white;
+                font-size: 20px;
+                margin-left: -35px;
+              "
+            >
+              +
+            </button>
+            <img
+              style="margin-left: -35px"
+              v-else
+              src="../../assets/images/icons/select-icon.svg"
+              alt=""
+            />
+          </div>
+          <div class="drop" v-show="drop">
+            <div class="item form-group" v-for="(item, i) in filter" :key="i">
+              <input
+                :value="item"
+                v-model="companies_d"
+                type="checkbox"
+                :id="i"
+              />
+              <label :for="i">{{ item.name }}</label>
+            </div>
+            <div v-show="filter.length === 0" style="text-align: center">
+              <span> Результаты не найдены </span>
+            </div>
+          </div>
+        </div>
+        <span class="error-text" v-show="!have">
+          <feather-icon
+            :icon="'InfoIcon'"
+            style="color: #db2379 !important; margin-right: 5px"
+            svgClasses="h-6 w-6"
+          />
+          Field required
+        </span>
+        <div class="sel" v-show="real_companies">
+          <div class="selected" v-for="(item, i) in real_companies" :key="i">
+            <span> {{ item.name }} </span>
+            <feather-icon
+              @click="remove(item)"
+              :icon="'XIcon'"
+              style="
+                color: #4679ec !important;
+                margin-left: 20px;
+                cursor: pointer;
+              "
+              svgClasses="h-6 w-6"
+            />
+          </div>
+        </div>
       </div>
       <div class="actions">
         <my-button
@@ -107,14 +277,22 @@
       </div>
     </form>
     <v-notification
+      :is_success="true"
+      btnFirst="Вернуться"
       :isShow="notification.show"
-      :is_success="notification.is_success"
       :header="notification.header"
       :content="notification.content"
-      :btnFirst="notification.btnFirst"
       :btnSecond="notification.btnSecond"
       @handlerOne="handlerOne"
       @handlerTwo="handlerTwo"
+    ></v-notification>
+    <v-notification
+      header="Error"
+      :is_success="false"
+      btnFirst="Вернуться"
+      :isShow="notificationError.show"
+      :content="notificationError.content"
+      @handlerOne="handlerOneError"
     ></v-notification>
   </div>
 </template>
@@ -126,15 +304,142 @@ export default {
     return {
       notification: {
         show: false,
-        is_success: true,
         header: "",
         content: "",
-        btnFirst: "",
         btnSecond: "",
+      },
+      notificationError: {
+        show: false,
+        content: "",
       },
       editID: null,
       user: {
-        active: 0,
+        active: 1,
+        full_name: "",
+        phone_number: "",
+        role: "admin",
+        email: "",
+        username: "",
+        email_notifications: false,
+        site_notifications: false,
+      },
+      password: "",
+      confirm: "",
+      old_password: "",
+      companies_d: [],
+      real_companies: null,
+      search: '',
+      drop: false,
+    };
+  },
+  computed:{
+        filter() {
+      if (this.search) {
+        return this.companies.filter((item) => {
+          return this.search
+            .toLowerCase()
+            .split(" ")
+            .every((v) => item.name.toLowerCase().includes(v));
+        });
+      } else {
+        return this.companies;
+      }
+    },
+    companies() {
+      return this.$store.state.addUser.parent_companies;
+    },
+    have() {
+      return this.real_companies !== null;
+    },
+  },
+  created() {
+    if (this.$route.meta.id) this.editID = this.$route.meta.id;
+    if (this.id) this.editID = this.id;
+
+    this.$store
+      .dispatch("addUser/fetchUserById", this.editID)
+      .then((res) => res.data)
+      .then((user) => {
+        this.user = {
+          ...user,
+          site_notifications: user.site_notifications === "active",
+          email_notifications: user.email_notifications === "active",
+        };
+      })
+      .catch((err) => console.log(err));
+      this.$store.dispatch("addUser/fetchDataCompanies");
+  },
+  methods: {
+    handlerOne() {
+      this.notification.show = false;
+    },
+    handlerTwo() {
+      this.reset();
+      if (this.id) this.$router.push("/users");
+      else this.$router.push("/settings");
+    },
+    handlerOneError() {
+      this.notificationError = {
+        show: false,
+        content: "",
+      };
+    },
+    submitHandler() {
+      this.$validator.validateAll().then((isValid) => {
+        if (isValid) {
+          this.$store
+            .dispatch("addUser/updateItem", {
+              ...this.user,
+              password: this.password,
+              old_password: this.old_password,
+              email_notifications: this.user.email_notifications
+                ? "active"
+                : "inactive",
+              site_notifications: this.user.site_notifications
+                ? "active"
+                : "inactive",
+            })
+            .then((res) => {
+              if (this.id) {
+                this.notification = {
+                  show: true,
+                  header: "Пользователь был изменён успешно",
+                  content:
+                    "Теперь вы можете увидеть изменения в списке админов",
+                  btnSecond: "Пользователи",
+                };
+              } else {
+                this.notification = {
+                  show: true,
+                  header: "Данные были изменены успешно",
+                  content: "Теперь вы можете увидеть изменения в настройках",
+                  btnSecond: "Настройки",
+                };
+              }
+            })
+            .catch((err) => {
+              this.notificationError = {
+                show: true,
+                content: `${err.response.data.detail}`,
+              };
+            });
+        }
+      });
+    },
+    reset() {
+      this.$validator.reset();
+      this.notification = {
+        show: false,
+        header: "",
+        content: "",
+        btnSecond: "",
+      };
+      this.notificationError = {
+        show: false,
+        content: "",
+      };
+      this.editID = null;
+      this.user = {
         full_name: "",
         phone_number: "",
         role: "",
@@ -142,214 +447,105 @@ export default {
         username: "",
         email_notifications: false,
         site_notifications: true,
-      },
-      password: "",
-      confirm: "",
-      old_password: "",
-      pass_title: "Пароль",
-      confirm_title: "Потвердите пароль",
-    };
-  },
-  computed:{
-   roles () {
-      return this.$store.state.addUser.roles
-    },
-  },
-  created() {
-    this.$store.dispatch('addUser/fetchRoles')
-    if (this.$route.meta.id) {
-      this.editID = this.$route.meta.id;
-    }
-    if (this.id) {
-      this.editID = this.id;
-    }
-    if (this.editID) {
-      this.$store
-        .dispatch("addUser/fetchUserById", this.editID)
-        .then((res) => res.data)
-        .then((user) => {
-          this.user = {
-            ...user,
-          };
-          this.user.email_notifications = user.email_notifications === 'active' ? true : false
-          this.user.site_notifications = user.site_notifications === 'active' ? true : false
-          this.pass_title = "Новый пароль";
-          this.confirm_title = "Потвердите новый пароль";
-        })
-        .catch((err) => console.log(err));
-    }
-  },
-  methods: {
-    handlerOne() {
-      this.$router.push(this.$route.path);
-    },
-    handlerTwo() {
-      this.reset();
-      if (this.id || !this.$route.meta.id) {
-        this.$router.push("/users");
-      } else {
-        this.$router.push("/settings");
-      }
-    },
-    submitHandler() {
-      if (this.password === this.confirm) {
-        if (this.editID) {
-          this.$store
-            .dispatch("addUser/updateItem", {
-              ...this.user,
-              password: this.password,
-              old_password: this.old_password,
-              email_notifications: this.user.email_notifications === true ? 'active' : 'inactive',
-              site_notifications: this.user.site_notifications === true ? 'active' : 'inactive'
-            })
-            .then((res) => {
-              if (this.id) {
-                this.notification = {
-                  show: true,
-                  is_success: true,
-                  header: "Пользователь был изменён успешно",
-                  content:
-                    "Теперь вы можете его увидеть в списке пользователей",
-                  btnFirst: "Вернуться",
-                  btnSecond: "Пользователи",
-                };
-              } else {
-                this.notification = {
-                  show: true,
-                  is_success: true,
-                  header: "Данные были изменены успешно",
-                  content: "Теперь вы можете увидеть изменения в настройках",
-                  btnFirst: "Вернуться",
-                  btnSecond: "Настройки",
-                };
-              }
-            })
-            .catch((err) => console.log(err));
-        } else if (this.password) {
-          this.$store
-            .dispatch("addUser/addItem", {
-              ...this.user,
-              password: this.password,
-            })
-            .then((res) => {
-              this.notification = {
-                show: true,
-                is_success: true,
-                header: "Пользователь был добавлен успешно",
-                content: "Теперь вы можете увидеть изменения в списке пользователей",
-                btnFirst: "Вернуться",
-                btnSecond: "Пользователи",
-              };
-            })
-            .catch((err) => console.log(err));
-        }
-      }
-    },
-    reset() {
-      this.role = "";
-      this.fullname = "";
-      this.phone = "";
-      this.email = "";
-      this.username = "";
+      };
       this.password = "";
       this.confirm = "";
       this.old_password = "";
-      this.user = null;
     },
   },
-  destroyed(){
-    if(this.$route.meta.link === 'add-admin'){
-         this.user = null
-    console.log(this.user, 'dddd');
-    }
-  }
+
+  destroyed() {
+    this.reset();
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-form {
-  .form-input {
-    margin: 25px 5px;
-
-    h4 {
-      margin-bottom: 12px;
-      font-weight: 500;
-      font-size: 16px;
-      color: #394560;
-    }
+.drop {
+  width: 375px;
+  padding: 20px;
+  margin-top: 10px;
+  background: #f6f8fe;
+  border: 0.886581px solid #e3ebfc;
+  box-sizing: border-box;
+  /* Main Sahdow */
+  height: 180px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  box-shadow: 0px 3.82748px 8px rgba(70, 121, 236, 0.1);
+  border-radius: 8.86582px;
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
   }
-  .notify{
-    font-family: Montserrat;
-font-style: normal;
-font-weight: 600;
-font-size: 20px;
-line-height: 24px;
-color: #394560;
-margin: 54px 0px 30px 5px;
+  &::-webkit-scrollbar-track {
+    border-radius: 30px;
+    background: none;
   }
-        .form-group {
-        display: block;
-        margin-left: 5px;
-        margin-bottom: 15px;
-      }
+  &::-webkit-scrollbar-thumb {
+    background: #9fb4da;
+    border-radius: 30px;
+    border: 1px solid transparent;
+    background-clip: content-box;
+  }
+}
+.drop label {
+  position: relative;
+  cursor: pointer;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: #60739f;
+}
 
-      .form-group input {
-        padding: 0;
-        height: initial;
-        width: initial;
-        margin-bottom: 0;
-        display: none;
-        cursor: pointer;
-      }
+.drop label:before {
+  content: "";
+  -webkit-appearance: none;
+  //   padding: 10px;
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+  margin-right: 10px;
+  width: 22px;
+  height: 22px;
+  border: 1px solid #dae5fb;
+  box-sizing: border-box;
+  border-radius: 4.94118px;
+}
 
-      .form-group label {
-        position: relative;
-        cursor: pointer;
-        font-family: Montserrat;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 20px;
-        /* identical to box height */
+.drop input:checked + label:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 2px;
+  left: 7px;
+  width: 6px;
+  height: 12px;
+  border: solid #4679ec;
+  border-width: 0 3px 3px 0;
+  border-radius: 2px;
+  transform: rotate(45deg);
+}
+.sel {
+  display: flex;
+  flex-wrap: wrap;
+  width: 420px;
 
-        /* Main txt */
-
-        color: #394560;
-      }
-
-      .form-group label:before {
-        content: "";
-        -webkit-appearance: none;
-        //   padding: 10px;
-        display: inline-block;
-        vertical-align: middle;
-        cursor: pointer;
-        margin-right: 10px;
-        width: 28px;
-        height: 28px;
-        border: 1px solid #dae5fb;
-        box-sizing: border-box;
-        border-radius: 4.94118px;
-      }
-
-      .form-group input:checked + label:after {
-        content: "";
-        display: block;
-        position: absolute;
-        top: 2px;
-        left: 10px;
-        width: 6px;
-        height: 14px;
-        border: solid #4679ec;
-        border-width: 0 3px 3px 0;
-        border-radius: 2px;
-        transform: rotate(45deg);
-      }
-  .actions {
-    margin-top: 3rem;
-    width: 375px;
+  .selected {
+    text-align: center;
+    margin-right: 15px;
+    margin-bottom: 15px;
     display: flex;
     justify-content: space-between;
+    padding: 16px;
+    align-items: center;
+    // width: 106px;
+    height: 45px;
+
+    background: #edf1fd;
+    border-radius: 10px;
   }
 }
 </style>

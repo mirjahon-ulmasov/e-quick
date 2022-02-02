@@ -106,7 +106,7 @@ export default {
       return this.paginate(this.$store.state.addUser.admins);
     },
     adminList1() {
-      return this.$store.state.addUser.admins;
+      return this.$store.state.addUser.admins
     },
   },
   watch: {

@@ -55,21 +55,23 @@
         </div>
         <div class="form-input">
           <h4>Телефон номера</h4>
+          <span class="phone-code">+998</span>
           <my-input
-            type="input"
+            padding="14px 70px"
+            type="tel"
             :width="375"
-            :error="errors.has('tel')"
-            name="tel"
-            v-validate="'required|min:9|max:9|numeric'"
             v-model="user.phone_number"
+            :error="errors.has('phone')"
+            name="phone"
+            v-validate="'required|numeric|length:9'"
           />
-          <span class="error-text" v-show="errors.has('tel')">
+          <span class="error-text" v-show="errors.has('phone')">
             <feather-icon
               :icon="'InfoIcon'"
               style="color: #db2379 !important; margin-right: 5px"
               svgClasses="h-6 w-6"
             />
-            {{ errors.first("tel") }}
+            {{ errors.first("phone") }}
           </span>
         </div>
         <div class="form-input">
@@ -222,14 +224,14 @@
             </div>
           </div>
         </div>
-          <span class="error-text" v-show="have">
-            <feather-icon
-              :icon="'InfoIcon'"
-              style="color: #db2379 !important; margin-right: 5px"
-              svgClasses="h-6 w-6"
-            />
-            Field required
-          </span>
+        <span class="error-text" v-show="!have">
+          <feather-icon
+            :icon="'InfoIcon'"
+            style="color: #db2379 !important; margin-right: 5px"
+            svgClasses="h-6 w-6"
+          />
+          Field required
+        </span>
         <div class="sel" v-show="real_companies">
           <div class="selected" v-for="(item, i) in real_companies" :key="i">
             <span> {{ item.name }} </span>
@@ -257,16 +259,14 @@
       >
       </step-controls>
     </div>
-    <!-- <v-notification
-      header="Ошибка"
+    <v-notification
+      header="Error"
       :is_success="false"
+      btnFirst="Вернуться"
       :isShow="notificationError.show"
       :content="notificationError.content"
-      :btnFirst="notificationError.btnFirst"
-      :btnSecond="notificationError.btnSecond"
       @handlerOne="handlerOneError"
-      @handlerTwo="handlerTwoError"
-    ></v-notification> -->
+    ></v-notification>
     <v-notification
       :isShow="notification.show"
       :is_success="notification.is_success"
@@ -307,6 +307,7 @@ export default {
         confirm: null,
         savdo_id: null,
       },
+      dealer_id: null,
       companies_d: [],
       real_companies: null,
       notification: {
@@ -317,8 +318,12 @@ export default {
         btnFirst: "",
         btnSecond: "",
       },
+      notificationError: {
+        show: false,
+        content: "",
+      },
       drop: false,
-      have: false,
+      notCreated: true,
       search: "",
       pass_title: "Пароль",
       confirm_title: "Потвердите пароль",
@@ -342,6 +347,9 @@ export default {
     },
     companies() {
       return this.$store.state.addUser.parent_companies;
+    },
+    have() {
+      return this.real_companies !== null;
     },
   },
   methods: {
@@ -373,7 +381,6 @@ export default {
       this.real_companies.splice(index, 1);
     },
     stepChanged(step) {
-      !this.valid()
       this.Steps();
       if (step === 0) {
         this.currentstep = 1;
@@ -388,57 +395,19 @@ export default {
         }
       }
     },
-    valid(){
-      console.log('ddd');
-    if (this.user.role.role === "dealer" || this.user.role === "dealer" ) {
-      console.log('del');
-      if (this.real_companies !== null) {
-        this.have = false
-      }
-      else{
-        console.log('err');
-        this.have = true
-      }
-    }
-    else{
-      this.have = true
-    }
-    },
-    Submit() {
+    companyAdd() {
+      console.log("company add");
+      const id = this.real_companies.map((x) => x.id);
       const payload = {
-        ...this.user,
-        role: this.user.role.role ||  this.user.role,
+        dealer_id: this.dealer_id,
+        company_list: id,
       };
-      this.$store
-        .dispatch("addUser/addItem", payload)
-        .then(() => {
-          if (this.user.role.role === "dealer" || this.user.role === "dealer" && this.have === true ) {
-              const payload = this.real_companies.map(x => x.id)
-            this.$store
-              .dispatch("addUser/AddUserCompanies", payload)
-              .then(() => {
-                this.companies_d = [];
-                this.notification = {
-                  show: true,
-                  is_success: true,
-                  header: "Пользователь был добавлен успешно",
-                  content:
-                    "Теперь вы можете его увидеть в списке пользователей",
-                  btnFirst: "Вернуться",
-                  btnSecond: "Пользователи",
-                };
-              })
-              .catch((err) => {
-                this.notificationError = {
-                  show: true,
-                  is_success: false,
-                  header: "Error",
-                  content: `${err.response.data.detail}`,
-                  btnFirst: "Вернуться",
-                  btnSecond: "Список админов",
-                };
-              });
-          } else {
+      if (this.notCreated === false) {
+        console.log("kirdiku");
+        this.$store
+          .dispatch("addUser/AddUserCompanies", payload)
+          .then(() => {
+            this.companies_d = [];
             this.notification = {
               show: true,
               is_success: true,
@@ -447,18 +416,66 @@ export default {
               btnFirst: "Вернуться",
               btnSecond: "Пользователи",
             };
-          }
-        })
-        .catch((err) => {
-          this.notificationError = {
-            show: true,
-            is_success: false,
-            header: "Error",
-            content: `${err.response.data.detail}`,
-            btnFirst: "Вернуться",
-            btnSecond: "Список админов",
+          })
+          .catch((err) => {
+            this.notificationError = {
+              show: true,
+              content: `${err.response.data.detail}`,
+            };
+          });
+      }
+    },
+    Submit() {
+      if (this.user.role.role === "dealer" || this.user.role === "dealer") {
+        console.log("delaer");
+        if (this.have && this.notCreated === true) {
+          const payload = {
+            ...this.user,
+            role: this.user.role.role || this.user.role,
           };
-        });
+
+          this.$store
+            .dispatch("addUser/addItem", payload)
+            .then((res) => {
+              this.notCreated = false;
+              console.log(res);
+              this.dealer_id = res.data.id;
+              this.companyAdd();
+            })
+            .catch((err) => {
+              this.notificationError = {
+                show: true,
+                content: `${err.response.data.detail}`,
+              };
+            });
+        } else {
+          console.log("nothave");
+        }
+      } else {
+        console.log("seller");
+        const payload = {
+          ...this.user,
+          role: this.user.role.role || this.user.role,
+        };
+        this.$store
+          .dispatch("addUser/addItem", payload)
+          .then(() => {
+            this.notification = {
+              show: true,
+              is_success: true,
+              header: "Пользователь был добавлен успешно",
+              content: "Теперь вы можете его увидеть в списке пользователей",
+              btnFirst: "Вернуться",
+              btnSecond: "Пользователи",
+            };
+          })
+          .catch((err) => {
+            this.notificationError = {
+              show: true,
+              content: `${err.response.data.detail}`,
+            };
+          });
+      }
     },
     handlerOne() {
       this.notification.show = false;
@@ -466,12 +483,18 @@ export default {
     handlerTwo() {
       this.$router.push("/users");
     },
+    handlerOneError() {
+      this.notificationError = {
+        show: false,
+        content: "",
+      };
+    },
     Validate(step) {
       if (step === 2) {
         this.$validator.validate("email");
         this.$validator.validate("role");
         this.$validator.validate("full_name");
-        this.$validator.validate("tel").then(() => {
+        this.$validator.validate("phone").then(() => {
           if (this.errors.items.length === 0) {
             this.currentstep = step;
           }
@@ -556,6 +579,18 @@ export default {
 }
 .form-input {
   margin: 25px 5px;
+  .phone-code {
+    position: relative;
+    top: 2.1rem;
+    left: 1.3rem;
+    z-index: 10;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 17px;
+    letter-spacing: 0.4px;
+    color: #60739f;
+  }
   .drop {
     width: 375px;
     padding: 20px;
