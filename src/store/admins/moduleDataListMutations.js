@@ -17,22 +17,22 @@ export default {
   SET_notseen(state, notisfy) {
     state.not_seen = notisfy.filter((x) => x.status !== "SEEN");
   },
-  SET_COMPANIES1(state, companies){
-    state.parent_companies = companies
+  SET_COMPANIES1(state, companies) {
+    state.parent_companies = companies;
   },
-  SET_COMPANIES(state, companies){
-    state.companies = companies
+  SET_COMPANIES(state, companies) {
+    state.companies = companies;
   },
-  SET_COMPANIES_ID(state, company_id){
-  state.company_id = company_id
+  SET_COMPANIES_ID(state, company_id) {
+    state.company_id = company_id;
   },
-  SET_COMPANIES_dealer(state, dealer_company){
-   state.dealer_company = dealer_company
+  SET_COMPANIES_dealer(state, dealer_company) {
+    state.dealer_company = dealer_company;
   },
-  SET_Products(state, products){
-    state.products = products
+  SET_Products(state, products) {
+    state.products = products;
   },
-  SET_ProductsID(state, product_detail){
-    state.product_detail = product_detail
-  }
+  SET_ProductsID(state, product_detail) {
+    state.product_detail = product_detail;
+  },
 };

@@ -288,7 +288,7 @@ const router = new Router({
         // =============================================================================
         {
           path: "/forget-password",
-          name: "forget",
+          name: "ForgetPassword",
           component: () => import("@/views/Dealer/ForgetPass.vue"),
           meta: {
             rule: "editor",
@@ -296,16 +296,16 @@ const router = new Router({
         },
         {
           path: "/login",
-          name: "v-login",
-          component: () => import("@/views/Dealer/Login.vue"),
+          name: "Login",
+          component: () => import("./views/Auth/Login.vue"),
           meta: {
             rule: "editor",
           },
         },
         {
           path: "/404",
-          name: "404",
-          component: () => import("./views/PageNotFound.vue"),
+          name: "PageNotFound",
+          component: () => import("./views/Auth/PageNotFound.vue"),
           meta: {
             rule: "editor",
           },

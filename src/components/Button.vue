@@ -35,11 +35,16 @@ export default {
       type: Number,
       default: 46,
     },
+    fontSize: {
+      type: Number,
+      default: 14,
+    },
   },
   computed: {
     btnStyles() {
       return {
         "background-color": this.bgColor,
+        "font-size": `${this.fontSize}px`,
         color: this.color,
         height: `${this.height}px`,
         width: `${this.width}px`,
@@ -50,14 +55,12 @@ export default {
 </script>
 <style lang="scss" scoped>
 button {
-  /* Main */
   cursor: pointer;
   border-radius: 10px;
   border: none;
   font-family: Montserrat;
   font-style: normal;
   font-weight: 500;
-  font-size: 14px;
   line-height: 17px;
   padding: 15px;
 }

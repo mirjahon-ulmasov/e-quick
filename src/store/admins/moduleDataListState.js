@@ -4,10 +4,10 @@ export default {
   roles: [],
   notisfy: [],
   not_seen: [],
-  companies: [], 
+  companies: [],
   company_id: [],
   products: [],
   product_detail: [],
   dealer_company: [],
-  parent_companies: []
-}
+  parent_companies: [],
+};

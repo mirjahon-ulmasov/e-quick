@@ -17,15 +17,22 @@
         class="custom-input"
         type="text"
       />
-      <span v-if="errors.first('username') === 'The username field must be at least 3 characters'" class="text-danger text-sm flex justify-content-flex-end mt-2 ml-2"
-        >
-        {{ $t('auth.logReqM') }}
+      <span
+        v-if="
+          errors.first('username') ===
+          'The username field must be at least 3 characters'
+        "
+        class="text-danger text-sm flex justify-content-flex-end mt-2 ml-2"
+      >
+        {{ $t("auth.logReqM") }}
       </span>
-      <span v-if="errors.first('username') === 'The username field is required'" class="text-danger text-sm flex justify-content-flex-end mt-2 ml-2"
-        >
-        {{ $t('auth.logReq') }} 
+      <span
+        v-if="errors.first('username') === 'The username field is required'"
+        class="text-danger text-sm flex justify-content-flex-end mt-2 ml-2"
+      >
+        {{ $t("auth.logReq") }}
       </span>
-        <input
+      <input
         @keypress.enter="loginJWT"
         v-validate="'required|min:3'"
         :type="[showPassword1 ? 'text' : 'password']"
@@ -35,23 +42,38 @@
         v-model="password"
         class="custom-input1 ml-0 mr-0"
       />
-                    <feather-icon
-              @click="showPassword1 = !showPassword1"
-                  :icon="showPassword1 ? 'EyeIcon' : 'EyeOffIcon'"
-                  style="color: #ffffff !important; margin-left: 315px !important; margin-top: -53px;"
-                  svgClasses="h-7 w-7"
-                />
-      <span v-if="errors.first('password') === 'The password field must be at least 3 characters'" class="text-danger text-sm flex justify-content-flex-end mt-8 ml-2"
-        >
-        {{ $t('auth.passReqM') }}
+      <feather-icon
+        @click="showPassword1 = !showPassword1"
+        :icon="showPassword1 ? 'EyeIcon' : 'EyeOffIcon'"
+        style="
+          color: #ffffff !important;
+          margin-left: 315px !important;
+          margin-top: -53px;
+        "
+        svgClasses="h-7 w-7"
+      />
+      <span
+        v-if="
+          errors.first('password') ===
+          'The password field must be at least 3 characters'
+        "
+        class="text-danger text-sm flex justify-content-flex-end mt-8 ml-2"
+      >
+        {{ $t("auth.passReqM") }}
       </span>
-      <span v-if="errors.first('password') === 'The password field is required'" class="text-danger text-sm flex justify-content-flex-end mt-8 ml-2"
-        >
-        {{ $t('auth.pasReq') }} 
+      <span
+        v-if="errors.first('password') === 'The password field is required'"
+        class="text-danger text-sm flex justify-content-flex-end mt-8 ml-2"
+      >
+        {{ $t("auth.pasReq") }}
       </span>
-      <vs-button @click="loginJWT" class="submit-btn"><span class="text" >{{ $t('auth.kirish') }}</span></vs-button>
+      <vs-button @click="loginJWT" class="submit-btn"
+        ><span class="text">{{ $t("auth.kirish") }}</span></vs-button
+      >
       <div class="row">
-        <router-link :to="'/forget-password'">{{ $t('auth.forget') }}</router-link>
+        <router-link :to="'/forget-password'">{{
+          $t("auth.forget")
+        }}</router-link>
       </div>
     </form>
   </div>
@@ -65,7 +87,7 @@ export default {
       password: "",
       checkbox_remember_me: false,
       progress: 0,
-      showPassword1: false
+      showPassword1: false,
     };
   },
   computed: {
@@ -89,7 +111,7 @@ export default {
           .dispatch("auth/loginJWT", payload)
           .then(() => {
             this.$acl.change(this.$store.state.userType);
-            const user = this.$store.state.userType
+            const user = this.$store.state.userType;
             this.$vs.loading.close();
             if (user === "dealer") {
               this.$router.push("/");
@@ -121,9 +143,11 @@ div.wrapper {
   height: 100vh;
   margin: 0;
   padding: 0;
-  background-image:  url("../../assets/images--old/login/left.svg"), url("../../assets/images--old/login/right.svg"), linear-gradient(99.52deg, #3f4f61 -14.96%, #3a9fd1 156.83%);
-  background-repeat: no-repeat,no-repeat,no-repeat;
-  background-size: contain,contain,contain;
+  background-image: url("../../assets/images--old/login/left.svg"),
+    url("../../assets/images--old/login/right.svg"),
+    linear-gradient(99.52deg, #3f4f61 -14.96%, #3a9fd1 156.83%);
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-size: contain, contain, contain;
   background-position: left, right, center;
   display: flex;
   justify-content: center;
@@ -153,16 +177,16 @@ div.wrapper {
       font-size: 19.2614px;
       padding-left: 55px;
       &::placeholder {
-font-family: Montserrat;
-font-style: normal;
-font-weight: normal;
-font-size: 19.2614px;
-line-height: 28px;
-/* identical to box height, or 143% */
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 19.2614px;
+        line-height: 28px;
+        /* identical to box height, or 143% */
 
-text-transform: uppercase;
+        text-transform: uppercase;
 
-color: #FFFFFF;
+        color: #ffffff;
       }
       &:nth-child(2) {
         background-image: url("../../assets/images--old/icons/user.svg");
@@ -191,16 +215,16 @@ color: #FFFFFF;
       padding-left: 55px;
       font-size: 19.2614px;
       &::placeholder {
-font-family: Montserrat;
-font-style: normal;
-font-weight: normal;
-font-size: 19.2614px;
-line-height: 28px;
-/* identical to box height, or 143% */
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 19.2614px;
+        line-height: 28px;
+        /* identical to box height, or 143% */
 
-text-transform: uppercase;
+        text-transform: uppercase;
 
-color: #FFFFFF;
+        color: #ffffff;
       }
       &:nth-child(3) {
         background-image: url("../../assets/images--old/icons/lock.svg");
@@ -226,17 +250,17 @@ color: #FFFFFF;
       line-height: 18px;
       text-align: center;
       text-transform: uppercase;
-      .text{
-              background-image: linear-gradient(
-      99.52deg,
-      #3f4f61 -14.96%,
-      #3a9fd1 156.83%
-    );
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;
-    display: table;
+      .text {
+        background-image: linear-gradient(
+          99.52deg,
+          #3f4f61 -14.96%,
+          #3a9fd1 156.83%
+        );
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: transparent;
+        display: table;
       }
     }
     .row {
