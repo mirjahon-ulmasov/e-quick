@@ -40,6 +40,7 @@ export default {
     box-shadow: 0px -2px 8px rgba(70, 121, 236, 0.1),
       2px 4px 9px rgba(70, 121, 236, 0.09);
 
+
     img {
       padding: 15px;
       border-radius: 50%;
