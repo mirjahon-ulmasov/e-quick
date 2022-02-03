@@ -23,7 +23,6 @@ if (localStorage.getItem('access')) {
       return false
     }
   }
-
   //  User Info
   const userInfo = parseJwt(localStorage.getItem('access'))
   initialRole = userInfo.user_type || userInfo
@@ -35,7 +34,7 @@ export default new AclCreate({
   acceptLocalRules : true,
   globalRules: {
     dealer: new AclRule('dealer').generate(),
-    adminOrSuper: new AclRule('admin_or_super').or('admin').or('super_admin').generate(),
+    public: new AclRule('admin_or_super').or('admin').or('super_admin').or('dealer').generate(),
     super_admin: new AclRule('super_admin').generate(),
     admin  : new AclRule('admin').generate(),
     editor : new AclRule('editor')

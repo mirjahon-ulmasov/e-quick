@@ -12,7 +12,7 @@ const router = new Router({
   routes: [
     {
       path: "/",
-      redirect: "/login",
+      redirect: "/analytics",
     },
     // Dealer Layout
     // {
@@ -66,7 +66,7 @@ const router = new Router({
           name: "Analytics",
           component: () => import("./views/SuperAdmin/Analytics.vue"),
           meta: {
-            rule: "super_admin",
+            rule: "public",
             link: "analytics",
             title: "Аналитика",
           },
@@ -146,16 +146,6 @@ const router = new Router({
         // =============================================================================
         // ADMIN
         // =============================================================================
-        {
-          path: "analytic",
-          name: "Analytic",
-          component: () => import("./views/SuperAdmin/Analytics.vue"),
-          meta: {
-            rule: "admin",
-            link: "analytic",
-            title: "Аналитика",
-          },
-        },
         {
           path: "/users",
           name: "users",
@@ -307,9 +297,6 @@ const router = new Router({
           path: "/404",
           name: "PageNotFound",
           component: () => import("./views/Auth/PageNotFound.vue"),
-          meta: {
-            rule: "editor",
-          },
         },
       ],
     },
@@ -327,7 +314,7 @@ router.afterEach(() => {
   }
 });
 router.beforeEach((to, from, next) => {
-  const publicPages = ["/login", "/forget-password", "/404"];
+  const publicPages = ["/login", "/forget-password"];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem("access");
   if (authRequired && !loggedIn) {

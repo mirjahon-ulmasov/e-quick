@@ -5,11 +5,11 @@
       class="nav-links"
       v-if="this.$store.state.userType === 'admin' || $acl.check('admin')"
     >
-      <router-link to="/analytic" class="nav-link">
+      <router-link to="/analytics" class="nav-link">
         <b></b>
         <b></b>
         <img
-          v-if="this.$route.meta.link === 'analytic'"
+          v-if="this.$route.meta.link === 'analytics'"
           src="../assets/images/icons/graph-bold.svg"
           alt="graph icon"
         />
