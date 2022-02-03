@@ -97,9 +97,13 @@ export default {
           .dispatch("auth/loginJWT", payload)
           .then(() => {
             this.$acl.change(this.$store.state.userType);
-            const user = this.$store.state.userType;
+            const role = this.$store.state.userType;
             this.$vs.loading.close();
-              this.$router.push("/");
+            if (role === "super_admin" || role === "admin") {
+              this.$router.push("/analytics");
+            } else if (role === "dealer") {
+              this.$router.push("/dealer/analytics");
+            }
           })
           .catch((error) => {
             this.$vs.loading.close();

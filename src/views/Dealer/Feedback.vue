@@ -1,5 +1,5 @@
 <template>
-  <div>Templates</div>
+  <div>Feedback</div>
 </template>
 
 <script>
