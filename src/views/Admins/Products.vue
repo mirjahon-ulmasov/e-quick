@@ -2,13 +2,30 @@
   <div>
     <div class="field">
       <input
-        type="search"
+        type="text"
         v-model="search"
         @keyup.enter="Search(search)"
         placeholder="Поиск по названием"
       />
-      <button class="search-icon">
-        <img
+      <div class="actions1" v-show="search">
+        <feather-icon
+           :icon="'XIcon'"
+          @click="Reset()"
+         class="icon"
+          svgClasses="h-6 w-9"
+        />
+      </div>
+      <button class="search-icon" :style="filtered ? 'background: #4679EC' : 'background: #F6F8FE;' ">
+        <feather-icon
+        v-if="filtered"
+           :icon="'XIcon'"
+          @click="Reset()"
+         class="icon"
+         style="color: white"
+          svgClasses="h-6 w-9"
+        />
+                <img
+                v-else
           src="../../assets/images/icons/filter.svg"
           @click="open = true"
           alt="search"
@@ -152,6 +169,7 @@ export default {
       page: 1,
       perPage: 20,
       pages: [],
+      filtered : false
     };
   },
   computed: {
@@ -201,6 +219,16 @@ export default {
         }
       }
     },
+    Reset(){
+     if (this.filtered === true) {
+        this.filtered = false
+     this.$store.dispatch("addUser/fetchProducts", this.id);
+     }
+     else if (this.search !== null) {
+        this.search = null
+     this.$store.dispatch("addUser/fetchProducts", this.id);
+     }
+    },
     changeM(loq) {
       console.log(loq);
       if (loq === 1) {
@@ -244,8 +272,8 @@ export default {
         page: this.page,
         name: search,
       };
-      this.$store.dispatch("addUser/fetchProductSearch", obj)
-        this.setPages()
+      this.$store.dispatch("addUser/fetchProductSearch", obj);
+      this.setPages();
     },
     Hide() {
       this.open = false;
@@ -261,6 +289,7 @@ export default {
       };
       this.$store.dispatch("addUser/GetProduct", obj);
       this.open = false;
+      this.filtered = true
     },
   },
   created() {
@@ -328,6 +357,21 @@ export default {
   /* Main txt */
 
   color: #394560;
+}
+.actions1 {
+  margin-top: 10px;
+  margin-left: -42px;
+  .icon {
+    float: right;
+    color: #4679ec;
+    background: #edf1fd;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+  }
 }
 .not {
   font-family: Montserrat;

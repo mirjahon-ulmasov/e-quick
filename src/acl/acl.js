@@ -23,13 +23,13 @@ if (localStorage.getItem('access')) {
       return false
     }
   }
-  //  User Info
+  //  User Info 
   const userInfo = parseJwt(localStorage.getItem('access'))
   initialRole = userInfo.user_type || userInfo
 }
 export default new AclCreate({
   initial  : initialRole,
-  notfound : '/404',
+  notfound : '/login',
   router,
   acceptLocalRules : true,
   globalRules: {

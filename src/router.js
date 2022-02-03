@@ -297,6 +297,9 @@ const router = new Router({
           path: "/404",
           name: "PageNotFound",
           component: () => import("./views/Auth/PageNotFound.vue"),
+          meta: {
+            rule: "public",
+          },
         },
       ],
     },

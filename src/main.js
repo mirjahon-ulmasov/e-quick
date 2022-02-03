@@ -24,6 +24,7 @@ import "./assets/scss/main.scss";
 
 // VeeValidate
 import VeeValidate from "vee-validate";
+console.log(acl.get);
 Vue.use(VeeValidate);
 Vue.config.productionTip = false;
 
