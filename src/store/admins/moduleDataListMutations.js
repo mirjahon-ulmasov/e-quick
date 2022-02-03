@@ -35,4 +35,7 @@ export default {
   SET_ProductsID(state, product_detail) {
     state.product_detail = product_detail;
   },
+  SET_Category(state, category){
+    state.category = category
+  }
 };

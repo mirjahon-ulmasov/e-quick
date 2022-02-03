@@ -1,34 +1,22 @@
 <template>
   <div>
-        <!-- <my-button
-          title="Добавить категорию"
-          bgColor="#4679EC"
-          color="#FFFFFF"
-          :width="240"
-          style="margin-bottom: 40px"
-          @click.native="addAdmin()"
-        ></my-button> -->
-    <table id="table">
-      <thead>
-        <tr>
-          <th v-for="(header, i) in headers" :key="i">{{ header.title }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="(admin, i) in categoryList"
-          :key="i"
-          @click="$router.push(`/user/${admin.id}`)"
-        >
-          <td>{{ admin.full_name }}</td>
-          <td>{{ admin.phone_number }}</td>
-          <td>{{ admin.role }}</td>
-          <td >
-               <img src="../../assets/images/icons/edit-bold.svg" style="margin-left: 45px" alt="edit icon" />
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="field">
+      <input type="search" v-model="search" placeholder="Поиск по названием" />
+      <div class="search-icon">
+        <img src="../../assets/images/icons/search.svg" alt="search" />
+      </div>
+    </div>
+    <div class="category">
+      <div class="main" v-for="(item, i) in resultCategory" :key="i">
+        <span>
+          {{ item.name }}
+        </span>
+        <img src="../../assets/images/icons/select-icon.svg" alt="" />
+      </div>
+    </div>
+        <div v-show="resultCategory.length === 0" class="not">
+      <span> Результаты не найдены </span>
+    </div>
   </div>
 </template>
 
@@ -42,20 +30,33 @@ export default {
         { title: "Подкатегория" },
         { title: "Изменить" },
       ],
+      search: "",
     };
   },
   computed: {
+    resultCategory() {
+      if (this.search) {
+        return this.categoryList.filter((item) => {
+          return this.search
+            .toLowerCase()
+            .split(" ")
+            .every((v) => item.name.toLowerCase().includes(v));
+        });
+      } else {
+        return this.categoryList;
+      }
+    },
     categoryList() {
-      return this.$store.state.addUser.admins;
+      return this.$store.state.addUser.category;
     },
   },
   methods: {
-    addAdmin(){
-      this.$router.push('add-user')
-    }
+    addAdmin() {
+      this.$router.push("add-user");
+    },
   },
   created() {
-    this.$store.dispatch("addUser/fetchDataListItems");
+    this.$store.dispatch("addUser/GetCategory");
   },
   mounted() {},
 };
@@ -64,5 +65,24 @@ export default {
 <style lang="scss" scoped>
 #table {
   width: 100%;
+}
+.category {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  .main {
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    width: 246px;
+    background: #edf1fd;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    img {
+      width: 12px;
+      height: 12px;
+    }
+  }
 }
 </style>

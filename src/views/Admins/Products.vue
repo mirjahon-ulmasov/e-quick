@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-cloak>
     <div class="field">
       <input
         type="text"
@@ -9,23 +9,26 @@
       />
       <div class="actions1" v-show="search">
         <feather-icon
-           :icon="'XIcon'"
+          :icon="'XIcon'"
           @click="Reset()"
-         class="icon"
+          class="icon"
           svgClasses="h-6 w-9"
         />
       </div>
-      <button class="search-icon" :style="filtered ? 'background: #4679EC' : 'background: #F6F8FE;' ">
+      <button
+        class="search-icon"
+        :style="filtered ? 'background: #4679EC' : 'background: #F6F8FE;'"
+      >
         <feather-icon
-        v-if="filtered"
-           :icon="'XIcon'"
+          v-if="filtered"
+          :icon="'XIcon'"
           @click="Reset()"
-         class="icon"
-         style="color: white"
+          class="icon"
+          style="color: white"
           svgClasses="h-6 w-9"
         />
-                <img
-                v-else
+        <img
+          v-else
           src="../../assets/images/icons/filter.svg"
           @click="open = true"
           alt="search"
@@ -57,7 +60,7 @@
     <span v-if="productList.total_products === 0" class="not">
       Результаты не найдены
     </span>
-    <nav v-if="productList.total_products !== 0">
+    <nav v-if="productList.total_products !== 0 || searched === !true">
       <ul class="pagination">
         <li class="page">
           <button type="button" class="page-link" @click="changeM(page)">
@@ -167,9 +170,12 @@ export default {
       search: null,
       id: 1,
       page: 1,
-      perPage: 20,
+      perPage: 100,
       pages: [],
-      filtered : false
+      filtered: false,
+      scTimer: 0,
+      scY: 0,
+      searched: false
     };
   },
   computed: {
@@ -193,11 +199,13 @@ export default {
   },
   methods: {
     setPages() {
-      let numberOfPages = Math.ceil(
-        this.productList.total_products / this.perPage
-      );
-      for (let index = 1; index <= numberOfPages; index++) {
-        this.pages.push(index);
+      if (this.productList.total_products > 100) {
+        let numberOfPages = Math.ceil(
+          this.productList.total_products / this.perPage
+        );
+        for (let index = 1; index <= numberOfPages; index++) {
+          this.pages.push(index);
+        }
       }
     },
     change(loq) {
@@ -219,15 +227,14 @@ export default {
         }
       }
     },
-    Reset(){
-     if (this.filtered === true) {
-        this.filtered = false
-     this.$store.dispatch("addUser/fetchProducts", this.id);
-     }
-     else if (this.search !== null) {
-        this.search = null
-     this.$store.dispatch("addUser/fetchProducts", this.id);
-     }
+    Reset() {
+      if (this.filtered === true) {
+        this.filtered = false;
+        this.$store.dispatch("addUser/fetchProducts", this.id);
+      } else if (this.search !== null) {
+        this.search = null;
+        this.$store.dispatch("addUser/fetchProducts", this.id);
+      }
     },
     changeM(loq) {
       console.log(loq);
@@ -268,12 +275,14 @@ export default {
       return posts.slice(from, to);
     },
     Search(search) {
+      this.searched = true
       const obj = {
         page: this.page,
         name: search,
       };
+      this.pages = null
+      this.pages = []
       this.$store.dispatch("addUser/fetchProductSearch", obj);
-      this.setPages();
     },
     Hide() {
       this.open = false;
@@ -289,7 +298,7 @@ export default {
       };
       this.$store.dispatch("addUser/GetProduct", obj);
       this.open = false;
-      this.filtered = true
+      this.filtered = true;
     },
   },
   created() {

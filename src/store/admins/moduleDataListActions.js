@@ -202,6 +202,18 @@ export default {
             .catch((error) => { reject(error) })
         })
     },
+        // GET ALL CATEGORIES
+        GetCategory ({ commit }, obj) {
+          return new Promise((resolve, reject) => {
+            axios.get('api/v1/category'
+            )
+              .then((response) => {
+                commit("SET_Category", response.data);
+                resolve(response)
+              })
+              .catch((error) => { reject(error) })
+          })
+      },
   // GET COMPANY PARENTS
 
   fetchDataCompanies({ commit }) {

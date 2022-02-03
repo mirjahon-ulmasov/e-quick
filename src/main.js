@@ -18,6 +18,9 @@ import store from "./store/store";
 // i18n
 import i18n from "./i18n/i18n";
 
+import BackToTop from 'vue-backtotop'
+ 
+Vue.use(BackToTop)
 // styles
 import "./assets/css/main.css";
 import "./assets/scss/main.scss";

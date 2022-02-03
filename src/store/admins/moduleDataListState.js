@@ -10,4 +10,5 @@ export default {
   product_detail: [],
   dealer_company: [],
   parent_companies: [],
+  category: []
 };
