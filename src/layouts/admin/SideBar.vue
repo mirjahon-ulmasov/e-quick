@@ -14,13 +14,8 @@
         <b></b>
         <b></b>
         <img
-<<<<<<< HEAD:src/layouts/admin/SideBar.vue
-          v-if="this.$route.meta.link === 'analytic'"
-          src="../../assets/images/icons/graph-bold.svg"
-=======
           v-if="this.$route.meta.link === 'analytics'"
-          src="../assets/images/icons/graph-bold.svg"
->>>>>>> 66fea36dfc3f25f7dbda84ccb9b3690b6e2125db:src/layouts/SideBar.vue
+          src="../../assets/images/icons/graph-bold.svg"
           alt="graph icon"
         />
         <img

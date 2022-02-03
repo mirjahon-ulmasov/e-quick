@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
+import store from "./store/store";
 Vue.use(Router);
 
 const router = new Router({
@@ -11,17 +12,27 @@ const router = new Router({
   },
   routes: [
     {
-      path: "/",
-      redirect: "/analytics",
+      path: "",
+      redirect: () => {
+        const role = store.state.auth.info;
+        if (role === "super_admin" || role === "admin") {
+          return "/analytics";
+        } else if (role === "dealer") {
+          return "/dealer/analytics";
+        }
+      },
     },
     // Dealer Layout
     {
-      path: "/",
+      path: "/dealer",
       component: () => import("./layouts/dealer/Layuot.vue"),
+      meta: {
+        rule: "dealer",
+      },
       children: [
         {
           path: "analytics",
-          name: "Analytics",
+          name: "DealerAnalytics",
           component: () => import("./views/Dealer/Analytics.vue"),
           meta: {
             rule: "dealer",
@@ -31,7 +42,7 @@ const router = new Router({
         },
         {
           path: "create-order",
-          name: "Analytics",
+          name: "CreateOrder",
           component: () => import("./views/Dealer/CreateOrder.vue"),
           meta: {
             rule: "dealer",
@@ -95,6 +106,9 @@ const router = new Router({
     {
       path: "",
       component: () => import("./layouts/admin/Layout.vue"),
+      meta: {
+        rule: "admin_or_super",
+      },
       children: [
         // =============================================================================
         // SUPER ADMIN
@@ -104,7 +118,7 @@ const router = new Router({
           name: "Analytics",
           component: () => import("./views/SuperAdmin/Analytics.vue"),
           meta: {
-            rule: "public",
+            rule: "admin_or_super",
             link: "analytics",
             title: "Аналитика",
           },
@@ -335,6 +349,9 @@ const router = new Router({
           path: "/404",
           name: "PageNotFound",
           component: () => import("./views/Auth/PageNotFound.vue"),
+          meta: {
+            rule: "public",
+          },
         },
       ],
     },
@@ -356,7 +373,6 @@ router.beforeEach((to, from, next) => {
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem("access");
   if (authRequired && !loggedIn) {
-    // eslint-disable-next-line no-unused-expressions
     !publicPages;
     return next("/login");
   }
