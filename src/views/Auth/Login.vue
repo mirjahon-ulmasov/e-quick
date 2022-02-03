@@ -100,7 +100,7 @@ export default {
             const user = this.$store.state.userType;
             this.$vs.loading.close();
             if (user === "dealer") {
-              this.$router.push("/");
+              this.$router.push("/dealer/analytics");
             } else if (user == "super_admin") {
               this.$router.push("/analytics");
             } else if (user == "admin") {

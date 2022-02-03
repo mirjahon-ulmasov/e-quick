@@ -12,51 +12,89 @@ const router = new Router({
   routes: [
     {
       path: "/",
-      redirect: "/login",
+      redirect: "/analytics",
     },
     // Dealer Layout
-    // {
-    //   path: "/dealer/",
-    //   component: () => import("./layouts/dealer-page/Dealer.vue"),
-    //   children: [
-    //     {
-    //       path: "main",
-    //       name: "Home",
-    //       component: () => import("./views/Dealer/Home.vue"),
-    //       meta: {
-    //         rule: "dealer",
-    //       },
-    //     },
-    //     {
-    //       path: "templates",
-    //       name: "Templates",
-    //       component: () => import("./views/Dealer/Templates.vue"),
-    //       meta: {
-    //         rule: "dealer",
-    //       },
-    //     },
-    //     {
-    //       path: "journal",
-    //       name: "Journal",
-    //       component: () => import("./views/Dealer/Journal.vue"),
-    //       meta: {
-    //         rule: "dealer",
-    //       },
-    //     },
-    //     {
-    //       path: "settings",
-    //       name: "Settings",
-    //       component: () => import("./views/Dealer/Settings.vue"),
-    //       meta: {
-    //         rule: "dealer",
-    //       },
-    //     },
-    //   ],
-    // },
+    {
+      path: "/",
+      component: () => import("./layouts/dealer/Layuot.vue"),
+      children: [
+        {
+          path: "analytics",
+          name: "Analytics",
+          component: () => import("./views/Dealer/Analytics.vue"),
+          meta: {
+            rule: "dealer",
+            link: "analytics",
+            title: "Аналитика",
+          },
+        },
+        {
+          path: "create-order",
+          name: "Analytics",
+          component: () => import("./views/Dealer/CreateOrder.vue"),
+          meta: {
+            rule: "dealer",
+            link: "create-order",
+            title: "Создать заказ",
+          },
+        },
+        {
+          path: "journal",
+          name: "Journal",
+          component: () => import("./views/Dealer/Journal.vue"),
+          meta: {
+            rule: "dealer",
+            link: "journal",
+            title: "Журнал",
+          },
+        },
+        {
+          path: "templates",
+          name: "Templates",
+          component: () => import("./views/Dealer/Templates.vue"),
+          meta: {
+            rule: "dealer",
+            link: "templates",
+            title: "Шаблоны",
+          },
+        },
+        {
+          path: "feedback",
+          name: "Feedback",
+          component: () => import("./views/Dealer/Feedback.vue"),
+          meta: {
+            rule: "dealer",
+            link: "feedback",
+            title: "Обратная связь",
+          },
+        },
+        {
+          path: "whs",
+          name: "WHS",
+          component: () => import("./views/Dealer/WHS.vue"),
+          meta: {
+            rule: "dealer",
+            link: "whs",
+            title: "WHS Остатки",
+          },
+        },
+        {
+          path: "profile",
+          name: "Profile",
+          component: () => import("./views/Dealer/Profile.vue"),
+          meta: {
+            rule: "dealer",
+            link: "",
+            title: "Профиль",
+          },
+        },
+      ],
+    },
     //  Main layout Admins
     {
       path: "",
-      component: () => import("./layouts/MainLayout.vue"),
+      component: () => import("./layouts/admin/Layout.vue"),
       children: [
         // =============================================================================
         // SUPER ADMIN

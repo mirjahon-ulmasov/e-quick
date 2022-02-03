@@ -1,15 +1,18 @@
 <template>
-<transition name="show">
-  <div class="overlay" v-show="show" @click="Close()">
-    <div class="sidebar">
-      <div class="actions">
-        <feather-icon :icon="'XIcon'" @click="Close()" class="icon" svgClasses="h-6 w-9" />
-      </div>
-      <div class="body">
-        
+  <transition name="show">
+    <div class="overlay" v-show="show" @click="Close()">
+      <div class="sidebar">
+        <div class="actions">
+          <feather-icon
+            :icon="'XIcon'"
+            @click="Close()"
+            class="icon"
+            svgClasses="h-6 w-9"
+          />
+        </div>
+        <div class="body"></div>
       </div>
     </div>
-  </div>
   </transition>
 </template>
 
@@ -21,10 +24,10 @@ export default {
       default: false,
     },
   },
-  methods:{
-      Close(){
-           this.$emit("close");
-      }
-  }
+  methods: {
+    Close() {
+      this.$emit("close");
+    },
+  },
 };
 </script>

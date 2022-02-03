@@ -51,6 +51,18 @@
           />
           <span> Настройки </span>
         </router-link>
+        <router-link
+          v-if="this.$store.state.userType === 'dealer' || $acl.check('dealer')"
+          class="item"
+          to="/dealer/profile"
+        >
+          <img
+            src="../assets/images/icons/settings.svg"
+            style="margin-right: 12px"
+            alt="c"
+          />
+          <span> Настройки </span>
+        </router-link>
         <div @click="LogOut()" class="item">
           <img
             src="../assets/images/icons/logout.svg"

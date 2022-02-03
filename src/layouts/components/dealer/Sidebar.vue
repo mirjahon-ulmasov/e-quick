@@ -1,14 +1,14 @@
 <template>
   <div class="side-bar-container">
     <div class="lang" @click="langUp('uz')" v-if="$i18n.locale === 'ru'">
-      <img src="@/assets/images/icons/uz.svg" alt="" />
+      <img src="@/assets/images--old/icons/uz.svg" alt="" />
       {{ $t("lang.uz") }}
     </div>
     <div class="lang" style="width: 180px" @click="langUp('ru')" v-else>
-      <img src="@/assets/images/icons/ru.svg" alt="" />
+      <img src="@/assets/images--old/icons/ru.svg" alt="" />
       {{ $t("lang.ru") }}
     </div>
-    <img class="logo" src="@/assets/images/login/logo1.png" alt="" />
+    <img class="logo" src="@/assets/images--old/login/logo1.png" alt="" />
     <div class="block">
       <div class="col" style="margin-left: 0px">
         <feather-icon
@@ -105,7 +105,7 @@
       style="align-items: flex-end; margin-bottom: 5px; align-items: center"
     >
       <img
-        src="@/assets/images/icons/info.svg"
+        src="@/assets/images--old/icons/info.svg"
         style="width: 14%; height: 22px"
         class="cursor-pointer resize sm:mr-2 mr-2"
         alt=""

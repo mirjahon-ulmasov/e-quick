@@ -3,7 +3,7 @@
     <div class="vx-col sm:w-full lg:w-2/5 pl-0">
       <div class="bg1">
         <div style="display: flex; justify-content: flex-end;padding: 10px">
-          <img src="@/assets/images/icons/oy.svg" alt="oy" />
+          <img src="@/assets/images--old/icons/oy.svg" alt="oy" />
         </div>
         <div class="flex">
           <h2 class="head">{{ weather }}°</h2>
@@ -11,7 +11,7 @@
             <span class="date"> {{ day }}, {{ date }} {{ month }} </span>
             <br />
             <span class="location">
-              <img src="@/assets/images/icons/pinmap.svg" alt="oy" />
+              <img src="@/assets/images--old/icons/pinmap.svg" alt="oy" />
               {{ region }}
             </span>
           </div>
@@ -23,7 +23,7 @@
         <h3 class="text">{{ $t('conver') }}</h3>
         <div class="flex" style="justify-content: space-around;">
           <img
-            src="@/assets/images/icons/dollar.svg"
+            src="@/assets/images--old/icons/dollar.svg"
             alt="som"
           />
                   <div class="">
