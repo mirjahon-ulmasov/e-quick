@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
+import store from "./store/store";
 Vue.use(Router);
 
 const router = new Router({
@@ -11,16 +12,103 @@ const router = new Router({
   },
   routes: [
     {
-      path: "/",
-
-      redirect: "/analytics",
+      path: "",
+      redirect: () => {
+        const role = store.state.auth.info;
+        if (role === "super_admin" || role === "admin") {
+          return "/analytics";
+        } else if (role === "dealer") {
+          return "/dealer/analytics";
+        }
+      },
     },
     // Dealer Layout
-
+    {
+      path: "/dealer",
+      component: () => import("./layouts/dealer/Layuot.vue"),
+      meta: {
+        rule: "dealer",
+      },
+      children: [
+        {
+          path: "analytics",
+          name: "DealerAnalytics",
+          component: () => import("./views/Dealer/Analytics.vue"),
+          meta: {
+            rule: "dealer",
+            link: "analytics",
+            title: "Аналитика",
+          },
+        },
+        {
+          path: "create-order",
+          name: "CreateOrder",
+          component: () => import("./views/Dealer/CreateOrder.vue"),
+          meta: {
+            rule: "dealer",
+            link: "create-order",
+            title: "Создать заказ",
+          },
+        },
+        {
+          path: "journal",
+          name: "Journal",
+          component: () => import("./views/Dealer/Journal.vue"),
+          meta: {
+            rule: "dealer",
+            link: "journal",
+            title: "Журнал",
+          },
+        },
+        {
+          path: "templates",
+          name: "Templates",
+          component: () => import("./views/Dealer/Templates.vue"),
+          meta: {
+            rule: "dealer",
+            link: "templates",
+            title: "Шаблоны",
+          },
+        },
+        {
+          path: "feedback",
+          name: "Feedback",
+          component: () => import("./views/Dealer/Feedback.vue"),
+          meta: {
+            rule: "dealer",
+            link: "feedback",
+            title: "Обратная связь",
+          },
+        },
+        {
+          path: "whs",
+          name: "WHS",
+          component: () => import("./views/Dealer/WHS.vue"),
+          meta: {
+            rule: "dealer",
+            link: "whs",
+            title: "WHS Остатки",
+          },
+        },
+        {
+          path: "profile",
+          name: "Profile",
+          component: () => import("./views/Dealer/Profile.vue"),
+          meta: {
+            rule: "dealer",
+            link: "",
+            title: "Профиль",
+          },
+        },
+      ],
+    },
     //  Main layout Admins
     {
       path: "",
-      component: () => import("./layouts/MainLayout.vue"),
+      component: () => import("./layouts/admin/Layout.vue"),
+      meta: {
+        rule: "admin_or_super",
+      },
       children: [
         // =============================================================================
         // SUPER ADMIN
@@ -30,7 +118,7 @@ const router = new Router({
           name: "Analytics",
           component: () => import("./views/SuperAdmin/Analytics.vue"),
           meta: {
-            rule: "public",
+            rule: "admin_or_super",
             link: "analytics",
             title: "Аналитика",
           },
@@ -276,7 +364,6 @@ router.beforeEach((to, from, next) => {
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem("access");
   if (authRequired && !loggedIn) {
-    // eslint-disable-next-line no-unused-expressions
     !publicPages;
     return next("/login");
   }
