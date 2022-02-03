@@ -99,6 +99,7 @@ export default {
             this.$acl.change(this.$store.state.userType);
             const user = this.$store.state.userType;
             this.$vs.loading.close();
+<<<<<<< HEAD
             if (user === "dealer") {
               this.$router.push("/dealer/analytics");
             } else if (user == "super_admin") {
@@ -106,6 +107,9 @@ export default {
             } else if (user == "admin") {
               this.$router.push("/analytic");
             }
+=======
+              this.$router.push("/");
+>>>>>>> 66fea36dfc3f25f7dbda84ccb9b3690b6e2125db
           })
           .catch((error) => {
             this.$vs.loading.close();
