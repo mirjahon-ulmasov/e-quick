@@ -38,6 +38,7 @@
           v-model="activeProduct"
           @search="(query) => (searchProduct = query)"
           :options="paginated"
+          @input="calcPrice = activeProduct.price"
           :filterable="false"
           @open="onOpen"
           @close="onClose"
@@ -55,7 +56,7 @@
           </template>
         </v-select>
       </div>
-      <div class="detail">
+      <div class="detail" v-if="activeProduct">
         <h2 class="head">Детали заказа:</h2>
         <div class="item">
           <img
@@ -64,23 +65,21 @@
             alt="user icon"
           />
           <div class="right">
-            <h3>Imzo Trio</h3>
+            <h3>{{ activeProduct.name }}</h3>
             <div style="display: flex; align-items: center">
               <span> Количество: </span>
               <div class="quantity">
-                <button class="inc">
+                <button class="inc" type="button" @click="Minus()">
                   <feather-icon
                     :icon="'MinusIcon'"
-                    @click="Reset()"
                     class="icon"
                     svgClasses="h-6 w-9"
                   />
                 </button>
-                <input type="text" />
-                <button class="inc">
+                <input type="text" v-model="count" />
+                <button class="inc" type="button" @click="Plus()">
                   <feather-icon
                     :icon="'PlusIcon'"
-                    @click="Reset()"
                     class="icon"
                     svgClasses="h-6 w-9"
                   />
@@ -90,18 +89,19 @@
             </div>
             <span>
               Цена:
-              <span class="bold"> 1,200,00 сум </span>
+              <span class="bold"> {{ calcPrice }} сум </span>
             </span>
           </div>
         </div>
       </div>
       <div class="actions">
-        <button>Отменить</button>
-        <button style="background: #4679ec; color: #ffffff">В корзинку</button>
+        <button type="button" @click="activeProduct = null" >Отменить</button>
+        <button style="background: #4679ec; color: #ffffff" :disabled="activeProduct === null" :style="activeProduct === null ? 'opacity: 0.5' : ''">В корзинку</button>
       </div>
     </form>
     <div class="cart">
       <h2 class="head">Корзинка</h2>
+      <Cart  />
       <div class="not-found">
         <img src="../../assets/images/icons/order-bg.svg" alt="" />
         <p>
@@ -109,12 +109,32 @@
           покупки.
         </p>
       </div>
+
     </div>
+    <v-notification
+      header="Error"
+      :is_success="false"
+      btnFirst="Вернуться"
+      :isShow="notificationError.show"
+      :content="notificationError.content"
+      @handlerOne="handlerOneError"
+    ></v-notification>
+    <v-notification
+      :isShow="notification.show"
+      :is_success="notification.is_success"
+      :header="notification.header"
+      :content="notification.content"
+      :btnFirst="notification.btnFirst"
+      :btnSecond="notification.btnSecond"
+      @handlerOne="handlerOne"
+      @handlerTwo="handlerTwo"
+    ></v-notification>
   </div>
 </template>
 
 <script>
 import axios from "../../axios";
+import Cart from '../../components/dealer/CartTable.vue'
 export default {
   name: "Home",
   computed: {
@@ -144,55 +164,33 @@ export default {
     hasNextPage() {
       return this.$store.state.product.productes.count > this.paginated.length;
     },
-    resultQuery() {
-      if (this.activeCategory) {
-        return this.category.filter((item) => {
-          return this.activeCategory
-            .toLowerCase()
-            .split(" ")
-            .every((v) => item.name.toLowerCase().includes(v));
-        });
-      } else {
-        return this.category;
-      }
-    },
-    resultPodCategory() {
-      if (this.activePod) {
-        return this.podCategory.filter((item) => {
-          return this.activePod
-            .toLowerCase()
-            .split(" ")
-            .every((v) => item.name.toLowerCase().includes(v));
-        });
-      } else {
-        return this.podCategory;
-      }
-    },
   },
   data() {
     return {
       limit: 50,
       observer: null,
-      categoryPop: false,
-      podcategoryPop: false,
-      edit: false,
-      PopUpData: {},
-      PopUp: false,
-      sanoq: null,
+      count: 1,
       activeCategory: null,
       activePod: null,
-      product: [],
-      searchQuery: null,
-      searchProduct: null,
-      searchPodCategory: null,
-      date: null,
-      active: false,
-      activeProduct: null,
-      popupActive: false,
-      popupActive1: false,
       podCategory: [],
-      currentEditId: null,
+      activeProduct: null,
+      calcPrice: null,
+      notification: {
+        show: false,
+        is_success: true,
+        header: "",
+        content: "",
+        btnFirst: "",
+        btnSecond: "",
+      },
+      notificationError: {
+        show: false,
+        content: "",
+      },
     };
+  },
+  components: {
+    Cart
   },
   methods: {
     getCat(data) {
@@ -203,11 +201,7 @@ export default {
         id: this.activeCategory.id,
         page: 1,
       };
-      this.$store.dispatch("product/GetProduct", obj.id).then((response) => {
-        // this.$vs.loading.close("#div-with-loading > .con-vs-loading");
-      });
-      this.categoryPop = false;
-      // this.podcategoryPop = true
+      this.$store.dispatch("product/GetProduct", obj.id).then((response) => {});
     },
     getProduct() {
       const obj = {
@@ -215,11 +209,6 @@ export default {
         page: 1,
       };
       this.$store.dispatch("product/GetProduct", obj.id);
-      this.podcategoryPop = false;
-    },
-    toggleDataSidebar(val = false) {
-      setTimeout(() => this.$store.dispatch("product/GetCart"), 500);
-      this.PopUp = val;
     },
     async onOpen() {
       if (this.hasNextPage) {
@@ -251,47 +240,67 @@ export default {
       } else {
       }
     },
-    AddToCart() {
-      if (this.dataId !== null && this.dataId >= 0) {
-        this.$store
-          .dispatch("product/AddCart", {
-            user_id: parseInt(localStorage.getItem("Id")),
-            product_id: this.dataId,
-            quantity: this.count,
-          })
-          .then((response) => {
-            if (response.statusText == "Created") {
-              this.$vs.notify({
-                title: "Ok",
-                text: this.$t("cart.addedP"),
-                iconPack: "feather",
-                icon: "icon-alert-circle",
-                color: "success",
-              });
-            } else {
-              this.$vs.notify({
-                title: "Ok",
-                text: this.$t("cart.updatedP"),
-                iconPack: "feather",
-                icon: "icon-alert-circle",
-                color: "warning",
-              });
-            }
-          })
-          .catch((err) => {
-            this.$vs.notify({
-              title: "Error",
-              text: err,
-              iconPack: "feather",
-              icon: "icon-alert-circle",
-              color: "danger",
-            });
-            console.error(err);
-          });
+    Minus() {
+      if (this.count > 1) {
+        this.count = this.count - 1;
+        this.calcPrice = this.activeProduct.price / this.count;
+      } else {
+        this.count = 1;
+        this.calcPrice = this.activeProduct.price;
       }
-      // this.$emit('closeSidebar')
-      // some chANGES
-      this.Reset();
+    },
+    Plus() {
+      this.count = this.count + 1;
+      this.calcPrice = this.count * this.activeProduct.price;
+    },
+    AddToCart() {
+      this.$store
+        .dispatch("product/AddCart", {
+          user_id: parseInt(localStorage.getItem("Id")),
+          product_id: this.activeProduct.id,
+          quantity: this.count,
+        })
+        .then((response) => {
+          this.activeProduct = null;
+          if (response.statusText == "Created") {
+            this.notification = {
+              show: true,
+              is_success: true,
+              header: "Created",
+              content: this.$t("cart.addedP"),
+              btnFirst: "Вернуться",
+              btnSecond: "OK",
+            };
+          } else {
+              this.notification = {
+              show: true,
+              is_success: true,
+              header: "Updated",
+              content: this.$t("cart.updatedP"),
+              btnFirst: "Вернуться",
+              btnSecond: "OK",
+            };
+          }
+        })
+        .catch((err) => {
+          this.notificationError = {
+            show: true,
+            content: `${err.response.data.detail}`,
+          };
+          console.error(err);
+        });
+    },
+    handlerOne() {
+      this.notification.show = false;
+    },
+    handlerTwo() {
+       this.notification.show = false;
+    },
+    handlerOneError() {
+      this.notificationError = {
+        show: false,
+        content: "",
+      };
     },
   },
   mounted() {
@@ -347,8 +356,7 @@ export default {
           font-family: Montserrat;
           font-style: normal;
           font-weight: 600;
-          font-size: 14px;
-          font-size: 22px;
+          font-size: 16px;
           line-height: 17px;
           /* identical to box height */
 
@@ -423,12 +431,13 @@ export default {
   .cart {
     background: #ffffff;
     /* Main Sahdow */
-    width: 50%;
+    width: 55%;
+    margin-left: 5%;
     box-shadow: 0px 3.82748px 8px rgba(70, 121, 236, 0.1);
     clip-path: inset(15px 15px 15px -15px);
     border-radius: 0px;
 
-    height: 80vh;
+    // height: 80vh;
     padding: 25px;
     .not-found {
       width: 100%;
