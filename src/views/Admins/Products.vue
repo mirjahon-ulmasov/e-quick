@@ -1,6 +1,6 @@
 <template>
-  <div v-cloak>
-    <div class="field">
+  <div>
+    <div id="top" class="field">
       <input
         type="text"
         v-model="search"
@@ -35,7 +35,7 @@
         />
       </button>
     </div>
-    <table id="table">
+    <table id="table" @scroll.passive="Scroll()" >
       <thead>
         <tr>
           <th v-for="(header, i) in headers" :key="i">{{ header.title }}</th>
@@ -60,7 +60,10 @@
     <span v-if="productList.total_products === 0" class="not">
       Результаты не найдены
     </span>
-    <nav v-if="productList.total_products !== 0 || productList.items.length !== 0">
+    <nav
+      v-if="productList.total_products !== 0 || productList.items.length !== 0"
+      id="nav"
+    >
       <ul class="pagination">
         <li class="page">
           <button type="button" class="page-link" @click="changeM(page)">
@@ -149,6 +152,14 @@
         </div>
       </div>
     </transition>
+    <a class="backtop" ref="section" href="#top">
+      <feather-icon
+        :icon="'ChevronUpIcon'"
+        class="icon"
+        style="color: #4679ec"
+        svgClasses="h-3 w-2"
+      />
+    </a>
   </div>
 </template>
 
@@ -175,7 +186,7 @@ export default {
       filtered: false,
       scTimer: 0,
       scY: 0,
-      searched: false
+      searched: false,
     };
   },
   computed: {
@@ -227,6 +238,9 @@ export default {
         }
       }
     },
+    Scroll(){
+       console.log('sdsadasd');
+    },
     Reset() {
       if (this.filtered === true) {
         this.filtered = false;
@@ -275,13 +289,13 @@ export default {
       return posts.slice(from, to);
     },
     Search(search) {
-      this.searched = true
+      this.searched = true;
       const obj = {
         page: this.page,
         name: search,
       };
-      this.pages = null
-      this.pages = []
+      this.pages = null;
+      this.pages = [];
       this.$store.dispatch("addUser/fetchProductSearch", obj);
     },
     Hide() {
@@ -393,5 +407,28 @@ export default {
   margin-left: 10px;
   display: flex;
   justify-content: center;
+}
+.backtop {
+  position: fixed;
+  width: 55px;
+  height: 55px;
+  right: 4%;
+  top: 750px;
+
+  background: #fafbfe;
+  /* Main Sahdow */
+  cursor: pointer;
+  box-shadow: 0px 3.82748px 8px rgba(70, 121, 236, 0.1);
+  border-radius: 13px;
+  border: none;
+  z-index: 999;
+  .feather-icon {
+    .feather {
+      width: 40px;
+      height: 40px;
+      margin-top: 8px;
+      margin-left: 8px;
+    }
+  }
 }
 </style>

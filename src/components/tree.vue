@@ -60,7 +60,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .bold {
   display: flex;
   justify-content: space-between;

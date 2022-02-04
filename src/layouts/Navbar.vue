@@ -136,7 +136,7 @@ export default {
       -o-transition: all 0.3s ease-in;
       transition: all 0.3s ease-in;
       width: 194px;
-      height: 165px;
+      height: auto;
       background: #f6f8fe;
       box-shadow: 0px -2px 8px rgba(70, 121, 236, 0.1),
         2px 4px 9px rgba(70, 121, 236, 0.09);
