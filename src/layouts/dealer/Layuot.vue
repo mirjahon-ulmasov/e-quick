@@ -26,7 +26,7 @@ export default {
   .main {
     width: 82%;
     background: #fff;
-    min-width: calc(100% - 270px);
+    min-width: calc(100% - 290px);
 
     .main-content {
       padding: 34px;
@@ -35,8 +35,8 @@ export default {
 
       .scroll {
         overflow-y: scroll;
-        // overflow-x: hidden !important;
-        height: 87%;
+        overflow-x: hidden !important;
+        height: 90%;
 
         &::-webkit-scrollbar {
           width: 8px;

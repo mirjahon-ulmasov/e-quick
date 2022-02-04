@@ -1,7 +1,7 @@
 <template>
-  <div id="app" >
-    <router-view  />
-        <!-- <button class="backtop"  @click="moveUp()" >
+  <div id="app">
+    <router-view />
+    <!-- <button class="backtop"  @click="moveUp()" >
       <feather-icon
         :icon="'ChevronUpIcon'"
         class="icon"
@@ -13,22 +13,19 @@
 </template>
 
 <script>
-import BackToTop from 'vue-backtotop'
 export default {
-  components: { BackToTop },
-  data(){
-    return{
+  data() {
+    return {
       isVisible: false,
-      hideScrollToTop: true
-    }
+      hideScrollToTop: true,
+    };
   },
   methods: {
-          moveUp(){
-         document.documentElement.scrollTop = 0
-
-      }
-  }
-}
+    moveUp() {
+      document.documentElement.scrollTop = 0;
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 .backtop {

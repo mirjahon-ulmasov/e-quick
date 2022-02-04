@@ -5,6 +5,7 @@
       :value="value"
       :class="error ? 'error' : 'custom-input'"
       v-if="type === 'textarea'"
+      :placeholder="placeholder"
       :style="btnStyles"
       style="resize: none"
     ></textarea>
@@ -41,6 +42,7 @@
       :type="type"
       class="custom-input"
       :class="{ error: error, login: isLogin }"
+      :placeholder="placeholder"
       v-else
       :style="btnStyles"
     />
@@ -50,6 +52,10 @@
 export default {
   name: "",
   props: {
+    placeholder: {
+      type: String,
+      default: "",
+    },
     error: {
       type: Boolean,
       default: false,
