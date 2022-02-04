@@ -130,6 +130,7 @@ export default {
 
   .sidebar-btn {
     position: absolute;
+    cursor: pointer;
     top: 3rem;
   }
 

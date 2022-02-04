@@ -18,7 +18,7 @@ export default {
   components: { SideBar },
   data() {
     return {
-      isFull: false,
+      isFull: true,
     };
   },
   methods: {

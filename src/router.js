@@ -349,6 +349,14 @@ const router = new Router({
           },
         },
         {
+          path: "/forgot-password",
+          name: "ForgotPassword",
+          component: () => import("./views/Auth/ForgotPassword.vue"),
+          meta: {
+            rule: "editor",
+          },
+        },
+        {
           path: "/404",
           name: "PageNotFound",
           component: () => import("./views/Auth/PageNotFound.vue"),
@@ -372,7 +380,7 @@ router.afterEach(() => {
   }
 });
 router.beforeEach((to, from, next) => {
-  const publicPages = ["/login", "/forget-password"];
+  const publicPages = ["/login", "/forgot-password"];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem("access");
   if (authRequired && !loggedIn) {
