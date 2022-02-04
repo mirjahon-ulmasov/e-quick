@@ -25,7 +25,7 @@
         <div class="user-detail">
           <p>Завод</p>
           <h4 v-if="product.company_name === null" style="color: #58dfb6">-</h4>
-          <h4 v-else >product.company_name</h4>
+          <h4 v-else >{{ product.company_name }}</h4>
         </div>
         <div class="user-detail">
           <p>Категория</p>

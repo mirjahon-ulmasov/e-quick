@@ -9,6 +9,7 @@ import StepControls from './components/wizard/stepcontrols.vue'
 import StepNav from './components/wizard/stepnav.vue'
 import Step from './components/wizard/step.vue'
 import Sidebar from './components/sidebar.vue'
+import Tree from './components/tree'
 // v-select component
 import "vue-select/dist/vue-select.css";
 import vSelect from "vue-select";
@@ -47,3 +48,4 @@ Vue.component('step-navigation-step', Step);
 Vue.component('step-navigation', StepNav);
 Vue.component('step-controls', StepControls);
 Vue.component('sidebar', Sidebar);
+Vue.component("tree-item", Tree);

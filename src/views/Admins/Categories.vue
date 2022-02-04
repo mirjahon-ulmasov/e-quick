@@ -7,12 +7,13 @@
       </div>
     </div>
     <div class="category">
-      <div class="main" v-for="(item, i) in resultCategory" :key="i">
-        <span>
-          {{ item.name }}
-        </span>
-        <img src="../../assets/images/icons/select-icon.svg" alt="" />
-      </div>
+      <tree-item
+        class="main"
+        v-for="(item, i) in resultCategory" :key="i"
+        :item="item"
+        @make-folder="makeFolder"
+        @add-item="addItem"
+      ></tree-item>
     </div>
         <div v-show="resultCategory.length === 0" class="not">
       <span> Результаты не найдены </span>
@@ -30,6 +31,28 @@ export default {
         { title: "Подкатегория" },
         { title: "Изменить" },
       ],
+      treeData : {
+        name: "My Tree",
+        children: [
+          { name: "hello" },
+          { name: "wat" },
+          {
+            name: "child folder",
+            children: [
+              {
+                name: "child folder",
+                children: [{ name: "hello" }, { name: "wat" }]
+              },
+              { name: "hello" },
+              { name: "wat" },
+              {
+                name: "child folder",
+                children: [{ name: "hello" }, { name: "wat" }]
+              }
+            ]
+          }
+        ]
+      },
       search: "",
     };
   },
@@ -51,9 +74,16 @@ export default {
     },
   },
   methods: {
-    addAdmin() {
-      this.$router.push("add-user");
-    },
+          makeFolder: function(item) {
+            Vue.set(item, "children", []);
+            this.addItem(item);
+            console.log(item);
+          },
+          addItem: function(item) {
+            item.children.push({
+              name: "new stuff"
+            });
+  }
   },
   created() {
     this.$store.dispatch("addUser/GetCategory");
@@ -68,17 +98,18 @@ export default {
 }
 .category {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-wrap: wrap;
   .main {
-    padding: 14px 18px;
     margin-bottom: 20px;
     width: 246px;
+    height: auto;
     background: #edf1fd;
     border-radius: 10px;
-    display: flex;
+    list-style: none;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
     img {
       width: 12px;
       height: 12px;

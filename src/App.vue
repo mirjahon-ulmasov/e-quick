@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div id="app">
     <router-view />
     <!-- <button class="backtop"  @click="moveUp()" >
@@ -9,10 +10,16 @@
         svgClasses="h-3 w-2"
       />
     </button> -->
+=======
+  <div id="app" >
+    <router-view  />
+ <!-- <BackToTop /> -->
+>>>>>>> 9cee078545d98f24cc14961ad7c1ac0a49ae4a65
   </div>
 </template>
 
 <script>
+<<<<<<< HEAD
 export default {
   data() {
     return {
@@ -26,27 +33,10 @@ export default {
     },
   },
 };
-</script>
-<style lang="scss" scoped>
-.backtop {
-  position: fixed;
-  width: 55px;
-  height: 55px;
-  right: 4%;
-  top: 750px;
-
-  background: #fafbfe;
-  /* Main Sahdow */
-  cursor: pointer;
-  box-shadow: 0px 3.82748px 8px rgba(70, 121, 236, 0.1);
-  border-radius: 13px;
-  border: none;
-  z-index: 999;
-  .feather-icon {
-    .feather {
-      width: 40px;
-      height: 40px;
-    }
-  }
+=======
+// import BackToTop from './components/backToTop.vue'
+export default {
+  // components: {BackToTop},
 }
-</style>
+>>>>>>> 9cee078545d98f24cc14961ad7c1ac0a49ae4a65
+</script>
