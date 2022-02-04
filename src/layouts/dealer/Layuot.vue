@@ -1,7 +1,7 @@
 <template>
   <div class="main-layout">
-    <SideBar />
-    <div class="main">
+    <SideBar @is_full="getIsFull" />
+    <div class="main" :class="{ big: !isFull }">
       <div class="main-content">
         <nav-bar :title="$route.meta.title"></nav-bar>
         <div class="scroll">
@@ -16,6 +16,16 @@
 import SideBar from "./SideBar.vue";
 export default {
   components: { SideBar },
+  data() {
+    return {
+      isFull: false,
+    };
+  },
+  methods: {
+    getIsFull(payload) {
+      this.isFull = payload;
+    },
+  },
 };
 </script>
 
@@ -54,6 +64,11 @@ export default {
         }
       }
     }
+  }
+
+  .big {
+    width: 95%;
+    min-width: calc(100% - 100px);
   }
 }
 </style>
