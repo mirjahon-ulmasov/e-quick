@@ -1,10 +1,17 @@
 <template>
-  <div class="side-bar">
+  <div class="side-bar" :class="{ small: !isFull }">
     <img
-      src="../../assets/images/logo/e-quick-white.png"
-      width="140px"
+      :src="isFull ? logo.big : logo.small"
+      :width="isFull ? '140px' : '39px'"
       alt="E-quick"
       class="logo"
+    />
+    <img
+      :src="isFull ? sidebar.close : sidebar.open"
+      alt="close icon"
+      class="sidebar-btn"
+      :class="{ 'close-btn': isFull, 'open-btn': !isFull }"
+      @click="getIsFull()"
     />
     <div class="nav-links">
       <router-link to="/dealer/analytics" class="nav-link">
@@ -12,41 +19,43 @@
           :src="link === 'analytics' ? graph.bold : graph.light"
           alt="graph icon"
         />
-        Аналитика</router-link
+        <p>Аналитика</p></router-link
       >
       <router-link to="/dealer/create-order" class="nav-link">
         <img
           :src="link === 'create-order' ? paper.bold : paper.light"
           alt="paper icon"
         />
-        Создать заказ</router-link
+        <p>Создать заказ</p></router-link
       >
       <router-link to="/dealer/journal" class="nav-link">
         <img
           :src="link === 'journal' ? document.bold : document.light"
           alt="document icon"
-        />Журнал</router-link
-      >
+        />
+        <p>Журнал</p>
+      </router-link>
       <router-link to="/dealer/templates" class="nav-link">
         <img
           :src="link === 'templates' ? award.bold : award.light"
           alt="award icon"
-        />Шаблоны</router-link
-      >
+        />
+        <p>Шаблоны</p>
+      </router-link>
       <router-link to="/dealer/feedback" class="nav-link">
         <img
           :src="link === 'feedback' ? message.bold : message.light"
           alt="message icon"
         />
-        Обратная связь</router-link
-      >
+        <p>Обратная связь</p>
+      </router-link>
       <router-link to="/dealer/whs" class="nav-link">
         <img
           :src="link === 'whs' ? discount.bold : discount.light"
           alt="discount icon"
         />
-        WHS Остатки</router-link
-      >
+        <p>WHS Остатки</p>
+      </router-link>
     </div>
   </div>
 </template>
@@ -56,6 +65,15 @@ export default {
   name: "DelearSideBar",
   data() {
     return {
+      isFull: true,
+      sidebar: {
+        open: require("@/assets/images/icons/open-sidebar.svg"),
+        close: require("@/assets/images/icons/close-sidebar.svg"),
+      },
+      logo: {
+        big: require("../../assets/images/logo/e-quick-white.png"),
+        small: require("../../assets/images/logo/equick-e-white.png"),
+      },
       graph: {
         bold: require("../../assets/images/icons/graph-white-bold.svg"),
         light: require("../../assets/images/icons/graph-white-light.svg"),
@@ -87,11 +105,18 @@ export default {
       return this.$route.meta.link;
     },
   },
+  methods: {
+    getIsFull() {
+      this.isFull = !this.isFull;
+      this.$emit("is_full", this.isFull);
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .side-bar {
+  position: relative;
   min-width: 290px;
   width: 18%;
   height: 100vh;
@@ -100,7 +125,20 @@ export default {
   box-shadow: 0px 8px 40px rgba(0, 0, 0, 0.12);
 
   .logo {
-    margin: 50px 50px;
+    margin: 50px;
+  }
+
+  .sidebar-btn {
+    position: absolute;
+    top: 3rem;
+  }
+
+  .close-btn {
+    right: 0;
+  }
+
+  .open-btn {
+    right: -24px;
   }
 
   .nav-links {
@@ -123,6 +161,33 @@ export default {
     }
     .active {
       background: #1858e7;
+    }
+  }
+}
+
+.small {
+  min-width: 100px;
+  width: 5%;
+
+  .logo {
+    margin: 50px 30px;
+  }
+
+  .nav-links {
+    text-align: center;
+    .nav-link {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 14px 15px;
+      line-height: 0;
+
+      img {
+        margin: 0;
+      }
+
+      p {
+        display: none;
+      }
     }
   }
 }
