@@ -60,7 +60,7 @@
     <span v-if="productList.total_products === 0" class="not">
       Результаты не найдены
     </span>
-    <nav v-if="productList.total_products !== 0 || searched === !true">
+    <nav v-if="productList.total_products !== 0 || productList.items.length !== 0">
       <ul class="pagination">
         <li class="page">
           <button type="button" class="page-link" @click="changeM(page)">

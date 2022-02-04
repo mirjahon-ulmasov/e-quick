@@ -13,9 +13,7 @@
 </template>
 
 <script>
-import BackToTop from 'vue-backtotop'
 export default {
-  components: { BackToTop },
   data(){
     return{
       isVisible: false,
