@@ -63,6 +63,36 @@
             width="130px"
             alt="user icon"
           />
+          <div class="right">
+            <h3>Imzo Trio</h3>
+            <div style="display: flex; align-items: center">
+              <span> Количество: </span>
+              <div class="quantity">
+                <button class="inc">
+                  <feather-icon
+                    :icon="'MinusIcon'"
+                    @click="Reset()"
+                    class="icon"
+                    svgClasses="h-6 w-9"
+                  />
+                </button>
+                <input type="text" />
+                <button class="inc">
+                  <feather-icon
+                    :icon="'PlusIcon'"
+                    @click="Reset()"
+                    class="icon"
+                    svgClasses="h-6 w-9"
+                  />
+                </button>
+              </div>
+              <div></div>
+            </div>
+            <span>
+              Цена:
+              <span class="bold"> 1,200,00 сум </span>
+            </span>
+          </div>
         </div>
       </div>
       <div class="actions">
@@ -280,12 +310,84 @@ export default {
   .detail {
     .item {
       margin-top: 20px;
+      display: flex;
       img {
         width: 40%;
         height: 112px;
         background: #f6f8fe;
         border-radius: 8px;
         padding: 28px 35px;
+        margin-right: 20px;
+      }
+      .right {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        span {
+          font-family: Montserrat;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 17px;
+          /* identical to box height */
+
+          color: #333333;
+        }
+        .bold {
+          font-family: Montserrat;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 16px;
+          line-height: 20px;
+          /* identical to box height */
+
+          color: #333333;
+        }
+        h3 {
+          font-family: Montserrat;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 14px;
+          font-size: 22px;
+          line-height: 17px;
+          /* identical to box height */
+
+          color: #333333;
+        }
+        .quantity {
+          margin-left: 15px;
+          display: flex;
+          input {
+            border: none;
+            margin: 0px 5px;
+            min-width: 15px;
+            width: 30px;
+            text-align: center;
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 22px;
+            /* identical to box height */
+
+            /* Main txt */
+
+            color: #394560;
+          }
+          .inc {
+            border: none;
+            background: #edf1fd;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            .icon {
+              color: #4679ec;
+              display: flex;
+              justify-content: center;
+            }
+          }
+        }
       }
     }
   }
