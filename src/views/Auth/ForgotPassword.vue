@@ -4,11 +4,13 @@
     <form @submit.prevent="reset">
       <h3>Восстановить пароль</h3>
       <div class="form-input">
-        <h4>Email</h4>
+        <h4>Укажите ваш email</h4>
         <my-input
           type="email"
           :width="375"
           v-model="email"
+          :isEmail="true"
+          padding="14px 46px"
           :error="errors.has('email')"
           name="email"
           v-validate="'required|email'"
@@ -25,11 +27,11 @@
       <div class="actions">
         <my-button
           type="submit"
-          title="Войти"
+          title="Подтвердить"
           bgColor="#4679EC"
           color="#FFFFFF"
           :width="380"
-          :fontSize="17"
+          :fontSize="16"
         ></my-button>
       </div>
     </form>

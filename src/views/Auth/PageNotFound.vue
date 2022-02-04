@@ -14,7 +14,7 @@
         color="#4679EC"
       ></my-button>
       <my-button
-        @click.native="$router.push('/analytics')"
+        @click.native="routHandler"
         type="button"
         title="Главная страница"
         bgColor="#4679EC"
@@ -25,7 +25,18 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    routHandler() {
+      const role = this.$store.state.auth.info;
+      if (role === "super_admin" || role === "admin") {
+        this.$router.push("/analytics");
+      } else if (role === "dealer") {
+        this.$router.push("/dealer/analytics");
+      }
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

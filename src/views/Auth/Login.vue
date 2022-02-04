@@ -59,7 +59,7 @@
           :width="380"
           :fontSize="17"
         ></my-button>
-        <router-link class="link" to="/forget-password"
+        <router-link class="link" to="/forgot-password"
           >Забыли пароль?</router-link
         >
       </div>
