@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="order">
     <form @submit.prevent="AddToCart()" style="width: 40%">
       <div class="form-input">
         <h4>Выберите завод</h4>
@@ -12,7 +12,7 @@
         >
           <template #open-indicator="{ attributes }">
             <span v-bind="attributes">
-              <img src="../../assets/images/icons/select-icon.svg" alt="" />
+              <img src="../../assets/images/icons/select2.svg" alt="" />
             </span>
           </template>
         </v-select>
@@ -27,7 +27,7 @@
         >
           <template #open-indicator="{ attributes }">
             <span v-bind="attributes">
-              <img src="../../assets/images/icons/select-icon.svg" alt="" />
+              <img src="../../assets/images/icons/select2.svg" alt="" />
             </span>
           </template>
         </v-select>
@@ -35,7 +35,6 @@
       <div class="form-input">
         <h4>Выберите товар</h4>
         <v-select
-          class="sle"
           v-model="activeProduct"
           @search="(query) => (searchProduct = query)"
           :options="paginated"
@@ -51,26 +50,36 @@
           </template>
           <template #open-indicator="{ attributes }">
             <span v-bind="attributes">
-              <img src="../../assets/images/icons/select-icon.svg" alt="" />
+              <img src="../../assets/images/icons/select2.svg" alt="" />
             </span>
           </template>
         </v-select>
       </div>
+      <div class="detail">
+        <h2 class="head">Детали заказа:</h2>
+        <div class="item">
+          <img
+            src="../../assets/images/icons/products-bold.svg"
+            width="130px"
+            alt="user icon"
+          />
+        </div>
+      </div>
       <div class="actions">
-        <my-button
-          style="margin-left: 9px"
-          type="submit"
-          :width="375"
-          title="В корзинку"
-        ></my-button>
-        <my-button
-          style="margin-left: 9px"
-          type="submit"
-          :width="375"
-          title="В корзинку"
-        ></my-button>
+        <button>Отменить</button>
+        <button style="background: #4679ec; color: #ffffff">В корзинку</button>
       </div>
     </form>
+    <div class="cart">
+      <h2 class="head">Корзинка</h2>
+      <div class="not-found">
+        <img src="../../assets/images/icons/order-bg.svg" alt="" />
+        <p>
+          Ваша корзинка пуста. Пожалуйста выберите необходимые товары для
+          покупки.
+        </p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -264,4 +273,78 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.order {
+  display: flex;
+  justify-content: space-between;
+  .detail {
+    .item {
+      margin-top: 20px;
+      img {
+        width: 40%;
+        height: 112px;
+        background: #f6f8fe;
+        border-radius: 8px;
+        padding: 28px 35px;
+      }
+    }
+  }
+  .actions {
+    width: 100%;
+    button {
+      width: 45%;
+      height: 46px;
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 17px;
+      pad: 15px 40px;
+      background: #edf1fd;
+      border-radius: 10px;
+      border: none !important;
+      color: #4679ec;
+      cursor: pointer;
+    }
+  }
+  .head {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+
+    /* Main txt */
+
+    color: #394560;
+  }
+  .cart {
+    background: #ffffff;
+    /* Main Sahdow */
+    width: 50%;
+    box-shadow: 0px 3.82748px 8px rgba(70, 121, 236, 0.1);
+    clip-path: inset(15px 15px 15px -15px);
+    border-radius: 0px;
+
+    height: 80vh;
+    padding: 25px;
+    .not-found {
+      width: 100%;
+      padding-top: 70px;
+      text-align: center;
+      p {
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        text-align: center;
+
+        /* Main txt */
+
+        color: #394560;
+      }
+    }
+  }
+}
+</style>
