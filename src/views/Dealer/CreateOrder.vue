@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit.prevent="AddToCart()" style="width: 40%" >
+    <form @submit.prevent="AddToCart()" style="width: 40%">
       <div class="form-input">
         <h4>Выберите завод</h4>
         <v-select
@@ -61,7 +61,13 @@
           style="margin-left: 9px"
           type="submit"
           :width="375"
-          title="Применить"
+          title="В корзинку"
+        ></my-button>
+        <my-button
+          style="margin-left: 9px"
+          type="submit"
+          :width="375"
+          title="В корзинку"
         ></my-button>
       </div>
     </form>
@@ -69,7 +75,7 @@
 </template>
 
 <script>
-import axios from '../../axios'
+import axios from "../../axios";
 export default {
   name: "Home",
   computed: {
