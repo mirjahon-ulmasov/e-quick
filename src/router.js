@@ -99,6 +99,18 @@ const router = new Router({
             link: "",
             title: "Профиль",
           },
+          children: [
+            {
+              path: "edit",
+              name: "DealerEdit",
+              component: () => import("./views/Dealer/DealerEdit.vue"),
+              meta: {
+                rule: "dealer",
+                title: "Изменить данные",
+                link: "",
+              },
+            },
+          ],
         },
       ],
     },

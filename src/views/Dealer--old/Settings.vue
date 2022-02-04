@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form  enctype="multipart/form-data" class="container-body">
+    <form enctype="multipart/form-data" class="container-body">
       <div class="col">
         <div
           class="flex justify-between items-center mb-6"
@@ -8,7 +8,9 @@
         >
           <div>
             <p class="title">{{ $t("profile.title") }}</p>
-            <p class="sub-title">{{ $t('profile.fish') }}, {{ $t('profile.email') }}</p>
+            <p class="sub-title">
+              {{ $t("profile.fish") }}, {{ $t("profile.email") }}
+            </p>
           </div>
           <div
             v-if="image"
@@ -71,6 +73,8 @@
           errors.first("email")
         }}</span>
       </div>
+      
+
       <div class="col">
         <p class="title">{{ $t("profile.ok") }}</p>
         <p class="text mb-4 mt-3">
@@ -83,79 +87,108 @@
           rows="10"
           :placeholder="$t('profile.message')"
         ></textarea>
-    <svg style="position: absolute; width: 25px; height: 25px;" width="22px" height="22px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-      <defs>
-        <symbol id="icon-star-full" class="icon" viewBox="0 0 32 32">
-          <path d="M32 12.408l-11.056-1.607-4.944-10.018-4.944 10.018-11.056 1.607 8 7.798-1.889 11.011 9.889-5.199 9.889 5.199-1.889-11.011 8-7.798z"></path>
-        </symbol>
-      </defs>
-    </svg>
-  <rate class="RateCustom" :length="5" :value="3" v-model="rating" iconref="icon-star-full"></rate>
-        <vs-button class="save-btn mt-2 p-2" @click="SaveReview()"
-          >{{ $t('profile.review') }}</vs-button
+
+        <svg
+          style="position: absolute; width: 25px; height: 25px"
+          width="22px"
+          height="22px"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
         >
+          <defs>
+            <symbol id="icon-star-full" class="icon" viewBox="0 0 32 32">
+              <path
+                d="M32 12.408l-11.056-1.607-4.944-10.018-4.944 10.018-11.056 1.607 8 7.798-1.889 11.011 9.889-5.199 9.889 5.199-1.889-11.011 8-7.798z"
+              ></path>
+            </symbol>
+          </defs>
+        </svg>
+        <rate
+          class="RateCustom"
+          :length="5"
+          :value="3"
+          v-model="rating"
+          iconref="icon-star-full"
+        ></rate>
+        <vs-button class="save-btn mt-2 p-2" @click="SaveReview()">{{
+          $t("profile.review")
+        }}</vs-button>
       </div>
+
+
       <div class="col">
         <p class="title">{{ $t("profile.password") }}</p>
         <p class="sub-title">{{ $t("profile.curemail") }} - {{ info.email }}</p>
-       <div class="flex" v-if="password === ''" >
-       <input
-          class="custom-input"
-          v-model="old_password"
-          :type="[showPassword1 ? 'text' : 'password']"
-          name="oldpassword"
-          :placeholder="$t('profile.new')"
-        />
-              <feather-icon
-              @click="showPassword1 = !showPassword1"
-                  :icon="showPassword1 ? 'EyeIcon' : 'EyeOffIcon'"
-                  style="color: #135c81 !important; margin-left: -45px !important; margin-top: -8px;"
-                  svgClasses="h-7 w-7"
-                />
-       </div>
-        <div 
-        v-else
-        style="display: flex; flex-direction: column"
-         >
-       <div class="flex" >
-                 <input
-          class="custom-input"
-          v-model="old_password"
-          name="oldpassword"
-          v-validate="'min:3|required'"
-          :type="[showPassword1 ? 'text' : 'password']"
-          :placeholder="$t('profile.old')"
-        />
-              <feather-icon
-              @click="showPassword1 = !showPassword1"
-                  :icon="showPassword1 ? 'EyeIcon' : 'EyeOffIcon'"
-                  style="color: #135c81 !important; margin-left: -45px !important; margin-top: -8px;"
-                  svgClasses="h-7 w-7"
-                />
-       </div>
-        <span class="text-danger text-sm" v-show="errors.has('oldpassword')">{{
-          errors.first("oldpassword")
-        }}</span>
+        <div class="flex" v-if="password === ''">
+          <input
+            class="custom-input"
+            v-model="old_password"
+            :type="[showPassword1 ? 'text' : 'password']"
+            name="oldpassword"
+            :placeholder="$t('profile.new')"
+          />
+          <feather-icon
+            @click="showPassword1 = !showPassword1"
+            :icon="showPassword1 ? 'EyeIcon' : 'EyeOffIcon'"
+            style="
+              color: #135c81 !important;
+              margin-left: -45px !important;
+              margin-top: -8px;
+            "
+            svgClasses="h-7 w-7"
+          />
         </div>
-       <div class="flex">
-                 <input
-          class="custom-input"
-          v-model="password"
-          :type="[showPassword2 ? 'text' : 'password']"
-          ref="password"
-          :placeholder="$t('profile.new')"
-        />
-              <feather-icon
-              @click="showPassword2 = !showPassword2"
-                  :icon="showPassword2 ? 'EyeIcon' : 'EyeOffIcon'"
-                  style="color: #135c81 !important; margin-left: -45px !important; margin-top: -8px;"
-                  svgClasses="h-7 w-7"
-                />
-       </div>
+        <div v-else style="display: flex; flex-direction: column">
+          <div class="flex">
+            <input
+              class="custom-input"
+              v-model="old_password"
+              name="oldpassword"
+              v-validate="'min:3|required'"
+              :type="[showPassword1 ? 'text' : 'password']"
+              :placeholder="$t('profile.old')"
+            />
+            <feather-icon
+              @click="showPassword1 = !showPassword1"
+              :icon="showPassword1 ? 'EyeIcon' : 'EyeOffIcon'"
+              style="
+                color: #135c81 !important;
+                margin-left: -45px !important;
+                margin-top: -8px;
+              "
+              svgClasses="h-7 w-7"
+            />
+          </div>
+          <span
+            class="text-danger text-sm"
+            v-show="errors.has('oldpassword')"
+            >{{ errors.first("oldpassword") }}</span
+          >
+        </div>
+        <div class="flex">
+          <input
+            class="custom-input"
+            v-model="password"
+            :type="[showPassword2 ? 'text' : 'password']"
+            ref="password"
+            :placeholder="$t('profile.new')"
+          />
+          <feather-icon
+            @click="showPassword2 = !showPassword2"
+            :icon="showPassword2 ? 'EyeIcon' : 'EyeOffIcon'"
+            style="
+              color: #135c81 !important;
+              margin-left: -45px !important;
+              margin-top: -8px;
+            "
+            svgClasses="h-7 w-7"
+          />
+        </div>
       </div>
       <div class="col">
         <p class="title">{{ $t("profile.notis") }}</p>
-        <p class="sub-title"> {{ $t('profile.event') }}</p>
+        <p class="sub-title">{{ $t("profile.event") }}</p>
         <label class="checkbox-container">
           <input type="checkbox" v-model="sitenotf" checked="checked" />
           <span class="checkmark"></span>
@@ -179,11 +212,11 @@
 </template>
 
 <script>
-import Rate from '../../components/rate.vue'
-import Compressor from 'compressorjs';
+import Rate from "../../components/rate.vue";
+import Compressor from "compressorjs";
 export default {
   components: {
-    Rate
+    Rate,
   },
   computed: {
     info() {
@@ -204,61 +237,60 @@ export default {
       old_password: "",
       message: "",
       rating: 4,
-       scale: null,
+      scale: null,
       quality1: null,
       image:
         "https://eros.mingle2.com/main/resources/assets/no_photo_male-69f72765b4837e51717fb0a56e2aaa3c.png",
       img: null,
-    }
+    };
   },
   name: "Settings",
   methods: {
-    upload () {
-        let compressor = this.$refs.updateImgInput
-        compressor.click()
-      },
-      updateCurrImg(input){
-  const file = input.target.files[0];
-  if (!file) {
-    return;
-  }
-   this.quality1 = new Compressor(file, {
-    quality: 0.6,
-    success(result) {
-    console.log(result)
+    upload() {
+      let compressor = this.$refs.updateImgInput;
+      compressor.click();
     },
-    error(err) {
-                this.$vs.notify({
-                title: "Error",
-                text: 'Image size must be pover 2 MB',
-                iconPack: "feather",
-                icon: "icon-alert-circle",
-                color: "danger",
-              })
+    updateCurrImg(input) {
+      const file = input.target.files[0];
+      if (!file) {
+        return;
+      }
+      this.quality1 = new Compressor(file, {
+        quality: 0.6,
+        success(result) {
+          console.log(result);
+        },
+        error(err) {
+          this.$vs.notify({
+            title: "Error",
+            text: "Image size must be pover 2 MB",
+            iconPack: "feather",
+            icon: "icon-alert-circle",
+            color: "danger",
+          });
+        },
+      });
+      setTimeout(() => {
+        if (this.quality1.result.size < 1427393) {
+          const reader = new FileReader();
+          console.log(this.quality1.result);
+          reader.readAsDataURL(this.quality1.result);
+          reader.onload = (event) => {
+            this.image = event.target.result;
+          };
+          this.img = new FormData();
+          this.img.append("image", this.quality1.result);
+        } else {
+          this.$vs.notify({
+            title: "Error",
+            text: "Image size must be over 2 MB",
+            iconPack: "feather",
+            icon: "icon-alert-circle",
+            color: "danger",
+          });
+        }
+      }, 1000);
     },
-  })
-   setTimeout(() => {
-    if(this.quality1.result.size < 1427393){
-        const reader = new FileReader();
-        console.log(this.quality1.result)
-         reader.readAsDataURL(this.quality1.result);
-        reader.onload = (event) => {
-          this.image = event.target.result
-        };
-      this.img = new FormData();
-      this.img.append('image', this.quality1.result)
-      }
-      else{
-                this.$vs.notify({
-                title: "Error",
-                text: 'Image size must be over 2 MB',
-                iconPack: "feather",
-                icon: "icon-alert-circle",
-                color: "danger",
-              })
-      }
-   }, 1000);
-      },
     SaveInfo() {
       const payload = {
         role: "dealer",
@@ -270,23 +302,25 @@ export default {
         old_password: this.old_password,
         full_name: this.name,
         email: this.email,
-        user_lang: localStorage.getItem('lang'),
+        user_lang: localStorage.getItem("lang"),
         savdo_id: this.info.savdo_id,
         phone_number: this.info.phone_number,
-      }
-      if(this.img !== null){
-        this.$store.dispatch("auth/updateIMG", this.img ).then(
-          () => { this.img = null }
-        )
-                    .catch((err) => {
-              this.$vs.notify({
-                title: "Error",
-                text: err,
-                iconPack: "feather",
-                icon: "icon-alert-circle",
-                color: "danger",
-              });
+      };
+      if (this.img !== null) {
+        this.$store
+          .dispatch("auth/updateIMG", this.img)
+          .then(() => {
+            this.img = null;
+          })
+          .catch((err) => {
+            this.$vs.notify({
+              title: "Error",
+              text: err,
+              iconPack: "feather",
+              icon: "icon-alert-circle",
+              color: "danger",
             });
+          });
       }
       this.$validator.validateAll().then((result) => {
         if (result) {
@@ -302,24 +336,23 @@ export default {
               });
             })
             .catch((err) => {
-             if (err.response.status === 400) {
+              if (err.response.status === 400) {
                 this.$vs.notify({
-                title: "Error",
-                text: "Old password invalid !, try again",
-                iconPack: "feather",
-                icon: "icon-alert-circle",
-                color: "danger",
-              });
-             }
-             else{
+                  title: "Error",
+                  text: "Old password invalid !, try again",
+                  iconPack: "feather",
+                  icon: "icon-alert-circle",
+                  color: "danger",
+                });
+              } else {
                 this.$vs.notify({
-                title: "Error",
-                text: err,
-                iconPack: "feather",
-                icon: "icon-alert-circle",
-                color: "danger",
-              });
-             }
+                  title: "Error",
+                  text: err,
+                  iconPack: "feather",
+                  icon: "icon-alert-circle",
+                  color: "danger",
+                });
+              }
             });
         }
       });
@@ -336,7 +369,7 @@ export default {
           .then((response) => {
             this.message = "";
             this.$vs.notify({
-              text: this.$t('profile.thankYou'),
+              text: this.$t("profile.thankYou"),
               iconPack: "feather",
               icon: "icon-check-circle",
               color: "success",
@@ -352,7 +385,7 @@ export default {
           });
       } else {
         this.$vs.notify({
-          text: this.$t('auth.fillCorrect'),
+          text: this.$t("auth.fillCorrect"),
           iconPack: "feather",
           icon: "icon-alert-circle",
           color: "danger",
@@ -363,9 +396,10 @@ export default {
       (this.name = this.info.full_name),
         (this.surname = this.info.username),
         (this.email = this.info.email),
-        (this.image = process.env.VUE_APP_IMG + this.info.profile_picture)
-        (this.sitenotf =
-          this.info.site_notifications === "active" ? true : false),
+        (this.image = process.env.VUE_APP_IMG + this.info.profile_picture)(
+          (this.sitenotf =
+            this.info.site_notifications === "active" ? true : false)
+        ),
         (this.emailnotf =
           this.info.email_notifications === "active" ? true : false);
     },
@@ -381,8 +415,12 @@ export default {
   width: 25px;
   height: 25px;
 }
-  .RateCustom.Rate .Rate__star.filled { color: blue; }
-  .RateCustom.Rate .Rate__star { padding: 0px; }
+.RateCustom.Rate .Rate__star.filled {
+  color: blue;
+}
+.RateCustom.Rate .Rate__star {
+  padding: 0px;
+}
 </style>
 <style lang="scss" scoped>
 .container-body {
@@ -391,7 +429,7 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-   overflow-y: scroll;
+  overflow-y: scroll;
   &::-webkit-scrollbar {
     width: 10px;
   }
@@ -536,13 +574,13 @@ export default {
       color: #000022;
     }
     .text {
-font-family: Montserrat;
-font-style: normal;
-font-weight: normal;
-font-size: 17px;
-line-height: 21px;
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 17px;
+      line-height: 21px;
 
-color: #000022;
+      color: #000022;
     }
     .sub-title {
       font-family: "Lato" sans-serif;
@@ -563,7 +601,7 @@ color: #000022;
       outline: none;
       padding-left: 20px;
       font-style: normal;
-          font-family: Montserrat;
+      font-family: Montserrat;
       font-weight: normal;
       font-size: 15px;
       line-height: 18px;
@@ -581,7 +619,7 @@ color: #000022;
       border-radius: 5.7972px;
       border: none;
       outline: none;
-          font-family: Montserrat;
+      font-family: Montserrat;
       padding: 10px;
       font-style: normal;
       font-weight: normal;

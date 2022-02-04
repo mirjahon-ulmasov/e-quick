@@ -1,39 +1,6 @@
 <template>
   <div>
     <form @submit.prevent="submitHandler">
-      <div class="form-input" v-if="id">
-        <h4>Статус</h4>
-        <div class="segment-control">
-          <div class="rad" :class="{ active: user.active === 1 }">
-            <input v-model="user.active" :value="1" id="active" type="radio" />
-            <label for="active">Активен</label>
-          </div>
-          <div class="rad" :class="{ inactive: user.active === 0 }">
-            <input
-              v-model="user.active"
-              :value="0"
-              id="inactive"
-              type="radio"
-            />
-            <label for="inactive">Неактивен</label>
-          </div>
-        </div>
-      </div>
-      <div v-if="!$route.meta.id" class="form-input">
-        <h4>Выберите роль</h4>
-        <v-select
-          v-model="user.role"
-          style="width: 375px"
-          :options="['admin']"
-          id="select-state"
-        >
-          <template #open-indicator="{ attributes }">
-            <span v-bind="attributes">
-              <img src="../../assets/images/icons/select-icon.svg" alt="" />
-            </span>
-          </template>
-        </v-select>
-      </div>
       <div class="form-input">
         <h4>Ф.И.О.</h4>
         <my-input
@@ -75,25 +42,6 @@
         </span>
       </div>
       <div class="form-input">
-        <h4>Email</h4>
-        <my-input
-          type="email"
-          :width="375"
-          v-model="user.email"
-          :error="errors.has('email')"
-          name="email"
-          v-validate="'required|email'"
-        />
-        <span class="error-text" v-show="errors.has('email')">
-          <feather-icon
-            :icon="'InfoIcon'"
-            style="color: #db2379 !important; margin-right: 5px"
-            svgClasses="h-6 w-6"
-          />
-          {{ errors.first("email") }}
-        </span>
-      </div>
-      <div class="form-input">
         <h4>Имя пользователя</h4>
         <my-input
           type="input"
@@ -110,6 +58,25 @@
             svgClasses="h-6 w-6"
           />
           {{ errors.first("username") }}
+        </span>
+      </div>
+      <div class="form-input">
+        <h4>Email</h4>
+        <my-input
+          type="email"
+          :width="375"
+          v-model="user.email"
+          :error="errors.has('email')"
+          name="email"
+          v-validate="'required|email'"
+        />
+        <span class="error-text" v-show="errors.has('email')">
+          <feather-icon
+            :icon="'InfoIcon'"
+            style="color: #db2379 !important; margin-right: 5px"
+            svgClasses="h-6 w-6"
+          />
+          {{ errors.first("email") }}
         </span>
       </div>
       <div class="form-input">
@@ -225,7 +192,6 @@
 
 <script>
 export default {
-  props: ["id"],
   data() {
     return {
       notification: {
@@ -238,12 +204,9 @@ export default {
         show: false,
         content: "",
       },
-      editID: null,
       user: {
-        active: 1,
         full_name: "",
         phone_number: "",
-        role: "admin",
         email: "",
         username: "",
         email_notifications: false,
@@ -255,11 +218,10 @@ export default {
     };
   },
   created() {
-    if (this.$route.meta.id) this.editID = this.$route.meta.id;
-    if (this.id) this.editID = this.id;
+    const editID = localStorage.getItem("Id");
 
     this.$store
-      .dispatch("addUser/fetchUserById", this.editID)
+      .dispatch("addUser/fetchUserById", editID)
       .then((res) => res.data)
       .then((user) => {
         this.user = {
@@ -276,8 +238,7 @@ export default {
     },
     handlerTwo() {
       this.reset();
-      if (this.id) this.$router.push("/admins");
-      else this.$router.push("/setting");
+      this.$router.push("/dealer/profile");
     },
     handlerOneError() {
       this.notificationError = {
@@ -301,22 +262,12 @@ export default {
                 : "inactive",
             })
             .then((res) => {
-              if (this.id) {
-                this.notification = {
-                  show: true,
-                  header: "Пользователь был изменён успешно",
-                  content:
-                    "Теперь вы можете увидеть изменения в списке админов",
-                  btnSecond: "Список админов",
-                };
-              } else {
-                this.notification = {
-                  show: true,
-                  header: "Данные были изменены успешно",
-                  content: "Теперь вы можете увидеть изменения в настройках",
-                  btnSecond: "Настройки",
-                };
-              }
+              this.notification = {
+                show: true,
+                header: "Данные были изменены успешно",
+                content: "Теперь вы можете увидеть изменения в своём профиле",
+                btnSecond: "Профиль",
+              };
             })
             .catch((err) => {
               this.notificationError = {
@@ -339,11 +290,9 @@ export default {
         show: false,
         content: "",
       };
-      this.editID = null;
       this.user = {
         full_name: "",
         phone_number: "",
-        role: "admin",
         email: "",
         username: "",
         email_notifications: false,
