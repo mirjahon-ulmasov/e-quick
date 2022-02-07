@@ -256,7 +256,7 @@ export default {
     min-width: 400px;
     border-collapse: collapse;
     border-radius: 8px;
-    margin-top: 30px;
+    margin-top: 20px;
     thead {
       width: 100%;
       height: 56px;

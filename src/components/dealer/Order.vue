@@ -190,14 +190,12 @@ export default {
             delivery_type: this.type.value,
           })
           .then((response) => {
-            this.notification = {
-              show: true,
-              is_success: true,
-              header: "Ok",
-              content: this.$t("cart.successOffer"),
-              btnFirst: "Вернуться",
-              btnSecond: "OK",
-            };
+            this.$vs.notify({
+              text: this.$t("cart.successOffer"),
+              iconPack: "feather",
+              icon: "icon-alert-circle",
+              color: "success",
+            });
             setTimeout(() => {
               this.$store.dispatch("addUser/NotisfyGet");
             }, 4000);
@@ -205,11 +203,13 @@ export default {
             this.$store.state.product.carts = null;
           })
           .catch((err) => {
-          this.notificationError = {
-            show: true,
-            content: `${err.response.data.detail}`,
-          };
-
+            this.$vs.notify({
+              text: err,
+              iconPack: "feather",
+              icon: "icon-alert-circle",
+              color: "danger",
+            });
+            console.error(err);
           });
         this.Reset();
       } else {
@@ -220,18 +220,6 @@ export default {
           color: "danger",
         });
       }
-    },
-        handlerOne() {
-      this.notification.show = false;
-    },
-    handlerTwo() {
-       this.notification.show = false;
-    },
-    handlerOneError() {
-      this.notificationError = {
-        show: false,
-        content: "",
-      };
     },
   },
 };
