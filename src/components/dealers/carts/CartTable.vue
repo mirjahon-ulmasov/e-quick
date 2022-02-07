@@ -85,40 +85,40 @@
                 <feather-icon
                  v-if="!Id"
                   icon="MinusIcon"
-                  @click="Min(tr)"
-                  @mouseleave="IncEdit(tr)"
+                  @click="Min(cart)"
+                  @mouseleave="IncEdit(cart)"
                   style="margin-right: -19px !important"
                   svgClasses="h-3 w-4 hover:text-primary"
                   class="ml-1"
                 />
                 <input
                   class="add"
-                  v-if="Id === tr.id"
+                  v-if="Id === cart.id"
                   v-model="incQuan"
-                  @keypress.enter="IncEdit(tr)"
+                  @keypress.enter="IncEdit(cart)"
                   type="text"
                 />
                 <input
                  v-if="!Id"
                   class="add"
-                  @mousedown="Id = tr.id"
-                  v-model="tr.quantity"
+                  @mousedown="Id = cart.id"
+                  v-model="cart.quantity"
                   type="text"
                 />
                 <feather-icon
                 v-if="!Id"
                   icon="PlusIcon"
-                  @click="Inc(tr)"
-                  @mouseleave="IncEdit(tr)"
+                  @click="Inc(cart)"
+                  @mouseleave="IncEdit(cart)"
                   style="margin-left: -19px !important"
                   svgClasses="h-3 w-4 hover:text-primary bold"
                   class="ml-1 bold"
                 />
                         <feather-icon
-                        v-if="Id === tr.id"
+                        v-if="Id === cart.id"
                         style="margin-left: -19px !important"
                         icon="CheckIcon"
-                        @click="IncEdit(tr)"
+                        @click="IncEdit(cart)"
                         svgClasses="h-4 w-5 text-success"
                         class="ml-1"
                       />
@@ -132,7 +132,7 @@
             <vs-td style="text-align: center">
               <feather-icon
                 icon="TrashIcon"
-                @click="deleteCartProduct(tr.id)"
+                @click="deleteCartProduct(cart.id)"
                 svgClasses="h-5 w-5 hover:text-success text-danger"
                 class="ml-1"
               />

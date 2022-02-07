@@ -46,7 +46,6 @@
         >
           <template #list-footer>
             <li v-show="hasNextPage" ref="load" class="loader">
-              <!-- Loading more options... -->
             </li>
           </template>
           <template #open-indicator="{ attributes }">
@@ -89,7 +88,7 @@
             </div>
             <span>
               Цена:
-              <span class="bold"> {{ calcPrice }} сум </span>
+              <span class="bold"> {{ calcPrice.toLocaleString("de-DE") }} сум </span>
             </span>
           </div>
         </div>
@@ -102,14 +101,6 @@
     <div class="cart">
       <h2 class="head">Корзинка</h2>
       <Cart  />
-      <div class="not-found">
-        <img src="../../assets/images/icons/order-bg.svg" alt="" />
-        <p>
-          Ваша корзинка пуста. Пожалуйста выберите необходимые товары для
-          покупки.
-        </p>
-      </div>
-
     </div>
     <v-notification
       header="Error"
@@ -262,6 +253,7 @@ export default {
         })
         .then((response) => {
           this.activeProduct = null;
+          this.count = 1
           if (response.statusText == "Created") {
             this.notification = {
               show: true,
@@ -281,6 +273,7 @@ export default {
               btnSecond: "OK",
             };
           }
+           this.$store.dispatch("product/GetCart");
         })
         .catch((err) => {
           this.notificationError = {
@@ -316,6 +309,8 @@ export default {
 .order {
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  // height: 100%;
   .detail {
     .item {
       margin-top: 20px;
@@ -433,29 +428,12 @@ export default {
     /* Main Sahdow */
     width: 55%;
     margin-left: 5%;
-    box-shadow: 0px 3.82748px 8px rgba(70, 121, 236, 0.1);
-    clip-path: inset(15px 15px 15px -15px);
+    // box-shadow: 0px 3.82748px 8px rgba(70, 121, 236, 0.1);
+    // clip-path: inset(15px 15px 15px -15px);
     border-radius: 0px;
 
-    // height: 80vh;
+    // height: 100%;
     padding: 25px;
-    .not-found {
-      width: 100%;
-      padding-top: 70px;
-      text-align: center;
-      p {
-        font-family: Montserrat;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 18px;
-        line-height: 22px;
-        text-align: center;
-
-        /* Main txt */
-
-        color: #394560;
-      }
-    }
   }
 }
 </style>
