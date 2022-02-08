@@ -128,8 +128,7 @@ export default {
     color: #394560;
   }
   .parent {
-    width: 240px;
-    height: 50px;
+    width: 270px;
     .dropdown {
       position: fixed;
       z-index: 999;
@@ -171,13 +170,8 @@ export default {
         font-weight: 500;
         font-size: 14px;
         line-height: 16px;
-        /* identical to box height */
-
         display: flex;
         align-items: center;
-
-        /* Main */
-
         color: #4679ec;
       }
     }

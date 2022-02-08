@@ -3,6 +3,7 @@
     <img src="../../assets/images/logo/e-quick.png" alt="E-quick" />
     <form @submit.prevent="loginJWT">
       <h3>Войти</h3>
+      <spinner v-show="spinner" />
       <div class="form-input">
         <h4>Логин</h4>
         <my-input
@@ -74,6 +75,7 @@ export default {
       username: "",
       password: "",
       remember_me: false,
+      spinner: false,
     };
   },
   computed: {
@@ -84,8 +86,7 @@ export default {
   methods: {
     loginJWT() {
       if (this.validateForm) {
-        // Loading
-        this.$vs.loading();
+        this.spinner = true;
         const payload = {
           checkbox_remember_me: this.remember_me,
           userDetails: {
@@ -98,7 +99,7 @@ export default {
           .then(() => {
             this.$acl.change(this.$store.state.userType);
             const role = this.$store.state.userType;
-            this.$vs.loading.close();
+            this.spinner = false;
             if (role === "super_admin" || role === "admin") {
               this.$router.push("/analytics");
             } else if (role === "dealer") {
@@ -106,7 +107,7 @@ export default {
             }
           })
           .catch((error) => {
-            this.$vs.loading.close();
+            this.spinner = false;
             this.$vs.notify({
               title: "Error",
               text: error.response.data.detail,
