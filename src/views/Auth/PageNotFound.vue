@@ -9,14 +9,14 @@
       <my-button
         @click.native="$router.go(-1)"
         type="button"
-        title="Вернуться"
+        :title="$t('auth.back')"
         bgColor="#EDF1FD"
         color="#4679EC"
       ></my-button>
       <my-button
         @click.native="routHandler"
         type="button"
-        title="Главная страница"
+        :title="$t('auth.mainPage')"
         bgColor="#4679EC"
         color="#FFFFFF"
       ></my-button>

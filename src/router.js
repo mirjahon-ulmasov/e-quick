@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 import store from "./store/store";
+import i18n from "./i18n/i18n";
 Vue.use(Router);
 
 const router = new Router({
@@ -37,7 +38,7 @@ const router = new Router({
           meta: {
             rule: "dealer",
             link: "analytics",
-            title: "Аналитика",
+            title: `${i18n.messages[i18n.locale].analytics.title}`,
           },
         },
         {
