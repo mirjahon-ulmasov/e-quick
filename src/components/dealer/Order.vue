@@ -76,24 +76,6 @@
         </div>
       </div>
     </transition>
-    <v-notification
-      header="Error"
-      :is_success="false"
-      btnFirst="Вернуться"
-      :isShow="notificationError.show"
-      :content="notificationError.content"
-      @handlerOne="handlerOneError"
-    ></v-notification>
-    <v-notification
-      :isShow="notification.show"
-      :is_success="notification.is_success"
-      :header="notification.header"
-      :content="notification.content"
-      :btnFirst="notification.btnFirst"
-      :btnSecond="notification.btnSecond"
-      @handlerOne="handlerOne"
-      @handlerTwo="handlerTwo"
-    ></v-notification>
   </div>
 </template>
 <script>

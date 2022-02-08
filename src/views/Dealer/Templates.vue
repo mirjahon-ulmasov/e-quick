@@ -7,119 +7,133 @@
         @keyup.enter="Search(search)"
         placeholder="Поиск по названием"
       />
-      <button
-        class="search-icon"
-      >
+      <button class="search-icon" @click="listed = !listed">
         <img
           v-if="listed"
           src="../../assets/images/icons/board-blue.svg"
-          @click="open = true"
           alt="search"
         />
         <img
           v-else
           src="../../assets/images/icons/document-blue.svg"
-          @click="open = true"
           alt="search"
         />
       </button>
     </div>
-    <transition name="show">
-    <table v-if="listed" id="table" style="width: 100%">
-      <thead>
-        <tr>
-          <th v-for="(header, i) in headers" :key="i">{{ header.title }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(tr, i) in resultTemplates" :key="i">
-          <td>
-            {{ i + 1 }}
-          </td>
-          <td>
-            {{ tr.title }}
-          </td>
-          <td style="padding-left: 40px !important">
-            {{
-              tr.items
-                .map((x) => x.quantity)
-                .reduce((acc, item) => {
-                  return (acc += item);
-                }, 0)
-            }}
-          </td>
-          <td>
-            {{
-              tr.items
-                .map((x) => x.price)
-                .reduce((acc, item) => {
-                  return (acc += item);
-                }, 0)
-                .toLocaleString("de-DE")
-            }}
-            <span class="ml-1">{{ $t("sum") }}</span>
-          </td>
-          <td style="padding-left: 70px !important">
-            <img src="../../assets/images/icons/eye-show.svg" alt="" />
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    </transition>
-    <transition name="show">
-        <div class="carts">
-      <div class="cart" v-for="(tr, i) in resultTemplates" :key="i">
-        <div class="header">
-          <h2>
-            {{ tr.title }}
-          </h2>
+    <div v-if="templates.status_code !== 404">
+      <transition name="show">
+        <div class="carts" v-if="!listed">
+          <div class="cart" v-for="(tr, i) in resultTemplates" :key="i">
+            <div class="header">
+              <h2>
+                {{ tr.title }}
+              </h2>
+                              <img
+                  src="../../assets/images/icons/delete-icon.svg"
+                  alt="trash"
+                  style="cursor: pointer"
+                  @click="deleteTemplete(tr.template_id)"
+                />
+            </div>
+            <div class="body">
+              <h3>{{ $t("templates.quantity") }}</h3>
+              <span>
+                {{
+                  tr.items
+                    .map((x) => x.quantity)
+                    .reduce((acc, item) => {
+                      return (acc += item);
+                    }, 0)
+                }}
+              </span>
+              <h3>{{ $t("templates.price") }}</h3>
+              <span>
+                {{
+                  tr.items
+                    .map((x) => x.price)
+                    .reduce((acc, item) => {
+                      return (acc += item);
+                    }, 0)
+                    .toLocaleString("de-DE")
+                }}
+                <span class="ml-1">{{ $t("sum") }}</span>
+              </span>
+              <button @click="Open(tr.template_id)" >Посмотреть</button>
+            </div>
+          </div>
         </div>
-        <div class="body">
-          <h3>{{ $t("templates.quantity") }}</h3>
-          <span > 
-            {{
-              tr.items
-                .map((x) => x.quantity)
-                .reduce((acc, item) => {
-                  return (acc += item);
-                }, 0)
-            }} </span>
-          <h3>{{ $t("templates.price") }}</h3>
-          <span>
-            {{
-              tr.items
-                .map((x) => x.price)
-                .reduce((acc, item) => {
-                  return (acc += item);
-                }, 0)
-                .toLocaleString("de-DE")
-            }}
-            <span class="ml-1">{{ $t("sum") }}</span>
-          </span>
-          <router-link  >
-            <img
-              src="../../assets/images/icons/eye-show.svg"
-              alt="see"
-              style="margin-right: 12px"
-            />
-            Посмотреть
-          </router-link>
-        </div>
-      </div>
+      </transition>
+      <transition name="show-top">
+        <table v-if="listed" id="table" style="width: 100%">
+          <thead>
+            <tr>
+              <th v-for="(header, i) in headers" :key="i">
+                {{ header.title }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(tr, i) in resultTemplates" :key="i">
+              <td @click="Open(tr.template_id)">
+                {{ i + 1 }}
+              </td>
+              <td>
+                {{ tr.title }}
+              </td>
+              <td
+                @click="Open(tr.template_id)"
+                style="padding-left: 40px !important"
+              >
+                {{
+                  tr.items
+                    .map((x) => x.quantity)
+                    .reduce((acc, item) => {
+                      return (acc += item);
+                    }, 0)
+                }}
+              </td>
+              <td @click="Open(tr.template_id)">
+                {{
+                  tr.items
+                    .map((x) => x.price)
+                    .reduce((acc, item) => {
+                      return (acc += item);
+                    }, 0)
+                    .toLocaleString("de-DE")
+                }}
+                <span class="ml-1">{{ $t("sum") }}</span>
+              </td>
+              <td
+                style="padding-left: 70px !important"
+                @click="Open(tr.template_id)"
+              >
+                <img src="../../assets/images/icons/eye-show.svg" alt="" />
+              </td>
+              <td style="padding-left: 60px !important">
+                <img
+                  src="../../assets/images/icons/delete-icon.svg"
+                  alt="trash"
+                  style="cursor: pointer"
+                  @click="deleteTemplete(tr.template_id)"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </transition>
     </div>
-    </transition>
-    <span v-if="resultTemplates.length === 0" class="not">
+    <span v-if="resultTemplates.length === 0 || templates.status_code === 404 " class="not">
       Результаты не найдены
     </span>
-    <order-item
+    <template-item
       :isOrderItem="Sidebar"
       @closeSidebar="toggleDataSidebar"
-    ></order-item>
+    ></template-item>
   </div>
 </template>
 
 <script>
-import OrderItem from "../../components/dealer/OrderItems.vue";
+import TemplateItem from "../../components/dealer/TemplateItems.vue";
 export default {
   data() {
     return {
@@ -129,6 +143,7 @@ export default {
         { title: this.$t("templates.quantity") },
         { title: this.$t("templates.price") },
         { title: "Посмотреть" },
+        { title: "Удалить" },
       ],
       selected: [],
       page: 1,
@@ -136,11 +151,11 @@ export default {
       pages: [],
       Sidebar: false,
       search: "",
-      listed: true
+      listed: true,
     };
   },
   components: {
-    OrderItem,
+    TemplateItem,
   },
   computed: {
     resultTemplates() {
@@ -161,18 +176,35 @@ export default {
   },
   methods: {
     Open(id) {
-      this.$store.dispatch("product/GetOrderItem", id).then((response) => {});
-      setTimeout(() => {
-        this.toggleDataSidebar(true);
-      }, 200);
+      this.toggleDataSidebar(true);
+      this.$store.dispatch("product/GetTemplatesItem", id);
     },
     toggleDataSidebar(val = false) {
       this.Sidebar = val;
+    },
+    deleteTemplete(id) {
+      this.$store.dispatch("product/UpdateTemplate", id).then(() => {
+        setTimeout(() => {
+          this.$store.dispatch("product/GetTemplates");
+        }, 500);
+        this.$vs.notify({
+          text: this.$t("delete"),
+          iconPack: "feather",
+          icon: "icon-alert-circle",
+          color: "success",
+        });
+        if (this.templates.length === 0) {
+          this.templates = null;
+        }
+      });
     },
   },
   created() {
     this.$store.dispatch("product/GetTemplates");
   },
+  updated(){
+    console.log(this.templates);
+  }
 };
 </script>
 
@@ -233,10 +265,11 @@ export default {
     .header {
       width: 100%;
       // height: 54px;
+      justify-content: space-between;
       display: flex;
       align-items: center;
       padding: 20px;
-      background: #e5edff;
+      background: #f5f8ff;
       border-radius: 7.65496px 7.65496px 0px 0px;
       h2 {
         font-family: Montserrat;
@@ -262,9 +295,6 @@ export default {
         font-weight: 500;
         font-size: 16px;
         line-height: 100.9%;
-        /* or 14px */
-
-        /* Text */
         margin-top: 20px;
         color: #60739f;
       }
@@ -275,18 +305,14 @@ export default {
         font-weight: 600;
         font-size: 18px;
         line-height: 100.9%;
-        /* or 18px */
-
-        /* Text */
-
         color: #60739f;
       }
-      a {
+      button {
         margin-top: 40px;
         margin-left: 15px;
         width: 90%;
         height: 44.5px;
-        background: #ebf0ff;
+        background: transparent;
         border-radius: 10px;
         border: none;
         font-family: Montserrat;
@@ -294,7 +320,6 @@ export default {
         font-weight: 500;
         font-size: 14px;
         line-height: 17px;
-        /* identical to box height */
         display: flex;
         align-items: center;
         justify-content: center;

@@ -236,7 +236,7 @@ export default {
 <style lang="scss" scoped>
 .table {
   overflow-y: scroll;
-  overflow-x: hidden;
+  overflow-x: scroll;
   max-height: 50vh;
   &::-webkit-scrollbar {
     width: 8px;
@@ -254,6 +254,7 @@ export default {
   }
   #tableCart {
     min-width: 400px;
+        width: 100%;
     border-collapse: collapse;
     border-radius: 8px;
     margin-top: 20px;
