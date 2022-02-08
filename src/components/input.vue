@@ -41,7 +41,7 @@
       :value="value"
       :type="type"
       class="custom-input"
-      :class="{ error: error, login: isLogin, email: isEmail }"
+      :class="{ error: error, login: isLogin, email: isEmail, code: isCode }"
       :placeholder="placeholder"
       v-else
       :style="btnStyles"
@@ -69,6 +69,10 @@ export default {
       default: false,
     },
     isEmail: {
+      type: Boolean,
+      default: false,
+    },
+    isCode: {
       type: Boolean,
       default: false,
     },
@@ -138,6 +142,12 @@ input.login {
 
 input.email {
   background-image: url("../assets/images/icons/login-email.svg");
+  background-repeat: no-repeat;
+  background-position: 5%;
+}
+
+input.code {
+  background-image: url("../assets/images/icons/login-code.svg");
   background-repeat: no-repeat;
   background-position: 5%;
 }

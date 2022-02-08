@@ -6,6 +6,7 @@ import MyButton from "./components/Button.vue";
 import MyInput from "./components/input.vue";
 import Notification from "./components/Notification.vue";
 import StepControls from './components/wizard/stepcontrols.vue'
+import LoadingSpinner from './components/LoadingSpinner.vue'
 import StepNav from './components/wizard/stepnav.vue'
 import Step from './components/wizard/step.vue'
 import Sidebar from './components/sidebar.vue'
@@ -49,3 +50,4 @@ Vue.component('step-navigation', StepNav);
 Vue.component('step-controls', StepControls);
 Vue.component('sidebar', Sidebar);
 Vue.component("tree-item", Tree);
+Vue.component("spinner", LoadingSpinner);

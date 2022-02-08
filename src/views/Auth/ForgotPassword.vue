@@ -1,9 +1,10 @@
 <template>
   <div class="login">
     <img src="../../assets/images/logo/e-quick.png" alt="E-quick" />
-    <form @submit.prevent="reset">
+    <form @submit.prevent="reset" autocomplete="off">
       <h3>Восстановить пароль</h3>
-      <div class="form-input">
+      <spinner v-show="spinner" />
+      <div class="form-input" v-show="isEmail">
         <h4>Укажите ваш email</h4>
         <my-input
           type="email"
@@ -24,6 +25,74 @@
           {{ errors.first("email") }}
         </span>
       </div>
+
+      <div class="form-input" v-show="isCode">
+        <h4>Укажите код, который пришел на ваш Email</h4>
+        <my-input
+          type="text"
+          :width="375"
+          v-model="code"
+          :isCode="true"
+          padding="14px 46px"
+          :error="errors.has('code')"
+          name="code"
+          v-validate="'required|length:5'"
+        />
+        <span class="error-text" v-show="errors.has('code')">
+          <feather-icon
+            :icon="'InfoIcon'"
+            style="color: #db2379 !important; margin-right: 5px"
+            svgClasses="h-6 w-6"
+          />
+          {{ errors.first("code") }}
+        </span>
+      </div>
+
+      <div class="form-input" v-show="isPassword">
+        <h4>Укажите новый пароль</h4>
+        <my-input
+          type="password"
+          :width="375"
+          v-model="password"
+          :isPassword="true"
+          padding="14px 46px"
+          ref="password"
+          :error="errors.has('password')"
+          name="password"
+          v-validate="'required|min:5'"
+        />
+        <span class="error-text" v-show="errors.has('password')">
+          <feather-icon
+            :icon="'InfoIcon'"
+            style="color: #db2379 !important; margin-right: 5px"
+            svgClasses="h-6 w-6"
+          />
+          {{ errors.first("password") }}
+        </span>
+      </div>
+
+      <div class="form-input" v-show="isPassword">
+        <h4>Повторите новый пароль</h4>
+        <my-input
+          type="password"
+          :width="375"
+          v-model="confirm"
+          :isPassword="true"
+          padding="14px 46px"
+          name="confirm"
+          data-vv-as="password"
+          :error="errors.has('confirm')"
+          v-validate="'required|min:5|confirmed:password'"
+        />
+        <span class="error-text" v-show="errors.has('confirm')">
+          <feather-icon
+            :icon="'InfoIcon'"
+            style="color: #db2379 !important; margin-right: 5px"
+            svgClasses="h-6 w-6"
+          />
+          {{ errors.first("confirm") }}
+        </span>
+      </div>
       <div class="actions">
         <my-button
           type="submit"
@@ -33,19 +102,145 @@
           :width="380"
           :fontSize="16"
         ></my-button>
+        <p class="resend" v-show="isCode">
+          Не получили код?
+          <button @click="resend()" type="button">Отправить заново</button>
+        </p>
       </div>
     </form>
+    <v-notification
+      header="Error"
+      :is_success="false"
+      btnFirst="Вернуться"
+      :isShow="notificationError.show"
+      :content="notificationError.content"
+      @handlerOne="handlerOneError"
+    ></v-notification>
   </div>
 </template>
 
 <script>
 export default {
   data() {
-    return {};
+    return {
+      email: "",
+      isEmail: true,
+      code: "",
+      isCode: false,
+      password: "",
+      confirm: "",
+      isPassword: false,
+      userId: "",
+      spinner: false,
+      notificationError: {
+        show: false,
+        content: "",
+      },
+    };
   },
   computed: {},
   methods: {
-    reset() {},
+    handlerOneError() {
+      this.notificationError = {
+        show: false,
+        content: "",
+      };
+    },
+    resend() {
+      this.spinner = true;
+      this.$store
+        .dispatch("auth/ResetPass", {
+          email: this.email,
+        })
+        .then(() => {
+          this.spinner = false;
+        })
+        .catch((err) => {
+          this.spinner = false;
+          this.notificationError = {
+            show: true,
+            content: `${err.response.data.detail}`,
+          };
+        });
+    },
+    reset() {
+      if (this.isEmail) {
+        this.$validator.validate("email").then((isValid) => {
+          if (isValid) {
+            this.spinner = true;
+            this.$store
+              .dispatch("auth/ResetPass", {
+                email: this.email,
+              })
+              .then(() => {
+                this.spinner = false;
+                this.isCode = true;
+                this.isEmail = false;
+              })
+              .catch((err) => {
+                this.spinner = false;
+                this.notificationError = {
+                  show: true,
+                  content: `${err.response.data.detail}`,
+                };
+              });
+          }
+        });
+      }
+
+      if (this.isCode) {
+        this.$validator.validate("code").then((isValid) => {
+          if (isValid) {
+            this.spinner = true;
+            this.$store
+              .dispatch("auth/Verify", {
+                code: this.code,
+              })
+              .then((res) => res.data)
+              .then((data) => {
+                {
+                  this.spinner = false;
+                  this.userId = data.user_id;
+                  this.isCode = false;
+                  this.isPassword = true;
+                }
+              })
+              .catch((err) => {
+                this.spinner = false;
+                this.notificationError = {
+                  show: true,
+                  content: `${err.response.data.detail}`,
+                };
+              });
+          }
+        });
+      }
+
+      if (this.isPassword) {
+        this.$validator.validate("password");
+        this.$validator.validate("confirm").then(() => {
+          if (this.errors.items.length === 0) {
+            this.spinner = true;
+            this.$store
+              .dispatch("auth/ChangePass", {
+                password: this.password,
+                user_id: this.userId,
+              })
+              .then(() => {
+                this.spinner = false;
+                this.$router.push("/login");
+              })
+              .catch((err) => {
+                this.spinner = false;
+                this.notificationError = {
+                  show: true,
+                  content: `${err.response.data.detail}`,
+                };
+              });
+          }
+        });
+      }
+    },
   },
 };
 </script>
@@ -85,12 +280,23 @@ export default {
       flex-direction: column;
       align-items: center;
 
-      .link {
+      .resend {
+        margin-top: 1rem;
         font-weight: 500;
         font-size: 15px;
-        margin-top: 1rem;
+        line-height: 17px;
         letter-spacing: 0.02em;
-        color: #4679ec;
+
+        button {
+          font-weight: 500;
+          font-size: 15px;
+          line-height: 17px;
+          letter-spacing: 0.02em;
+          color: #4679ec;
+          border: none;
+          background: transparent;
+          cursor: pointer;
+        }
       }
     }
   }
