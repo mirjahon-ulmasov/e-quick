@@ -4,6 +4,13 @@
     <div class="parent">
       <div class="profile">
         <img
+          v-show="info.role === 'dealer'"
+          src="@/assets/images/icons/notification.svg"
+          width="25px"
+          alt="Notification"
+        />
+        <img
+          class="profile-img"
           :src="baseUrl + info.profile_picture"
           width="60px"
           height="60px"
@@ -18,7 +25,7 @@
       <div :class="'dropdown'">
         <div class="item">
           <img
-            src="../assets/images/icons/globus.svg"
+            src="@/assets/images/icons/globus.svg"
             style="margin-right: 12px"
             alt="c"
           />
@@ -30,7 +37,7 @@
           :to="'/settings'"
         >
           <img
-            src="../assets/images/icons/settings.svg"
+            src="@/assets/images/icons/settings.svg"
             style="margin-right: 12px"
             alt="c"
           />
@@ -45,7 +52,7 @@
           :to="'/setting'"
         >
           <img
-            src="../assets/images/icons/settings.svg"
+            src="@/assets/images/icons/settings.svg"
             style="margin-right: 12px"
             alt="c"
           />
@@ -57,7 +64,7 @@
           to="/dealer/profile"
         >
           <img
-            src="../assets/images/icons/settings.svg"
+            src="@/assets/images/icons/settings.svg"
             style="margin-right: 12px"
             alt="c"
           />
@@ -65,7 +72,7 @@
         </router-link>
         <div @click="LogOut()" class="item">
           <img
-            src="../assets/images/icons/logout.svg"
+            src="@/assets/images/icons/logout.svg"
             style="margin-right: 12px"
             alt="c"
           />
@@ -93,7 +100,8 @@ export default {
   methods: {
     LogOut() {
       localStorage.removeItem("access");
-      localStorage.removeItem("UserInfo");
+      localStorage.removeItem("Id");
+
       this.$acl.change("editor");
       this.$router.push("/login");
       window.location.reload();
@@ -120,8 +128,7 @@ export default {
     color: #394560;
   }
   .parent {
-    width: 240px;
-    height: 50px;
+    width: 270px;
     .dropdown {
       position: fixed;
       z-index: 999;
@@ -163,13 +170,8 @@ export default {
         font-weight: 500;
         font-size: 14px;
         line-height: 16px;
-        /* identical to box height */
-
         display: flex;
         align-items: center;
-
-        /* Main */
-
         color: #4679ec;
       }
     }
@@ -185,7 +187,12 @@ export default {
     .profile {
       display: flex;
       align-items: center;
+
       img {
+        margin-right: 1rem;
+      }
+
+      .profile-img {
         background: #edf2fb;
         padding: 3px;
         background: #ffffff;
@@ -204,7 +211,6 @@ export default {
       }
 
       .profile-content {
-        margin-left: 12px;
         font-size: 16px;
 
         h4 {

@@ -63,6 +63,7 @@ export default {
     return new Promise((resolve, reject) => {
       axios.post('/api/v1/users/reset_password', (item))
         .then((response) => {
+          console.log(response.data);
           resolve(response)
         })
         .catch((error) => { reject(error) })
