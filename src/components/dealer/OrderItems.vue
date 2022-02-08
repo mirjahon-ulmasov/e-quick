@@ -47,7 +47,6 @@
             <div
               class="buttons"
               v-if="
-                carts.status === 7 ||
                 carts.status === 9 ||
                 carts.status === 10 ||
                 carts.status === 11"

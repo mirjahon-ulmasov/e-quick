@@ -1,101 +1,107 @@
 <template>
-  <div class="nav-bar">
-    <h3>{{ title }}</h3>
-    <div class="parent">
-      <div class="profile">
-        <img
-          v-show="info.role === 'dealer'"
-          src="@/assets/images/icons/notification.svg"
-          width="25px"
-          alt="Notification"
-        />
-        <img
-          class="profile-img"
-          :src="baseUrl + info.profile_picture"
-          width="60px"
-          height="60px"
-          style="border-radius: 50%"
-          alt="Profile"
-        />
-        <div class="profile-content">
-          <h4>{{ info.full_name }}</h4>
-          <p>{{ info.role }}</p>
+  <div>
+    <div class="nav-bar">
+      <h3>{{ title }}</h3>
+      <div class="parent">
+        <div class="profile">
+          <img
+            @click="toggleDataSidebarNotis(true)"
+            v-show="info.role === 'dealer'"
+            src="@/assets/images/icons/notification.svg"
+            width="25px"
+            alt="Notification"
+          />
+          <img
+            class="profile-img"
+            :src="baseUrl + info.profile_picture"
+            width="60px"
+            height="60px"
+            style="border-radius: 50%"
+            alt="Profile"
+          />
+          <div class="profile-content">
+            <h4>{{ info.full_name }}</h4>
+            <p>{{ info.role }}</p>
+          </div>
         </div>
-      </div>
-      <div :class="'dropdown'">
-        <div class="item">
-          <img
-            src="@/assets/images/icons/globus.svg"
-            style="margin-right: 12px"
-            alt="c"
-          />
-          <span> Сменить язык </span>
-        </div>
-        <router-link
-          v-if="this.$store.state.userType === 'admin' || $acl.check('admin')"
-          class="item"
-          :to="'/settings'"
-        >
-          <img
-            src="@/assets/images/icons/settings.svg"
-            style="margin-right: 12px"
-            alt="c"
-          />
-          <span> Настройки </span>
-        </router-link>
-        <router-link
-          v-if="
-            this.$store.state.userType === 'super_admin' ||
-            $acl.check('super_admin')
-          "
-          class="item"
-          :to="'/setting'"
-        >
-          <img
-            src="@/assets/images/icons/settings.svg"
-            style="margin-right: 12px"
-            alt="c"
-          />
-          <span> Настройки </span>
-        </router-link>
-        <router-link
-          v-if="this.$store.state.userType === 'dealer' || $acl.check('dealer')"
-          class="item"
-          to="/dealer/profile"
-        >
-          <img
-            src="@/assets/images/icons/settings.svg"
-            style="margin-right: 12px"
-            alt="c"
-          />
-          <span> Настройки </span>
-        </router-link>
-        <div @click="LogOut()" class="item">
-          <img
-            src="@/assets/images/icons/logout.svg"
-            style="margin-right: 12px"
-            alt="c"
-          />
-          <span> Выйти с аккаунта </span>
+        <div :class="'dropdown'">
+          <router-link
+            v-if="this.$store.state.userType === 'admin' || $acl.check('admin')"
+            class="item"
+            :to="'/settings'"
+          >
+            <img
+              src="@/assets/images/icons/settings.svg"
+              style="margin-right: 12px"
+              alt="c"
+            />
+            <span> Настройки </span>
+          </router-link>
+          <router-link
+            v-if="
+              this.$store.state.userType === 'super_admin' ||
+              $acl.check('super_admin')
+            "
+            class="item"
+            :to="'/setting'"
+          >
+            <img
+              src="@/assets/images/icons/settings.svg"
+              style="margin-right: 12px"
+              alt="c"
+            />
+            <span> Настройки </span>
+          </router-link>
+          <router-link
+            v-if="
+              this.$store.state.userType === 'dealer' || $acl.check('dealer')
+            "
+            class="item"
+            to="/dealer/profile"
+          >
+            <img
+              src="@/assets/images/icons/settings.svg"
+              style="margin-right: 12px"
+              alt="c"
+            />
+            <span> Настройки </span>
+          </router-link>
+          <div @click="LogOut()" class="item">
+            <img
+              src="@/assets/images/icons/logout.svg"
+              style="margin-right: 12px"
+              alt="c"
+            />
+            <span> Выйти с аккаунта </span>
+          </div>
         </div>
       </div>
     </div>
+    <notification
+      :isSidebarNotis="Sidebar"
+      @closeSidebarNotis="toggleDataSidebarNotis"
+    ></notification>
   </div>
 </template>
 
 <script>
+import Notification from "../components/dealer/Notisfication.vue";
 export default {
   props: ["title"],
   data() {
     return {
       active: false,
       baseUrl: process.env.VUE_APP_IMG,
+      Sidebar: false,
     };
   },
   computed: {
     info() {
       return this.$store.state.auth.info;
     },
+  },
+  components: {
+    Notification,
   },
   methods: {
     LogOut() {
@@ -105,6 +111,9 @@ export default {
       this.$acl.change("editor");
       this.$router.push("/login");
       window.location.reload();
+    },
+    toggleDataSidebarNotis(val = false) {
+      this.Sidebar = val;
     },
   },
   created() {
