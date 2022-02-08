@@ -9,6 +9,7 @@ instance.interceptors.response.use(function (response) {
     return response
   }, function (error) {
     if (error.response.status === 401) {
+      console.log(error.response.status);
       localStorage.removeItem('access')
       router.push('/login')
     }

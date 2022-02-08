@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <form @submit.prevent="AddToCart()" style="width: 40%" >
+  <div class="order">
+    <form @submit.prevent="AddToCart()" style="width: 40%">
       <div class="form-input">
         <h4>Выберите завод</h4>
         <v-select
@@ -12,7 +12,7 @@
         >
           <template #open-indicator="{ attributes }">
             <span v-bind="attributes">
-              <img src="../../assets/images/icons/select-icon.svg" alt="" />
+              <img src="../../assets/images/icons/select2.svg" alt="" />
             </span>
           </template>
         </v-select>
@@ -27,7 +27,7 @@
         >
           <template #open-indicator="{ attributes }">
             <span v-bind="attributes">
-              <img src="../../assets/images/icons/select-icon.svg" alt="" />
+              <img src="../../assets/images/icons/select2.svg" alt="" />
             </span>
           </template>
         </v-select>
@@ -35,10 +35,10 @@
       <div class="form-input">
         <h4>Выберите товар</h4>
         <v-select
-          class="sle"
           v-model="activeProduct"
           @search="(query) => (searchProduct = query)"
           :options="paginated"
+          @input="calcPrice = activeProduct.price"
           :filterable="false"
           @open="onOpen"
           @close="onClose"
@@ -46,30 +46,86 @@
         >
           <template #list-footer>
             <li v-show="hasNextPage" ref="load" class="loader">
-              <!-- Loading more options... -->
             </li>
           </template>
           <template #open-indicator="{ attributes }">
             <span v-bind="attributes">
-              <img src="../../assets/images/icons/select-icon.svg" alt="" />
+              <img src="../../assets/images/icons/select2.svg" alt="" />
             </span>
           </template>
         </v-select>
       </div>
+      <div class="detail" v-if="activeProduct">
+        <h2 class="head">Детали заказа:</h2>
+        <div class="item">
+          <img
+            src="../../assets/images/icons/products-bold.svg"
+            width="130px"
+            alt="user icon"
+          />
+          <div class="right">
+            <h3>{{ activeProduct.name }}</h3>
+            <div style="display: flex; align-items: center">
+              <span> Количество: </span>
+              <div class="quantity">
+                <button class="inc" type="button" @click="Minus()">
+                  <feather-icon
+                    :icon="'MinusIcon'"
+                    class="icon"
+                    svgClasses="h-6 w-9"
+                  />
+                </button>
+                <input type="text" v-model="count" />
+                <button class="inc" type="button" @click="Plus()">
+                  <feather-icon
+                    :icon="'PlusIcon'"
+                    class="icon"
+                    svgClasses="h-6 w-9"
+                  />
+                </button>
+              </div>
+              <div></div>
+            </div>
+            <span>
+              Цена:
+              <span class="bold"> {{ calcPrice.toLocaleString("de-DE") }} сум </span>
+            </span>
+          </div>
+        </div>
+      </div>
       <div class="actions">
-        <my-button
-          style="margin-left: 9px"
-          type="submit"
-          :width="375"
-          title="Применить"
-        ></my-button>
+        <button type="button" @click="activeProduct = null" >Отменить</button>
+        <button style="background: #4679ec; color: #ffffff" :disabled="activeProduct === null" :style="activeProduct === null ? 'opacity: 0.5' : ''">В корзинку</button>
       </div>
     </form>
+    <div class="cart">
+      <h2 class="head">Корзинка</h2>
+      <Cart  />
+    </div>
+    <v-notification
+      header="Error"
+      :is_success="false"
+      btnFirst="Вернуться"
+      :isShow="notificationError.show"
+      :content="notificationError.content"
+      @handlerOne="handlerOneError"
+    ></v-notification>
+    <v-notification
+      :isShow="notification.show"
+      :is_success="notification.is_success"
+      :header="notification.header"
+      :content="notification.content"
+      :btnFirst="notification.btnFirst"
+      :btnSecond="notification.btnSecond"
+      @handlerOne="handlerOne"
+      @handlerTwo="handlerTwo"
+    ></v-notification>
   </div>
 </template>
 
 <script>
-import axios from '../../axios'
+import axios from "../../axios";
+import Cart from '../../components/dealer/CartTable.vue'
 export default {
   name: "Home",
   computed: {
@@ -99,55 +155,33 @@ export default {
     hasNextPage() {
       return this.$store.state.product.productes.count > this.paginated.length;
     },
-    resultQuery() {
-      if (this.activeCategory) {
-        return this.category.filter((item) => {
-          return this.activeCategory
-            .toLowerCase()
-            .split(" ")
-            .every((v) => item.name.toLowerCase().includes(v));
-        });
-      } else {
-        return this.category;
-      }
-    },
-    resultPodCategory() {
-      if (this.activePod) {
-        return this.podCategory.filter((item) => {
-          return this.activePod
-            .toLowerCase()
-            .split(" ")
-            .every((v) => item.name.toLowerCase().includes(v));
-        });
-      } else {
-        return this.podCategory;
-      }
-    },
   },
   data() {
     return {
       limit: 50,
       observer: null,
-      categoryPop: false,
-      podcategoryPop: false,
-      edit: false,
-      PopUpData: {},
-      PopUp: false,
-      sanoq: null,
+      count: 1,
       activeCategory: null,
       activePod: null,
-      product: [],
-      searchQuery: null,
-      searchProduct: null,
-      searchPodCategory: null,
-      date: null,
-      active: false,
-      activeProduct: null,
-      popupActive: false,
-      popupActive1: false,
       podCategory: [],
-      currentEditId: null,
+      activeProduct: null,
+      calcPrice: null,
+      notification: {
+        show: false,
+        is_success: true,
+        header: "",
+        content: "",
+        btnFirst: "",
+        btnSecond: "",
+      },
+      notificationError: {
+        show: false,
+        content: "",
+      },
     };
+  },
+  components: {
+    Cart
   },
   methods: {
     getCat(data) {
@@ -158,11 +192,7 @@ export default {
         id: this.activeCategory.id,
         page: 1,
       };
-      this.$store.dispatch("product/GetProduct", obj.id).then((response) => {
-        // this.$vs.loading.close("#div-with-loading > .con-vs-loading");
-      });
-      this.categoryPop = false;
-      // this.podcategoryPop = true
+      this.$store.dispatch("product/GetProduct", obj.id).then((response) => {});
     },
     getProduct() {
       const obj = {
@@ -170,11 +200,6 @@ export default {
         page: 1,
       };
       this.$store.dispatch("product/GetProduct", obj.id);
-      this.podcategoryPop = false;
-    },
-    toggleDataSidebar(val = false) {
-      setTimeout(() => this.$store.dispatch("product/GetCart"), 500);
-      this.PopUp = val;
     },
     async onOpen() {
       if (this.hasNextPage) {
@@ -206,47 +231,69 @@ export default {
       } else {
       }
     },
-    AddToCart() {
-      if (this.dataId !== null && this.dataId >= 0) {
-        this.$store
-          .dispatch("product/AddCart", {
-            user_id: parseInt(localStorage.getItem("Id")),
-            product_id: this.dataId,
-            quantity: this.count,
-          })
-          .then((response) => {
-            if (response.statusText == "Created") {
-              this.$vs.notify({
-                title: "Ok",
-                text: this.$t("cart.addedP"),
-                iconPack: "feather",
-                icon: "icon-alert-circle",
-                color: "success",
-              });
-            } else {
-              this.$vs.notify({
-                title: "Ok",
-                text: this.$t("cart.updatedP"),
-                iconPack: "feather",
-                icon: "icon-alert-circle",
-                color: "warning",
-              });
-            }
-          })
-          .catch((err) => {
-            this.$vs.notify({
-              title: "Error",
-              text: err,
-              iconPack: "feather",
-              icon: "icon-alert-circle",
-              color: "danger",
-            });
-            console.error(err);
-          });
+    Minus() {
+      if (this.count > 1) {
+        this.count = this.count - 1;
+        this.calcPrice = this.activeProduct.price / this.count;
+      } else {
+        this.count = 1;
+        this.calcPrice = this.activeProduct.price;
       }
-      // this.$emit('closeSidebar')
-      // some chANGES
-      this.Reset();
+    },
+    Plus() {
+      this.count = this.count + 1;
+      this.calcPrice = this.count * this.activeProduct.price;
+    },
+    AddToCart() {
+      this.$store
+        .dispatch("product/AddCart", {
+          user_id: parseInt(localStorage.getItem("Id")),
+          product_id: this.activeProduct.id,
+          quantity: this.count,
+        })
+        .then((response) => {
+          this.activeProduct = null;
+          this.count = 1
+          if (response.statusText == "Created") {
+            this.notification = {
+              show: true,
+              is_success: true,
+              header: "Created",
+              content: this.$t("cart.addedP"),
+              btnFirst: "Вернуться",
+              btnSecond: "OK",
+            };
+          } else {
+              this.notification = {
+              show: true,
+              is_success: true,
+              header: "Updated",
+              content: this.$t("cart.updatedP"),
+              btnFirst: "Вернуться",
+              btnSecond: "OK",
+            };
+          }
+           this.$store.dispatch("product/GetCart");
+        })
+        .catch((err) => {
+          this.notificationError = {
+            show: true,
+            content: `${err.response.data.detail}`,
+          };
+          console.error(err);
+        });
+    },
+    handlerOne() {
+      this.notification.show = false;
+    },
+    handlerTwo() {
+       this.notification.show = false;
+    },
+    handlerOneError() {
+      this.notificationError = {
+        show: false,
+        content: "",
+      };
     },
   },
   mounted() {
@@ -258,4 +305,135 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.order {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  // height: 100%;
+  .detail {
+    .item {
+      margin-top: 20px;
+      display: flex;
+      img {
+        width: 40%;
+        height: 112px;
+        background: #f6f8fe;
+        border-radius: 8px;
+        padding: 28px 35px;
+        margin-right: 20px;
+      }
+      .right {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        span {
+          font-family: Montserrat;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 17px;
+          /* identical to box height */
+
+          color: #333333;
+        }
+        .bold {
+          font-family: Montserrat;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 16px;
+          line-height: 20px;
+          /* identical to box height */
+
+          color: #333333;
+        }
+        h3 {
+          font-family: Montserrat;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 16px;
+          line-height: 17px;
+          /* identical to box height */
+
+          color: #333333;
+        }
+        .quantity {
+          margin-left: 15px;
+          display: flex;
+          input {
+            border: none;
+            margin: 0px 5px;
+            min-width: 15px;
+            width: 30px;
+            text-align: center;
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 22px;
+            /* identical to box height */
+
+            /* Main txt */
+
+            color: #394560;
+          }
+          .inc {
+            border: none;
+            background: #edf1fd;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            .icon {
+              color: #4679ec;
+              display: flex;
+              justify-content: center;
+            }
+          }
+        }
+      }
+    }
+  }
+  .actions {
+    width: 100%;
+    button {
+      width: 45%;
+      height: 46px;
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 17px;
+      pad: 15px 40px;
+      background: #edf1fd;
+      border-radius: 10px;
+      border: none !important;
+      color: #4679ec;
+      cursor: pointer;
+    }
+  }
+  .head {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+
+    /* Main txt */
+
+    color: #394560;
+  }
+  .cart {
+    background: #ffffff;
+    /* Main Sahdow */
+    width: 55%;
+    margin-left: 5%;
+    // box-shadow: 0px 3.82748px 8px rgba(70, 121, 236, 0.1);
+    // clip-path: inset(15px 15px 15px -15px);
+    border-radius: 0px;
+
+    // height: 100%;
+    padding: 25px;
+  }
+}
+</style>

@@ -157,7 +157,7 @@ color: rgba(58, 159, 209, 1) !important;
     }
 
     &::-webkit-scrollbar-thumb {
-      background: linear-gradient(99.52deg, #3f4f61 -14.96%, #3a9fd1 156.83%);
+      background: linear-gradient(99.52deg, #3f4f61 -14.96%, #4679EC 156.83%);
       border-radius: 8px;
     }
     .vs__dropdown-option--highlight {
@@ -171,6 +171,11 @@ color: rgba(58, 159, 209, 1) !important;
         line-height: 20px;
         padding: 8px 26px;
             color: #60739F;
+            &:hover{
+              background: #4679EC;
+              color: #ffffff;
+border-radius: 10px;
+            }
     }
   }
 
