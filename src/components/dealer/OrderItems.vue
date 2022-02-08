@@ -13,28 +13,30 @@
           </div>
           <div class="body">
             <h2 class="filter">Данные о заявке № {{ carts.order_number }}</h2>
-            <table id="tableCart">
-              <thead>
-                <tr>
-                  <th v-for="(header, i) in headers" :key="i">
-                    {{ header.title }}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(cart, i) in carts.items" :key="i">
-                  <td>{{ i + 1 }}</td>
-                  <td>{{ cart.product_name }}</td>
-                  <td>
-                    {{ cart.quantity }}
-                  </td>
-                  <td>
-                    {{ Number(cart.total_price).toLocaleString("de-DE") }}
-                    {{ $t("sum") }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="table-item">
+              <table id="tableCart">
+                <thead>
+                  <tr>
+                    <th v-for="(header, i) in headers" :key="i">
+                      {{ header.title }}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(cart, i) in carts.items" :key="i">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ cart.product_name }}</td>
+                    <td>
+                      {{ cart.quantity }}
+                    </td>
+                    <td>
+                      {{ Number(cart.total_price).toLocaleString("de-DE") }}
+                      {{ $t("sum") }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
             <div class="itogo mt-4">
               <h3 class="text">{{ $t("cart.total_price") }}</h3>
               <h1 class="prise">
@@ -48,8 +50,7 @@
                 carts.status === 7 ||
                 carts.status === 9 ||
                 carts.status === 10 ||
-                carts.status === 11
-              "
+                carts.status === 11"
               style="display: flex; margin-top: 30px"
             >
               <my-button
@@ -176,56 +177,77 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#tableCart {
-  min-width: 400px;
-  border-collapse: collapse;
-  border-radius: 8px;
-  margin-top: 20px;
-  thead {
-    width: 100%;
-    height: 56px;
-    background: #f6f8fe;
-    border-radius: 6px;
-    tr {
-      th {
-        font-family: Montserrat;
-        font-style: normal;
-        font-weight: 600;
-        font-size: 15px;
-        line-height: 16px;
-        padding: 20px;
-        /* Text */
+.table-item {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 60vh;
+    position: relative;
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    border-radius: 30px;
+    background: none;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #f5f8fd;
+    border-radius: 30px;
+    border: 1px solid transparent;
+    background-clip: content-box;
+  }
+  #tableCart {
+    position: absolute;
+    min-width: 400px;
+    border-collapse: collapse;
+    border-radius: 8px;
+    margin-top: 20px;
+    thead {
+      width: 100%;
+      height: 56px;
+      background: #f6f8fe;
+      border-radius: 6px;
+      tr {
+        th {
+          font-family: Montserrat;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 15px;
+          line-height: 16px;
+          padding: 20px;
+          /* Text */
 
-        color: #60739f;
+          color: #60739f;
 
-        &:first-child {
-          border-radius: 8px 0 0 8px;
-        }
+          &:first-child {
+            border-radius: 8px 0 0 8px;
+          }
 
-        &:last-child {
-          border-radius: 0 8px 8px 0;
-          padding-right: 38px;
+          &:last-child {
+            border-radius: 0 8px 8px 0;
+            padding-right: 38px;
+          }
         }
       }
     }
-  }
-  tbody {
-    width: 100%;
-    background: transparent !important;
-    border-radius: 8px;
-    tr {
-      td {
-        padding: 20px !important;
-        font-family: Montserrat;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 15px;
-        line-height: 20px;
+    tbody {
+      width: 100%;
+      background: transparent !important;
+      border-radius: 8px;
+      tr {
+        td {
+          padding: 20px !important;
+          font-family: Montserrat;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 15px;
+          line-height: 20px;
 
-        /* Main txt */
+          /* Main txt */
 
-        color: #394560;
-        padding: 10px 15px;
+          color: #394560;
+          padding: 10px 15px;
+        }
       }
     }
   }

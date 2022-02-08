@@ -18,7 +18,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(tr, i) in orders" :key="i" @click="Open(tr.id)" >
+        <tr v-for="(tr, i) in orders" :key="i" >
           <td>
             <div class="drop">
               <input
@@ -32,14 +32,14 @@
               <label :for="i"></label>
             </div>
           </td>
-          <td>№ {{ tr.order_number }}</td>
-          <td>
+          <td @click="Open(tr.id)" >№ {{ tr.order_number }}</td>
+          <td @click="Open(tr.id)" >
             {{ tr.total_product }}
           </td>
-          <td>
+          <td @click="Open(tr.id)" >
             {{ tr.date_ordered.slice(0, 10).split("-").join(".") }}
           </td>
-          <td style="padding: 0 !important; width: 200px">
+          <td style="padding: 0 !important; width: 200px" @click="Open(tr.id)" >
             <!-- Draft -->
             <span v-show="tr.status === 0 || tr.status === 7" class="warning">
               <span>
@@ -96,10 +96,10 @@
               {{ $t("erorr") }}
             </span>
           </td>
-          <td>
+          <td @click="Open(tr.id)" >
             {{ tr.delivery_date.split("-").join(".") }}
           </td>
-          <td>
+          <td @click="Open(tr.id)" >
             {{ Number(tr.total_price).toLocaleString("de-DE") }}
             <span class="ml-1">{{ $t("sum") }}</span>
           </td>
@@ -285,6 +285,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   .export {
+    cursor: pointer;
     display: flex;
     align-items: center;
     margin-top: 30px;
@@ -301,4 +302,5 @@ export default {
     }
   }
 }
+
 </style>
