@@ -20,7 +20,7 @@
         />
       </button>
     </div>
-    <div v-if="templates.status_code !== 404">
+    <div v-if="resultTemplates.headers !== null">
       <transition name="show">
         <div class="carts" v-if="!listed">
           <div class="cart" v-for="(tr, i) in resultTemplates" :key="i">
@@ -122,7 +122,7 @@
         </table>
       </transition>
     </div>
-    <span v-if="resultTemplates.length === 0 || templates.status_code === 404 " class="not">
+    <span v-if="resultTemplates.length === 0 || resultTemplates.headers === null " class="not">
       Результаты не найдены
     </span>
     <template-item
@@ -203,7 +203,7 @@ export default {
     this.$store.dispatch("product/GetTemplates");
   },
   updated(){
-    console.log(this.templates);
+    console.log(this.resultTemplates);
   }
 };
 </script>
