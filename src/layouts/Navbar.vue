@@ -4,11 +4,12 @@
       <h3>{{ title }}</h3>
       <div style="display: flex">
         <img
+          v-if="this.$store.state.userType === 'dealer' || $acl.check('dealer')"
           @click="toggleDataSidebarNotis(true)"
           v-show="info.role === 'dealer'"
           style="margin-right: 20px"
           :src="notisfy.length ? not_seen : seen"
-          width="25px"
+          width="30px"
           alt="Notification"
         />
         <div class="parent">
