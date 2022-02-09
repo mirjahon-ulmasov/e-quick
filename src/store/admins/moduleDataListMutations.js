@@ -12,10 +12,22 @@ export default {
     state.detail = detail;
   },
   SET_Notisfy(state, notisfy) {
-    state.notisfy = notisfy;
+    console.log(notisfy);
+    if (notisfy.headers !== null) {
+      state.notisfy = notisfy.filter((x) => x.status  === "SEEN")
+    }
+    else{
+      state.not_seen = notisfy
+    }
   },
   SET_notseen(state, notisfy) {
-    state.not_seen = notisfy
+    console.log(notisfy);
+    if (notisfy.headers !== null) {
+      state.not_seen = notisfy.filter((x) => x.status  !== "SEEN")
+    }
+    else{
+      state.not_seen = notisfy
+    }
   },
   SET_COMPANIES1(state, companies) {
     state.parent_companies = companies;

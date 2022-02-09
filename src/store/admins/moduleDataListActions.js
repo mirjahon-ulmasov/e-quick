@@ -269,8 +269,8 @@ export default {
       axios
         .get(`/api/v1/notifications/${localStorage.getItem("Id")}`)
         .then((response) => {
-          commit("SET_Notisfy", response.data.filter((x) => x.status  === "SEEN"));
-          commit("SET_notseen", response.data.filter((x) => x.status  !== "SEEN"));
+          commit("SET_Notisfy", response.data);
+          commit("SET_notseen", response.data);
           resolve(response);
         })
         .catch((error) => {

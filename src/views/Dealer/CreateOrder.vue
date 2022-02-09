@@ -102,24 +102,6 @@
       <h2 class="head">Корзинка</h2>
       <Cart  />
     </div>
-    <v-notification
-      header="Error"
-      :is_success="false"
-      btnFirst="Вернуться"
-      :isShow="notificationError.show"
-      :content="notificationError.content"
-      @handlerOne="handlerOneError"
-    ></v-notification>
-    <v-notification
-      :isShow="notification.show"
-      :is_success="notification.is_success"
-      :header="notification.header"
-      :content="notification.content"
-      :btnFirst="notification.btnFirst"
-      :btnSecond="notification.btnSecond"
-      @handlerOne="handlerOne"
-      @handlerTwo="handlerTwo"
-    ></v-notification>
   </div>
 </template>
 
@@ -166,18 +148,6 @@ export default {
       podCategory: [],
       activeProduct: null,
       calcPrice: null,
-      notification: {
-        show: false,
-        is_success: true,
-        header: "",
-        content: "",
-        btnFirst: "",
-        btnSecond: "",
-      },
-      notificationError: {
-        show: false,
-        content: "",
-      },
     };
   },
   components: {
@@ -254,32 +224,34 @@ export default {
         .then((response) => {
           this.activeProduct = null;
           this.count = 1
-          if (response.statusText == "Created") {
-            this.notification = {
-              show: true,
-              is_success: true,
-              header: "Created",
-              content: this.$t("cart.addedP"),
-              btnFirst: "Вернуться",
-              btnSecond: "OK",
-            };
-          } else {
-              this.notification = {
-              show: true,
-              is_success: true,
-              header: "Updated",
-              content: this.$t("cart.updatedP"),
-              btnFirst: "Вернуться",
-              btnSecond: "OK",
-            };
-          }
+           if (response.statusText == "Created") {
+              this.$vs.notify({
+                title: "Ok",
+                text: this.$t('cart.addedP'),
+                iconPack: "feather",
+                icon: "icon-alert-circle",
+                color: "success",
+              })
+            } else {
+              this.$vs.notify({
+                title: "Ok",
+                text: this.$t('cart.updatedP'),
+                iconPack: "feather",
+                icon: "icon-alert-circle",
+                color: "warning",
+              });
+            }
            this.$store.dispatch("product/GetCart");
         })
         .catch((err) => {
-          this.notificationError = {
-            show: true,
-            content: `${err.response.data.detail}`,
-          };
+            this.$vs.notify({
+              title: "Error",
+              text: err.response.data.detail,
+              iconPack: "feather",
+              icon: "icon-alert-circle",
+              color: "danger",
+            });
+
           console.error(err);
         });
     },

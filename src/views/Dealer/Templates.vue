@@ -131,7 +131,6 @@
     ></template-item>
   </div>
 </template>
-
 <script>
 import TemplateItem from "../../components/dealer/TemplateItems.vue";
 export default {

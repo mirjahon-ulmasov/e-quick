@@ -14,7 +14,7 @@
           <div class="body">
             <h2 class="filter">Уведомления</h2>
             <div class="notisfy">
-              <div class="notis" v-if="notis_not.length !== 0">
+              <div class="notis" v-if="notis_not.headers !== null && notis_not.length !== 0">
                 <a href="#" class="seen-all" @click="SeenAll()">
                   Прочитал все
                 </a>
@@ -56,7 +56,7 @@
                   </div>
                 </div>
               </div>
-              <div class="notis" style="margin-top: 30px">
+              <div class="notis" style="margin-top: 30px" v-if="notisfy.headers !== null && notisfy.length !== 0" >
                 <h3>Прочитанные</h3>
                 <div class="item" style="margin-right: 30px;margin-left: 10px" v-for="(notis, i) in notisfy" :key="i">
                   <feather-icon
@@ -211,12 +211,14 @@ export default {
           });
           this.$store.dispatch("addUser/NotisfyGet");
           setTimeout(() => {
+            console.log(this.notisfy);
             if (this.notisfy.headers === null) {
+              console.log(this.notisfy.headers);
               this.$store.state.addUser.notisfy = [];
               this.isSidebarActiveLocal = false;
               this.$store.state.addUser.not_seen = [];
             }
-          }, 1000);
+          }, 2000);
         })
         .catch((err) => {
           this.$vs.notify({
