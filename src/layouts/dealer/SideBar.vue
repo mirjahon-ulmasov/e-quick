@@ -19,42 +19,42 @@
           :src="link === 'analytics' ? graph.bold : graph.light"
           alt="graph icon"
         />
-        <p>Аналитика</p></router-link
+        <p>{{ $t("analytics.title") }}</p></router-link
       >
       <router-link to="/dealer/create-order" class="nav-link">
         <img
           :src="link === 'create-order' ? paper.bold : paper.light"
           alt="paper icon"
         />
-        <p>Создать заказ</p></router-link
+        <p>{{ $t("cart.title") }}</p></router-link
       >
       <router-link to="/dealer/journal" class="nav-link">
         <img
           :src="link === 'journal' ? document.bold : document.light"
           alt="document icon"
         />
-        <p>Журнал</p>
+        <p>{{ $t("journal.title") }}</p>
       </router-link>
       <router-link to="/dealer/templates" class="nav-link">
         <img
           :src="link === 'templates' ? award.bold : award.light"
           alt="award icon"
         />
-        <p>Шаблоны</p>
+        <p>{{ $t("templates.title") }}</p>
       </router-link>
       <router-link to="/dealer/feedback" class="nav-link">
         <img
           :src="link === 'feedback' ? message.bold : message.light"
           alt="message icon"
         />
-        <p>Обратная связь</p>
+        <p>{{ $t("feedback.title") }}</p>
       </router-link>
       <router-link to="/dealer/whs" class="nav-link">
         <img
           :src="link === 'whs' ? discount.bold : discount.light"
           alt="discount icon"
         />
-        <p>WHS Остатки</p>
+        <p>{{ $t("whs") }}</p>
       </router-link>
     </div>
   </div>

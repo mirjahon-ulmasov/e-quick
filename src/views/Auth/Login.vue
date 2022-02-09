@@ -2,10 +2,10 @@
   <div class="login">
     <img src="../../assets/images/logo/e-quick.png" alt="E-quick" />
     <form @submit.prevent="loginJWT">
-      <h3>Войти</h3>
+      <h3>{{ $t("auth.kirish") }}</h3>
       <spinner v-show="spinner" />
       <div class="form-input">
-        <h4>Логин</h4>
+        <h4>{{ $t("auth.login") }}</h4>
         <my-input
           type="input"
           :width="375"
@@ -26,7 +26,7 @@
         </span>
       </div>
       <div class="form-input">
-        <h4>Пароль</h4>
+        <h4>{{ $t("auth.parol") }}</h4>
         <my-input
           type="password"
           name="password"
@@ -49,20 +49,20 @@
       </div>
       <div class="form-group">
         <input v-model="remember_me" type="checkbox" id="news" />
-        <label for="news">Запомнить меня</label>
+        <label for="news">{{ $t("auth.remember") }}</label>
       </div>
       <div class="actions">
         <my-button
           type="submit"
-          title="Войти"
+          :title="$t('auth.kirish')"
           bgColor="#4679EC"
           color="#FFFFFF"
           :width="380"
           :fontSize="17"
         ></my-button>
-        <router-link class="link" to="/forgot-password"
-          >Забыли пароль?</router-link
-        >
+        <router-link class="link" to="/forgot-password">{{
+          $t("auth.forget")
+        }}</router-link>
       </div>
     </form>
   </div>

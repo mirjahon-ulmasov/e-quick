@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 import store from "./store/store";
+import i18n from "./i18n/i18n";
 Vue.use(Router);
 
 const router = new Router({
@@ -37,7 +38,7 @@ const router = new Router({
           meta: {
             rule: "dealer",
             link: "analytics",
-            title: "Аналитика",
+            title: `${i18n.messages[i18n.locale].analytics.title}`,
           },
         },
         {
@@ -47,7 +48,7 @@ const router = new Router({
           meta: {
             rule: "dealer",
             link: "create-order",
-            title: "Создать заказ",
+            title: `${i18n.messages[i18n.locale].cart.title}`,
           },
         },
         {
@@ -57,7 +58,7 @@ const router = new Router({
           meta: {
             rule: "dealer",
             link: "journal",
-            title: "Журнал",
+            title: `${i18n.messages[i18n.locale].journal.title}`,
           },
         },
         {
@@ -67,7 +68,7 @@ const router = new Router({
           meta: {
             rule: "dealer",
             link: "templates",
-            title: "Шаблоны",
+            title: `${i18n.messages[i18n.locale].templates.title}`,
           },
         },
         {
@@ -77,7 +78,7 @@ const router = new Router({
           meta: {
             rule: "dealer",
             link: "feedback",
-            title: "Обратная связь",
+            title: `${i18n.messages[i18n.locale].feedback.title}`,
           },
         },
         {
@@ -87,7 +88,7 @@ const router = new Router({
           meta: {
             rule: "dealer",
             link: "whs",
-            title: "WHS Остатки",
+            title: `${i18n.messages[i18n.locale].whs}`,
           },
         },
         {
@@ -97,7 +98,7 @@ const router = new Router({
           meta: {
             rule: "dealer",
             link: "",
-            title: "Профиль",
+            title: `${i18n.messages[i18n.locale].profile.title}`,
           },
           children: [
             {
@@ -106,7 +107,7 @@ const router = new Router({
               component: () => import("./views/Dealer/DealerEdit.vue"),
               meta: {
                 rule: "dealer",
-                title: "Изменить данные",
+                title: `${i18n.messages[i18n.locale].changeData}`,
                 link: "",
               },
             },

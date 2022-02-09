@@ -1,11 +1,11 @@
 <template>
   <div class="login">
-    <img src="../../assets/images/logo/e-quick.png" alt="E-quick" />
+    <img src="@/assets/images/logo/e-quick.png" alt="E-quick" />
     <form @submit.prevent="reset" autocomplete="off">
-      <h3>Восстановить пароль</h3>
+      <h3>{{ $t("auth.rePass") }}</h3>
       <spinner v-show="spinner" />
       <div class="form-input" v-show="isEmail">
-        <h4>Укажите ваш email</h4>
+        <h4>{{ $t("auth.email") }}</h4>
         <my-input
           type="email"
           :width="375"
@@ -27,7 +27,7 @@
       </div>
 
       <div class="form-input" v-show="isCode">
-        <h4>Укажите код, который пришел на ваш Email</h4>
+        <h4>{{ $t("auth.typeCode") }}</h4>
         <my-input
           type="text"
           :width="375"
@@ -49,7 +49,7 @@
       </div>
 
       <div class="form-input" v-show="isPassword">
-        <h4>Укажите новый пароль</h4>
+        <h4>{{ $t("auth.newPass") }}</h4>
         <my-input
           type="password"
           :width="375"
@@ -72,7 +72,7 @@
       </div>
 
       <div class="form-input" v-show="isPassword">
-        <h4>Повторите новый пароль</h4>
+        <h4>{{ $t("auth.confirmPass") }}</h4>
         <my-input
           type="password"
           :width="375"
@@ -96,22 +96,24 @@
       <div class="actions">
         <my-button
           type="submit"
-          title="Подтвердить"
+          :title="$t('auth.send')"
           bgColor="#4679EC"
           color="#FFFFFF"
           :width="380"
           :fontSize="16"
         ></my-button>
         <p class="resend" v-show="isCode">
-          Не получили код?
-          <button @click="resend()" type="button">Отправить заново</button>
+          {{ $t("auth.notSend") }}
+          <button @click="resend()" type="button">
+            {{ $t("auth.reSend") }}
+          </button>
         </p>
       </div>
     </form>
     <v-notification
       header="Error"
       :is_success="false"
-      btnFirst="Вернуться"
+      :btnFirst="$t('auth.back')"
       :isShow="notificationError.show"
       :content="notificationError.content"
       @handlerOne="handlerOneError"
