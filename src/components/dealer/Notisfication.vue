@@ -57,7 +57,7 @@
                 </div>
               </div>
               <div class="notis" style="margin-top: 30px" v-if="notisfy.headers !== null && notisfy.length !== 0">
-                <h3>Прочитанные</h3>
+                <h3 v-if="notis_not.headers !== null && notis_not.length !== 0" >Прочитанные</h3>
                 <div class="item" style="margin-right: 30px;margin-left: 10px" v-for="(notis, i) in notisfy" :key="i">
                   <feather-icon
                     @click="Delete(notis.id)"
@@ -211,9 +211,8 @@ export default {
           });
           this.$store.dispatch("addUser/NotisfyGet").then(res => {
             if(res.data.headers === null){
-              this.$store.state.addUser.notisfy = [];
+              this.$store.commit("addUser/SET_Notisfy", res.data)
               this.isSidebarActiveLocal = false;
-              this.$store.state.addUser.not_seen = [];
             }
           })
         })

@@ -178,39 +178,31 @@
         <div class="form-input">
           <h4>Выберите завод</h4>
           <div style="display: flex; align-items: center">
-            <my-input
-              @click.native="(drop = !drop), (companies_d = [])"
-              type="search"
-              v-model="search"
-              :width="375"
-            >
-            </my-input>
-            <button
-              class="plus"
-              @click="real_companies = companies_d"
-              v-if="companies_d.length !== 0"
-              style="
-                border-radius: 50%;
-                background: #4679ec;
-                height: 23px;
-                width: 23px;
-                border: none;
-                color: white;
-                font-size: 20px;
-                margin-left: -35px;
-              "
-            >
-              +
-            </button>
+            <my-input type="text" v-model="search" :width="375"> </my-input>
             <img
               style="margin-left: -35px"
-              v-else
-              src="../../assets/images/icons/select-icon.svg"
+              src="../../assets/images/icons/search.svg"
               alt=""
             />
           </div>
-          <div class="drop" v-show="drop">
+          <div class="drop">
             <div class="item form-group" v-for="(item, i) in filter" :key="i">
+              <input
+                :value="item"
+                v-model="companies_d"
+                type="checkbox"
+                :id="i"
+              />
+              <label :for="i">{{ item.name }}</label>
+            </div>
+            <div style="margin-bottom: 10px" v-show="companies_d.length !== 0">
+              <span> Selected </span>
+            </div>
+            <div
+              class="item form-group"
+              v-for="(item, i) in companies_d || []"
+              :key="i"
+            >
               <input
                 :value="item"
                 v-model="companies_d"
@@ -232,7 +224,7 @@
           />
           Field required
         </span>
-        <div class="sel" v-show="real_companies">
+        <!-- <div class="sel" v-show="real_companies">
           <div class="selected" v-for="(item, i) in real_companies" :key="i">
             <span> {{ item.name }} </span>
             <feather-icon
@@ -246,7 +238,7 @@
               svgClasses="h-6 w-6"
             />
           </div>
-        </div>
+        </div> -->
       </div>
 
       <step-controls
@@ -349,7 +341,7 @@ export default {
       return this.$store.state.addUser.parent_companies;
     },
     have() {
-      return this.real_companies !== null;
+      return this.companies_d !== null;
     },
   },
   methods: {
@@ -397,7 +389,7 @@ export default {
     },
     companyAdd() {
       console.log("company add");
-      const id = this.real_companies.map((x) => x.id);
+      const id = this.companies_d.map((x) => x.id);
       const payload = {
         dealer_id: this.dealer_id,
         company_list: id,
@@ -599,7 +591,7 @@ export default {
     border: 0.886581px solid #e3ebfc;
     box-sizing: border-box;
     /* Main Sahdow */
-    height: 180px;
+    height: 280px;
     overflow-y: scroll;
     overflow-x: hidden;
     box-shadow: 0px 3.82748px 8px rgba(70, 121, 236, 0.1);

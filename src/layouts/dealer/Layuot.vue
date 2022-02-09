@@ -4,6 +4,7 @@
     <div class="main" :class="{ big: !isFull }">
       <div class="main-content">
         <nav-bar :title="$route.meta.title"></nav-bar>
+        <Converter v-show="$route.meta.link === 'create-order'" />
         <div class="scroll">
           <router-view> </router-view>
         </div>
@@ -14,8 +15,9 @@
 
 <script>
 import SideBar from "./SideBar.vue";
+import Converter from '../../components/dealer/CurrencyConverter.vue'
 export default {
-  components: { SideBar },
+  components: { SideBar, Converter },
   data() {
     return {
       isFull: true,

@@ -124,7 +124,7 @@
           <li class="page-center">
             <button
               type="button"
-              v-for="(pageNumber, i) in pages"
+              v-for="(pageNumber, i) in pages.slice(page - 1, page + 5)"
               :key="i"
               :class="{ active: page === pageNumber }"
               @click="page = pageNumber"

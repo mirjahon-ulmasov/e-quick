@@ -180,7 +180,7 @@ export default {
             setTimeout(() => {
               this.$store.dispatch("addUser/NotisfyGet");
             }, 4000);
-            this.$store.state.product.carts = null;
+            this.$store.commit('product/ADD_Carts', null)
           })
           .catch((err) => {
             this.$vs.notify({
