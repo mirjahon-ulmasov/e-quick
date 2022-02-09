@@ -161,7 +161,6 @@ export default {
       });
     },
     toggleDataSidebarOrder(val = false) {
-      console.log(val);
       this.SidebarOrder = val;
     },
     toggleDataSidebarTemp(val = false) {
@@ -189,8 +188,6 @@ export default {
         this.incQuan = tr.quantity - 1;
         this.incProductId = tr.product_id;
         this.$store.commit("product/MIN_QUANTITY", quantity);
-        // this.incProductId = tr.product_id;
-        // this.incQuan = tr.quantity;
       }
     },
     IncEdit(tr) {
@@ -236,7 +233,7 @@ export default {
 <style lang="scss" scoped>
 .table {
   overflow-y: scroll;
-  overflow-x: hidden;
+  overflow-x: scroll;
   max-height: 50vh;
   &::-webkit-scrollbar {
     width: 8px;
@@ -254,6 +251,7 @@ export default {
   }
   #tableCart {
     min-width: 400px;
+        width: 100%;
     border-collapse: collapse;
     border-radius: 8px;
     margin-top: 20px;

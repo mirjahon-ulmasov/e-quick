@@ -1,101 +1,126 @@
 <template>
-  <div class="nav-bar">
-    <h3>{{ title }}</h3>
-    <div class="parent">
-      <div class="profile">
+  <div>
+    <div class="nav-bar">
+      <h3>{{ title }}</h3>
+      <div style="display: flex">
         <img
+          v-if="this.$store.state.userType === 'dealer' || $acl.check('dealer')"
+          @click="toggleDataSidebarNotis(true)"
           v-show="info.role === 'dealer'"
-          src="@/assets/images/icons/notification.svg"
-          width="25px"
+          style="margin-right: 20px"
+          :src="notisfy.length ? not_seen : seen"
+          width="30px"
           alt="Notification"
         />
-        <img
-          class="profile-img"
-          :src="baseUrl + info.profile_picture"
-          width="60px"
-          height="60px"
-          style="border-radius: 50%"
-          alt="Profile"
-        />
-        <div class="profile-content">
-          <h4>{{ info.full_name }}</h4>
-          <p>{{ info.role }}</p>
-        </div>
-      </div>
-      <div :class="'dropdown'">
-        <div class="item" @click="languageHandler()">
-          <img
-            src="@/assets/images/icons/globus.svg"
-            style="margin-right: 12px"
-            alt="setting"
-          />
-          <span> {{ $t("lang") }} </span>
-        </div>
-        <router-link
-          v-if="this.$store.state.userType === 'admin' || $acl.check('admin')"
-          class="item"
-          :to="'/settings'"
-        >
-          <img
-            src="@/assets/images/icons/settings.svg"
-            style="margin-right: 12px"
-            alt="setting"
-          />
-          <span> {{ $t("profile.settings") }} </span>
-        </router-link>
-        <router-link
-          v-if="
-            this.$store.state.userType === 'super_admin' ||
-            $acl.check('super_admin')
-          "
-          class="item"
-          :to="'/setting'"
-        >
-          <img
-            src="@/assets/images/icons/settings.svg"
-            style="margin-right: 12px"
-            alt="setting"
-          />
-          <span> {{ $t("profile.settings") }} </span>
-        </router-link>
-        <router-link
-          v-if="this.$store.state.userType === 'dealer' || $acl.check('dealer')"
-          class="item"
-          to="/dealer/profile"
-        >
-          <img
-            src="@/assets/images/icons/settings.svg"
-            style="margin-right: 12px"
-            alt="c"
-          />
-          <span> {{ $t("profile.settings") }} </span>
-        </router-link>
-        <div @click="LogOut()" class="item">
-          <img
-            src="@/assets/images/icons/logout.svg"
-            style="margin-right: 12px"
-            alt="c"
-          />
-          <span> {{ $t("profile.logout") }} </span>
+        <div class="parent">
+          <div class="profile">
+            <img
+              class="profile-img"
+              :src="baseUrl + info.profile_picture"
+              width="60px"
+              height="60px"
+              style="border-radius: 50%"
+              alt="Profile"
+            />
+            <div class="profile-content">
+              <h4>{{ info.full_name }}</h4>
+              <p>{{ info.role }}</p>
+            </div>
+          </div>
+          <div :class="'dropdown'">
+            <div class="item" @click="languageHandler()">
+              <img
+                src="@/assets/images/icons/globus.svg"
+                style="margin-right: 12px"
+                alt="setting"
+              />
+              <span> {{ $t("lang") }} </span>
+            </div>
+            <router-link
+              v-if="
+                this.$store.state.userType === 'admin' || $acl.check('admin')
+              "
+              class="item"
+              :to="'/settings'"
+            >
+              <img
+                src="@/assets/images/icons/settings.svg"
+                style="margin-right: 12px"
+                alt="setting"
+              />
+              <span> {{ $t("profile.settings") }} </span>
+            </router-link>
+            <router-link
+              v-if="
+                this.$store.state.userType === 'super_admin' ||
+                $acl.check('super_admin')
+              "
+              class="item"
+              :to="'/setting'"
+            >
+              <img
+                src="@/assets/images/icons/settings.svg"
+                style="margin-right: 12px"
+                alt="setting"
+              />
+              <span> {{ $t("profile.settings") }} </span>
+            </router-link>
+            <router-link
+              v-if="
+                this.$store.state.userType === 'dealer' || $acl.check('dealer')
+              "
+              class="item"
+              to="/dealer/profile"
+            >
+              <img
+                src="@/assets/images/icons/settings.svg"
+                style="margin-right: 12px"
+                alt="c"
+              />
+              <span> {{ $t("profile.settings") }} </span>
+            </router-link>
+            <div @click="LogOut()" class="item">
+              <img
+                src="@/assets/images/icons/logout.svg"
+                style="margin-right: 12px"
+                alt="c"
+              />
+              <span> {{ $t("profile.logout") }} </span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+    <notification
+      :isSidebarNotis="Sidebar"
+      @closeSidebarNotis="toggleDataSidebarNotis"
+    ></notification>
   </div>
 </template>
 
 <script>
+import Notification from "../components/dealer/Notisfication.vue";
 export default {
   props: ["title"],
   data() {
     return {
       active: false,
       baseUrl: process.env.VUE_APP_IMG,
+      Sidebar: false,
+      not_seen: require("@/assets/images/icons/notification-not.svg"),
+      seen: require("@/assets/images/icons/notification-seen.svg"),
     };
   },
   computed: {
     info() {
       return this.$store.state.auth.info;
     },
+    notisfy() {
+      return this.$store.state.addUser.not_seen;
+    },
+  },
+  components: {
+    Notification,
   },
   methods: {
     LogOut() {
@@ -115,9 +140,13 @@ export default {
         localStorage.setItem("lang", "uz");
       }
     },
+    toggleDataSidebarNotis(val = false) {
+      this.Sidebar = val;
+    },
   },
   created() {
     this.$store.dispatch("auth/DealerInfo");
+    this.$store.dispatch("addUser/NotisfyGet");
   },
 };
 </script>
@@ -138,6 +167,7 @@ export default {
   }
   .parent {
     width: 270px;
+    // display: flex;
     .dropdown {
       position: fixed;
       z-index: 999;

@@ -76,24 +76,6 @@
         </div>
       </div>
     </transition>
-    <v-notification
-      header="Error"
-      :is_success="false"
-      btnFirst="Вернуться"
-      :isShow="notificationError.show"
-      :content="notificationError.content"
-      @handlerOne="handlerOneError"
-    ></v-notification>
-    <v-notification
-      :isShow="notification.show"
-      :is_success="notification.is_success"
-      :header="notification.header"
-      :content="notification.content"
-      :btnFirst="notification.btnFirst"
-      :btnSecond="notification.btnSecond"
-      @handlerOne="handlerOne"
-      @handlerTwo="handlerTwo"
-    ></v-notification>
   </div>
 </template>
 <script>
@@ -180,7 +162,6 @@ export default {
       this.$emit("closeSidebarOrder");
     },
     submitData() {
-      console.log(this.date);
       if (this.type !== null && this.ordertype !== null && this.date !== null) {
         this.$store
           .dispatch("product/Order", {
@@ -199,7 +180,6 @@ export default {
             setTimeout(() => {
               this.$store.dispatch("addUser/NotisfyGet");
             }, 4000);
-            // window.location.reload()
             this.$store.state.product.carts = null;
           })
           .catch((err) => {

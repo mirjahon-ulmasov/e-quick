@@ -12,7 +12,7 @@
             />
           </div>
           <div class="body">
-            <h2 class="filter">Данные о заявке № {{ carts.order_number }}</h2>
+            <h2 class="filter">Данные о {{ carts.title }}</h2>
             <div class="table-item">
               <table id="tableCart">
                 <thead>
@@ -30,7 +30,7 @@
                       {{ cart.quantity }}
                     </td>
                     <td>
-                      {{ Number(cart.total_price).toLocaleString("de-DE") }}
+                      {{ Number(cart.price).toLocaleString("de-DE") }}
                       {{ $t("sum") }}
                     </td>
                   </tr>
@@ -44,37 +44,35 @@
                 {{ $t("sum") }}
               </h1>
             </div>
-            <div
-              class="buttons"
-              v-if="
-                carts.status === 9 ||
-                carts.status === 10 ||
-                carts.status === 11"
-              style="display: flex; margin-top: 30px"
-            >
+            <div class="buttons" style="margin-top: 30px">
               <my-button
-                style="margin-right: 39px"
+                style="margin-bottom: 9px"
                 type="button"
-                @click.native="Reset()"
-                :width="167"
-                bgColor="#EDF1FD"
+                @click.native="Order()"
+                :width="381"
+                bgColor="#FFFFFF"
                 color="#4679EC"
-                title="Отменить"
+                :title="$t('templates.order')"
               ></my-button>
               <my-button
-                @click.native="OrderResend()"
-                :width="167"
-                title="Подтвердить"
+                @click.native="AddCart()()"
+                :width="381"
+                :title="$t('templates.addCart')"
               ></my-button>
             </div>
           </div>
         </div>
       </div>
     </transition>
+    <order
+      :isSidebarOrder="SidebarOrder"
+      @closeSidebarOrder="toggleDataSidebarOrder"
+    ></order>
   </div>
 </template>
 
 <script>
+import Order from "./Order.vue";
 export default {
   name: "",
   data() {
@@ -85,6 +83,7 @@ export default {
         { title: "Кол-во" },
         { title: "Цена" },
       ],
+      SidebarOrder: false,
     };
   },
   props: {
@@ -100,7 +99,7 @@ export default {
   },
   computed: {
     carts() {
-      return this.$store.state.product.orderItem;
+      return this.$store.state.product.tempDetail;
     },
     isSidebarActiveLocal: {
       get() {
@@ -116,47 +115,33 @@ export default {
       },
     },
   },
+  components: {
+    Order,
+  },
   methods: {
-    OrderResend() {
-      this.$vs.loading({
-        type: "sound",
-        text: "Iltimos kuting !",
-        color: "rgb(62, 97, 121)",
-        background: "rgba(255, 255, 255,.8)",
-      });
-      const payload = {
-        user_id: parseInt(localStorage.getItem("Id")),
-        order_id: this.carts.id,
-      };
+    AddCart() {
+      this.isSidebarActiveLocal = false;
       this.$store
-        .dispatch("product/OrderResend", payload)
+        .dispatch("product/AddCartTemplate", {
+          user_id: parseInt(localStorage.getItem("Id")),
+          template_id: this.carts.template_id,
+        })
         .then((response) => {
-          if (response.status === 201) {
-            this.$vs.loading.close();
-            this.isSidebarActiveLocal = false;
-            this.$vs.notify({
-              text: this.$t("cart.successOffer"),
-              iconPack: "feather",
-              icon: "icon-alert-circle",
-              color: "success",
-            });
-          } else {
-            this.$vs.loading.close();
-            this.$vs.notify({
-              text: this.$t("erorr"),
-              iconPack: "feather",
-              icon: "icon-alert-circle",
-              color: "danger",
-            });
-          }
-          setTimeout(() => {
-            this.$store.dispatch("addUser/NotisfyGet");
-          }, 4000);
+          this.isSidebarActiveLocal = false;
+          this.$vs.notify({
+            title: "OK",
+            text: this.$t("success"),
+            iconPack: "feather",
+            icon: "icon-alert-circle",
+            color: "success",
+          });
+          this.isSidebarActiveLocal = false;
+          this.$router.push("/dealer/create-order");
         })
         .catch((err) => {
-          this.$vs.loading.close();
           this.$vs.notify({
-            text: this.$t("erorr"),
+            title: "Error",
+            text: err,
             iconPack: "feather",
             icon: "icon-alert-circle",
             color: "danger",
@@ -164,23 +149,31 @@ export default {
           console.error(err);
         });
     },
+    Order() {
+      this.isSidebarActiveLocal = false;
+      setTimeout(() => {
+          this.toggleDataSidebarOrder(true);
+      }, 500);
+    },
     Reset() {
-      // this.carts = null
       this.$emit("closeSidebar");
+    },
+    toggleDataSidebarOrder(val = false) {
+      this.SidebarOrder = val;
     },
   },
   created() {
-    this.$store.dispatch("product/GetOrderItem");
+    this.$store.dispatch("product/GetTemplatesItem");
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .table-item {
-    overflow-y: scroll;
-    overflow-x: hidden;
-    height: 60vh;
-    position: relative;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 55vh;
+  position: relative;
   &::-webkit-scrollbar {
     width: 8px;
     height: 8px;

@@ -15,7 +15,7 @@ export default {
     state.notisfy = notisfy;
   },
   SET_notseen(state, notisfy) {
-    state.not_seen = notisfy.filter((x) => x.status !== "SEEN");
+    state.not_seen = notisfy
   },
   SET_COMPANIES1(state, companies) {
     state.parent_companies = companies;
