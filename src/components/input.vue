@@ -24,18 +24,6 @@
       <i class="eye-close"></i>
       <img :src="toggle ? show : close" class="toggle" @click="func()" alt="" />
     </div>
-    <!-- <v-select
-      :options="options"
-      id="select-state"
-      v-else-if="type === `select`"
-      :style="btnStyles"
-    >
-      <template #open-indicator="{ attributes }">
-        <span v-bind="attributes">
-          <img src="../assets/images/icons/select-icon.svg" alt="" />
-        </span>
-      </template>
-    </v-select> -->
     <input
       @input="updateValue($event.target.value)"
       :value="value"

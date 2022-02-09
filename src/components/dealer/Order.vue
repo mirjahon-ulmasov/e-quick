@@ -162,7 +162,6 @@ export default {
       this.$emit("closeSidebarOrder");
     },
     submitData() {
-      console.log(this.date);
       if (this.type !== null && this.ordertype !== null && this.date !== null) {
         this.$store
           .dispatch("product/Order", {
@@ -181,7 +180,6 @@ export default {
             setTimeout(() => {
               this.$store.dispatch("addUser/NotisfyGet");
             }, 4000);
-            // window.location.reload()
             this.$store.state.product.carts = null;
           })
           .catch((err) => {

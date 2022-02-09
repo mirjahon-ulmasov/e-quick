@@ -161,7 +161,6 @@ export default {
       });
     },
     toggleDataSidebarOrder(val = false) {
-      console.log(val);
       this.SidebarOrder = val;
     },
     toggleDataSidebarTemp(val = false) {
@@ -189,8 +188,6 @@ export default {
         this.incQuan = tr.quantity - 1;
         this.incProductId = tr.product_id;
         this.$store.commit("product/MIN_QUANTITY", quantity);
-        // this.incProductId = tr.product_id;
-        // this.incQuan = tr.quantity;
       }
     },
     IncEdit(tr) {

@@ -13,15 +13,15 @@
           </div>
           <div class="body">
             <h2 class="filter">Уведомления</h2>
-            <div class="notis">
+            <div class="notis" v-if="notis_not.length !== 0">
               <h3>Недавние</h3>
-              <div class="item" v-for="(notis, i) in notisfy || []" :key="i" >
-            <feather-icon
-              @click="Delete(notis.id)"
-              style="float: right; color: #EB84B4"
-              icon="XIcon"
-              svgClasses="h-6 w-6"
-            />
+              <div class="item" v-for="(notis, i) in notis_not" :key="i">
+                <feather-icon
+                  @click="Delete(notis.id)"
+                  style="float: right; color: #eb84b4; cursor: pointer"
+                  icon="XIcon"
+                  svgClasses="h-6 w-6"
+                />
                 <div class="top">
                   <img
                     src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
@@ -34,18 +34,59 @@
                       <span class="role"> Admin </span>
                     </h1>
                     <span>
-                      {{ notis.created_at.slice(0,10) }}
+                      {{ notis.created_at.slice(0, 10) }}
                       <span>&bull;</span>
-                      {{ notis.created_at.slice(11,16) }}
+                      {{ notis.created_at.slice(11, 16) }}
                     </span>
                   </div>
                 </div>
                 <div class="bottom">
                   <h1>
                     {{ notis.title }}
-                    <br>
+                    <br />
                     {{ notis.message }}
-                    <a href="#" @click="Seen(notis)"> {{ $t('journal.title') }}</a>
+                    <a href="#" @click="Seen(notis)">
+                      {{ $t("journal.title") }}</a
+                    >
+                  </h1>
+                </div>
+              </div>
+            </div>
+            <div class="notis" style="margin-top: 30px" >
+              <h3>Прочитанные</h3>
+              <div class="item" v-for="(notis, i) in notisfy" :key="i">
+                <feather-icon
+                  @click="Delete(notis.id)"
+                  style="float: right; color: #eb84b4; cursor: pointer"
+                  icon="XIcon"
+                  svgClasses="h-6 w-6"
+                />
+                <div class="top">
+                  <img
+                    src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+                    alt=""
+                  />
+                  <div class="right">
+                    <h1>
+                      Nusratullo
+                      <span>&bull;</span>
+                      <span class="role"> Admin </span>
+                    </h1>
+                    <span>
+                      {{ notis.created_at.slice(0, 10) }}
+                      <span>&bull;</span>
+                      {{ notis.created_at.slice(11, 16) }}
+                    </span>
+                  </div>
+                </div>
+                <div class="bottom">
+                  <h1>
+                    {{ notis.title }}
+                    <br />
+                    {{ notis.message }}
+                    <a href="#" @click="Seen(notis)">
+                      {{ $t("journal.title") }}</a
+                    >
                   </h1>
                 </div>
               </div>
@@ -54,22 +95,26 @@
         </div>
       </div>
     </transition>
+    <order-item
+      :isOrderItem="Sidebar"
+      @closeSidebar="toggleDataSidebar"
+    ></order-item>
   </div>
 </template>
 
 <script>
-import Order from "./OrderItems.vue";
+import OrderItem from "./OrderItems.vue";
 export default {
   name: "",
   data() {
     return {
       date: null,
       PopUpData: {},
-      PopUp: false,
+      Sidebar: false,
     };
   },
   components: {
-    Order,
+    OrderItem,
   },
   props: {
     isSidebarNotis: {
@@ -85,6 +130,9 @@ export default {
   computed: {
     notisfy() {
       return this.$store.state.addUser.notisfy;
+    },
+    notis_not() {
+      return this.$store.state.addUser.not_seen;
     },
     isSidebarActiveLocal: {
       get() {
@@ -115,7 +163,7 @@ export default {
         .catch((err) => {
           this.$vs.notify({
             title: "Error",
-            text: err.response.data,
+            text: err,
             iconPack: "feather",
             icon: "icon-check-circle",
             color: "danger",
@@ -176,12 +224,11 @@ export default {
         });
     },
     toggleDataSidebar(val = false) {
-      this.PopUp = val;
+      this.Sidebar = val;
       this.$store.dispatch("addUser/NotisfyGet");
     },
   },
   created() {
-    this.$store.dispatch("auth/DealerInfo");
     this.$store.dispatch("addUser/NotisfyGet");
   },
 };
