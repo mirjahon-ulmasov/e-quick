@@ -89,8 +89,16 @@ export default {
   },
 
   async updated() {
-    this.headerTrans = this.header ? await translate(this.header, "ru") : "";
-    this.contentTrans = this.content ? await translate(this.content, "ru") : "";
+    this.headerTrans = this.header
+      ? await translate(this.header, this.$i18n.locale)
+      : "";
+    this.contentTrans = this.content
+      ? await translate(this.content, this.$i18n.locale)
+      : "";
+  },
+
+  created() {
+    translate.from = "ru";
   },
 };
 </script>

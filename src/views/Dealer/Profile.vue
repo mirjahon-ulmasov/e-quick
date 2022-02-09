@@ -40,7 +40,7 @@
                 style="margin-right: 12px"
                 alt="c"
               />
-              <span> Сменить фото </span>
+              <span> {{ $t("changePhoto") }} </span>
             </div>
             <router-link class="item" to="/dealer/profile/edit">
               <img
@@ -48,24 +48,24 @@
                 style="margin-right: 12px"
                 alt="c"
               />
-              <span> Изменить данные </span>
+              <span> {{ $t("changeData") }} </span>
             </router-link>
           </div>
         </div>
       </div>
       <div style="display: flex; justify-content: space-between">
         <div class="user-details">
-          <h3 class="head">Персональные данные</h3>
+          <h3 class="head">{{ $t("profile.info") }}</h3>
           <div class="user-detail">
-            <p>Имя</p>
+            <p>{{ $t("profile.fish") }}</p>
             <h4>{{ user.full_name }}</h4>
           </div>
           <div class="user-detail">
-            <p>Имя пользователя</p>
+            <p>{{ $t("profile.username") }}</p>
             <h4>{{ user.username }}</h4>
           </div>
           <div class="user-detail">
-            <p>Телефон номера</p>
+            <p>{{ $t("profile.phone") }}</p>
             <h4>
               +998 {{ user.phone_number.substring(0, 2) }}
               {{ user.phone_number.substring(2, 5) }}-{{
@@ -74,12 +74,12 @@
             </h4>
           </div>
           <div class="user-detail">
-            <p>Email</p>
+            <p>{{ $t("profile.email") }}</p>
             <h4>{{ user.email }}</h4>
           </div>
         </div>
         <div class="user-details">
-          <h3 class="head">Уведомления</h3>
+          <h3 class="head">{{ $t("profile.notis") }}</h3>
           <div class="user-detail">
             <div class="form-group">
               <input
@@ -88,7 +88,7 @@
                 type="checkbox"
                 id="news"
               />
-              <label for="news">Получать обновления</label>
+              <label for="news">{{ $t("profile.siteNotis") }}</label>
             </div>
           </div>
           <div class="user-detail">
@@ -99,7 +99,7 @@
                 type="checkbox"
                 id="email"
               />
-              <label for="email">Получать сообщения на почту</label>
+              <label for="email">{{ $t("profile.emailNotis") }}</label>
             </div>
           </div>
         </div>

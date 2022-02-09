@@ -1,13 +1,10 @@
 <template>
   <div class="page">
     <div class="left">
-      <p>
-        Чтобы помочь нам усовершенствовать данный сайт, просим вас оставить
-        отзыв и оценить сайт по пятибалльной шкале (от 1 до 5)
-      </p>
+      <p>{{ $t("feedback.star") }}</p>
       <form @submit.prevent="submitHandler">
         <my-input
-          placeholder="Напишите, что вам больше всего нравиться, либо что бы вы хотели улучшить"
+          :placeholder="`${$t('feedback.message')}`"
           type="textarea"
           :width="450"
           :height="150"
@@ -28,7 +25,7 @@
             color="#FFF"
             type="submit"
             bgColor="#4679EC"
-            title="Отправить отзыв"
+            :title="$t('feedback.review')"
           ></my-button>
         </div>
       </form>

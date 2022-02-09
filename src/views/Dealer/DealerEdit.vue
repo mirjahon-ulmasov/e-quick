@@ -2,7 +2,7 @@
   <div>
     <form @submit.prevent="submitHandler">
       <div class="form-input">
-        <h4>Ф.И.О.</h4>
+        <h4>{{ $t("profile.fish") }}</h4>
         <my-input
           type="input"
           :width="375"
@@ -21,7 +21,7 @@
         </span>
       </div>
       <div class="form-input">
-        <h4>Телефон номера</h4>
+        <h4>{{ $t("profile.phone") }}</h4>
         <span class="phone-code">+998</span>
         <my-input
           padding="14px 70px"
@@ -42,7 +42,7 @@
         </span>
       </div>
       <div class="form-input">
-        <h4>Имя пользователя</h4>
+        <h4>{{ $t("profile.username") }}</h4>
         <my-input
           type="input"
           :width="375"
@@ -61,7 +61,7 @@
         </span>
       </div>
       <div class="form-input">
-        <h4>Email</h4>
+        <h4>{{ $t("profile.email") }}</h4>
         <my-input
           type="email"
           :width="375"
@@ -80,7 +80,7 @@
         </span>
       </div>
       <div class="form-input">
-        <h4>Старый пароль</h4>
+        <h4>{{ $t("profile.old") }}</h4>
         <my-input
           type="password"
           :width="375"
@@ -99,7 +99,7 @@
         </span>
       </div>
       <div class="form-input">
-        <h4>Новый пароль</h4>
+        <h4>{{ $t("profile.new") }}</h4>
         <my-input
           type="password"
           name="password"
@@ -119,7 +119,7 @@
         </span>
       </div>
       <div class="form-input">
-        <h4>Потвердите новый пароль</h4>
+        <h4>{{ $t("profile.confirm") }}</h4>
         <my-input
           type="password"
           :width="375"
@@ -139,10 +139,10 @@
         </span>
       </div>
       <div>
-        <h4 class="notify">Уведомления</h4>
+        <h4 class="notify">{{ $t("profile.notis") }}</h4>
         <div class="form-group">
           <input v-model="user.site_notifications" type="checkbox" id="news" />
-          <label for="news">Получать обновления</label>
+          <label for="news">{{ $t("profile.siteNotis") }}</label>
         </div>
         <div class="form-group">
           <input
@@ -150,20 +150,20 @@
             type="checkbox"
             id="email"
           />
-          <label for="email">Получать сообщения на почту</label>
+          <label for="email">{{ $t("profile.emailNotis") }}</label>
         </div>
       </div>
       <div class="actions">
         <my-button
           @click.native="handlerTwo()"
           type="button"
-          title="Отменить"
+          :title="$t('profile.cancel')"
           bgColor="#EDF1FD"
           color="#4679EC"
         ></my-button>
         <my-button
           type="submit"
-          title="Добавить"
+          :title="$t('profile.save')"
           bgColor="#4679EC"
           color="#FFFFFF"
         ></my-button>
@@ -171,7 +171,7 @@
     </form>
     <v-notification
       :is_success="true"
-      btnFirst="Вернуться"
+      :btnFirst="$t('auth.back')"
       :isShow="notification.show"
       :header="notification.header"
       :content="notification.content"
@@ -182,7 +182,7 @@
     <v-notification
       header="Error"
       :is_success="false"
-      btnFirst="Вернуться"
+      :btnFirst="$t('auth.back')"
       :isShow="notificationError.show"
       :content="notificationError.content"
       @handlerOne="handlerOneError"
@@ -266,7 +266,7 @@ export default {
                 show: true,
                 header: "Данные были изменены успешно",
                 content: "Теперь вы можете увидеть изменения в своём профиле",
-                btnSecond: "Профиль",
+                btnSecond: this.$t("profile.title"),
               };
             })
             .catch((err) => {

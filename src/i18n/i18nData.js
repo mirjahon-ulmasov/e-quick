@@ -29,6 +29,10 @@ export default {
     saveTemp: "Arizani shablon sifatida saqlash",
     conver: "Valyuta konvertori",
     whs: "WHS qoldiqlari",
+
+    changeData: "Ma'lumotlarni o'zgartirish",
+    changePhoto: "Suratni o'zgartirish",
+
     notisSeen: `Barcha bildirishnomalarni ko'rish`,
     delete: `O'chirildi`,
     created: "Yaratildi",
@@ -69,12 +73,17 @@ export default {
       updatedP: "Mahsulot yangilandi !",
       addedP: "Mahsulot savatga joylandi",
     },
+
     feedback: {
       title: "Qayta aloqa",
+      star: "Hozirgi saytni rivojlantirish uchun o’z fikr-mulohazalaringizni qoldiring va maxsus 1 dan 5 gacha bo’lgan tizimda baholang",
+      message: "Xohish va istaklaringiz haqida yozib qoldiring",
+      review: "Izoh qoldirmoq",
     },
     analytics: {
       title: "Analitika",
     },
+
     journal: {
       title: "Jurnal",
       lastJ: "So’nggi arizalar jurnali ",
@@ -111,32 +120,37 @@ export default {
       title: "Profil",
       fullname: "FISh kiriting",
       username: "Tizimga kirish belgilarini kiriting",
-      email: "Pochta manzilini kiriting",
       password: "Maxfiy so’z",
       curemail: "Sizning hozirgi pochta manzilingiz ",
       old: "Eski maxfiy so’zni kiriting",
       new: "Yangi maxfiy so’zni kiriting",
+      confirm: "Yangi maxfiy so’zni tasdiqlang",
       ok: "E-Quick ni baholang ",
-      star: "Hozirgi saytni rivojlantirish uchun o’z fikr-mulohazalaringizni qoldiring va maxsus 1 dan 5 gacha bo’lgan tizimda baholang",
-      message: "Xohish va istaklaringiz haqida yozib qoldiring",
       notis: "Bildirishnomalar",
       siteNotis: "Saytdagi bildirishnomalarni qabul qilish",
       emailNotis: "Pochta manzilidan xabar olish",
       save: `Saqlash`,
+
+      cancel: "Bekor qilish", //Отменить
       logout: "Profildan chiqish",
+      settings: "Sozlamalar",
+
       yes: "Ha",
       no: `Yo'q`,
       sure: "Profildan chiqasizmi ?",
       fish: "F.I.SH",
       email: "Elektron pochta",
       event: "Voqealar haqida bildirishnoma",
-      review: "Izoh qoldirmoq",
       thankYou: "Takliflar uchun tashkkur",
+
+      info: "Shaxsiy ma'lumotlar",
+      username: "Foydalanuvchi nomi",
+      phone: "Telefon raqami",
+      email: "Elektron pochta",
     },
-    lang: {
-      uz: "O’zbek tili   ",
-      ru: `Перейти на русский язык`,
-    },
+
+    lang: `Сменить язык`,
+
     weeks: {
       day1: "Dushanba",
       day2: "Seshanba",
@@ -190,6 +204,10 @@ export default {
     saveTemp: "Сохранить заявку как шаблон",
     conver: "Конвертер валют",
     whs: " WHS остатки",
+
+    changeData: "Изменить данные",
+    changePhoto: "Сменить фото",
+
     delete: `Удалено`,
     created: "Создано",
     updated: `Обновлено`,
@@ -230,12 +248,18 @@ export default {
       updatedP: "Продукт обновлен !",
       addedP: "Продукт упакован в корзину !",
     },
+
     feedback: {
       title: "Обратная связь",
+      star: "Чтобы помочь нам усовершенствовать данный сайт, просим вас оставить отзыв и оценить сайт по пятибалльной шкале (от 1 до 5)",
+      message:
+        "Напишите, что вам больше всего нравится, либо чтобы вы хотели улучшить. ",
+      review: "Отправить отзыв",
     },
     analytics: {
       title: "Аналитика",
     },
+
     journal: {
       title: "Журнал",
       lastJ: "Журнал последних заявок",
@@ -271,34 +295,36 @@ export default {
     profile: {
       title: "Профиль",
       fullname: "Введите ФИО",
-      username: "Введите логин",
-      email: "Введите почту",
       curemail: "Ваша текущая почта",
       password: "Пароль",
       old: "Введите старый пароль",
       new: "Введите новый пароль",
+      confirm: "Подтвердите новый пароль",
       ok: "Оцените E-Quick",
-      star: "Чтобы помочь нам усовершенствовать данный сайт, просим вас оставить отзыв и оценить сайт по пятибалльной шкале (от 1 до 5)",
-      message:
-        "Напишите, что вам больше всего нравится, либо чтобы вы хотели улучшить. ",
       notis: "Уведомления",
       siteNotis: "Получать уведомления на сайте",
       emailNotis: "Получать сообщения на почту",
+
       save: "Сохранить ",
+      cancel: "Отменить",
       logout: "Выйти из профиля",
+      settings: "Настройки",
+
       yes: "Да",
       no: `Нет`,
       sure: "Выйти из профиля ?",
-      fish: "ФИО",
-      email: "Электронная почта",
+      fish: "Ф.И.О",
       event: "Оповещание о событиях",
-      review: "Отправить отзыв",
       thankYou: "Для приложений и изменений",
+
+      info: "Персональные данные",
+      username: "Имя пользователя",
+      phone: "Телефон номера",
+      email: "Электронная почта",
     },
-    lang: {
-      uz: `O'zbek tiliga o'tish`,
-      ru: "На русском языке",
-    },
+
+    lang: `Tilni o'zgartirish`,
+
     weeks: {
       day1: "Понедельник",
       day2: "Bторник",

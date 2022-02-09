@@ -23,13 +23,13 @@
         </div>
       </div>
       <div :class="'dropdown'">
-        <div class="item">
+        <div class="item" @click="languageHandler()">
           <img
             src="@/assets/images/icons/globus.svg"
             style="margin-right: 12px"
-            alt="c"
+            alt="setting"
           />
-          <span> Сменить язык </span>
+          <span> {{ $t("lang") }} </span>
         </div>
         <router-link
           v-if="this.$store.state.userType === 'admin' || $acl.check('admin')"
@@ -39,9 +39,9 @@
           <img
             src="@/assets/images/icons/settings.svg"
             style="margin-right: 12px"
-            alt="c"
+            alt="setting"
           />
-          <span> Настройки </span>
+          <span> {{ $t("profile.settings") }} </span>
         </router-link>
         <router-link
           v-if="
@@ -54,9 +54,9 @@
           <img
             src="@/assets/images/icons/settings.svg"
             style="margin-right: 12px"
-            alt="c"
+            alt="setting"
           />
-          <span> Настройки </span>
+          <span> {{ $t("profile.settings") }} </span>
         </router-link>
         <router-link
           v-if="this.$store.state.userType === 'dealer' || $acl.check('dealer')"
@@ -68,7 +68,7 @@
             style="margin-right: 12px"
             alt="c"
           />
-          <span> Настройки </span>
+          <span> {{ $t("profile.settings") }} </span>
         </router-link>
         <div @click="LogOut()" class="item">
           <img
@@ -76,7 +76,7 @@
             style="margin-right: 12px"
             alt="c"
           />
-          <span> Выйти с аккаунта </span>
+          <span> {{ $t("profile.logout") }} </span>
         </div>
       </div>
     </div>
@@ -105,6 +105,15 @@ export default {
       this.$acl.change("editor");
       this.$router.push("/login");
       window.location.reload();
+    },
+    languageHandler() {
+      if (this.$i18n.locale === "uz") {
+        this.$i18n.locale = "ru";
+        localStorage.setItem("lang", "ru");
+      } else {
+        this.$i18n.locale = "uz";
+        localStorage.setItem("lang", "uz");
+      }
     },
   },
   created() {
@@ -142,7 +151,7 @@ export default {
       -webkit-transition: all 0.3s ease-in;
       -o-transition: all 0.3s ease-in;
       transition: all 0.3s ease-in;
-      width: 194px;
+      width: 200px;
       height: auto;
       background: #f6f8fe;
       box-shadow: 0px -2px 8px rgba(70, 121, 236, 0.1),
