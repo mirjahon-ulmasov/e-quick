@@ -66,9 +66,7 @@
               <span> {{ $t("profile.settings") }} </span>
             </router-link>
             <router-link
-              v-if="
-                this.$store.state.userType === 'dealer' || $acl.check('dealer')
-              "
+              v-if="$store.state.userType === 'dealer' || $acl.check('dealer')"
               class="item"
               to="/dealer/profile"
             >
@@ -146,7 +144,9 @@ export default {
   },
   created() {
     this.$store.dispatch("auth/DealerInfo");
-    this.$store.dispatch("addUser/NotisfyGet");
+    if (this.$store.state.userType === "dealer" || this.$acl.check("dealer")) {
+      this.$store.dispatch("addUser/NotisfyGet");
+    }
   },
 };
 </script>

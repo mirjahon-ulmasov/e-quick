@@ -328,6 +328,16 @@ const router = new Router({
           },
           props: true,
         },
+        {
+          path: "/feedbacks",
+          name: "feedbacks",
+          component: () => import("./views/Admins/Feedbacks.vue"),
+          meta: {
+            rule: "admin_or_super",
+            link: "feedbacks",
+            title: "Отзывы",
+          },
+        },
       ],
     },
 

@@ -14,12 +14,20 @@
           <div class="body">
             <h2 class="filter">Уведомления</h2>
             <div class="notisfy">
-              <div class="notis" v-if="notis_not.headers !== null && notis_not.length !== 0">
+              <div
+                class="notis"
+                v-if="notis_not.headers !== null && notis_not.length !== 0"
+              >
                 <a href="#" class="seen-all" @click="SeenAll()">
                   Прочитал все
                 </a>
                 <h3>Недавние</h3>
-                <div class="item" style="margin-right: 30px; margin-left: 10px" v-for="(notis, i) in notis_not" :key="i">
+                <div
+                  class="item"
+                  style="margin-right: 30px; margin-left: 10px"
+                  v-for="(notis, i) in notis_not"
+                  :key="i"
+                >
                   <feather-icon
                     @click="Delete(notis.id)"
                     style="float: right; color: #eb84b4; cursor: pointer"
@@ -56,9 +64,20 @@
                   </div>
                 </div>
               </div>
-              <div class="notis" style="margin-top: 30px" v-if="notisfy.headers !== null && notisfy.length !== 0">
-                <h3 v-if="notis_not.headers !== null && notis_not.length !== 0" >Прочитанные</h3>
-                <div class="item" style="margin-right: 30px;margin-left: 10px" v-for="(notis, i) in notisfy" :key="i">
+              <div
+                class="notis"
+                style="margin-top: 30px"
+                v-if="notisfy.headers !== null && notisfy.length !== 0"
+              >
+                <h3 v-if="notis_not.headers !== null && notis_not.length !== 0">
+                  Прочитанные
+                </h3>
+                <div
+                  class="item"
+                  style="margin-right: 30px; margin-left: 10px"
+                  v-for="(notis, i) in notisfy"
+                  :key="i"
+                >
                   <feather-icon
                     @click="Delete(notis.id)"
                     style="float: right; color: #eb84b4; cursor: pointer"
@@ -209,12 +228,12 @@ export default {
             icon: "icon-check-circle",
             color: "success",
           });
-          this.$store.dispatch("addUser/NotisfyGet").then(res => {
-            if(res.data.headers === null){
-              this.$store.commit("addUser/SET_Notisfy", res.data)
+          this.$store.dispatch("addUser/NotisfyGet").then((res) => {
+            if (res.data.headers === null) {
+              this.$store.commit("addUser/SET_Notisfy", res.data);
               this.isSidebarActiveLocal = false;
             }
-          })
+          });
         })
         .catch((err) => {
           this.$vs.notify({
@@ -232,7 +251,9 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("addUser/NotisfyGet");
+    if (this.$store.state.userType === "dealer" || this.$acl.check("dealer")) {
+      this.$store.dispatch("addUser/NotisfyGet");
+    }
   },
 };
 </script>

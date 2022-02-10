@@ -5,6 +5,9 @@ export default {
   SET_User(state, admins) {
     state.admins = admins;
   },
+  UserReviews(state, reviews){
+    state.reviews = reviews.reverse()
+  },
   SET_Roles(state, roles) {
     state.roles = roles;
   },

@@ -330,6 +330,19 @@ export default {
     });
   },
 
+  UserFeedbacks({commit}){
+    return new Promise((resolve, reject) => {
+      axios.get('/api/v1/review/users')
+      .then((response) => {
+        commit('UserReviews', response.data)
+        resolve(response)
+      })
+      .catch((error) => {
+        reject(error);
+      });
+    })
+  },
+
   // GET TOTAL number of USERS
   postUserCounts({ commit }, payload) {
     return new Promise((resolve, reject) => {
