@@ -334,6 +334,7 @@ export default {
     return new Promise((resolve, reject) => {
       axios.get('/api/v1/review/users')
       .then((response) => {
+        console.log(response);
         commit('UserReviews', response.data)
         resolve(response)
       })
