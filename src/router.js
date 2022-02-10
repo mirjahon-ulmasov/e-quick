@@ -398,7 +398,9 @@ router.beforeEach((to, from, next) => {
     !publicPages;
     return next("/login");
   }
-  next();
+   else{
+    return next();
+   }
 });
 
 export default router;
