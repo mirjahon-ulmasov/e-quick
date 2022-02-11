@@ -217,6 +217,9 @@ export default {
       old_password: "",
     };
   },
+  updated() {
+    this.$validator.locale = this.$i18n.locale;
+  },
   created() {
     const editID = localStorage.getItem("Id");
 

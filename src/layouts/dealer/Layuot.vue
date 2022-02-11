@@ -3,7 +3,7 @@
     <SideBar @is_full="getIsFull" />
     <div class="main" :class="{ big: !isFull }">
       <div class="main-content">
-        <nav-bar :title="$route.meta.title"></nav-bar>
+        <nav-bar :title="$route.meta.title[locale]"></nav-bar>
         <Converter v-show="$route.meta.link === 'create-order'" />
         <div class="scroll">
           <router-view> </router-view>
@@ -27,6 +27,11 @@ export default {
     getIsFull(payload) {
       this.isFull = payload;
     },
+  },
+  computed: {
+    locale(){
+       return this.$i18n.locale;
+    }
   },
 };
 </script>

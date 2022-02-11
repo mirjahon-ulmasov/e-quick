@@ -140,7 +140,9 @@ export default {
       },
     };
   },
-  computed: {},
+  updated() {
+    this.$validator.locale = this.$i18n.locale;
+  },
   methods: {
     handlerOneError() {
       this.notificationError = {

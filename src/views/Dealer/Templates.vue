@@ -28,12 +28,12 @@
               <h2>
                 {{ tr.title }}
               </h2>
-                              <img
-                  src="../../assets/images/icons/delete-icon.svg"
-                  alt="trash"
-                  style="cursor: pointer"
-                  @click="deleteTemplete(tr.template_id)"
-                />
+              <img
+                src="../../assets/images/icons/delete-icon.svg"
+                alt="trash"
+                style="cursor: pointer"
+                @click="deleteTemplete(tr.template_id)"
+              />
             </div>
             <div class="body">
               <h3>{{ $t("templates.quantity") }}</h3>
@@ -58,7 +58,7 @@
                 }}
                 <span class="ml-1">{{ $t("sum") }}</span>
               </span>
-              <button @click="Open(tr.template_id)" >Посмотреть</button>
+              <button @click="Open(tr.template_id)">Посмотреть</button>
             </div>
           </div>
         </div>
@@ -122,7 +122,10 @@
         </table>
       </transition>
     </div>
-    <span v-if="resultTemplates.length === 0 || resultTemplates.headers === null " class="not">
+    <span
+      v-if="resultTemplates.length === 0 || resultTemplates.headers === null"
+      class="not"
+    >
       Результаты не найдены
     </span>
     <template-item
@@ -201,9 +204,6 @@ export default {
   created() {
     this.$store.dispatch("product/GetTemplates");
   },
-  updated(){
-    console.log(this.resultTemplates);
-  }
 };
 </script>
 
