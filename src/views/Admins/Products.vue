@@ -381,7 +381,8 @@ export default {
   font-size: 16px;
   line-height: 20px;
   color: #394560;
-  margin-bottom: 20px;
+  margin-top: -10px;
+  margin-bottom: 30px;
   span{
     color: #60739F;
   }
