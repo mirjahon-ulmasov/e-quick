@@ -78,6 +78,9 @@ export default {
       spinner: false,
     };
   },
+  updated() {
+    this.$validator.locale = this.$i18n.locale;
+  },
   computed: {
     validateForm() {
       return !this.errors.any() && this.username !== "" && this.password !== "";

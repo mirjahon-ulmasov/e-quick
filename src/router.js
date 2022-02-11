@@ -38,7 +38,10 @@ const router = new Router({
           meta: {
             rule: "dealer",
             link: "analytics",
-            title: `${i18n.messages[i18n.locale].analytics.title}`,
+            title: {
+              ru: "Аналитика",
+              uz: "Analitika",
+            },
           },
         },
         {
@@ -48,7 +51,10 @@ const router = new Router({
           meta: {
             rule: "dealer",
             link: "create-order",
-            title: `${i18n.messages[i18n.locale].cart.title}`,
+            title: {
+              ru: "Создать заказ",
+              uz: "Buyurtma berish",
+            },
           },
         },
         {
@@ -58,7 +64,10 @@ const router = new Router({
           meta: {
             rule: "dealer",
             link: "journal",
-            title: `${i18n.messages[i18n.locale].journal.title}`,
+            title: {
+              ru: "Журнал",
+              uz: "Jurnal",
+            },
           },
         },
         {
@@ -68,7 +77,10 @@ const router = new Router({
           meta: {
             rule: "dealer",
             link: "templates",
-            title: `${i18n.messages[i18n.locale].templates.title}`,
+            title: {
+              ru: "Шаблоны",
+              uz: "Namunalar",
+            },
           },
         },
         {
@@ -78,7 +90,10 @@ const router = new Router({
           meta: {
             rule: "dealer",
             link: "feedback",
-            title: `${i18n.messages[i18n.locale].feedback.title}`,
+            title: {
+              ru: "Обратная связь",
+              uz: "Qayta aloqa",
+            },
           },
         },
         {
@@ -88,7 +103,10 @@ const router = new Router({
           meta: {
             rule: "dealer",
             link: "whs",
-            title: `${i18n.messages[i18n.locale].whs}`,
+            title: {
+              ru: "WHS остатки",
+              uz: "WHS qoldiqlari",
+            },
           },
         },
         {
@@ -98,7 +116,10 @@ const router = new Router({
           meta: {
             rule: "dealer",
             link: "",
-            title: `${i18n.messages[i18n.locale].profile.title}`,
+            title: {
+              ru: "Профиль",
+              uz: "Profil",
+            },
           },
           children: [
             {
@@ -107,8 +128,11 @@ const router = new Router({
               component: () => import("./views/Dealer/DealerEdit.vue"),
               meta: {
                 rule: "dealer",
-                title: `${i18n.messages[i18n.locale].changeData}`,
                 link: "",
+                title: {
+                  ru: "Изменить данные",
+                  uz: "Ma'lumotlarni o'zgartirish",
+                },
               },
             },
           ],
