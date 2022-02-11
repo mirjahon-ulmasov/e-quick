@@ -1,7 +1,15 @@
 <template>
   <div>
     <div class="nav-bar">
-      <h3>{{ title }}</h3>
+      <div style="display: flex">
+        <img
+        @click="$router.go(-1)"
+          src="@/assets/images/icons/back.svg"
+          style="margin-right: 12px"
+          alt="setting"
+        />
+        <h3>{{ title }}</h3>
+      </div>
       <div style="display: flex">
         <img
           v-if="this.$store.state.userType === 'dealer' || $acl.check('dealer')"
@@ -66,9 +74,7 @@
               <span> {{ $t("profile.settings") }} </span>
             </router-link>
             <router-link
-              v-if="
-                this.$store.state.userType === 'dealer' || $acl.check('dealer')
-              "
+              v-if="$store.state.userType === 'dealer' || $acl.check('dealer')"
               class="item"
               to="/dealer/profile"
             >
@@ -146,7 +152,9 @@ export default {
   },
   created() {
     this.$store.dispatch("auth/DealerInfo");
-    this.$store.dispatch("addUser/NotisfyGet");
+    if (this.$store.state.userType === "dealer" || this.$acl.check("dealer")) {
+      this.$store.dispatch("addUser/NotisfyGet");
+    }
   },
 };
 </script>

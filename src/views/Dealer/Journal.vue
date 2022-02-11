@@ -100,7 +100,7 @@
             {{ tr.delivery_date.split("-").join(".") }}
           </td>
           <td @click="Open(tr.id)" >
-            {{ Number(tr.total_price).toLocaleString("de-DE") }}
+            {{ Number(tr.total_price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") }}
             <span class="ml-1">{{ $t("sum") }}</span>
           </td>
         </tr>

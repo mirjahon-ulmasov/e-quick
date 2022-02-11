@@ -352,6 +352,16 @@ const router = new Router({
           },
           props: true,
         },
+        {
+          path: "/feedbacks",
+          name: "feedbacks",
+          component: () => import("./views/Admins/Feedbacks.vue"),
+          meta: {
+            rule: "admin_or_super",
+            link: "feedbacks",
+            title: "Отзывы",
+          },
+        },
       ],
     },
 
@@ -412,7 +422,9 @@ router.beforeEach((to, from, next) => {
     !publicPages;
     return next("/login");
   }
-  next();
+   else{
+    return next();
+   }
 });
 
 export default router;

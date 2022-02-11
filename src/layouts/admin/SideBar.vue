@@ -85,6 +85,21 @@
         />
         Категории</router-link
       >
+      <router-link to="/feedbacks" class="nav-link">
+        <b></b>
+        <b></b>
+        <img
+          v-if="this.$route.meta.link === 'feedbacks'"
+          src="../../assets/images/icons/happy-bold.svg"
+          alt="paper icon"
+        />
+        <img
+          v-else
+          src="../../assets/images/icons/happy-light.svg"
+          alt="paper icon"
+        />
+        Отзывы
+      </router-link>
     </div>
     <div
       class="nav-links"
@@ -138,13 +153,28 @@
         />
         Список админов</router-link
       >
+      <router-link to="/feedbacks" class="nav-link">
+        <b></b>
+        <b></b>
+        <img
+          v-if="this.$route.meta.link === 'feedbacks'"
+          src="../../assets/images/icons/happy-bold.svg"
+          alt="paper icon"
+        />
+        <img
+          v-else
+          src="../../assets/images/icons/happy-light.svg"
+          alt="paper icon"
+        />
+        Отзывы
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-    name: "AdminSideBar"
+  name: "AdminSideBar",
 };
 </script>
 

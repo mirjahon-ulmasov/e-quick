@@ -84,7 +84,7 @@ export default {
         .dispatch("product/GetOrderExchange", item)
         .then((response) => {
           this.currencies =
-            `${Number(response.data.value).toLocaleString("de-DE")}  ` + this.$t('sum');
+            `${Number(response.data.value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")}  ` + this.$t('sum');
         });
     },
     Weathers: async function () {

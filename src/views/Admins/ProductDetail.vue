@@ -34,7 +34,7 @@
         </div>
         <div class="user-detail">
           <p>Цена</p>
-          <h4 >{{ Number(product.price).toLocaleString("de-DE") }} {{ $t('sum') }}  </h4>
+          <h4 >{{ Number(product.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") }} {{ $t('sum') }}  </h4>
         </div>
         <div class="user-detail">
           <p>Описание</p>

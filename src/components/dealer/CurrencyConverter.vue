@@ -21,7 +21,7 @@
           <select
             class="custom-select ml-2"
             @click="Currency()"
-            :v-model="change ? to : from"
+            v-model="from"
           >
             <option class="options" value="UZS">UZS</option>
             <option class="options" value="USD">USD</option>
@@ -38,13 +38,13 @@
         <div class="item">
           <input
             type="text"
-            :v-model="change ?  currencies : value"
+            v-model="currencies"
             class="custom"
           />
           <select
             class="custom-select ml-2"
             @click="Currency()"
-            :v-model="change ? from : to"
+            v-model="to"
           >
             <option class="options" value="UZS">UZS</option>
             <option class="options" value="USD">USD</option>
@@ -71,7 +71,6 @@ export default {
   },
   methods: {
     Currency() {
-        console.log(this.value);
       const item = {
         code_to: this.to,
         code_from: this.from,
@@ -81,8 +80,7 @@ export default {
         .dispatch("product/GetOrderExchange", item)
         .then((response) => {
           this.currencies =
-            `${Number(response.data.value).toLocaleString("de-DE")}  ` +
-            this.$t("sum");
+            `${Number(response.data.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")}`
         });
     },
   },

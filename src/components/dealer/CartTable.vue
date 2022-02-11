@@ -67,7 +67,7 @@
               </div>
             </td>
             <td>
-              {{ cart.total_price.toLocaleString("de-DE") }} {{ $t("sum") }}
+              {{ cart.total_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") }} {{ $t("sum") }}
             </td>
             <vs-td style="text-align: center">
               <img
@@ -85,7 +85,7 @@
       <div class="itogo mt-4">
         <h2 class="text">{{ $t("cart.total_price") }}</h2>
         <h1 class="prise">
-          {{ Number(carts.total_price).toLocaleString("de-DE") }}
+          {{ Number(carts.total_price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") }}
           {{ $t("sum") }}
         </h1>
       </div>
