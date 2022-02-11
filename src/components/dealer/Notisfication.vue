@@ -2,6 +2,7 @@
   <div>
     <transition name="show">
       <div class="overlay" v-show="isSidebarActiveLocal">
+        <div class="close" @click="isSidebarActiveLocal = false"></div>
         <div class="sidebar">
           <div class="actions">
             <feather-icon

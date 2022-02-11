@@ -7,7 +7,7 @@
         @keyup.enter="Search(search)"
         placeholder="Поиск по названием"
       />
-      <button class="search-icon" @click="listed = !listed">
+      <button class="search-icon" @click="changeLayout()">
         <img
           v-if="listed"
           src="../../assets/images/icons/board-blue.svg"
@@ -22,7 +22,7 @@
     </div>
     <div v-if="resultTemplates.headers !== null">
       <transition name="show">
-        <div class="carts" v-if="!listed">
+        <div :class="activeClass" v-show="!listed">
           <div class="cart" v-for="(tr, i) in resultTemplates" :key="i">
             <div class="header">
               <h2>
@@ -64,7 +64,7 @@
         </div>
       </transition>
       <transition name="show-top">
-        <table v-if="listed" id="table" style="width: 100%">
+        <table v-show="listed" id="table" style="width: 100%">
           <thead>
             <tr>
               <th v-for="(header, i) in headers" :key="i">
@@ -77,7 +77,7 @@
               <td @click="Open(tr.template_id)">
                 {{ i + 1 }}
               </td>
-              <td>
+              <td @click="Open(tr.template_id)" >
                 {{ tr.title }}
               </td>
               <td
@@ -153,6 +153,7 @@ export default {
       pages: [],
       Sidebar: false,
       search: "",
+      activeClass: 'carts',
       listed: true,
     };
   },
@@ -200,6 +201,18 @@ export default {
         }
       });
     },
+    changeLayout(){
+      if (this.listed === false ) {
+        this.activeClass = 'none'
+        setTimeout(() => {
+          this.listed = !this.listed
+        }, 100);
+      }
+      else if (this.listed === true) {
+        this.activeClass = 'carts'
+        this.listed = !this.listed
+      }
+    }
   },
   created() {
     this.$store.dispatch("product/GetTemplates");
@@ -329,5 +342,8 @@ export default {
       }
     }
   }
+}
+.none{
+  display: none;
 }
 </style>

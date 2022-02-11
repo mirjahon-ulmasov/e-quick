@@ -35,7 +35,8 @@
         />
       </button>
     </div>
-    <table id="table" @scroll.passive="Scroll()" >
+    <h2 class="filtered" v-if="filtered">Фильтры: <span> {{ activeCategory.name }} ,  {{ activePod.name }} </span></h2>
+    <table id="table" @scroll.passive="Scroll()">
       <thead>
         <tr>
           <th v-for="(header, i) in headers" :key="i">{{ header.title }}</th>
@@ -52,7 +53,12 @@
           <td>{{ admin.company_name }}</td>
           <td>{{ admin.category_name }}</td>
           <td style="padding-left: 40px !important">
-            {{ Number(admin.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") }} {{ $t("sum") }}
+            {{
+              Number(admin.price)
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+            }}
+            {{ $t("sum") }}
           </td>
         </tr>
       </tbody>
@@ -90,6 +96,7 @@
     </nav>
     <transition name="show">
       <div class="overlay" v-show="open">
+        <div class="close" @click="Hide()"></div>
         <div class="sidebar">
           <div class="actions">
             <feather-icon
@@ -238,8 +245,8 @@ export default {
         }
       }
     },
-    Scroll(){
-       console.log('sdsadasd');
+    Scroll() {
+      console.log("sdsadasd");
     },
     Reset() {
       if (this.filtered === true) {
@@ -365,6 +372,19 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+}
+.filtered {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: #394560;
+  margin-top: -10px;
+  margin-bottom: 30px;
+  span{
+    color: #60739F;
   }
 }
 .filter {

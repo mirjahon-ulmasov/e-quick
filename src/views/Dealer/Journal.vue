@@ -222,6 +222,7 @@ export default {
         user_id: parseInt(localStorage.getItem("Id")),
         orders_ids: this.selected.map((x) => x.id),
         export_type: "xlsx",
+        lang: localStorage.getItem('lang')
       };
       this.$store
         .dispatch("product/GetFile", payload)
