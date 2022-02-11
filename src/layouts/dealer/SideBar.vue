@@ -206,8 +206,8 @@ export default {
       &:hover {
         width: 205px;
         z-index: 100;
-        transition: 0.2s linear;
-        transform: translateY(4px);
+        transition: 0.5s linear;
+        transform: translateX(4px);
         background: #1858e7;
       }
     }
