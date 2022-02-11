@@ -2,6 +2,7 @@ import { Validator } from "vee-validate";
 import russian from "vee-validate/dist/locale/ru";
 import uzbek from "vee-validate/dist/locale/uz";
 
+
 Validator.localize("ru", {
   messages: russian.messages,
   attributes: {
