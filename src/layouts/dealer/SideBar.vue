@@ -123,7 +123,11 @@ export default {
   font-family: Montserrat;
   background: #4679ec;
   box-shadow: 0px 8px 40px rgba(0, 0, 0, 0.12);
-  transition: 0.2s linear;
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.2s ease-out;
 
   .logo {
     margin: 50px;
@@ -144,7 +148,7 @@ export default {
   }
 
   .nav-links {
-      transition: 0s;
+    transition: 0s;
     .nav-link {
       border-radius: 10px;
       position: relative;
@@ -166,10 +170,13 @@ export default {
     }
   }
 }
-
 .small {
   min-width: 100px;
   width: 5%;
+  -webkit-animation: fadeInFromNone 0.5s ease-out;
+  -moz-animation: fadeInFromNone 0.5s ease-out;
+  -o-animation: fadeInFromNone 0.5s ease-out;
+  animation: fadeInFromNone 0.5s ease-out;
 
   .logo {
     margin: 50px 30px;
@@ -177,10 +184,10 @@ export default {
 
   .nav-links {
     text-align: center;
-      transition: 0s;
+    transition: 0s;
 
     .nav-link {
-      display: inline-block;
+      display: inline-flex;
       margin-top: 8px;
       padding: 14px 15px;
       line-height: 0;
@@ -192,7 +199,39 @@ export default {
       p {
         display: none;
       }
+      &:hover p {
+        display: block;
+        margin-left: 10px;
+      }
+      &:hover {
+        width: 205px;
+        z-index: 100;
+        transition: 0.2s linear;
+        transform: translateY(4px);
+        background: #1858e7;
+      }
     }
+  }
+}
+@keyframes fadeInFromNone {
+  0% {
+    display: none;
+    bottom: 0px;
+    left: -5px;
+    opacity: 0;
+  }
+
+  1% {
+    display: block;
+    bottom: 0px;
+    left: -6px;
+    opacity: 0;
+  }
+
+  100% {
+    display: block;
+    bottom: 0;
+    // opacity: 1;
   }
 }
 </style>

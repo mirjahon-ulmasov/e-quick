@@ -22,7 +22,7 @@
     </div>
     <div v-if="resultTemplates.headers !== null">
       <transition name="show">
-        <div class="carts" v-if="!listed">
+        <div class="carts" v-show="!listed">
           <div class="cart" v-for="(tr, i) in resultTemplates" :key="i">
             <div class="header">
               <h2>
@@ -64,7 +64,7 @@
         </div>
       </transition>
       <transition name="show-top">
-        <table v-if="listed" id="table" style="width: 100%">
+        <table v-show="listed" id="table" style="width: 100%">
           <thead>
             <tr>
               <th v-for="(header, i) in headers" :key="i">

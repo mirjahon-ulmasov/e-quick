@@ -6,6 +6,31 @@
     left: 0;
     background: rgba(0, 0, 0, 0.45);
     z-index: 9999;
+    .close{
+      position: relative;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      .action {
+        display: none;
+        .icon {
+          transition: 0.2s linear;
+          color: #4679ec;
+          background: #edf1fd;
+          cursor: pointer;
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+        }
+      }
+      &:hover{
+        .action{
+   display: block;
+        }
+      }
+    }
     .sidebar {
       position: fixed;
       transition: 0.3s;
