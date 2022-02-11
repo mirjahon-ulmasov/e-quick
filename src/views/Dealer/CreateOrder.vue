@@ -88,7 +88,7 @@
             </div>
             <span>
               Цена:
-              <span class="bold"> {{ calcPrice.toLocaleString("de-DE") }} сум </span>
+              <span class="bold"> {{ calcPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") }} сум </span>
             </span>
           </div>
         </div>

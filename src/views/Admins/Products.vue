@@ -52,7 +52,7 @@
           <td>{{ admin.company_name }}</td>
           <td>{{ admin.category_name }}</td>
           <td style="padding-left: 40px !important">
-            {{ Number(admin.price).toLocaleString("de-DE") }} {{ $t("sum") }}
+            {{ Number(admin.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") }} {{ $t("sum") }}
           </td>
         </tr>
       </tbody>

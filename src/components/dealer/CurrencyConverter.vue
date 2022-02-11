@@ -80,7 +80,7 @@ export default {
         .dispatch("product/GetOrderExchange", item)
         .then((response) => {
           this.currencies =
-            `${Number(response.data.price).toLocaleString("de-DE")}`
+            `${Number(response.data.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")}`
         });
     },
   },

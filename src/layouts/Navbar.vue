@@ -1,7 +1,15 @@
 <template>
   <div>
     <div class="nav-bar">
-      <h3>{{ title }}</h3>
+      <div style="display: flex">
+        <img
+        @click="$router.go(-1)"
+          src="@/assets/images/icons/back.svg"
+          style="margin-right: 12px"
+          alt="setting"
+        />
+        <h3>{{ title }}</h3>
+      </div>
       <div style="display: flex">
         <img
           v-if="this.$store.state.userType === 'dealer' || $acl.check('dealer')"

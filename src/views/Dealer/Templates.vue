@@ -54,7 +54,7 @@
                     .reduce((acc, item) => {
                       return (acc += item);
                     }, 0)
-                    .toLocaleString("de-DE")
+                    .toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
                 }}
                 <span class="ml-1">{{ $t("sum") }}</span>
               </span>
@@ -99,7 +99,7 @@
                     .reduce((acc, item) => {
                       return (acc += item);
                     }, 0)
-                    .toLocaleString("de-DE")
+                    .toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
                 }}
                 <span class="ml-1">{{ $t("sum") }}</span>
               </td>

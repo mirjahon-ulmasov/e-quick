@@ -30,7 +30,7 @@
                       {{ cart.quantity }}
                     </td>
                     <td>
-                      {{ Number(cart.total_price).toLocaleString("de-DE") }}
+                      {{ Number(cart.total_price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") }}
                       {{ $t("sum") }}
                     </td>
                   </tr>
@@ -40,7 +40,7 @@
             <div class="itogo mt-4">
               <h3 class="text">{{ $t("cart.total_price") }}</h3>
               <h1 class="prise">
-                {{ Number(carts.total_price).toLocaleString("de-DE") }}
+                {{ Number(carts.total_price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") }}
                 {{ $t("sum") }}
               </h1>
             </div>

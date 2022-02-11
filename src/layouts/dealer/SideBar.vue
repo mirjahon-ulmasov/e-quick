@@ -123,6 +123,7 @@ export default {
   font-family: Montserrat;
   background: #4679ec;
   box-shadow: 0px 8px 40px rgba(0, 0, 0, 0.12);
+  transition: 0.2s linear;
 
   .logo {
     margin: 50px;
@@ -143,6 +144,7 @@ export default {
   }
 
   .nav-links {
+      transition: 0s;
     .nav-link {
       border-radius: 10px;
       position: relative;
@@ -154,7 +156,6 @@ export default {
       color: #ffffff;
       padding: 15px;
       margin: 17px;
-      transition: 0.1s;
 
       img {
         margin-right: 1rem;
@@ -176,6 +177,8 @@ export default {
 
   .nav-links {
     text-align: center;
+      transition: 0s;
+
     .nav-link {
       display: inline-block;
       margin-top: 8px;

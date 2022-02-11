@@ -76,6 +76,24 @@
         </div>
       </div>
     </transition>
+    <transition name="show">
+      <div class="created" v-show="created" >
+        <feather-icon
+          :icon="'CheckIcon'"
+          class="icon-checkk"
+          svgClasses="h-6 w-9"
+        />
+        <h2>
+          Заказ создан. <router-link to="/dealer/journal">Журнал</router-link>
+        </h2>
+        <feather-icon
+          :icon="'XIcon'"
+          @click="created = false"
+          class="icon"
+          svgClasses="h-6 w-9"
+        />
+      </div>
+    </transition>
   </div>
 </template>
 <script>
@@ -86,6 +104,7 @@ export default {
       date: null,
       type: null,
       ordertype: null,
+      created: false,
       date1: new Date("YYYY-MM-DD"),
       orders: [
         {
@@ -158,7 +177,8 @@ export default {
   },
   methods: {
     Reset() {
-      (this.date = null), (this.type = null); this.ordertype = null
+      (this.date = null), (this.type = null);
+      this.ordertype = null;
       this.$emit("closeSidebarOrder");
     },
     submitData() {
@@ -171,16 +191,13 @@ export default {
             delivery_type: this.type.value,
           })
           .then((response) => {
-            this.$vs.notify({
-              text: this.$t("cart.successOffer"),
-              iconPack: "feather",
-              icon: "icon-alert-circle",
-              color: "success",
-            });
             setTimeout(() => {
               this.$store.dispatch("addUser/NotisfyGet");
             }, 4000);
-            this.$store.commit('product/ADD_Carts', null)
+            this.$store.commit("product/ADD_Carts", null);
+            setTimeout(() => {
+              this.created = true
+            }, 500);
           })
           .catch((err) => {
             this.$vs.notify({
@@ -218,30 +235,65 @@ input[type="date"] {
   font-size: 16px;
   line-height: 20px;
   color: #60739f;
-     background:
-    #f6f8fe
-    url("../../assets/images/icons/calendar.svg")
-    right 1rem
-    center
-    no-repeat;
+  background: #f6f8fe url("../../assets/images/icons/calendar.svg") right 1rem
+    center no-repeat;
 }
 ::-webkit-clear-button,
 ::-webkit-inner-spin-button {
-  display:none;
+  display: none;
 }
 ::-webkit-calendar-picker-indicator {
-  position:absolute;
-  width:2.5rem;
-  height:100%;
-  top:0;
-  right:0;
-  bottom:0;
-  
-  opacity:0;
-  cursor:pointer;
-  
-  color:rgba(0, 120, 250, 1);
-  background:rgba(0, 120, 250, 1);
- 
+  position: absolute;
+  width: 2.5rem;
+  height: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+
+  opacity: 0;
+  cursor: pointer;
+
+  color: rgba(0, 120, 250, 1);
+  background: rgba(0, 120, 250, 1);
+}
+.created {
+  position: fixed;
+  display: flex;
+  right: 27px;
+  bottom: 23px;
+  align-items: center;
+  width: 307px;
+  background: #ffffff;
+  box-shadow: 0px -1px 11px rgba(70, 121, 236, 0.08),
+    -1px 4px 11px rgba(70, 121, 236, 0.05);
+  border-radius: 12px;
+  padding: 25px 16px;
+  .icon-checkk {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: #35e4b7;
+
+    display: flex;
+    justify-content: center;
+    color: #ffffff;
+  }
+  h2 {
+    margin: 0px 18px 0px 8px;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 100.9%;
+    /* or 16px */
+    color: rgba(37, 4, 19, 0.75);
+    a {
+      color: #5d8aee;
+    }
+  }
+  .icon {
+    cursor: pointer;
+    color: #5d8aee;
+  }
 }
 </style>
