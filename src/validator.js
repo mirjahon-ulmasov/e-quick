@@ -1,6 +1,6 @@
 import { Validator } from "vee-validate";
 import russian from "vee-validate/dist/locale/ru";
-// import uzbek from "vee-validate/dist/locale/uz";
+import uzbek from "vee-validate/dist/locale/uz";
 
 
 Validator.localize("ru", {
@@ -17,18 +17,18 @@ Validator.localize("ru", {
   },
 });
 
-// Validator.localize("uz", {
-//   messages: uzbek.messages,
-//   attributes: {
-//     username: "foydalanuvchi nomi",
-//     old_password: "eski parol",
-//     password: "parol",
-//     confirm: "tasdiqlangan parol",
-//     email: "elektron pochta",
-//     phone: "telefon raqami",
-//     code: "kod",
-//     full_name: "F.I.SH",
-//   },
-// });
+Validator.localize("uz", {
+  messages: uzbek.messages,
+  attributes: {
+    username: "foydalanuvchi nomi",
+    old_password: "eski parol",
+    password: "parol",
+    confirm: "tasdiqlangan parol",
+    email: "elektron pochta",
+    phone: "telefon raqami",
+    code: "kod",
+    full_name: "F.I.SH",
+  },
+});
 
 export default Validator;
