@@ -5,12 +5,14 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "axios": "^0.24.0",
     "compressorjs": "^1.1.1",
     "material-icons": "^0.3.1",
+    "patch-package": "^6.4.7",
     "regenerator-runtime": "^0.13.9",
     "translate": "^1.4.1",
     "vee-validate": "^2.2.8",
@@ -30,6 +32,7 @@
     "@vue/cli-plugin-eslint": "^3.7.0",
     "@vue/cli-service": "^3.7.0",
     "node-sass": "^4.12.0",
+    "postinstall-postinstall": "^2.1.0",
     "sass-loader": "^7.1.0",
     "script-loader": "0.7.2"
   }
