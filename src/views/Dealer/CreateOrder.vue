@@ -57,11 +57,9 @@
         <v-select
           v-model="activeProduct"
           :options="products"
+          @input="calcPrice = activeProduct.price"
           label="name"
         >
-          <template #list-footer>
-            <li v-show="hasNextPage" ref="load" class="loader"></li>
-          </template>
           <template #open-indicator="{ attributes }">
             <span v-bind="attributes">
               <img src="../../assets/images/icons/select2.svg" alt="" />
