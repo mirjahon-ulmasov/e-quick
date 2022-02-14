@@ -4,7 +4,11 @@
       <table id="tableCart">
         <thead>
           <tr>
-            <th v-for="(header, i) in headers" :key="i">{{ header.title }}</th>
+            <th>№</th>
+            <th>{{ $t("cart.p_name") }}</th>
+            <th>{{ $t("cart.quantity") }}</th>
+            <th>{{ $t("cart.price") }}</th>
+            <th>{{ $t("cart.delete") }}</th>
           </tr>
         </thead>
         <tbody>
@@ -101,7 +105,7 @@
     <div class="not-found" v-if="!carts">
       <img src="../../assets/images/icons/order-bg.svg" alt="" />
       <p>
-        Ваша корзинка пуста. Пожалуйста выберите необходимые товары для покупки.
+        {{ $t("cart.nullCart") }}
       </p>
     </div>
     <order
@@ -204,8 +208,8 @@ export default {
             this.incProductId = null;
             this.Id = null;
             this.$vs.notify({
-              title: "Updated",
-              text: "Ozgardi",
+              title: "OK",
+              text: this.$t('updated'),
               iconPack: "feather",
               icon: "icon-alert-circle",
               color: "success",

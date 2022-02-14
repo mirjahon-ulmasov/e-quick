@@ -13,10 +13,10 @@ export default {
     })
   },
   // Get product by category id
-  GetProduct ({ commit }, id) {
-    if (id) {
+  GetProduct ({ commit }, obj) {
+    if (obj.id) {
       return new Promise((resolve, reject) => {
-        axios.get('api/v1/subcategory/' + `${id}/products`,
+        axios.get('api/v1/subcategory/' + `${obj.id}/products`,
         // { params: { page: obj.page  } }
         )
           .then((response) => {

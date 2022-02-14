@@ -13,7 +13,7 @@
             />
           </div>
           <div class="body">
-            <h2 class="filter">Выберите необходимые данные</h2>
+            <h2 class="filter">{{ $t("cart.sOfffer") }}</h2>
             <form @submit.prevent="submitData()">
               <div class="form-input">
                 <h4>Дата доставки</h4>

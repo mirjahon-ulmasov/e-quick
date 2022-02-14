@@ -19,7 +19,6 @@ export default {
       newPass: "Yangi parol",
       confirmPass: "Parolni tasdiqlang",
       fillCorrect: `Iltimos formani to'g'ri to'ldiring`,
-
       remember: "Meni eslab qolish",
       email: "Elektron pochtangizni kiriting",
       mainPage: "Bosh sahifa",
@@ -29,10 +28,8 @@ export default {
     saveTemp: "Arizani shablon sifatida saqlash",
     conver: "Valyuta konvertori",
     whs: "WHS qoldiqlari",
-
     changeData: "Ma'lumotlarni o'zgartirish",
     changePhoto: "Suratni o'zgartirish",
-
     notisSeen: `Barcha bildirishnomalarni ko'rish`,
     delete: `O'chirildi`,
     created: "Yaratildi",
@@ -43,10 +40,11 @@ export default {
     erorr: "Xatolik yuz berdi !",
     cart: {
       title: "Buyurtma berish",
-      category: "Zavodni tanlang",
-      podcategory: "Turini tanlang ",
-      productS: "Pastki turini tanlang",
-      cart: "Savat №",
+      category: "Turini tanlang",
+      podcategory: "Pastki turini tanlang",
+      productS: "Mahsulotni tanlang",
+      detail: 'Buyurtma tafsilotlari',
+      cart: "Savat",
       p_name: "Mahsulot nomi",
       quantity: "Miqdori",
       price: `Narx (so'mda)`,
@@ -71,9 +69,10 @@ export default {
       nullCart:
         "Sizning savatchangiz bo’sh, iltimos ariza uchun zarur mahsulotlarni tanlang",
       updatedP: "Mahsulot yangilandi !",
+      save: `Savatchaga qo'shish`,
+      cancel: "Bekor qilish", //Отменить
       addedP: "Mahsulot savatga joylandi",
     },
-
     feedback: {
       title: "Qayta aloqa",
       star: "Hozirgi saytni rivojlantirish uchun o’z fikr-mulohazalaringizni qoldiring va maxsus 1 dan 5 gacha bo’lgan tizimda baholang",
@@ -83,7 +82,6 @@ export default {
     analytics: {
       title: "Analitika",
     },
-
     journal: {
       title: "Jurnal",
       lastJ: "So’nggi arizalar jurnali ",
@@ -130,7 +128,6 @@ export default {
       siteNotis: "Saytdagi bildirishnomalarni qabul qilish",
       emailNotis: "Pochta manzilidan xabar olish",
       save: `Saqlash`,
-
       cancel: "Bekor qilish", //Отменить
       logout: "Profildan chiqish",
       settings: "Sozlamalar",
@@ -218,10 +215,11 @@ export default {
     erorr: "Произошла ошибка",
     cart: {
       title: "Создать заказ",
-      category: "Выберите завод",
-      podcategory: "Выберите категорию",
-      productS: "Выберите подкатегорию",
-      cart: "Корзинка №",
+      category: "Выберите категорию",
+      podcategory: "Выберите подкатегорию",
+      productS: "Выберите товар",
+      cart: "Корзинка",
+      detail: 'Детали заказа',
       p_name: "Наименование товаров",
       quantity: "Количество ",
       price: `Цена (в сумах)`,
@@ -247,6 +245,8 @@ export default {
         "Ваша корзина пуста, пожалуйста выберите необходимые товары для заявки",
       updatedP: "Продукт обновлен !",
       addedP: "Продукт упакован в корзину !",
+      save: ` В корзинку`,
+      cancel: "Отменить", //Отменить
     },
 
     feedback: {

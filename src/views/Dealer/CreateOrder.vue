@@ -2,7 +2,7 @@
   <div class="order">
     <form @submit.prevent="AddToCart()" style="width: 40%">
       <div class="form-input">
-        <h4>Выберите завод</h4>
+        <h4>{{ $t("cart.category") }}</h4>
         <v-select
           :options="category"
           label="name"
@@ -18,7 +18,7 @@
         </v-select>
       </div>
       <div class="form-input">
-        <h4>Выберите категорию</h4>
+        <h4>{{ $t("cart.podcategory") }}</h4>
         <v-select
           @input="getProduct()"
           :options="podCategory"
@@ -34,8 +34,8 @@
         </v-select>
       </div>
       <div class="form-input">
-        <h4>Выберите товар</h4>
-        <v-select
+        <h4>{{ $t("cart.productS") }}</h4>
+        <!-- <v-select
           v-model="activeProduct"
           @search="(query) => (searchProduct = query)"
           :options="paginated"
@@ -53,10 +53,24 @@
               <img src="../../assets/images/icons/select2.svg" alt="" />
             </span>
           </template>
+        </v-select> -->
+        <v-select
+          v-model="activeProduct"
+          :options="products"
+          label="name"
+        >
+          <template #list-footer>
+            <li v-show="hasNextPage" ref="load" class="loader"></li>
+          </template>
+          <template #open-indicator="{ attributes }">
+            <span v-bind="attributes">
+              <img src="../../assets/images/icons/select2.svg" alt="" />
+            </span>
+          </template>
         </v-select>
       </div>
       <div class="detail" v-if="activeProduct">
-        <h2 class="head">Детали заказа:</h2>
+        <h2 class="head">{{ $t('cart.detail') }}:</h2>
         <div class="item">
           <img
             src="../../assets/images/icons/products-bold.svg"
@@ -66,7 +80,7 @@
           <div class="right">
             <h3>{{ activeProduct.name }}</h3>
             <div style="display: flex; align-items: center">
-              <span> Количество: </span>
+              <span> {{ $t('cart.quantity') }}: </span>
               <div class="quantity">
                 <button class="inc" type="button" @click="Minus()">
                   <feather-icon
@@ -87,7 +101,7 @@
               <div></div>
             </div>
             <span>
-              Цена:
+              {{ $t('cart.price') }}:
               <span class="bold">
                 {{
                   calcPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
@@ -99,18 +113,18 @@
         </div>
       </div>
       <div class="actions">
-        <button type="button" @click="activeProduct = null">Отменить</button>
+        <button type="button" @click="activeProduct = null">{{ $t('cart.cancel') }}</button>
         <button
           style="background: #4679ec; color: #ffffff"
           :disabled="activeProduct === null"
           :style="activeProduct === null ? 'opacity: 0.5' : ''"
         >
-          В корзинку
+          {{ $t('cart.save') }}
         </button>
       </div>
     </form>
     <div class="cart">
-      <h2 class="head">Корзинка</h2>
+      <h2 class="head">{{ $t('cart.cart') }}</h2>
       <Cart />
     </div>
   </div>
@@ -173,14 +187,14 @@ export default {
         id: this.activeCategory.id,
         page: 1,
       };
-      this.$store.dispatch("product/GetProduct", obj.id).then((response) => {});
+      this.$store.dispatch("product/GetProduct", obj).then((response) => {});
     },
     getProduct() {
       const obj = {
         id: this.activePod.id,
         page: 1,
       };
-      this.$store.dispatch("product/GetProduct", obj.id);
+      this.$store.dispatch("product/GetProduct", obj);
     },
     async onOpen() {
       if (this.hasNextPage) {
