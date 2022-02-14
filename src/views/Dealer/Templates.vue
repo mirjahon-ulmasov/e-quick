@@ -5,7 +5,7 @@
         type="search"
         v-model="search"
         @keyup.enter="Search(search)"
-        placeholder="Поиск по названием"
+        :placeholder="$t(`templates.search`)"
       />
       <button class="search-icon" @click="changeLayout()">
         <img
@@ -54,11 +54,12 @@
                     .reduce((acc, item) => {
                       return (acc += item);
                     }, 0)
-                    .toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, " ")
                 }}
                 <span class="ml-1">{{ $t("sum") }}</span>
               </span>
-              <button @click="Open(tr.template_id)">Посмотреть</button>
+              <button @click="Open(tr.template_id)">{{ $t("templates.see") }}</button>
             </div>
           </div>
         </div>
@@ -67,8 +68,18 @@
         <table v-show="listed" id="table" style="width: 100%">
           <thead>
             <tr>
-              <th v-for="(header, i) in headers" :key="i">
-                {{ header.title }}
+              <th>№</th>
+              <th>
+                {{ $t("templates.name") }}
+              </th>
+              <th>
+                {{ $t("templates.quantity") }}
+              </th>
+              <th>
+                {{ $t("templates.price") }}
+              </th>
+              <th>
+                {{ $t("cart.delete") }}
               </th>
             </tr>
           </thead>
@@ -77,7 +88,7 @@
               <td @click="Open(tr.template_id)">
                 {{ i + 1 }}
               </td>
-              <td @click="Open(tr.template_id)" >
+              <td @click="Open(tr.template_id)">
                 {{ tr.title }}
               </td>
               <td
@@ -99,15 +110,10 @@
                     .reduce((acc, item) => {
                       return (acc += item);
                     }, 0)
-                    .toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, " ")
                 }}
                 <span class="ml-1">{{ $t("sum") }}</span>
-              </td>
-              <td
-                style="padding-left: 70px !important"
-                @click="Open(tr.template_id)"
-              >
-                <img src="../../assets/images/icons/eye-show.svg" alt="" />
               </td>
               <td style="padding-left: 60px !important">
                 <img
@@ -139,21 +145,13 @@ import TemplateItem from "../../components/dealer/TemplateItems.vue";
 export default {
   data() {
     return {
-      headers: [
-        { title: "№" },
-        { title: this.$t("templates.name") },
-        { title: this.$t("templates.quantity") },
-        { title: this.$t("templates.price") },
-        { title: "Посмотреть" },
-        { title: "Удалить" },
-      ],
       selected: [],
       page: 1,
       perPage: 1,
       pages: [],
       Sidebar: false,
       search: "",
-      activeClass: 'carts',
+      activeClass: "carts",
       listed: true,
     };
   },
@@ -201,18 +199,17 @@ export default {
         }
       });
     },
-    changeLayout(){
-      if (this.listed === false ) {
-        this.activeClass = 'none'
+    changeLayout() {
+      if (this.listed === false) {
+        this.activeClass = "none";
         setTimeout(() => {
-          this.listed = !this.listed
+          this.listed = !this.listed;
         }, 100);
+      } else if (this.listed === true) {
+        this.activeClass = "carts";
+        this.listed = !this.listed;
       }
-      else if (this.listed === true) {
-        this.activeClass = 'carts'
-        this.listed = !this.listed
-      }
-    }
+    },
   },
   created() {
     this.$store.dispatch("product/GetTemplates");
@@ -343,7 +340,7 @@ export default {
     }
   }
 }
-.none{
+.none {
   display: none;
 }
 </style>

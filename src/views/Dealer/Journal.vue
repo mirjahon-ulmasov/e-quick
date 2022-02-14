@@ -14,7 +14,12 @@
               <label for="d"></label>
             </div>
           </th>
-          <th v-for="(header, i) in headers" :key="i">{{ header.title }}</th>
+          <th>{{ $t("journal.offerNum") }}</th>
+          <th>{{ $t("journal.quantity") }}</th>
+          <th>{{ $t("journal.date") }}</th>
+          <th style="padding-right: 140px;" >{{ $t("journal.status") }}</th>
+          <th>{{ $t("journal.d") }}</th>
+          <th>{{ $t("journal.price") }}</th>
         </tr>
       </thead>
       <tbody>
@@ -51,10 +56,9 @@
               {{ $t("journal.status2") }}
             </span>
             <!-- IN_PROGRESS -->
-            <span v-show="tr.status === 2" class="active">
+            <span v-show="tr.status === 2" style="padding: 2px" class="active">
               <span>
-                Sotuvchi qabulida
-                <!-- {{ $t("journal.status5") }} -->
+                {{ $t("journal.status5") }}
               </span>
             </span>
             <!-- ACCESS_TO_SHIPMENT  -->
@@ -107,9 +111,9 @@
       </tbody>
     </table>
     <div class="bottom-actions">
-      <button class="export" @click="exportToExcel()">
+      <button :disabled="selected.length <= 0" class="export" @click="exportToExcel()">
         <img src="../../assets/images/icons/excel.svg" alt="" />
-        <h2 class="text-export">Экспортировать</h2>
+        <h2 class="text-export">{{ $t("journal.export") }}</h2>
       </button>
       <nav>
         <ul class="pagination">
@@ -155,14 +159,6 @@ import OrderItem from "../../components/dealer/OrderItems.vue";
 export default {
   data() {
     return {
-      headers: [
-        { title: this.$t("journal.offerNum") },
-        { title: this.$t("journal.quantity") },
-        { title: this.$t("journal.date") },
-        { title: this.$t("journal.status") },
-        { title: this.$t("journal.d") },
-        { title: this.$t("journal.price") },
-      ],
       selected: [],
       page: 1,
       perPage: 7,

@@ -68,7 +68,7 @@
         </v-select>
       </div>
       <div class="detail" v-if="activeProduct">
-        <h2 class="head">{{ $t('cart.detail') }}:</h2>
+        <h2 class="head">{{ $t("cart.detail") }}:</h2>
         <div class="item">
           <img
             src="../../assets/images/icons/products-bold.svg"
@@ -78,7 +78,7 @@
           <div class="right">
             <h3>{{ activeProduct.name }}</h3>
             <div style="display: flex; align-items: center">
-              <span> {{ $t('cart.quantity') }}: </span>
+              <span> {{ $t("cart.quantity") }}: </span>
               <div class="quantity">
                 <button class="inc" type="button" @click="Minus()">
                   <feather-icon
@@ -99,11 +99,9 @@
               <div></div>
             </div>
             <span>
-              {{ $t('cart.price') }}:
+              {{ $t("cart.price") }}:
               <span class="bold">
-                {{
-                  calcPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
-                }}
+                {{ calcPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") }}
                 сум
               </span>
             </span>
@@ -111,25 +109,27 @@
         </div>
       </div>
       <div class="actions">
-        <button type="button" @click="activeProduct = null">{{ $t('cart.cancel') }}</button>
+        <button type="button" @click="activeProduct = null">
+          {{ $t("cart.cancel") }}
+        </button>
         <button
           style="background: #4679ec; color: #ffffff"
           :disabled="activeProduct === null"
           :style="activeProduct === null ? 'opacity: 0.5' : ''"
         >
-          {{ $t('cart.save') }}
+          {{ $t("cart.save") }}
         </button>
       </div>
     </form>
     <div class="cart">
-      <h2 class="head">{{ $t('cart.cart') }}</h2>
+      <h2 class="head">{{ $t("cart.cart") }}</h2>
       <Cart />
     </div>
   </div>
 </template>
 
 <script>
-import axios from "../../axios";
+// import axios from "../../axios";
 import Cart from "../../components/dealer/CartTable.vue";
 export default {
   name: "Home",
@@ -140,26 +140,15 @@ export default {
     products() {
       return this.$store.state.product.productes.results;
     },
-    paginated() {
-      if (this.products) {
-        return this.resultProduct.slice(0, this.limit);
-      }
-    },
-    resultProduct() {
-      if (this.searchProduct) {
-        return this.products.filter((item) => {
-          return this.searchProduct
-            .toLowerCase()
-            .split(" ")
-            .every((v) => item.name.toLowerCase().includes(v));
-        });
-      } else {
-        return this.products;
-      }
-    },
-    hasNextPage() {
-      return this.$store.state.product.productes.count > this.paginated.length;
-    },
+    //
+    // paginated() {
+    //   if (this.products) {
+    //     return this.resultProduct.slice(0, this.limit);
+    //   }
+    // },
+    // hasNextPage() {
+    //   return this.$store.state.product.productes.count > this.paginated.length;
+    // },
   },
   data() {
     return {
@@ -186,6 +175,9 @@ export default {
         page: 1,
       };
       this.$store.dispatch("product/GetProduct", obj).then((response) => {});
+      if (this.activeProduct !== null) {
+        this.activeProduct = null;
+      }
     },
     getProduct() {
       const obj = {
@@ -193,37 +185,42 @@ export default {
         page: 1,
       };
       this.$store.dispatch("product/GetProduct", obj);
-    },
-    async onOpen() {
-      if (this.hasNextPage) {
-        await this.$nextTick();
-        this.observer.observe(this.$refs.load);
+      if (this.activeProduct !== null) {
+        this.activeProduct = null;
       }
     },
-    onClose() {
-      this.observer.disconnect();
-    },
-    async infiniteScroll([{ isIntersecting, target }]) {
-      if (isIntersecting) {
-        const obj = {
-          id: this.activeCategory.id,
-          page: this.paginated.length / 50 + 1,
-        };
-        axios
-          .get("api/v1/subcategory/" + `${obj.id}/products`, {
-            params: { page: obj.page },
-          })
-          .then((res) => {
-            this.$store.commit("product/Pagination", res.data);
-          });
-        const ul = target.offsetParent;
-        const scrollTop = target.offsetParent.scrollTop;
-        this.limit += 50;
-        await this.$nextTick();
-        ul.scrollTop = scrollTop;
-      } else {
-      }
-    },
+    // FOR PAGINATION
+    // async onOpen() {
+    //   if (this.hasNextPage) {
+    //     await this.$nextTick();
+    //     this.observer.observe(this.$refs.load);
+    //   }
+    // },
+    // onClose() {
+    //   this.observer.disconnect();
+    // },
+    // async infiniteScroll([{ isIntersecting, target }]) {
+    //   if (isIntersecting) {
+    //     const obj = {
+    //       id: this.activeCategory.id,
+    //       page: this.paginated.length / 50 + 1,
+    //     };
+    //     axios
+    //       .get("api/v1/subcategory/" + `${obj.id}/products`, {
+    //         params: { page: obj.page },
+    //       })
+    //       .then((res) => {
+    //         this.$store.commit("product/Pagination", res.data);
+    //       });
+    //     const ul = target.offsetParent;
+    //     const scrollTop = target.offsetParent.scrollTop;
+    //     this.limit += 50;
+    //     await this.$nextTick();
+    //     ul.scrollTop = scrollTop;
+    //   } else {
+    //   }
+    // },
+    // PAGINATION END
     Minus() {
       if (this.count > 1) {
         this.count = this.count - 1;
@@ -278,28 +275,15 @@ export default {
           console.error(err);
         });
     },
-    handlerOne() {
-      this.notification.show = false;
-    },
-    handlerTwo() {
-      this.notification.show = false;
-    },
-    handlerOneError() {
-      this.notificationError = {
-        show: false,
-        content: "",
-      };
-    },
   },
   mounted() {
-    this.observer = new IntersectionObserver(this.infiniteScroll);
+    // this.observer = new IntersectionObserver(this.infiniteScroll);
   },
   created() {
     this.$store.dispatch("product/GetCategory");
   },
 };
 </script>
-
 <style lang="scss" scoped>
 .order {
   display: flex;
