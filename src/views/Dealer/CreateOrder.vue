@@ -20,6 +20,7 @@
       <div class="form-input">
         <h4>Выберите категорию</h4>
         <v-select
+          @input="getProduct()"
           :options="podCategory"
           v-model="activePod"
           label="name"
@@ -45,8 +46,7 @@
           label="name"
         >
           <template #list-footer>
-            <li v-show="hasNextPage" ref="load" class="loader">
-            </li>
+            <li v-show="hasNextPage" ref="load" class="loader"></li>
           </template>
           <template #open-indicator="{ attributes }">
             <span v-bind="attributes">
@@ -88,26 +88,37 @@
             </div>
             <span>
               Цена:
-              <span class="bold"> {{ calcPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") }} сум </span>
+              <span class="bold">
+                {{
+                  calcPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+                }}
+                сум
+              </span>
             </span>
           </div>
         </div>
       </div>
       <div class="actions">
-        <button type="button" @click="activeProduct = null" >Отменить</button>
-        <button style="background: #4679ec; color: #ffffff" :disabled="activeProduct === null" :style="activeProduct === null ? 'opacity: 0.5' : ''">В корзинку</button>
+        <button type="button" @click="activeProduct = null">Отменить</button>
+        <button
+          style="background: #4679ec; color: #ffffff"
+          :disabled="activeProduct === null"
+          :style="activeProduct === null ? 'opacity: 0.5' : ''"
+        >
+          В корзинку
+        </button>
       </div>
     </form>
     <div class="cart">
       <h2 class="head">Корзинка</h2>
-      <Cart  />
+      <Cart />
     </div>
   </div>
 </template>
 
 <script>
 import axios from "../../axios";
-import Cart from '../../components/dealer/CartTable.vue'
+import Cart from "../../components/dealer/CartTable.vue";
 export default {
   name: "Home",
   computed: {
@@ -151,7 +162,7 @@ export default {
     };
   },
   components: {
-    Cart
+    Cart,
   },
   methods: {
     getCat(data) {
@@ -223,34 +234,34 @@ export default {
         })
         .then((response) => {
           this.activeProduct = null;
-          this.count = 1
-           if (response.statusText == "Created") {
-              this.$vs.notify({
-                title: "Ok",
-                text: this.$t('cart.addedP'),
-                iconPack: "feather",
-                icon: "icon-alert-circle",
-                color: "success",
-              })
-            } else {
-              this.$vs.notify({
-                title: "Ok",
-                text: this.$t('cart.updatedP'),
-                iconPack: "feather",
-                icon: "icon-alert-circle",
-                color: "warning",
-              });
-            }
-           this.$store.dispatch("product/GetCart");
-        })
-        .catch((err) => {
+          this.count = 1;
+          if (response.statusText == "Created") {
             this.$vs.notify({
-              title: "Error",
-              text: err.response.data.detail,
+              title: "Ok",
+              text: this.$t("cart.addedP"),
               iconPack: "feather",
               icon: "icon-alert-circle",
-              color: "danger",
+              color: "success",
             });
+          } else {
+            this.$vs.notify({
+              title: "Ok",
+              text: this.$t("cart.updatedP"),
+              iconPack: "feather",
+              icon: "icon-alert-circle",
+              color: "warning",
+            });
+          }
+          this.$store.dispatch("product/GetCart");
+        })
+        .catch((err) => {
+          this.$vs.notify({
+            title: "Error",
+            text: err.response.data.detail,
+            iconPack: "feather",
+            icon: "icon-alert-circle",
+            color: "danger",
+          });
 
           console.error(err);
         });
@@ -259,7 +270,7 @@ export default {
       this.notification.show = false;
     },
     handlerTwo() {
-       this.notification.show = false;
+      this.notification.show = false;
     },
     handlerOneError() {
       this.notificationError = {

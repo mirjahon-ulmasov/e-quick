@@ -91,8 +91,8 @@ export default {
       if (this.validateForm) {
         this.spinner = true;
         const payload = {
-          checkbox_remember_me: this.remember_me,
           userDetails: {
+            remember_me : this.remember_me,
             username: this.username,
             password: this.password,
           },
