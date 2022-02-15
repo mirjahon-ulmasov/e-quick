@@ -24,7 +24,8 @@
         <v-select
           v-model="user.role"
           style="width: 375px"
-          :options="['admin']"
+          :options="roles"
+          label="role"
           id="select-state"
         >
           <template #open-indicator="{ attributes }">
@@ -375,6 +376,9 @@ export default {
     have() {
       return this.real_companies !== null;
     },
+        roles() {
+      return this.$store.state.addUser.roles;
+    },
   },
   methods: {
     handlerOne() {
@@ -521,6 +525,7 @@ export default {
       .catch((err) => console.log(err));
     this.$store.dispatch("addUser/fetchDataCompanies");
     this.$store.dispatch("addUser/fetchCompanyDealerID", this.id);
+    this.$store.dispatch("addUser/fetchRoles");
   },
   destroyed() {
     this.reset();

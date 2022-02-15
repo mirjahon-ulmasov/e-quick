@@ -192,11 +192,11 @@ export default {
     // Get product by category id
     GetProduct ({ commit }, obj) {
         return new Promise((resolve, reject) => {
-          axios.get('api/v1/subcategory/' + `${obj.id}/products`,
-          { params: { page: obj.page  } }
+          axios.get(`api/v1/subcategory/products/filter/${obj.page}/${obj.id}`,
+          // { params: { page: obj.page  } }
           )
             .then((response) => {
-              commit("SET_Products", response.data);
+              commit("SET_FilteredProducts", response.data);
               resolve(response)
             })
             .catch((error) => { reject(error) })

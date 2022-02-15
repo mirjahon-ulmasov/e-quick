@@ -35,6 +35,9 @@ export default {
   SET_Products(state, products) {
     state.products = products;
   },
+  SET_FilteredProducts(state , filtered_products){
+  state.filtered_products = filtered_products
+  },
   SET_ProductsID(state, product_detail) {
     state.product_detail = product_detail;
   },
