@@ -220,7 +220,7 @@ export default {
       return this.$store.state.addUser.parent_companies;
     },
     category() {
-      return this.$store.state.addUser.company_id.categories;
+      return this.$store.state.addUser.company_group_filter.categories;
     },
     product() {
       return this.paginate(this.$store.state.addUser.products);
@@ -324,17 +324,16 @@ export default {
     },
     getCat() {
       console.log(this.activeCategory);
-      this.$store.dispatch("addUser/fetchCompanyID", this.activeCategory.id);
+      this.$store.dispatch("addUser/fetchCompanyGroupFilter", this.activeCategory.id);
     },
     FilterProduct() {
-      this.load = true
       this.search = null
       this.searched = false;
       const obj = {
         id: this.activePod.id,
         page: this.page,
       };
-      this.$store.dispatch("addUser/GetProduct", obj).then(() => { this.load = false } )
+      this.$store.dispatch("addUser/GetProduct", obj)
       this.open = false;
         setTimeout(() => {
           this.filtered = true;

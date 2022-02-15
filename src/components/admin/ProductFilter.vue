@@ -162,4 +162,7 @@ export default {
 </script>
 
 <style>
+#table {
+  width: 100%;
+}
 </style>

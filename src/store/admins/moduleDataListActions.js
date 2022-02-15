@@ -108,6 +108,22 @@ export default {
         });
     });
   },
+  //  FETCH COMPANY GROUP FILTER
+
+  fetchCompanyGroupFilter({ commit }, id) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(`/api/v1/company_group/filter/category/${id}`)
+        .then((response) => {
+          commit("SET_COMPANIES_GROUP_FILTER", response.data);
+          resolve(response);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  },
+
   // FETCH COMPANIES BY ID
 
   fetchCompanyID({ commit }, id) {

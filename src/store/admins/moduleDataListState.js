@@ -6,6 +6,7 @@ export default {
   not_seen: [],
   companies: [],
   company_id: [],
+  company_group_filter: [],
   products: [],
   filtered_products: [],
   product_detail: [],
