@@ -15,9 +15,10 @@
         @add-item="addItem"
       ></tree-item>
     </div>
-        <div v-show="resultCategory.length === 0" class="not">
+        <div v-show="resultCategory.length === 0 && load === false" class="not">
       <span> Результаты не найдены </span>
     </div>
+    <spinner :bg="false" style="margin-top: 50px" v-if="load" ></spinner>
   </div>
 </template>
 
@@ -31,29 +32,8 @@ export default {
         { title: "Подкатегория" },
         { title: "Изменить" },
       ],
-      treeData : {
-        name: "My Tree",
-        children: [
-          { name: "hello" },
-          { name: "wat" },
-          {
-            name: "child folder",
-            children: [
-              {
-                name: "child folder",
-                children: [{ name: "hello" }, { name: "wat" }]
-              },
-              { name: "hello" },
-              { name: "wat" },
-              {
-                name: "child folder",
-                children: [{ name: "hello" }, { name: "wat" }]
-              }
-            ]
-          }
-        ]
-      },
       search: "",
+      load: true
     };
   },
   computed: {
@@ -86,7 +66,7 @@ export default {
   }
   },
   created() {
-    this.$store.dispatch("addUser/GetCategory");
+    this.$store.dispatch("addUser/GetCategory").then(() => { this.load = false })
   },
   mounted() {},
 };

@@ -167,6 +167,7 @@
         svgClasses="h-3 w-2"
       />
     </a>
+    <spinner :bg="false" style="margin-top: 50px" v-if="load" ></spinner>
   </div>
 </template>
 
@@ -194,6 +195,7 @@ export default {
       scTimer: 0,
       scY: 0,
       searched: false,
+      load: true
     };
   },
   computed: {
@@ -323,7 +325,7 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("addUser/fetchProducts", this.id);
+    this.$store.dispatch("addUser/fetchProducts", this.id).then(() => { this.load = false })
     this.$store.dispatch("addUser/fetchDataCompanies");
   },
 };

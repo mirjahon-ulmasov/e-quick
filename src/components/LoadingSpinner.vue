@@ -1,11 +1,23 @@
 <template>
-  <div class="background">
-    <div class="loading"></div>
+  <div>
+    <div class="background" v-if="bg" >
+      <div class="loading"></div>
+    </div>
+    <div class="bg" v-else  >
+       <div class="loading" ></div>
+    </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+props:{
+    bg: {
+      type: Boolean,
+      default: true,
+    },
+}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -31,7 +43,22 @@ export default {};
     animation: loading 1s ease infinite;
   }
 }
-
+.bg{
+  // width: 100vw;
+  // height: 100vh;
+    .loading {
+    z-index: 10;
+    position: relative;
+    // top: 50vh;
+    // left: 48vw;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 4px rgb(108, 164, 255) solid;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: loading 1s ease infinite;
+  }
+}
 @keyframes loading {
   to {
     transform: rotate(1turn);

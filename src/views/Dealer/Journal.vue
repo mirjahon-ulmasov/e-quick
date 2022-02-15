@@ -110,7 +110,7 @@
         </tr>
       </tbody>
     </table>
-    <div class="bottom-actions">
+    <div v-if="load === false" class="bottom-actions">
       <button :disabled="selected.length <= 0" class="export" @click="exportToExcel()">
         <img src="../../assets/images/icons/excel.svg" alt="" />
         <h2 class="text-export">{{ $t("journal.export") }}</h2>
@@ -147,6 +147,7 @@
         </ul>
       </nav>
     </div>
+     <spinner :bg="false" style="margin-top: 50px" v-if="load" ></spinner>
     <order-item
       :isOrderItem="Sidebar"
       @closeSidebar="toggleDataSidebar"
@@ -164,6 +165,7 @@ export default {
       perPage: 7,
       pages: [],
       Sidebar: false,
+      load: true
     };
   },
   components: {
@@ -271,7 +273,7 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("product/GetOrder");
+    this.$store.dispatch("product/GetOrder").then(() => { this.load = false })
   },
 };
 </script>

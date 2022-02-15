@@ -128,6 +128,7 @@
         </table>
       </transition>
     </div>
+   <spinner :bg="false" style="margin-top: 50px" v-if="load" ></spinner>
     <span
       v-if="resultTemplates.length === 0 || resultTemplates.headers === null"
       class="not"
@@ -153,6 +154,7 @@ export default {
       search: "",
       activeClass: "carts",
       listed: true,
+      load: true
     };
   },
   components: {
@@ -212,7 +214,7 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("product/GetTemplates");
+    this.$store.dispatch("product/GetTemplates").then(() => { this.load = false })
   },
 };
 </script>
