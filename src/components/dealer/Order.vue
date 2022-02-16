@@ -20,9 +20,9 @@
                 <input type="date" v-model="date" id="date" />
               </div>
               <div class="form-input">
-                <h4>{{ $t("cart.tOffer") }}</h4>
+                <h4>{{ $t("cart.dyOffer") }}</h4>
                 <v-select
-                  :options="[{text: $t(`cart.type1`), value: `DEALER_PURCHASE_ORDER`},{text: $t(`cart.type2`), value: `DEALER_RETURN_ORDER`},{text: $t(`cart.type3`), value: `DEALER_SPECIAL_ORDER`}]"
+                  :options="[{value: `THROUGH_THE_BASE`,text: $t(`cart.dtype1`)},{value: `DIRECT_DELIVERY`,text: $t(`cart.dtype2`)}]"
                   label="text"
                   v-model="type"
                   id="select-state"
@@ -38,9 +38,9 @@
                 </v-select>
               </div>
               <div class="form-input">
-                <h4>{{ $t("cart.dyOffer") }}</h4>
+                <h4>{{ $t("cart.tOffer") }}</h4>
                 <v-select
-                  :options="[{value: `THROUGH_THE_BASE`,text: $t(`cart.dtype1`)},{value: `DIRECT_DELIVERY`,text: $t(`cart.dtype2`)}]"
+                  :options="[{text: $t(`cart.type1`), value: `DEALER_PURCHASE_ORDER`},{text: $t(`cart.type2`), value: `DEALER_RETURN_ORDER`},{text: $t(`cart.type3`), value: `DEALER_SPECIAL_ORDER`}]"
                   label="text"
                   v-model="ordertype"
                   id="select-state"

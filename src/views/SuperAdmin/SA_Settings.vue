@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="$route.path === '/setting' && user" class="user-profile">
+    <div v-if="$route.path === '/setting' && info" class="user-profile">
       <div class="user-header">
         <div class="user-header__first">
           <img
@@ -27,8 +27,8 @@
             accept="image/*"
           />
           <div class="user-name">
-            <h4>{{ user.full_name }}</h4>
-            <h4>{{ user.role }}</h4>
+            <h4>{{ info.full_name }}</h4>
+            <h4>{{ info.role }}</h4>
           </div>
         </div>
         <div class="user-header__second">
@@ -58,24 +58,24 @@
           <h3 class="head">Персональные данные</h3>
           <div class="user-detail">
             <p>Имя</p>
-            <h4>{{ user.full_name }}</h4>
+            <h4>{{ info.full_name }}</h4>
           </div>
           <div class="user-detail">
             <p>Имя пользователя</p>
-            <h4>{{ user.username }}</h4>
+            <h4>{{ info.username }}</h4>
           </div>
           <div class="user-detail">
             <p>Телефон номера</p>
             <h4>
-              +998 {{ user.phone_number.substring(0, 2) }}
-              {{ user.phone_number.substring(2, 5) }}-{{
-                user.phone_number.substring(5, 7)
-              }}-{{ user.phone_number.substring(7) }}
+              +998 {{ info.phone_number.substring(0, 2) }}
+              {{ info.phone_number.substring(2, 5) }}-{{
+                info.phone_number.substring(5, 7)
+              }}-{{ info.phone_number.substring(7) }}
             </h4>
           </div>
           <div class="user-detail">
             <p>Email</p>
-            <h4>{{ user.email }}</h4>
+            <h4>{{ info.email }}</h4>
           </div>
         </div>
         <div class="user-details">
@@ -123,21 +123,18 @@ export default {
       baseUrl: process.env.VUE_APP_IMG,
     };
   },
-  created() {
-    this.$store
-      .dispatch("addUser/fetchUserById", this.$route.meta.id)
-      .then(() => {
-        this.email_notifications = this.user.email_notifications === "active";
-        this.site_notifications = this.user.site_notifications === "active";
-      });
-  },
   computed: {
-    user() {
-      return this.$store.state.addUser.detail;
-    },
     info() {
       return this.$store.state.auth.info;
     },
+  },
+  created() {
+    this.$store.dispatch("auth/DealerInfo");
+    setTimeout(() => {
+      this.site_notifications = this.info.site_notifications === "active" ? true : false;
+      this.email_notifications =
+        this.info.email_notifications === "active" ? true : false;
+    }, 1000);
   },
   methods: {
     upload() {

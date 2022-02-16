@@ -302,7 +302,8 @@
       :btnSecond="notification.btnSecond"
       @handlerOne="handlerOne"
       @handlerTwo="handlerTwo"
-    ></v-notification>
+    >
+    </v-notification>
     <v-notification
       header="Error"
       :is_success="false"
@@ -310,7 +311,8 @@
       :isShow="notificationError.show"
       :content="notificationError.content"
       @handlerOne="handlerOneError"
-    ></v-notification>
+    >
+    </v-notification>
   </div>
 </template>
 
@@ -440,6 +442,7 @@ export default {
           this.$store
             .dispatch("addUser/updateItem", {
               ...this.user,
+              role: this.user.role.role || this.user.role,
               password: this.password,
               old_password: this.old_password,
               email_notifications: this.user.email_notifications
