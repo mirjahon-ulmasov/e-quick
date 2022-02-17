@@ -10,6 +10,7 @@
           v-model="activeCategory"
           id="select-state"
         >
+        <span slot="no-options">{{ $t('not_data') }}.</span>
           <template #open-indicator="{ attributes }">
             <span v-bind="attributes">
               <img src="../../assets/images/icons/select2.svg" alt="" />
@@ -26,6 +27,7 @@
           label="name"
           id="select-state"
         >
+         <span slot="no-options">{{ $t('not_data') }}.</span>
           <template #open-indicator="{ attributes }">
             <span v-bind="attributes">
               <img src="../../assets/images/icons/select2.svg" alt="" />
@@ -60,6 +62,7 @@
           @input="calcPrice = activeProduct.price"
           label="name"
         >
+        <span slot="no-options">{{ $t('not_data') }}.</span>
           <template #open-indicator="{ attributes }">
             <span v-bind="attributes">
               <img src="../../assets/images/icons/select2.svg" alt="" />

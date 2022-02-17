@@ -16,7 +16,7 @@
       ></tree-item>
     </div>
         <div v-show="resultCategory.length === 0 && load === false" class="not">
-      <span> Результаты не найдены </span>
+      <span> {{ $t('not_data') }}.  </span>
     </div>
     <spinner :bg="false" style="margin-top: 50px" v-if="load" ></spinner>
   </div>

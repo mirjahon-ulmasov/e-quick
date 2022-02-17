@@ -45,6 +45,7 @@ export default {
     seen: `Ko'rildi`,
     sum: `So'm`,
     erorr: "Xatolik yuz berdi !",
+    not_data: 'Natijalar topilmadi',
     cart: {
       title: "Buyurtma berish",
       category: "Turini tanlang",
@@ -224,6 +225,7 @@ export default {
     not_seen: `Недавние`,
     sum: `Сум`,
     erorr: "Произошла ошибка",
+    not_data: 'Результаты не найдены',
     cart: {
       title: "Создать заказ",
       category: "Выберите категорию",

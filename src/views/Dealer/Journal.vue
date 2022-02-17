@@ -156,7 +156,7 @@
       </nav>
     </div>
     <span v-if="orders1.length === 0" class="not">
-      Результаты не найдены
+      {{ $t('not_data') }}.
     </span>
     <spinner :bg="false" style="margin-top: 50px" v-if="load"></spinner>
     <order-item

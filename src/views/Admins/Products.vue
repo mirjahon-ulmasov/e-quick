@@ -70,7 +70,7 @@
       v-if="productList.total_products === 0 && filtered === false"
       class="not"
     >
-      Результаты не найдены
+     {{ $t('not_data') }}.
     </span>
     <nav
       v-if="

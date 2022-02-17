@@ -28,7 +28,7 @@
       </tbody>
     </table>
     <span v-if="productList.total_products === 0" class="not">
-      Результаты не найдены
+      {{ $t('not_data') }}.
     </span>
     <nav
       v-if="productList.total_products !== 0 || productList.items.length !== 0"

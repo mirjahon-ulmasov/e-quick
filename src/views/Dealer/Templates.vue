@@ -133,7 +133,7 @@
       v-if="resultTemplates.length === 0 || resultTemplates.headers === null"
       class="not"
     >
-      Результаты не найдены
+      {{ $t('not_data') }}.
     </span>
     <template-item
       :isOrderItem="Sidebar"
