@@ -212,7 +212,7 @@
               <label :for="i">{{ item.name }}</label>
             </div>
             <div v-show="filter.length === 0" style="text-align: center">
-              <span> Результаты не найдены </span>
+              <span> {{ $t('not_data') }}. </span>
             </div>
           </div>
         </div>

@@ -3,7 +3,7 @@
     <div v-if="userCount" class="card-container">
       <div v-for="i in [1, 2, 3, 4]" :key="i" class="card">
         <img src="../../assets/images/icons/profile.svg" alt="Profile" />
-        <h4>Общее количество клиентов</h4>
+        <h4>{{ $t('clients') }}</h4>
         <h3>{{ userCount }}</h3>
         <h4>23% <span /></h4>
       </div>

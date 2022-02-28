@@ -1,9 +1,9 @@
 <template>
   <div class="error-page">
     <img src="../../assets/images/icons/404.png" alt="404" />
-    <h3>Страница которую вы ищете не сущуствует.</h3>
+    <h3>{{ $t('auth.not_found1') }}</h3>
     <p>
-      Пожалуйста попробуйте перейти на главную страницу либо вернуться обратно.
+      {{ $t('auth.not_found2') }}
     </p>
     <div class="actions">
       <my-button

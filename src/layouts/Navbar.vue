@@ -3,7 +3,7 @@
     <div class="nav-bar">
       <div style="display: flex">
         <img
-        @click="$router.go(-1)"
+          @click="$router.go(-1)"
           src="@/assets/images/icons/back.svg"
           style="margin-right: 12px"
           alt="setting"
@@ -11,6 +11,13 @@
         <h3>{{ title }}</h3>
       </div>
       <div style="display: flex">
+        <button class="lang" @click="languageHandler()">
+          <img
+            :src="$i18n.locale === `uz` ? rus : uzb"
+            style="margin-right: 12px"
+            alt="setting"
+          />
+        </button>
         <img
           v-if="this.$store.state.userType === 'dealer' || $acl.check('dealer')"
           @click="toggleDataSidebarNotis(true)"
@@ -36,14 +43,6 @@
             </div>
           </div>
           <div :class="'dropdown'">
-            <div class="item" @click="languageHandler()">
-              <img
-                src="@/assets/images/icons/globus.svg"
-                style="margin-right: 12px"
-                alt="setting"
-              />
-              <span> {{ $t("lang") }} </span>
-            </div>
             <router-link
               v-if="
                 this.$store.state.userType === 'admin' || $acl.check('admin')
@@ -115,6 +114,8 @@ export default {
       Sidebar: false,
       not_seen: require("@/assets/images/icons/notification-not.svg"),
       seen: require("@/assets/images/icons/notification-seen.svg"),
+      uzb: require('@/assets/images/langs/uzb.png'),
+      rus: require('@/assets/images/langs/rus.png')
     };
   },
   computed: {
@@ -145,6 +146,20 @@ export default {
         this.$i18n.locale = "uz";
         localStorage.setItem("lang", "uz");
       }
+      const payload = {
+        role: "dealer",
+        user_lang: localStorage.getItem('lang'),
+        site_notifications: this.info.site_notifications,
+        email_notifications: this.info.email_notifications,
+        password: "",
+        id: localStorage.getItem("Id"),
+        username: this.info.username,
+        full_name: this.info.full_name,
+        email: this.info.email,
+        savdo_id: this.info.savdo_id,
+        phone_number: this.info.phone_number,
+      };
+      this.$store.dispatch("auth/updateItem", payload)
     },
     toggleDataSidebarNotis(val = false) {
       this.Sidebar = val;
@@ -172,6 +187,15 @@ export default {
     font-weight: bold;
     font-size: 24px;
     color: #394560;
+  }
+  .lang {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    img {
+      width: 28px;
+      height: 28px;
+    }
   }
   .parent {
     width: 270px;

@@ -13,16 +13,16 @@
             />
           </div>
           <div class="body">
-            <h2 class="filter">Уведомления</h2>
+            <h2 class="filter">{{ $t("profile.notis") }}</h2>
             <div class="notisfy">
               <div
                 class="notis"
                 v-if="notis_not.headers !== null && notis_not.length !== 0"
               >
                 <a href="#" class="seen-all" @click="SeenAll()">
-                  Прочитал все
+                  {{ $t("notisSeen") }}
                 </a>
-                <h3>Недавние</h3>
+                <h3>{{ $t("not_seen") }}</h3>
                 <div
                   class="item"
                   style="margin-right: 30px; margin-left: 10px"
@@ -71,7 +71,7 @@
                 v-if="notisfy.headers !== null && notisfy.length !== 0"
               >
                 <h3 v-if="notis_not.headers !== null && notis_not.length !== 0">
-                  Прочитанные
+                  {{ $t("seenok") }}
                 </h3>
                 <div
                   class="item"
@@ -114,6 +114,15 @@
                     </h1>
                   </div>
                 </div>
+              </div>
+              <div
+                class="not"
+                v-if="notisfy.length === 0 && notis_not.length === 0 || notis_not.headers === null && notisfy.headers === null"
+              >
+                <img src="../../assets/images/notis-404.svg" alt="" />
+                <h4>
+                  {{ $t("notis_404") }}
+                </h4>
               </div>
             </div>
           </div>
@@ -232,6 +241,7 @@ export default {
           this.$store.dispatch("addUser/NotisfyGet").then((res) => {
             if (res.data.headers === null) {
               this.$store.commit("addUser/SET_Notisfy", res.data);
+              this.$store.commit("addUser/SET_notseen", res.data);
               this.isSidebarActiveLocal = false;
             }
           });
@@ -263,6 +273,19 @@ export default {
 .notisfy {
   height: 73vh;
   overflow-y: scroll;
+  .not {
+    text-align: center;
+    h4 {
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 22px;
+      /* identical to box height */
+      text-align: center;
+      color: #394560;
+    }
+  }
   &::-webkit-scrollbar {
     width: 4px;
     height: 21px;
@@ -295,6 +318,7 @@ export default {
       font-weight: 500;
       font-size: 16px;
       line-height: 20px;
+      margin-right: 10px;
       text-align: right;
       color: #4679ec;
       float: right;

@@ -13,13 +13,20 @@
             />
           </div>
           <div class="body">
-            <h2 class="filter">Данные о заявке № {{ carts.order_number }}</h2>
+            <h2 class="filter">{{ $t("journal.about") }} № {{ carts.order_number }}</h2>
             <div class="table-item">
               <table id="tableCart">
                 <thead>
                   <tr>
-                    <th v-for="(header, i) in headers" :key="i">
-                      {{ header.title }}
+                    <th>№</th>
+                    <th>
+                      {{ $t("templates.name") }}
+                    </th>
+                    <th>
+                      {{ $t("templates.quantity").slice(0,3) }}
+                    </th>
+                    <th>
+                      {{ $t("templates.price") }}
                     </th>
                   </tr>
                 </thead>
@@ -60,12 +67,12 @@
                 :width="167"
                 bgColor="#EDF1FD"
                 color="#4679EC"
-                title="Отменить"
+                :title="$t(`cart.cancel`)"
               ></my-button>
               <my-button
                 @click.native="OrderResend()"
                 :width="167"
-                title="Подтвердить"
+                :title="$t(`cart.submit`)"
               ></my-button>
             </div>
           </div>
@@ -80,12 +87,6 @@ export default {
   name: "",
   data() {
     return {
-      headers: [
-        { title: "№" },
-        { title: "Товар" },
-        { title: "Кол-во" },
-        { title: "Цена" },
-      ],
     };
   },
   props: {

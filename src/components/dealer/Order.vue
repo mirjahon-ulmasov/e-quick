@@ -13,16 +13,16 @@
             />
           </div>
           <div class="body">
-            <h2 class="filter">Выберите необходимые данные</h2>
+            <h2 class="filter">{{ $t("cart.sOfffer") }}</h2>
             <form @submit.prevent="submitData()">
               <div class="form-input">
-                <h4>Дата доставки</h4>
+                <h4>{{ $t("cart.dOffer") }}</h4>
                 <input type="date" v-model="date" id="date" />
               </div>
               <div class="form-input">
-                <h4>Тип заказа</h4>
+                <h4>{{ $t("cart.dyOffer") }}</h4>
                 <v-select
-                  :options="orders"
+                  :options="[{value: `THROUGH_THE_BASE`,text: $t(`cart.dtype1`)},{value: `DIRECT_DELIVERY`,text: $t(`cart.dtype2`)}]"
                   label="text"
                   v-model="type"
                   id="select-state"
@@ -38,9 +38,9 @@
                 </v-select>
               </div>
               <div class="form-input">
-                <h4>Тип доставки</h4>
+                <h4>{{ $t("cart.tOffer") }}</h4>
                 <v-select
-                  :options="order_type"
+                  :options="[{text: $t(`cart.type1`), value: `DEALER_PURCHASE_ORDER`},{text: $t(`cart.type2`), value: `DEALER_RETURN_ORDER`},{text: $t(`cart.type3`), value: `DEALER_SPECIAL_ORDER`}]"
                   label="text"
                   v-model="ordertype"
                   id="select-state"
@@ -63,13 +63,13 @@
                   :width="167"
                   bgColor="#EDF1FD"
                   color="#4679EC"
-                  title="Отменить"
+                  :title="$t(`cart.cancel`)"
                 ></my-button>
                 <my-button
                   style="margin-left: 9px"
                   type="submit"
                   :width="167"
-                  title="Подтвердить"
+                  :title="$t(`cart.submit`)"
                 ></my-button>
               </div>
             </form>
@@ -85,7 +85,7 @@
           svgClasses="h-6 w-9"
         />
         <h2>
-          Заказ создан. <router-link to="/dealer/journal">Журнал</router-link>
+          {{ $t('cart.successOffer') }}.    <router-link style="margin-left: 5px" to="/dealer/journal">{{ $t('journal.title') }}</router-link>
         </h2>
         <feather-icon
           :icon="'XIcon'"
@@ -197,7 +197,7 @@ export default {
             }, 4000);
             this.$store.commit("product/ADD_Carts", null);
             setTimeout(() => {
-              this.created = true
+              this.created = true;
             }, 500);
           })
           .catch((err) => {
@@ -263,7 +263,7 @@ input[type="date"] {
   right: 27px;
   bottom: 23px;
   align-items: center;
-  width: 307px;
+  // width: 420px;
   background: #ffffff;
   box-shadow: 0px -1px 11px rgba(70, 121, 236, 0.08),
     -1px 4px 11px rgba(70, 121, 236, 0.05);

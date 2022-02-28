@@ -38,7 +38,7 @@
       </tbody>
     </table>
     <div v-show="resultUsers.length === 0" class="not">
-      <span> Результаты не найдены </span>
+      <span> {{ $t('not_data') }}. </span>
     </div>
     <nav>
       <ul class="pagination">

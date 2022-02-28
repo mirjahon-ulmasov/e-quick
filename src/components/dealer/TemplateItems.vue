@@ -13,13 +13,20 @@
             />
           </div>
           <div class="body">
-            <h2 class="filter">Данные о {{ carts.title }}</h2>
+            <h2 class="filter">{{ $t("templates.about") }} {{ carts.title }}</h2>
             <div class="table-item">
               <table id="tableCart">
                 <thead>
                   <tr>
-                    <th v-for="(header, i) in headers" :key="i">
-                      {{ header.title }}
+                    <th>№</th>
+                    <th>
+                      {{ $t("templates.name") }}
+                    </th>
+                    <th>
+                      {{ $t("templates.quantity").slice(0,3) }}
+                    </th>
+                    <th>
+                      {{ $t("templates.price") }}
                     </th>
                   </tr>
                 </thead>
@@ -31,7 +38,11 @@
                       {{ cart.quantity }}
                     </td>
                     <td>
-                      {{ Number(cart.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") }}
+                      {{
+                        Number(cart.price)
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+                      }}
                       {{ $t("sum") }}
                     </td>
                   </tr>
@@ -41,7 +52,11 @@
             <div class="itogo mt-4">
               <h3 class="text">{{ $t("cart.total_price") }}</h3>
               <h1 class="prise">
-                {{ Number(carts.total_price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") }}
+                {{
+                  Number(carts.total_price)
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+                }}
                 {{ $t("sum") }}
               </h1>
             </div>
@@ -78,12 +93,6 @@ export default {
   name: "",
   data() {
     return {
-      headers: [
-        { title: "№" },
-        { title: "Товар" },
-        { title: "Кол-во" },
-        { title: "Цена" },
-      ],
       SidebarOrder: false,
     };
   },
@@ -153,7 +162,7 @@ export default {
     Order() {
       this.isSidebarActiveLocal = false;
       setTimeout(() => {
-          this.toggleDataSidebarOrder(true);
+        this.toggleDataSidebarOrder(true);
       }, 500);
     },
     Reset() {

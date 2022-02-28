@@ -108,6 +108,22 @@ export default {
         });
     });
   },
+  //  FETCH COMPANY GROUP FILTER
+
+  fetchCompanyGroupFilter({ commit }, id) {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(`/api/v1/company_group/filter/category/${id}`)
+        .then((response) => {
+          commit("SET_COMPANIES_GROUP_FILTER", response.data);
+          resolve(response);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  },
+
   // FETCH COMPANIES BY ID
 
   fetchCompanyID({ commit }, id) {
@@ -192,11 +208,11 @@ export default {
     // Get product by category id
     GetProduct ({ commit }, obj) {
         return new Promise((resolve, reject) => {
-          axios.get('api/v1/subcategory/' + `${obj.id}/products`,
-          { params: { page: obj.page  } }
+          axios.get(`api/v1/subcategory/products/filter/${obj.page}/${obj.id}`,
+          // { params: { page: obj.page  } }
           )
             .then((response) => {
-              commit("SET_Products", response.data);
+              commit("SET_FilteredProducts", response.data);
               resolve(response)
             })
             .catch((error) => { reject(error) })

@@ -32,8 +32,9 @@
       </div>
     </div>
     <span v-if="resultCompany.length === 0" class="not">
-      Результаты не найдены
+     {{ $t('not_data') }}.
     </span>
+    <spinner :bg="false" style="margin-top: 50px" v-if="load" ></spinner>
   </div>
 </template>
 
@@ -46,7 +47,8 @@ export default {
         { title: "Главная компания" },
         { title: "Характеристика" },
       ],
-      search: ''
+      search: '',
+      load: true
     };
   },
   computed: {
@@ -72,7 +74,7 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("addUser/fetchCompany");
+    this.$store.dispatch("addUser/fetchCompany").then(() => { this.load = false })
   },
   mounted() {},
 };

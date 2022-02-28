@@ -19,21 +19,25 @@ export default {
       newPass: "Yangi parol",
       confirmPass: "Parolni tasdiqlang",
       fillCorrect: `Iltimos formani to'g'ri to'ldiring`,
-
       remember: "Meni eslab qolish",
       email: "Elektron pochtangizni kiriting",
       mainPage: "Bosh sahifa",
       back: "Qaytish",
+      not_found1: 'Siz izlayotgan sahifa mavjud emas.',
+      not_found2: `Iltimos, asosiy sahifaga o'tishga harakat qiling yoki orqaga qayting.`,
     },
     xato: "Agar xato bo’lsa, qo’llab-quvvatlash xizmatiga murojaat qiling",
     saveTemp: "Arizani shablon sifatida saqlash",
+    nameTemp: "Shablon uchun nom tanlang",
     conver: "Valyuta konvertori",
     whs: "WHS qoldiqlari",
-
-    changeData: "Ma'lumotlarni o'zgartirish",
+    changeData: "Tahrirlash",
     changePhoto: "Suratni o'zgartirish",
-
-    notisSeen: `Barcha bildirishnomalarni ko'rish`,
+    notisSeen: `Barchasini o'qidim`,
+    seenok: `O'qilganlar`,
+    not_seen: `So'ngilar`,
+    notis_404: 'Sizda hali hech qanday bildirishnoma yo‘q.',
+    clients: 'Mijozlarning umumiy soni',
     delete: `O'chirildi`,
     created: "Yaratildi",
     updated: `Yangilandi`,
@@ -41,12 +45,14 @@ export default {
     seen: `Ko'rildi`,
     sum: `So'm`,
     erorr: "Xatolik yuz berdi !",
+    not_data: 'Natijalar topilmadi',
     cart: {
       title: "Buyurtma berish",
-      category: "Zavodni tanlang",
-      podcategory: "Turini tanlang ",
-      productS: "Pastki turini tanlang",
-      cart: "Savat №",
+      category: "Turini tanlang",
+      podcategory: "Pastki turini tanlang",
+      productS: "Mahsulotni tanlang",
+      detail: 'Buyurtma tafsilotlari',
+      cart: "Savat",
       p_name: "Mahsulot nomi",
       quantity: "Miqdori",
       price: `Narx (so'mda)`,
@@ -71,9 +77,10 @@ export default {
       nullCart:
         "Sizning savatchangiz bo’sh, iltimos ariza uchun zarur mahsulotlarni tanlang",
       updatedP: "Mahsulot yangilandi !",
+      save: `Savatchaga qo'shish`,
+      cancel: "Bekor qilish", //Отменить
       addedP: "Mahsulot savatga joylandi",
     },
-
     feedback: {
       title: "Qayta aloqa",
       star: "Hozirgi saytni rivojlantirish uchun o’z fikr-mulohazalaringizni qoldiring va maxsus 1 dan 5 gacha bo’lgan tizimda baholang",
@@ -83,7 +90,6 @@ export default {
     analytics: {
       title: "Analitika",
     },
-
     journal: {
       title: "Jurnal",
       lastJ: "So’nggi arizalar jurnali ",
@@ -97,7 +103,7 @@ export default {
       status3: "Sotuvchi rad etdi",
       status4: "Sotuvchi qabuldan keyin rad etdi",
       status5: "Sotuvchi qabul jarayonida",
-      status6: `Yetqazib berish jarayoniga o'tdi`,
+      status6: `Yetqazib berish jarayonida`,
       status7: "Zakaz qisman qabul qilindi",
       status8: "Buyurtma amalga oshirildi",
       d: "Yetkazib berish sanasi",
@@ -126,15 +132,13 @@ export default {
       new: "Yangi maxfiy so’zni kiriting",
       confirm: "Yangi maxfiy so’zni tasdiqlang",
       ok: "E-Quick ni baholang ",
-      notis: "Bildirishnomalar",
       siteNotis: "Saytdagi bildirishnomalarni qabul qilish",
       emailNotis: "Pochta manzilidan xabar olish",
       save: `Saqlash`,
-
       cancel: "Bekor qilish", //Отменить
       logout: "Profildan chiqish",
       settings: "Sozlamalar",
-
+      notis: "Bildirishnomalar",
       yes: "Ha",
       no: `Yo'q`,
       sure: "Profildan chiqasizmi ?",
@@ -142,38 +146,12 @@ export default {
       email: "Elektron pochta",
       event: "Voqealar haqida bildirishnoma",
       thankYou: "Takliflar uchun tashkkur",
-
       info: "Shaxsiy ma'lumotlar",
       username: "Foydalanuvchi nomi",
       phone: "Telefon raqami",
       email: "Elektron pochta",
     },
-
     lang: `Сменить язык`,
-
-    weeks: {
-      day1: "Dushanba",
-      day2: "Seshanba",
-      day3: "Chorshanba",
-      day4: "Payshanba",
-      day5: "Juma",
-      day6: "Shanba",
-      day7: "Yakshanba",
-    },
-    month: {
-      day1: "Yanvar",
-      day2: "Fevral",
-      day3: "Mart",
-      day4: "Aprel",
-      day5: "May",
-      day6: "Iyun",
-      day7: "Iyul",
-      day8: "Avgust",
-      day9: "Sentabr",
-      day10: "Oktabr",
-      day11: "Noyabr",
-      day12: "Dekabr",
-    },
   },
   ru: {
     auth: {
@@ -194,14 +172,16 @@ export default {
       newPass: "новый пароль",
       confirmPass: "Подтвердите пароль",
       fillCorrect: `Пожалуйста, заполните форму правильно`,
-
       remember: "Запомнить меня",
       email: "Укажите ваш email",
       mainPage: "Главная страница",
       back: "Вернуться",
+      not_found1: 'Страница которую вы ищете не сущуствует.',
+      not_found2: 'Пожалуйста попробуйте перейти на главную страницу либо вернуться обратно.',
     },
     xato: "Если нашли ошибку, обратитесь в службу поддержки",
     saveTemp: "Сохранить заявку как шаблон",
+    nameTemp: "Выберите название для шаблона",
     conver: "Конвертер валют",
     whs: " WHS остатки",
 
@@ -213,15 +193,21 @@ export default {
     updated: `Обновлено`,
     success: "Успешно",
     seen: `Просмотрено`,
-    notisSeen: `Просмотр всех уведомлений`,
+    notisSeen: `Прочитал все`,
+    notis_404: 'У вас пока нет уведомлений.',
+    clients: 'Общее количество клиентов',
+    seenok: `Прочитанные`,
+    not_seen: `Недавние`,
     sum: `Сум`,
     erorr: "Произошла ошибка",
+    not_data: 'Результаты не найдены',
     cart: {
       title: "Создать заказ",
-      category: "Выберите завод",
-      podcategory: "Выберите категорию",
-      productS: "Выберите подкатегорию",
-      cart: "Корзинка №",
+      category: "Выберите категорию",
+      podcategory: "Выберите подкатегорию",
+      productS: "Выберите товар",
+      cart: "Корзинка",
+      detail: 'Детали заказа',
       p_name: "Наименование товаров",
       quantity: "Количество ",
       price: `Цена (в сумах)`,
@@ -247,6 +233,8 @@ export default {
         "Ваша корзина пуста, пожалуйста выберите необходимые товары для заявки",
       updatedP: "Продукт обновлен !",
       addedP: "Продукт упакован в корзину !",
+      save: ` В корзинку`,
+      cancel: "Отменить", //Отменить
     },
 
     feedback: {

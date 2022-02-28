@@ -35,8 +35,11 @@
         />
       </button>
     </div>
-    <h2 class="filtered" v-if="filtered">Фильтры: <span> {{ activeCategory.name }} ,  {{ activePod.name }} </span></h2>
-    <table id="table" @scroll.passive="Scroll()">
+    <h2 class="filtered" v-if="filtered">
+      Фильтры: <span> {{ activeCategory.name }} , {{ activePod.name }} </span>
+    </h2>
+    <FilterProduct :id="activePod" v-show="filtered" />
+    <table id="table" v-show="filtered === false">
       <thead>
         <tr>
           <th v-for="(header, i) in headers" :key="i">{{ header.title }}</th>
@@ -48,7 +51,7 @@
           :key="i"
           @click="$router.push(`/product/${admin.id}`)"
         >
-          <td>{{ i + 1 }}</td>
+          <td>{{ admin.number }}</td>
           <td>{{ admin.name }}</td>
           <td>{{ admin.company_name }}</td>
           <td>{{ admin.category_name }}</td>
@@ -63,11 +66,18 @@
         </tr>
       </tbody>
     </table>
-    <span v-if="productList.total_products === 0" class="not">
-      Результаты не найдены
+    <span
+      v-if="productList.total_products === 0 && filtered === false"
+      class="not"
+    >
+     {{ $t('not_data') }}.
     </span>
     <nav
-      v-if="productList.total_products !== 0 || productList.items.length !== 0"
+      v-if="
+        productList.total_products !== 0 && filtered === false || 
+        productList.items.length !== 0 &&
+        filtered === false
+      "
       id="nav"
     >
       <ul class="pagination">
@@ -167,10 +177,12 @@
         svgClasses="h-3 w-2"
       />
     </a>
+    <spinner :bg="false" style="margin-top: 50px" v-if="load"></spinner>
   </div>
 </template>
 
 <script>
+import FilterProduct from "../../components/admin/ProductFilter.vue";
 export default {
   data() {
     return {
@@ -194,7 +206,11 @@ export default {
       scTimer: 0,
       scY: 0,
       searched: false,
+      load: true,
     };
+  },
+  components: {
+    FilterProduct,
   },
   computed: {
     productList() {
@@ -204,7 +220,7 @@ export default {
       return this.$store.state.addUser.parent_companies;
     },
     category() {
-      return this.$store.state.addUser.company_id.categories;
+      return this.$store.state.addUser.company_group_filter.categories;
     },
     product() {
       return this.paginate(this.$store.state.addUser.products);
@@ -244,9 +260,6 @@ export default {
           this.$store.dispatch("addUser/fetchProductSearch", obj);
         }
       }
-    },
-    Scroll() {
-      console.log("sdsadasd");
     },
     Reset() {
       if (this.filtered === true) {
@@ -296,6 +309,7 @@ export default {
       return posts.slice(from, to);
     },
     Search(search) {
+      this.filtered = false
       this.searched = true;
       const obj = {
         page: this.page,
@@ -310,20 +324,26 @@ export default {
     },
     getCat() {
       console.log(this.activeCategory);
-      this.$store.dispatch("addUser/fetchCompanyID", this.activeCategory.id);
+      this.$store.dispatch("addUser/fetchCompanyGroupFilter", this.activeCategory.id);
     },
     FilterProduct() {
+      this.search = null
+      this.searched = false;
       const obj = {
         id: this.activePod.id,
         page: this.page,
       };
-      this.$store.dispatch("addUser/GetProduct", obj);
+      this.$store.dispatch("addUser/GetProduct", obj)
       this.open = false;
-      this.filtered = true;
+        setTimeout(() => {
+          this.filtered = true;
+        }, 1000);
     },
   },
   created() {
-    this.$store.dispatch("addUser/fetchProducts", this.id);
+    this.$store.dispatch("addUser/fetchProducts", this.id).then(() => {
+      this.load = false;
+    });
     this.$store.dispatch("addUser/fetchDataCompanies");
   },
 };
@@ -383,8 +403,8 @@ export default {
   color: #394560;
   margin-top: -10px;
   margin-bottom: 30px;
-  span{
-    color: #60739F;
+  span {
+    color: #60739f;
   }
 }
 .filter {

@@ -14,11 +14,16 @@
               <label for="d"></label>
             </div>
           </th>
-          <th v-for="(header, i) in headers" :key="i">{{ header.title }}</th>
+          <th>{{ $t("journal.offerNum") }}</th>
+          <th>{{ $t("journal.quantity") }}</th>
+          <th>{{ $t("journal.date") }}</th>
+          <th style="padding-right: 140px">{{ $t("journal.status") }}</th>
+          <th>{{ $t("journal.d") }}</th>
+          <th>{{ $t("journal.price") }}</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(tr, i) in orders" :key="i" >
+        <tr v-for="(tr, i) in orders" :key="i">
           <td>
             <div class="drop">
               <input
@@ -32,14 +37,14 @@
               <label :for="i"></label>
             </div>
           </td>
-          <td @click="Open(tr.id)" >№ {{ tr.order_number }}</td>
-          <td @click="Open(tr.id)" >
+          <td @click="Open(tr.id)">№ {{ tr.order_number }}</td>
+          <td @click="Open(tr.id)">
             {{ tr.total_product }}
           </td>
-          <td @click="Open(tr.id)" >
+          <td @click="Open(tr.id)">
             {{ tr.date_ordered.slice(0, 10).split("-").join(".") }}
           </td>
-          <td style="padding: 0 !important; width: 200px" @click="Open(tr.id)" >
+          <td style="padding: 0 !important; width: 200px" @click="Open(tr.id)">
             <!-- Draft -->
             <span v-show="tr.status === 0 || tr.status === 7" class="warning">
               <span>
@@ -51,10 +56,9 @@
               {{ $t("journal.status2") }}
             </span>
             <!-- IN_PROGRESS -->
-            <span v-show="tr.status === 2" class="active">
+            <span v-show="tr.status === 2" style="padding: 2px" class="active">
               <span>
-                Sotuvchi qabulida
-                <!-- {{ $t("journal.status5") }} -->
+                {{ $t("journal.status5") }}
               </span>
             </span>
             <!-- ACCESS_TO_SHIPMENT  -->
@@ -96,20 +100,28 @@
               {{ $t("erorr") }}
             </span>
           </td>
-          <td @click="Open(tr.id)" >
+          <td @click="Open(tr.id)">
             {{ tr.delivery_date.split("-").join(".") }}
           </td>
-          <td @click="Open(tr.id)" >
-            {{ Number(tr.total_price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") }}
+          <td @click="Open(tr.id)">
+            {{
+              Number(tr.total_price)
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+            }}
             <span class="ml-1">{{ $t("sum") }}</span>
           </td>
         </tr>
       </tbody>
     </table>
-    <div class="bottom-actions">
-      <button class="export" @click="exportToExcel()">
+    <div v-if="load === false && orders1.length !== 0" class="bottom-actions">
+      <button
+        :disabled="selected.length <= 0"
+        class="export"
+        @click="exportToExcel()"
+      >
         <img src="../../assets/images/icons/excel.svg" alt="" />
-        <h2 class="text-export">Экспортировать</h2>
+        <h2 class="text-export">{{ $t("journal.export") }}</h2>
       </button>
       <nav>
         <ul class="pagination">
@@ -143,6 +155,10 @@
         </ul>
       </nav>
     </div>
+    <span v-if="orders1.length === 0" class="not">
+      {{ $t('not_data') }}.
+    </span>
+    <spinner :bg="false" style="margin-top: 50px" v-if="load"></spinner>
     <order-item
       :isOrderItem="Sidebar"
       @closeSidebar="toggleDataSidebar"
@@ -155,19 +171,12 @@ import OrderItem from "../../components/dealer/OrderItems.vue";
 export default {
   data() {
     return {
-      headers: [
-        { title: this.$t("journal.offerNum") },
-        { title: this.$t("journal.quantity") },
-        { title: this.$t("journal.date") },
-        { title: this.$t("journal.status") },
-        { title: this.$t("journal.d") },
-        { title: this.$t("journal.price") },
-      ],
       selected: [],
       page: 1,
       perPage: 7,
       pages: [],
       Sidebar: false,
+      load: true,
     };
   },
   components: {
@@ -204,8 +213,7 @@ export default {
   },
   methods: {
     Open(id) {
-      this.$store.dispatch("product/GetOrderItem", id).then((response) => {
-      });
+      this.$store.dispatch("product/GetOrderItem", id).then((response) => {});
       setTimeout(() => {
         this.toggleDataSidebar(true);
       }, 200);
@@ -222,7 +230,7 @@ export default {
         user_id: parseInt(localStorage.getItem("Id")),
         orders_ids: this.selected.map((x) => x.id),
         export_type: "xlsx",
-        lang: localStorage.getItem('lang')
+        lang: localStorage.getItem("lang") || 'uz' ,
       };
       this.$store
         .dispatch("product/GetFile", payload)
@@ -275,7 +283,14 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("product/GetOrder");
+    this.$store
+      .dispatch("product/GetOrder")
+      .then(() => {
+        this.load = false;
+      })
+      .catch(() => {
+        this.load = false;
+      });
   },
 };
 </script>
@@ -303,5 +318,16 @@ export default {
     }
   }
 }
-
+.not {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 17px;
+  text-align: center;
+  color: #4679ec;
+  margin-left: 10px;
+  display: flex;
+  justify-content: center;
+}
 </style>

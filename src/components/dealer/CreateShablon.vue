@@ -13,10 +13,10 @@
             />
           </div>
           <div class="body">
-            <h2 class="filter">Сохранить заявку как шаблон</h2>
+            <h2 class="filter">{{ $t("saveTemp") }}</h2>
             <form @submit.prevent="submitData()">
               <div class="form-input">
-                <h4>Выберите название для шаблона</h4>
+                <h4>{{ $t("nameTemp") }}</h4>
                 <my-input type="text" :width="375" v-model="NameWab" id="date" ></my-input>
               </div>
               <div class="actions">
@@ -27,13 +27,13 @@
                   :width="167"
                   bgColor="#EDF1FD"
                   color="#4679EC"
-                  title="Отменить"
+                  :title="$t(`cart.cancel`)"
                 ></my-button>
                 <my-button
                   style="margin-left: 9px"
                   type="submit"
                   :width="167"
-                  title="Подтвердить"
+                  :title="$t(`cart.submit`)"
                 ></my-button>
               </div>
             </form>

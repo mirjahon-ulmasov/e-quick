@@ -24,7 +24,8 @@
         <v-select
           v-model="user.role"
           style="width: 375px"
-          :options="['admin']"
+          :options="roles"
+          label="role"
           id="select-state"
         >
           <template #open-indicator="{ attributes }">
@@ -233,7 +234,7 @@
               <label :for="i">{{ item.name }}</label>
             </div>
             <div v-show="filter.length === 0" style="text-align: center">
-              <span> Результаты не найдены </span>
+              <span> {{ $t('not_data') }}. </span>
             </div>
           </div>
         </div>
@@ -301,7 +302,8 @@
       :btnSecond="notification.btnSecond"
       @handlerOne="handlerOne"
       @handlerTwo="handlerTwo"
-    ></v-notification>
+    >
+    </v-notification>
     <v-notification
       header="Error"
       :is_success="false"
@@ -309,7 +311,8 @@
       :isShow="notificationError.show"
       :content="notificationError.content"
       @handlerOne="handlerOneError"
-    ></v-notification>
+    >
+    </v-notification>
   </div>
 </template>
 
@@ -375,6 +378,9 @@ export default {
     have() {
       return this.real_companies !== null;
     },
+        roles() {
+      return this.$store.state.addUser.roles;
+    },
   },
   methods: {
     handlerOne() {
@@ -436,6 +442,7 @@ export default {
           this.$store
             .dispatch("addUser/updateItem", {
               ...this.user,
+              role: this.user.role.role || this.user.role,
               password: this.password,
               old_password: this.old_password,
               email_notifications: this.user.email_notifications
@@ -521,6 +528,7 @@ export default {
       .catch((err) => console.log(err));
     this.$store.dispatch("addUser/fetchDataCompanies");
     this.$store.dispatch("addUser/fetchCompanyDealerID", this.id);
+    this.$store.dispatch("addUser/fetchRoles");
   },
   destroyed() {
     this.reset();

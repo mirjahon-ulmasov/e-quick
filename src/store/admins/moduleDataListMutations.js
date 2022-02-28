@@ -32,8 +32,14 @@ export default {
   SET_COMPANIES_dealer(state, dealer_company) {
     state.dealer_company = dealer_company;
   },
+  SET_COMPANIES_GROUP_FILTER(state, company_group_filter){
+    state.company_group_filter = company_group_filter
+  },
   SET_Products(state, products) {
     state.products = products;
+  },
+  SET_FilteredProducts(state , filtered_products){
+  state.filtered_products = filtered_products
   },
   SET_ProductsID(state, product_detail) {
     state.product_detail = product_detail;
