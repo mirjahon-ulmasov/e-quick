@@ -9,7 +9,7 @@ import router from "./router";
 import store from "./store/store";
 import i18n from "./i18n/i18n";
 import VeeValidate from "vee-validate";
-import validator  from "./validator";
+import "./validator.js";
 
 import "vuesax/dist/vuesax.css"; // Vuesax
 import Vuesax from "vuesax";
